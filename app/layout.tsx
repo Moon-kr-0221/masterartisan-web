@@ -3,6 +3,7 @@ import { Noto_Sans_KR, Noto_Serif_KR, Playfair_Display, Nanum_Myeongjo } from 'n
 import './globals.css';
 import Navigation from '@/components/layout/Navigation';
 import Footer from '@/components/layout/Footer';
+import ScrollProgress from '@/components/ui/ScrollProgress';
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ['latin'],
@@ -48,6 +49,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" className={`${notoSansKR.variable} ${notoSerifKR.variable} ${playfair.variable} ${nanumMyeongjo.variable}`}>
       <body style={{ fontFamily: 'var(--font-noto-sans-kr), sans-serif' }}>
+        <ScrollProgress />
         <Navigation />
         <main>{children}</main>
         <Footer />
