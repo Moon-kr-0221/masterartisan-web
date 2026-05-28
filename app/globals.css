@@ -1,60 +1,61 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-bg-base: #0D0B08;
-  --color-bg-elevated: #1A1610;
-  --color-bg-subtle: #252018;
-
-  --color-timber-100: #F5E6C8;
-  --color-timber-200: #D4A853;
-  --color-timber-300: #A07840;
-  --color-timber-400: #6B4E2A;
-
-  --color-text-primary: #F0E8D8;
-  --color-text-secondary: #A89878;
-  --color-text-muted: #6B5E48;
-
-  --color-accent: #C8963C;
-  --color-accent-hover: #E0A840;
-  --color-border: #2E2618;
+  --color-ink:        #1A1A1A;
+  --color-ink-soft:   #555555;
+  --color-muted:      #999999;
+  --color-hairline:   #E4E0D8;
+  --color-canvas:     #FAFAF8;
+  --color-surface:    #F4F1EB;
+  --color-dark:       #111111;
+  --color-dark-2:     #1A1A1A;
 }
 
 :root {
-  --font-kr-serif: var(--font-nanum-myeongjo), var(--font-noto-serif-kr), serif;
-  --font-en-serif: var(--font-playfair), 'Cormorant Garamond', serif;
-  --font-kr-sans: var(--font-noto-sans-kr), sans-serif;
+  --font-serif: var(--font-noto-serif-kr), 'Nanum Myeongjo', serif;
+  --font-sans:  var(--font-noto-sans-kr), sans-serif;
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
-}
+* { box-sizing: border-box; padding: 0; margin: 0; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background-color: #0D0B08;
-  color: #F0E8D8;
-  font-family: var(--font-kr-sans);
+  background-color: #FAFAF8;
+  color: #1A1A1A;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }
 
-::selection {
-  background-color: #C8963C;
-  color: #0D0B08;
+::selection { background-color: #1A1A1A; color: #FAFAF8; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #FAFAF8; }
+::-webkit-scrollbar-thumb { background: #CCCCCC; }
+
+/* 마키 애니메이션 */
+@keyframes marquee {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 20s linear infinite;
+}
+.animate-marquee:hover { animation-play-state: paused; }
+
+/* 텍스트 클립 리빌 */
+.clip-reveal {
+  overflow: hidden;
+  display: block;
 }
 
-/* 스크롤바 */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0D0B08;
-}
-::-webkit-scrollbar-thumb {
-  background: #6B4E2A;
-  border-radius: 3px;
+/* 섹션 공통 */
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: #AAAAAA;
+  text-transform: uppercase;
 }

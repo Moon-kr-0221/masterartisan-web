@@ -6,110 +6,83 @@ import { useEffect, useState } from 'react';
 
 const navLinks = [
   { href: '/masterartisan', label: 'MASTERARTISAN' },
-  { href: '/history', label: 'HISTORY' },
-  { href: '/works', label: 'WORKS' },
-  { href: '/products', label: 'PRODUCT' },
-  { href: '/contact', label: 'CONTACT' },
+  { href: '/history',      label: 'HISTORY' },
+  { href: '/works',        label: 'WORKS' },
+  { href: '/products',     label: 'PRODUCT' },
+  { href: '/contact',      label: 'CONTACT' },
 ];
 
 export default function Navigation() {
   const pathname = usePathname();
+  const isHome = pathname === '/';
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 80);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  useEffect(() => { setMenuOpen(false); }, [pathname]);
+
+  const bg = !isHome
+    ? 'rgba(250,250,248,0.97)'
+    : scrolled || menuOpen ? 'rgba(10,9,8,0.92)' : 'transparent';
+
+  const border = !isHome ? '#E4E0D8' : scrolled || menuOpen ? 'rgba(255,255,255,0.08)' : 'transparent';
+  const logoColor = !isHome ? '#1A1A1A' : '#FFFFFF';
+  const linkColor = (active: boolean) =>
+    !isHome ? (active ? '#1A1A1A' : '#888888') : (active ? '#FFFFFF' : 'rgba(255,255,255,0.55)');
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-700"
-      style={{
-        backgroundColor: scrolled || menuOpen ? 'rgba(13,11,8,0.95)' : 'transparent',
-        borderBottom: scrolled || menuOpen ? '1px solid var(--color-border)' : 'none',
-        backdropFilter: scrolled || menuOpen ? 'blur(12px)' : 'none',
-      }}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+      style={{ backgroundColor: bg, borderBottom: `1px solid ${border}`, backdropFilter: scrolled ? 'blur(12px)' : 'none' }}
     >
-      <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between h-20">
+      <div className="flex items-center justify-between h-[72px] px-12">
         <Link
           href="/"
-          className="text-xl font-bold tracking-widest transition-colors duration-300"
-          style={{ color: 'var(--color-timber-100)', fontFamily: 'var(--font-en-serif)' }}
+          className="text-[14px] font-bold tracking-[0.2em] transition-colors duration-300"
+          style={{ fontFamily: 'var(--font-sans)', color: logoColor }}
         >
           MASTERARTISAN
         </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex items-center gap-10">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-xs tracking-[0.2em] transition-colors duration-300"
-              style={{
-                color: pathname === link.href ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                fontFamily: 'var(--font-kr-sans)',
-              }}
+              className="text-[10px] tracking-[0.18em] transition-opacity duration-300 hover:opacity-100"
+              style={{ fontFamily: 'var(--font-sans)', color: linkColor(pathname === link.href), opacity: pathname === link.href ? 1 : 0.7 }}
             >
               {link.label}
             </Link>
           ))}
         </nav>
 
-        {/* Mobile Hamburger */}
         <button
-          className="md:hidden flex flex-col gap-1.5 p-2"
-          onClick={() => setMenuOpen((v) => !v)}
-          aria-label="메뉴 열기"
+          className="md:hidden flex flex-col gap-[5px] p-2"
+          onClick={() => setMenuOpen(v => !v)}
+          aria-label="메뉴"
         >
-          <span
-            className="block w-6 h-px transition-all duration-300"
-            style={{
-              backgroundColor: 'var(--color-timber-100)',
-              transform: menuOpen ? 'translateY(5px) rotate(45deg)' : '',
-            }}
-          />
-          <span
-            className="block w-6 h-px transition-all duration-300"
-            style={{
-              backgroundColor: 'var(--color-timber-100)',
-              opacity: menuOpen ? 0 : 1,
-            }}
-          />
-          <span
-            className="block w-6 h-px transition-all duration-300"
-            style={{
-              backgroundColor: 'var(--color-timber-100)',
-              transform: menuOpen ? 'translateY(-5px) rotate(-45deg)' : '',
-            }}
-          />
+          {[0, 1, 2].map(i => (
+            <span key={i} className="block w-5 h-px transition-all duration-300" style={{
+              backgroundColor: logoColor,
+              opacity: i === 1 && menuOpen ? 0 : 1,
+              transform: i === 0 && menuOpen ? 'translateY(6px) rotate(45deg)' : i === 2 && menuOpen ? 'translateY(-6px) rotate(-45deg)' : 'none',
+            }} />
+          ))}
         </button>
       </div>
 
-      {/* Mobile Menu */}
-      <div
-        className="md:hidden transition-all duration-500 overflow-hidden"
-        style={{ maxHeight: menuOpen ? '400px' : '0' }}
-      >
-        <nav
-          className="flex flex-col px-6 pb-8 gap-6"
-          style={{ borderTop: '1px solid var(--color-border)' }}
-        >
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="text-sm tracking-[0.2em] py-2 transition-colors duration-300"
-              style={{
-                color: pathname === link.href ? 'var(--color-accent)' : 'var(--color-text-secondary)',
-                fontFamily: 'var(--font-kr-sans)',
-              }}
+      <div className="md:hidden overflow-hidden transition-all duration-500" style={{ maxHeight: menuOpen ? '320px' : '0' }}>
+        <nav className="flex flex-col px-12 pb-8 gap-5" style={{ borderTop: `1px solid ${border}` }}>
+          {navLinks.map(link => (
+            <Link key={link.href} href={link.href}
+              className="text-[11px] tracking-[0.18em] py-1 transition-colors duration-300"
+              style={{ fontFamily: 'var(--font-sans)', color: linkColor(pathname === link.href) }}
             >
               {link.label}
             </Link>

@@ -1,113 +1,139 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import Link from 'next/link';
 
 export default function HeroSection() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+  const bgY = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
+  const textY = useTransform(scrollYProgress, [0, 1], ['0%', '12%']);
+  const opacity = useTransform(scrollYProgress, [0, 0.6], [1, 0]);
+
   return (
-    <section className="relative w-full h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* 배경 이미지 플레이스홀더 — 실제 이미지로 교체 필요 */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url(/images/home/hero.jpg)',
-          backgroundColor: '#1A1208',
-        }}
+    <section ref={ref} className="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#111111]">
+      {/* 배경 패럴랙스 이미지 */}
+      <motion.div
+        className="absolute inset-0 bg-cover bg-center scale-110"
+        style={{ backgroundImage: 'url(/images/home/hero.jpg)', y: bgY }}
       />
 
-      {/* 어두운 오버레이 */}
-      <div
-        className="absolute inset-0"
-        style={{
-          background:
-            'linear-gradient(to bottom, rgba(13,11,8,0.5) 0%, rgba(13,11,8,0.3) 50%, rgba(13,11,8,0.85) 100%)',
-        }}
-      />
+      {/* 오버레이 */}
+      <div className="absolute inset-0"
+        style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.2) 40%, rgba(0,0,0,0.75) 100%)' }} />
 
-      {/* 콘텐츠 */}
-      <div className="relative z-10 text-center px-6 max-w-5xl mx-auto">
+      {/* 상단 우 — 배지 */}
+      <motion.div
+        initial={{ opacity: 0, y: -12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.9, delay: 0.3 }}
+        className="absolute top-[88px] right-12 flex items-center gap-2 px-4 py-[6px]"
+        style={{ border: '1px solid rgba(255,255,255,0.22)' }}
+      >
+        <span className="text-[9px] tracking-[0.3em]" style={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-sans)' }}>
+          경기무형문화재 제36호 · SINCE 1960s
+        </span>
+      </motion.div>
+
+      {/* 메인 텍스트 */}
+      <motion.div
+        className="absolute bottom-[180px] left-12"
+        style={{ y: textY, opacity }}
+      >
+        {/* 라인 1 */}
+        <div className="clip-reveal">
+          <motion.h1
+            initial={{ y: '105%' }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1.1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            className="font-light leading-none"
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(56px, 7vw, 96px)',
+              color: '#FFFFFF',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            삼대의 손,
+          </motion.h1>
+        </div>
+        {/* 라인 2 */}
+        <div className="clip-reveal">
+          <motion.h1
+            initial={{ y: '105%' }}
+            animate={{ y: 0 }}
+            transition={{ duration: 1.1, delay: 0.68, ease: [0.16, 1, 0.3, 1] }}
+            className="font-light leading-none"
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(56px, 7vw, 96px)',
+              color: '#FFFFFF',
+              letterSpacing: '-0.02em',
+            }}
+          >
+            천년의 기술.
+          </motion.h1>
+        </div>
+
+        {/* 영문 서브 */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
-          className="text-sm tracking-[0.4em] uppercase mb-8"
-          style={{ color: 'var(--color-accent)', fontFamily: 'var(--font-en-serif)' }}
-        >
-          경기무형문화재 제36호
-        </motion.p>
-
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
-          className="text-5xl md:text-7xl lg:text-8xl font-bold leading-tight mb-8"
-          style={{ color: 'var(--color-timber-100)', fontFamily: 'var(--font-kr-serif)' }}
-        >
-          삼대의 손,
-          <br />
-          천년의 기술
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.9 }}
-          className="text-lg md:text-xl mb-12 leading-relaxed"
-          style={{ color: 'var(--color-text-secondary)', fontFamily: 'var(--font-noto-serif-kr)' }}
-        >
-          3대를 이어온 전통건축의 혼으로
-          <br className="hidden md:block" />
-          대한민국의 소중한 문화유산을 보존합니다
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 1.1 }}
-          className="flex flex-col sm:flex-row gap-4 justify-center"
+          className="mt-7 text-[13px] leading-[1.8]"
+          style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-sans)', letterSpacing: '0.05em' }}
         >
-          <Link
-            href="/masterartisan"
-            className="px-10 py-4 text-sm tracking-[0.2em] transition-all duration-500 hover:scale-105"
-            style={{
-              backgroundColor: 'var(--color-accent)',
-              color: '#0D0B08',
-              fontFamily: 'var(--font-kr-sans)',
-              fontWeight: 700,
-            }}
-          >
-            장인을 소개합니다
-          </Link>
-          <Link
-            href="/works"
-            className="px-10 py-4 text-sm tracking-[0.2em] transition-all duration-500 hover:scale-105"
-            style={{
-              border: '1px solid var(--color-timber-400)',
-              color: 'var(--color-text-primary)',
-              fontFamily: 'var(--font-kr-sans)',
-            }}
-          >
-            작업 보기
-          </Link>
-        </motion.div>
-      </div>
+          Building the Foundation of a Century-Old Legacy
+        </motion.p>
+      </motion.div>
 
-      {/* 스크롤 유도 */}
+      {/* 하단 좌 — 페이지네이션 */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 1, delay: 1.8 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        transition={{ duration: 0.8, delay: 1.4 }}
+        className="absolute bottom-10 left-12 flex items-center gap-3"
       >
-        <p className="text-xs tracking-[0.3em]" style={{ color: 'var(--color-text-muted)' }}>
+        <span className="text-[11px] font-bold tracking-widest text-white">01</span>
+        <div className="w-8 h-px" style={{ backgroundColor: 'rgba(255,255,255,0.3)' }} />
+        <span className="text-[11px] tracking-widest" style={{ color: 'rgba(255,255,255,0.3)' }}>04</span>
+      </motion.div>
+
+      {/* 하단 중앙 — 스크롤 인디케이터 */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.6 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+      >
+        <span className="text-[8px] tracking-[0.4em]" style={{ color: 'rgba(255,255,255,0.35)', fontFamily: 'var(--font-sans)' }}>
           SCROLL
-        </p>
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="w-px h-10"
-          style={{ backgroundColor: 'var(--color-timber-400)' }}
-        />
+        </span>
+        <div className="relative w-px h-12 overflow-hidden" style={{ backgroundColor: 'rgba(255,255,255,0.15)' }}>
+          <motion.div
+            className="absolute top-0 left-0 w-full bg-white"
+            animate={{ y: ['0%', '100%'] }}
+            transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
+            style={{ height: '50%' }}
+          />
+        </div>
+      </motion.div>
+
+      {/* 하단 우 — 링크 */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8, delay: 1.5 }}
+        className="absolute bottom-10 right-12"
+      >
+        <Link
+          href="/masterartisan"
+          className="text-[11px] tracking-[0.2em] transition-opacity duration-300 hover:opacity-60"
+          style={{ color: 'rgba(255,255,255,0.6)', fontFamily: 'var(--font-sans)' }}
+        >
+          장인 소개 →
+        </Link>
       </motion.div>
     </section>
   );
