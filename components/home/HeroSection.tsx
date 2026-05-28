@@ -76,15 +76,20 @@ export default function HeroSection() {
           </motion.h1>
         </div>
 
-        {/* 영문 서브 */}
+        {/* 영문 서브 카피 — 얇은 세리프, 에디토리얼 감성 */}
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.1 }}
-          className="mt-7 text-[13px] leading-[1.8]"
-          style={{ color: 'rgba(255,255,255,0.5)', fontFamily: 'var(--font-sans)', letterSpacing: '0.05em' }}
+          transition={{ duration: 1.2, delay: 1.0 }}
+          className="mt-6 font-light"
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'clamp(14px, 1.2vw, 18px)',
+            color: 'rgba(255,255,255,0.38)',
+            letterSpacing: '0.22em',
+          }}
         >
-          Building the Foundation of a Century-Old Legacy
+          Heritage of Master Artisan
         </motion.p>
       </motion.div>
 

@@ -37,7 +37,7 @@ export default function HeritageStats() {
         {stats.map((s, i) => (
           <motion.div
             key={s.label}
-            className="flex items-start gap-0 px-12 py-10"
+            className="flex items-start gap-0 px-14 py-12"
             style={{
               borderBottom: i < stats.length - 1 ? '1px solid #E8E4DE' : 'none',
               backgroundColor: i === 1 ? '#FFFFFF' : '#F7F6F3',
@@ -48,16 +48,16 @@ export default function HeritageStats() {
             viewport={{ once: true, margin: '-60px' }}
           >
             <span
-              className="font-light shrink-0 w-40"
-              style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(40px, 4.5vw, 56px)', color: '#1A1A1A', letterSpacing: '-0.02em', lineHeight: 1 }}
+              className="font-light shrink-0 w-44"
+              style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(36px, 4vw, 52px)', color: '#1A1A1A', letterSpacing: '-0.02em', lineHeight: 1 }}
             >
               {s.num}
             </span>
-            <div className="flex flex-col gap-2 pt-2 pl-8">
-              <span className="text-[11px] font-bold tracking-[0.08em]" style={{ fontFamily: 'var(--font-sans)', color: '#1A1A1A' }}>
+            <div className="flex flex-col gap-2 pt-1 pl-12">
+              <span className="text-[10px] font-bold tracking-[0.12em]" style={{ fontFamily: 'var(--font-sans)', color: '#1A1A1A' }}>
                 {s.label}
               </span>
-              <p className="text-[13px] leading-[1.7]" style={{ fontFamily: 'var(--font-sans)', color: '#888888' }}>
+              <p className="text-[12px] leading-[1.8]" style={{ fontFamily: 'var(--font-sans)', color: '#AAAAAA' }}>
                 {s.desc}
               </p>
             </div>

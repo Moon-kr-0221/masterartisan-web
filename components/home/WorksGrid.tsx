@@ -53,6 +53,8 @@ export default function WorksGrid() {
             className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.6s] ease-out hover:scale-[1.04]"
             style={{ backgroundImage: `url(${works[0].bg})` }}
           />
+          {/* 웜톤 컬러 그레이딩 — 채도 낮춤 + 세피아 */}
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(44,31,16,0) 0%, rgba(44,31,16,0.45) 100%)', mixBlendMode: 'multiply' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%)' }} />
           <div className="absolute bottom-8 left-8">
             <p className="section-label mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
@@ -80,6 +82,8 @@ export default function WorksGrid() {
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.6s] ease-out hover:scale-[1.06]"
                 style={{ backgroundImage: `url(${w.bg})` }}
               />
+              {/* 웜톤 컬러 그레이딩 */}
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(44,31,16,0) 0%, rgba(44,31,16,0.4) 100%)', mixBlendMode: 'multiply' }} />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)' }} />
               <div className="absolute bottom-6 left-6">
                 <p className="section-label mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '8px' }}>
