@@ -1,230 +1,537 @@
 'use client';
 
-import { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
+import {
+  useEffect, useRef, useState, useCallback,
+} from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
+import { motion, AnimatePresence } from 'framer-motion';
+import Lenis from 'lenis';
 import { historyEras } from '@/data/history';
+import Intro3DDial from '@/components/history/Intro3DDial';
 
-const TOTAL_ERAS = historyEras.length; // 7
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
-export default function HistoryPage() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [activeEra, setActiveEra] = useState(0);
+const ERAS = [...historyEras].reverse(); // oldest → newest
+const TOTAL = ERAS.length; // 7
 
-  // 전체 스크롤: 7 * 100vh
-  const { scrollYProgress } = useScroll({ target: containerRef });
+const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
-  // 다이얼 회전: 스크롤 0→1 = 0→360° (한 바퀴)
-  const rawRotation = useTransform(scrollYProgress, [0, 1], [0, 360]);
-  const dialRotation = useSpring(rawRotation, { stiffness: 60, damping: 20 });
+const C = {
+  bg:       '#F8F5F0',
+  ink:      '#1A1714',
+  inkSoft:  '#3D3A36',
+  muted:    '#A09890',
+  hairline: '#E2DDD6',
+  accent:   '#C4A882',
+  surface:  '#F0EBE3',
+} as const;
 
-  // activeEra 업데이트
-  useEffect(() => {
-    const unsub = scrollYProgress.on('change', (v) => {
-      const idx = Math.min(Math.floor(v * TOTAL_ERAS), TOTAL_ERAS - 1);
-      setActiveEra(idx);
-    });
-    return unsub;
-  }, [scrollYProgress]);
+// ─── helpers ────────────────────────────────────────────────────────────────
+function BlurReveal({ children, delay = 0, style = {} }: {
+  children: React.ReactNode; delay?: number; style?: React.CSSProperties;
+}) {
+  return (
+    <motion.div style={style}
+      initial={{ opacity: 0, y: 22, filter: 'blur(8px)' }}
+      whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+      viewport={{ once: true, margin: '-80px' }}
+      transition={{ duration: 1.1, ease: EASE_OUT, delay }}>
+      {children}
+    </motion.div>
+  );
+}
 
-  const era = historyEras[activeEra];
+function FadeUp({ children, delay = 0, style = {} }: {
+  children: React.ReactNode; delay?: number; style?: React.CSSProperties;
+}) {
+  return (
+    <motion.div style={style}
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-40px' }}
+      transition={{ duration: 0.75, ease: EASE_OUT, delay }}>
+      {children}
+    </motion.div>
+  );
+}
+
+// ─── SVG Dial ───────────────────────────────────────────────────────────────
+interface DialProps {
+  activeIdx: number;
+  // GSAP will animate these refs directly — no React state per frame
+  groupRef:  React.RefObject<SVGGElement | null>;
+  labelRefs: React.MutableRefObject<(SVGTextElement | null)[]>;
+}
+
+function HistoryDial({ activeIdx, groupRef, labelRefs }: DialProps) {
+  const CX = 240, CY = 240;
+  const R = { outer: 210, track: 168, inner: 122, center: 68, label: 186 };
+
+  const polar = (deg: number, r: number) => ({
+    x: CX + r * Math.cos((deg * Math.PI) / 180),
+    y: CY + r * Math.sin((deg * Math.PI) / 180),
+  });
+
+  // Era i at angle starting from 12 o'clock, clockwise
+  const eraAngle = (i: number) => -90 + (i / TOTAL) * 360;
 
   return (
-    // 전체 스크롤 컨테이너
-    <div ref={containerRef} style={{ height: `${TOTAL_ERAS * 100}vh` }}>
+    <svg viewBox="0 0 480 480" width="100%" height="100%"
+      style={{ overflow: 'hidden' }}>
 
-      {/* ── 고정 뷰 ── */}
-      <div className="sticky top-0 h-screen overflow-hidden flex"
-        style={{ backgroundColor: '#FAFAF8' }}>
+      {/* ── ROTATING RING (GSAP controls transform directly) ── */}
+      <g ref={groupRef} style={{ transformOrigin: `${CX}px ${CY}px` }}>
 
-        {/* 상단 스크롤 진행 바 */}
-        <motion.div
-          className="absolute top-0 left-0 right-0 z-50 origin-left"
-          style={{ scaleX: scrollYProgress, height: '2px', backgroundColor: '#1A1A1A' }}
-        />
+        {/* Concentric orbits */}
+        {[R.outer, R.track, R.inner].map((r, i) => (
+          <circle key={r} cx={CX} cy={CY} r={r} fill="none"
+            stroke={i === 0 ? '#C8C3BA' : C.hairline}
+            strokeWidth={i === 0 ? 0.8 : 0.5} />
+        ))}
 
-        {/* NAV */}
-        <nav className="absolute top-0 left-0 right-0 z-40 flex items-center justify-between h-[72px] px-12"
-          style={{ borderBottom: '1px solid #E4E0D8', backgroundColor: 'rgba(250,250,248,0.92)', backdropFilter: 'blur(12px)' }}>
-          <a href="/" className="text-[13px] font-bold tracking-[0.2em]"
-            style={{ fontFamily: 'var(--font-sans)', color: '#1A1A1A' }}>
-            MASTERARTISAN
-          </a>
-          <div className="hidden md:flex items-center gap-10">
-            {[['/', 'HOME'], ['/masterartisan', 'MASTERARTISAN'], ['/history', 'HISTORY'], ['/works', 'WORKS'], ['/products', 'PRODUCT'], ['/contact', 'CONTACT']].map(([href, label]) => (
-              <a key={href} href={href}
-                className="text-[10px] tracking-[0.18em] transition-opacity hover:opacity-100"
-                style={{ fontFamily: 'var(--font-sans)', color: href === '/history' ? '#1A1A1A' : '#AAAAAA' }}>
-                {label}
-              </a>
+        {/* Fine tick marks */}
+        {Array.from({ length: 42 }).map((_, i) => {
+          const a = -90 + (i / 42) * 360;
+          const p0 = polar(a, R.inner - 3);
+          const p1 = polar(a, R.inner + 5);
+          const major = i % 6 === 0;
+          return (
+            <line key={i} x1={p0.x} y1={p0.y} x2={p1.x} y2={p1.y}
+              stroke={major ? '#B8B3AA' : C.hairline}
+              strokeWidth={major ? 0.7 : 0.35} />
+          );
+        })}
+
+        {/* Era ticks + labels — labels counter-rotated by GSAP */}
+        {ERAS.map((era, i) => {
+          const a = eraAngle(i);
+          const t0 = polar(a, R.inner - 6);
+          const t1 = polar(a, R.track + 8);
+          const lp = polar(a, R.label);
+          const isActive = i === activeIdx;
+          return (
+            <g key={era.era}>
+              <line x1={t0.x} y1={t0.y} x2={t1.x} y2={t1.y}
+                stroke={isActive ? C.ink : '#C8C3BA'}
+                strokeWidth={isActive ? 1.0 : 0.5} />
+              {/*
+                Label: GSAP will set `transform: rotate(Xdeg)` on this element
+                to counter-rotate it back to upright as the dial rotates.
+                transformBox + transformOrigin make it rotate around its own center.
+              */}
+              <text
+                ref={(el) => { labelRefs.current[i] = el; }}
+                x={lp.x} y={lp.y}
+                textAnchor="middle" dominantBaseline="middle"
+                fontSize={isActive ? 9.5 : 8.5}
+                fontFamily="'Noto Sans KR', sans-serif"
+                fontWeight={isActive ? '600' : '300'}
+                fill={isActive ? C.ink : C.muted}
+                style={{
+                  transformBox: 'fill-box',
+                  transformOrigin: 'center center',
+                  transition: 'fill 0.5s, font-size 0.4s',
+                }}
+              >
+                {era.era}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* Center dot on pivot */}
+        <circle cx={CX} cy={CY} r={2.2} fill={C.ink} />
+      </g>
+
+      {/* ══ FIXED ELEMENTS — never rotate ══════════════════════════════ */}
+
+      {/* Fixed clock hand: always points straight UP (12 o'clock) */}
+      <line
+        x1={CX} y1={CY - R.center + 1}
+        x2={CX} y2={CY - R.track + 2}
+        stroke={C.ink} strokeWidth={0.7}
+      />
+      {/* Hand tip dot */}
+      <circle cx={CX} cy={CY - R.track + 2} r={2.6} fill={C.ink} />
+
+      {/* Fixed 12 o'clock top marker */}
+      <line x1={CX} y1={CY - R.outer - 8} x2={CX} y2={CY - R.outer}
+        stroke={C.ink} strokeWidth={1.4} />
+      <circle cx={CX} cy={CY - R.outer - 11} r={2} fill={C.ink} />
+
+      {/* Center disc */}
+      <circle cx={CX} cy={CY} r={R.center}
+        fill={C.surface} stroke={C.hairline} strokeWidth={0.7} />
+
+      {/* Active era label — crossfade */}
+      <AnimatePresence mode="wait">
+        <motion.g key={activeIdx}
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+          transition={{ duration: 0.55 }}>
+          <text x={CX} y={CY - 9} textAnchor="middle" dominantBaseline="middle"
+            fontSize={10} fontFamily="'Noto Serif KR', serif"
+            fontWeight="400" fill={C.ink}>
+            {ERAS[activeIdx].era}
+          </text>
+          <text x={CX} y={CY + 9} textAnchor="middle" dominantBaseline="middle"
+            fontSize={7.5} fontFamily="'Noto Sans KR', sans-serif"
+            fill={C.muted} letterSpacing={2}>
+            HISTORY
+          </text>
+        </motion.g>
+      </AnimatePresence>
+    </svg>
+  );
+}
+
+// ─── Era section ─────────────────────────────────────────────────────────────
+function EraSection({ era, eraIdx, isActive, sectionRef }: {
+  era: (typeof ERAS)[number];
+  eraIdx: number;
+  isActive: boolean;
+  sectionRef: React.RefCallback<HTMLElement>;
+}) {
+  const byYear: Record<string, typeof era.works> = {};
+  era.works.forEach((w) => {
+    const k = String(w.year);
+    (byYear[k] ??= []).push(w);
+  });
+  const years = Object.keys(byYear).sort((a, b) => Number(a) - Number(b));
+
+  return (
+    <section ref={sectionRef} id={`era-${eraIdx}`}
+      style={{ padding: '96px 64px 80px', borderBottom: `1px solid ${C.hairline}` }}>
+
+      <FadeUp>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
+          <div style={{ width: '20px', height: '1px', backgroundColor: C.accent }} />
+          <span style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
+            letterSpacing: '0.4em', color: C.accent, textTransform: 'uppercase' }}>
+            {String(eraIdx + 1).padStart(2, '0')} / {String(TOTAL).padStart(2, '0')}
+          </span>
+        </div>
+      </FadeUp>
+
+      <BlurReveal delay={0.05} style={{ marginBottom: '56px' }}>
+        <h2 style={{
+          fontFamily: "'Noto Serif KR', serif",
+          fontSize: 'clamp(64px, 8vw, 108px)',
+          fontWeight: 300, lineHeight: 1.0, letterSpacing: '-0.04em',
+          color: isActive ? C.ink : '#9A9590',
+          transition: 'color 0.9s ease',
+        }}>
+          {era.era}
+        </h2>
+      </BlurReveal>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+        {years.map((year, yi) => (
+          <div key={year}>
+            <FadeUp delay={yi * 0.04}>
+              <div style={{ display: 'flex', alignItems: 'baseline', gap: '20px', marginBottom: '12px' }}>
+                <span style={{ fontFamily: "'Noto Serif KR', serif",
+                  fontSize: '28px', fontWeight: 300, letterSpacing: '-0.02em',
+                  color: C.ink, minWidth: '72px' }}>
+                  {year}
+                </span>
+                <div style={{ flex: 1, height: '1px', backgroundColor: C.hairline }} />
+              </div>
+            </FadeUp>
+            {byYear[year].map((work, wi) => (
+              <FadeUp key={wi} delay={yi * 0.04 + wi * 0.03 + 0.06}>
+                <div style={{ display: 'flex', alignItems: 'center',
+                  justifyContent: 'space-between', padding: '11px 0',
+                  borderBottom: `1px solid ${C.hairline}` }}>
+                  <span style={{ fontFamily: "'Noto Sans KR'", fontSize: '13px',
+                    lineHeight: 1.65, color: C.inkSoft, fontWeight: 300 }}>
+                    {work.title}
+                  </span>
+                  {work.hasMedia && (
+                    <span style={{ fontFamily: "'Noto Sans KR'", fontSize: '8px',
+                      letterSpacing: '0.2em', color: C.muted,
+                      border: `1px solid ${C.hairline}`, padding: '2px 8px',
+                      marginLeft: '16px', flexShrink: 0 }}>
+                      MEDIA
+                    </span>
+                  )}
+                </div>
+              </FadeUp>
             ))}
           </div>
-        </nav>
+        ))}
+      </div>
+    </section>
+  );
+}
 
-        {/* ── 좌측: 콘텐츠 ── */}
-        <div className="flex flex-col justify-center px-14 pt-[72px] shrink-0"
-          style={{ width: '50%', borderRight: '1px solid #E4E0D8' }}>
+// ─── Page ────────────────────────────────────────────────────────────────────
+export default function HistoryPage() {
+  const [activeIdx, setActiveIdx] = useState(0);
 
-          {/* 에라 라벨 */}
+  const leftRef    = useRef<HTMLDivElement>(null);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const lenisRef   = useRef<Lenis | null>(null);
+
+  // Dial GSAP refs — no React state updates per frame
+  const dialGroupRef = useRef<SVGGElement>(null);
+  const labelRefs    = useRef<(SVGTextElement | null)[]>([]);
+
+  // ── Lenis ────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.35,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      wheelMultiplier: 0.9,
+    });
+    lenisRef.current = lenis;
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((t) => lenis.raf(t * 1000));
+    gsap.ticker.lagSmoothing(0);
+    return () => { lenis.destroy(); };
+  }, []);
+
+  // ── GSAP: dial rotation (scrub) + section tracking ───────────────────────
+  useEffect(() => {
+    if (!leftRef.current || !dialGroupRef.current) return;
+    const ctx = gsap.context(() => {
+
+      // 1. Continuous scrub: rotate entire ring 0 → -360° as page scrolls
+      //    GSAP directly animates the SVG <g> — zero React re-renders per frame
+      gsap.to(dialGroupRef.current, {
+        rotation: -360,
+        ease: 'none',
+        transformOrigin: '50% 50%',   // relative to the element's bbox
+        scrollTrigger: {
+          trigger: leftRef.current,
+          start: 'top top',
+          end:   'bottom bottom',
+          scrub: 1.6,                 // 1.6 s lag = cinematic inertia
+          onUpdate(self) {
+            // Counter-rotate each label so it always reads upright
+            const currentDeg = -(self.progress * 360);
+            labelRefs.current.forEach((el) => {
+              if (el) gsap.set(el, { rotation: -currentDeg });
+            });
+          },
+        },
+      });
+
+      // 2. Track which era is in view (only activeIdx, no rotation logic here)
+      ERAS.forEach((_, i) => {
+        const el = sectionRefs.current[i];
+        if (!el) return;
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 55%',
+          end:   'bottom 55%',
+          onEnter:     () => setActiveIdx(i),
+          onEnterBack: () => setActiveIdx(i),
+        });
+      });
+
+      // 3. Fade-up for every work row
+      gsap.utils.toArray<HTMLElement>('.work-row').forEach((el) => {
+        gsap.fromTo(el,
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.65, ease: 'power2.out',
+            scrollTrigger: { trigger: el, start: 'top 88%', toggleActions: 'play none none reverse' } }
+        );
+      });
+    });
+
+    return () => ctx.revert();
+  }, []);
+
+  // ── Tab scroll-to ─────────────────────────────────────────────────────────
+  const scrollToEra = useCallback((i: number) => {
+    const el = i < 0 ? sectionRefs.current[0] : sectionRefs.current[i];
+    if (el) lenisRef.current?.scrollTo(el, { offset: -120, duration: 1.8 });
+  }, []);
+
+  const tabs = ['ALL', ...ERAS.map((e) => e.era)];
+
+  return (
+    <div style={{ backgroundColor: C.bg, color: C.ink, minHeight: '100vh' }}>
+
+      {/* ══ PHASE 1–3: 3D DIAL INTRO ════════════════════════════════════════ */}
+      <Intro3DDial />
+
+      {/* ══ STICKY TAB BAR ══════════════════════════════════════════════════ */}
+      <div style={{
+        position: 'sticky', top: 0, zIndex: 50,
+        backgroundColor: `${C.bg}F2`,
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderBottom: `1px solid ${C.hairline}`,
+        display: 'flex', overflowX: 'auto', scrollbarWidth: 'none',
+      }}>
+        {tabs.map((tab, i) => {
+          const active = i === 0
+            ? activeIdx === 0
+            : ERAS[i - 1]?.era === ERAS[activeIdx]?.era;
+          return (
+            <button key={tab}
+              onClick={() => scrollToEra(i - 1)}
+              style={{
+                flexShrink: 0, padding: '14px 20px',
+                border: 'none',
+                borderBottom: active
+                  ? `1.5px solid ${C.ink}`
+                  : '1.5px solid transparent',
+                background: 'none', cursor: 'pointer',
+                fontFamily: "'Noto Sans KR', sans-serif",
+                fontSize: '10px', letterSpacing: '0.14em',
+                color: active ? C.ink : C.muted,
+                fontWeight: active ? 600 : 400,
+                transition: 'color 0.3s, border-color 0.3s',
+                whiteSpace: 'nowrap',
+              }}>
+              {tab}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* ══ MAIN SPLIT LAYOUT ═══════════════════════════════════════════════ */}
+      <div style={{ display: 'flex', alignItems: 'start' }}>
+
+        {/* ── LEFT: scrollable (58%) ─────────────────────────────────────── */}
+        <div ref={leftRef} style={{ width: '58%', borderRight: `1px solid ${C.hairline}` }}>
+
+          {/* Hero */}
+          <div style={{ padding: '88px 64px 72px', borderBottom: `1px solid ${C.hairline}` }}>
+            <BlurReveal>
+              <p style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
+                letterSpacing: '0.4em', color: C.accent, marginBottom: '28px' }}>
+                HISTORY
+              </p>
+            </BlurReveal>
+            <BlurReveal delay={0.08}>
+              <h1 style={{ fontFamily: "'Noto Serif KR', serif",
+                fontSize: 'clamp(48px, 6vw, 88px)',
+                fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.04em',
+                color: C.ink, marginBottom: '32px' }}>
+                70여 년의<br />장인 이야기
+              </h1>
+            </BlurReveal>
+            <BlurReveal delay={0.16}>
+              <p style={{ fontFamily: "'Noto Sans KR'", fontSize: '13px',
+                color: C.muted, lineHeight: 1.9, maxWidth: '380px', fontWeight: 300 }}>
+                전통 한옥 건축의 길을 묵묵히 걸어온 70년의 기록.<br />
+                한 땀 한 땀 새긴 시간들이 오늘의 마스터아티잔을 만들었습니다.
+              </p>
+            </BlurReveal>
+            <BlurReveal delay={0.24}>
+              <div style={{ display: 'flex', gap: '48px', marginTop: '48px' }}>
+                {[['70+', '년간 활동'], ['90+', '완공 프로젝트'], ['3', '대를 이은 기술']].map(([n, l]) => (
+                  <div key={l}>
+                    <div style={{ fontFamily: "'Noto Serif KR', serif",
+                      fontSize: '36px', fontWeight: 300,
+                      letterSpacing: '-0.02em', color: C.ink, lineHeight: 1 }}>{n}</div>
+                    <div style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
+                      letterSpacing: '0.12em', color: C.muted, marginTop: '6px' }}>{l}</div>
+                  </div>
+                ))}
+              </div>
+            </BlurReveal>
+          </div>
+
+          {/* Era sections */}
+          {ERAS.map((era, i) => (
+            <EraSection
+              key={era.era}
+              era={era}
+              eraIdx={i}
+              isActive={i === activeIdx}
+              sectionRef={(el: HTMLElement | null) => { sectionRefs.current[i] = el; }}
+            />
+          ))}
+        </div>
+
+        {/* ── RIGHT: sticky dial (42%) ────────────────────────────────────── */}
+        <div style={{
+          width: '42%',
+          position: 'sticky',
+          top: '49px',
+          height: 'calc(100vh - 49px)',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          gap: '28px',
+          backgroundColor: C.bg,
+        }}>
+          {/* Era counter */}
+          <div style={{ position: 'absolute', top: '28px', right: '32px',
+            display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+            <AnimatePresence mode="wait">
+              <motion.span key={activeIdx}
+                initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.4 }}
+                style={{ fontFamily: "'Noto Serif KR', serif",
+                  fontSize: '32px', fontWeight: 300,
+                  letterSpacing: '-0.02em', color: C.ink, lineHeight: 1 }}>
+                {String(activeIdx + 1).padStart(2, '0')}
+              </motion.span>
+            </AnimatePresence>
+            <span style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
+              letterSpacing: '0.2em', color: C.muted }}>
+              / {String(TOTAL).padStart(2, '0')}
+            </span>
+          </div>
+
+          {/* Dial SVG */}
+          <motion.div
+            style={{ width: 'min(440px, 78%)', aspectRatio: '1' }}
+            initial={{ opacity: 0, scale: 0.94 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1.4, ease: EASE_OUT, delay: 0.3 }}>
+            <HistoryDial
+              activeIdx={activeIdx}
+              groupRef={dialGroupRef}
+              labelRefs={labelRefs}
+            />
+          </motion.div>
+
+          {/* Active era name */}
           <AnimatePresence mode="wait">
-            <motion.div key={activeEra + '_label'}
-              initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.35 }}
-              className="flex items-center gap-3 mb-3">
-              <div className="w-5 h-px" style={{ backgroundColor: '#AAAAAA' }} />
-              <span className="section-label">{era.era}</span>
+            <motion.div key={activeIdx}
+              initial={{ opacity: 0, y: 10, filter: 'blur(4px)' }}
+              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+              exit={{ opacity: 0, y: -8, filter: 'blur(4px)' }}
+              transition={{ duration: 0.6, ease: EASE_OUT }}
+              style={{ textAlign: 'center' }}>
+              <p style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
+                letterSpacing: '0.3em', color: C.muted, marginBottom: '6px' }}>
+                CURRENT ERA
+              </p>
+              <p style={{ fontFamily: "'Noto Serif KR', serif",
+                fontSize: '22px', fontWeight: 300,
+                letterSpacing: '-0.01em', color: C.ink }}>
+                {ERAS[activeIdx].era}
+              </p>
             </motion.div>
           </AnimatePresence>
 
-          {/* 대형 연도 */}
-          <AnimatePresence mode="wait">
-            <motion.h1
-              key={activeEra + '_year'}
-              initial={{ opacity: 0, y: 24, filter: 'blur(6px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, y: -16, filter: 'blur(4px)' }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="font-light leading-none mb-8"
-              style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(72px, 10vw, 128px)', color: '#1A1A1A', letterSpacing: '-0.04em' }}>
-              {era.works[0]?.year ?? era.era}
-            </motion.h1>
-          </AnimatePresence>
-
-          {/* 작업 목록 */}
-          <AnimatePresence mode="wait">
-            <motion.ul key={activeEra + '_list'}
-              initial="hidden" animate="visible" exit="hidden"
-              variants={{ visible: { transition: { staggerChildren: 0.04 } }, hidden: {} }}
-              style={{ maxHeight: '340px', overflowY: 'hidden' }}>
-              {era.works.map((work, i) => {
-                const showYear = i === 0 || era.works[i - 1].year !== work.year;
-                return (
-                  <motion.li key={i}
-                    variants={{ hidden: { opacity: 0, x: -12 }, visible: { opacity: 1, x: 0, transition: { duration: 0.3 } } }}
-                    className="flex items-center gap-6 py-[8px]"
-                    style={{ borderBottom: '1px solid #F0EDE8' }}>
-                    <span className="shrink-0 text-[10px] w-10 tabular-nums"
-                      style={{ fontFamily: 'var(--font-sans)', color: '#BBBBBB' }}>
-                      {showYear ? work.year : ''}
-                    </span>
-                    <span className="text-[12px] leading-[1.5] flex-1"
-                      style={{ fontFamily: 'var(--font-sans)', color: '#444444' }}>
-                      {work.title}
-                    </span>
-                    {work.hasMedia && (
-                      <span className="shrink-0 text-[8px] px-2 py-[2px] tracking-widest"
-                        style={{ border: '1px solid #E0E0E0', color: '#AAAAAA', fontFamily: 'var(--font-sans)' }}>
-                        MEDIA
-                      </span>
-                    )}
-                  </motion.li>
-                );
-              })}
-            </motion.ul>
-          </AnimatePresence>
-        </div>
-
-        {/* ── 우측: 입체 다이얼 ── */}
-        <div className="flex-1 flex items-center justify-center relative">
-
-          {/* 고정 기준선 (바늘) — 12시 방향 */}
-          <div className="absolute top-[calc(50%-200px)] left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1">
-            <div className="w-[2px] h-8 rounded-full" style={{ backgroundColor: '#1A1A1A' }} />
-            <div className="w-[6px] h-[6px] rounded-full" style={{ backgroundColor: '#1A1A1A' }} />
-          </div>
-
-          {/* 회전하는 다이얼 */}
-          <motion.div
-            style={{ rotate: dialRotation }}
-            className="relative flex items-center justify-center"
-            aria-hidden>
-
-            {/* 외부 링 — 입체감 */}
-            <div className="absolute rounded-full"
-              style={{
-                width: '420px', height: '420px',
-                background: 'radial-gradient(circle at 35% 30%, #FFFFFF, #E8E4DC)',
-                boxShadow: '8px 12px 32px rgba(0,0,0,0.12), -4px -4px 16px rgba(255,255,255,0.8), inset 0 2px 4px rgba(255,255,255,0.6), inset 0 -2px 4px rgba(0,0,0,0.06)',
-                border: '1px solid rgba(0,0,0,0.06)',
-              }} />
-
-            {/* 내부 링 */}
-            <div className="absolute rounded-full"
-              style={{
-                width: '300px', height: '300px',
-                background: 'radial-gradient(circle at 40% 35%, #F8F6F2, #ECEAE4)',
-                boxShadow: 'inset 2px 3px 8px rgba(0,0,0,0.08), inset -1px -1px 4px rgba(255,255,255,0.9)',
-                border: '1px solid rgba(0,0,0,0.05)',
-              }} />
-
-            {/* 가장 안쪽 — 중심 버튼 느낌 */}
-            <div className="absolute rounded-full z-10"
-              style={{
-                width: '64px', height: '64px',
-                background: 'radial-gradient(circle at 40% 35%, #FFFFFF, #D8D4CC)',
-                boxShadow: '2px 3px 8px rgba(0,0,0,0.15), -1px -1px 4px rgba(255,255,255,0.9)',
-              }} />
-
-            {/* 에라 레이블 (원 둘레) */}
-            {historyEras.map((e, i) => {
-              const angle = (i / TOTAL_ERAS) * 360 - 90; // 12시부터 시계방향
-              const rad = (angle * Math.PI) / 180;
-              const r = 175; // 레이블 반지름
-              const x = Math.cos(rad) * r;
-              const y = Math.sin(rad) * r;
-              const isActive = i === activeEra;
-              return (
-                <div
-                  key={e.era}
-                  className="absolute flex flex-col items-center gap-1"
-                  style={{ transform: `translate(${x}px, ${y}px)` }}>
-                  {/* 틱 마크 */}
-                  <div
-                    style={{
-                      width: isActive ? '2px' : '1px',
-                      height: isActive ? '14px' : '8px',
-                      backgroundColor: isActive ? '#1A1A1A' : '#BBBBBB',
-                      transformOrigin: 'top',
-                      transform: `rotate(${angle + 90}deg)`,
-                    }} />
-                  {/* 레이블 */}
-                  <span
-                    style={{
-                      fontFamily: 'var(--font-sans)',
-                      fontSize: isActive ? '10px' : '9px',
-                      fontWeight: isActive ? '700' : '400',
-                      color: isActive ? '#1A1A1A' : '#BBBBBB',
-                      letterSpacing: '0.05em',
-                      transform: `rotate(${-(angle + 90)}deg)`, // 항상 바로 읽히게
-                      whiteSpace: 'nowrap',
-                    }}>
-                    {e.era}
-                  </span>
-                </div>
-              );
-            })}
-          </motion.div>
-
-        </div>
-
-        {/* 하단 진행 표시 */}
-        <div className="absolute bottom-8 left-14 flex items-center gap-4 z-30">
-          <span className="text-[10px] tracking-[0.3em] tabular-nums"
-            style={{ fontFamily: 'var(--font-sans)', color: '#AAAAAA' }}>
-            {String(activeEra + 1).padStart(2, '0')} / {String(TOTAL_ERAS).padStart(2, '0')}
-          </span>
-          <div className="flex items-center gap-[6px]">
-            {historyEras.map((_, i) => (
-              <motion.div key={i} className="rounded-full"
+          {/* Progress dots */}
+          <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+            {ERAS.map((_, i) => (
+              <motion.button key={i}
+                onClick={() => scrollToEra(i)}
                 animate={{
-                  width: i === activeEra ? '20px' : '4px',
-                  backgroundColor: i === activeEra ? '#1A1A1A' : '#D0CCC6',
+                  width: i === activeIdx ? 20 : 5,
+                  backgroundColor: i === activeIdx ? C.ink : C.hairline,
                 }}
-                style={{ height: '4px' }}
-                transition={{ duration: 0.3 }} />
+                style={{ height: '5px', borderRadius: '3px',
+                  border: 'none', cursor: 'pointer', padding: 0 }}
+                transition={{ duration: 0.4 }}
+              />
             ))}
           </div>
         </div>
-
       </div>
     </div>
   );
