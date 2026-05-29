@@ -3,10 +3,12 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
+const U = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1080&q=80`;
+
 const works = [
-  { title: '수원화성 서북공심돈 보수', cat: '수리', year: '2023', bg: '/images/works/work-01.jpg', color: '#2A2218' },
-  { title: '경복궁 근정전 유지보수', cat: '유지보수', year: '2023', bg: '/images/works/work-02.jpg', color: '#1E2018' },
-  { title: '전통 목구조 누각 신축', cat: '제작', year: '2022', bg: '/images/works/work-03.jpg', color: '#181C1A' },
+  { title: '수원화성 서북공심돈 보수', cat: '수리', year: '2023', bg: U('photo-1560083270-5aa41ed4e1c5'), color: '#2A2218' },
+  { title: '경복궁 근정전 유지보수', cat: '유지보수', year: '2023', bg: U('photo-1748835600856-dba50a909dfb'), color: '#1E2018' },
+  { title: '전통 목구조 누각 신축', cat: '제작', year: '2022', bg: U('photo-1675143967358-8b0651f4c679'), color: '#181C1A' },
 ];
 
 export default function WorksGrid() {

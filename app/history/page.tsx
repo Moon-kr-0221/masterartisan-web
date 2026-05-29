@@ -9,7 +9,7 @@ import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
 import { historyEras } from '@/data/history';
-import Intro3DDial from '@/components/history/Intro3DDial';
+import ClockIntro from '@/components/history/ClockIntro';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
@@ -70,8 +70,8 @@ function HistoryDial({ activeIdx, groupRef, labelRefs }: DialProps) {
   const R = { outer: 210, track: 168, inner: 122, center: 68, label: 186 };
 
   const polar = (deg: number, r: number) => ({
-    x: CX + r * Math.cos((deg * Math.PI) / 180),
-    y: CY + r * Math.sin((deg * Math.PI) / 180),
+    x: Math.round((CX + r * Math.cos((deg * Math.PI) / 180)) * 100) / 100,
+    y: Math.round((CY + r * Math.sin((deg * Math.PI) / 180)) * 100) / 100,
   });
 
   // Era i at angle starting from 12 o'clock, clockwise
@@ -356,8 +356,45 @@ export default function HistoryPage() {
   return (
     <div style={{ backgroundColor: C.bg, color: C.ink, minHeight: '100vh' }}>
 
-      {/* ══ PHASE 1–3: 3D DIAL INTRO ════════════════════════════════════════ */}
-      <Intro3DDial />
+      {/* ══ STORY HEADER ════════════════════════════════════════════════════ */}
+      <section style={{
+        padding: '120px 80px 100px',
+        backgroundColor: C.bg,
+        borderBottom: `1px solid ${C.hairline}`,
+      }}>
+        <p style={{
+          fontFamily: "'Noto Sans KR', sans-serif",
+          fontSize: 10, letterSpacing: '0.38em',
+          color: C.accent, marginBottom: 28,
+          textTransform: 'uppercase',
+        }}>
+          HISTORY · 장인 이야기
+        </p>
+        <h1 style={{
+          fontFamily: "'Noto Serif KR', serif",
+          fontSize: 'clamp(48px, 6vw, 86px)',
+          fontWeight: 300,
+          lineHeight: 1.08,
+          letterSpacing: '-0.03em',
+          color: C.ink,
+          marginBottom: 36,
+          maxWidth: 780,
+        }}>
+          천년의 기술,<br />
+          삼대로 이어온 90년의 여정
+        </h1>
+        <p style={{
+          fontFamily: "'Noto Sans KR', sans-serif",
+          fontSize: 14, lineHeight: 1.9,
+          color: C.muted, fontWeight: 300,
+          maxWidth: 440,
+        }}>
+          1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.
+        </p>
+      </section>
+
+      {/* ══ CLOCK INTRO ANIMATION ════════════════════════════════════════════ */}
+      <ClockIntro />
 
       {/* ══ STICKY TAB BAR ══════════════════════════════════════════════════ */}
       <div style={{
@@ -525,7 +562,7 @@ export default function HistoryPage() {
                   width: i === activeIdx ? 20 : 5,
                   backgroundColor: i === activeIdx ? C.ink : C.hairline,
                 }}
-                style={{ height: '5px', borderRadius: '3px',
+                style={{ height: '5px', borderRadius: '9999px',
                   border: 'none', cursor: 'pointer', padding: 0 }}
                 transition={{ duration: 0.4 }}
               />

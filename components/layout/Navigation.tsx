@@ -8,7 +8,6 @@ const navLinks = [
   { href: '/masterartisan', label: 'MASTERARTISAN' },
   { href: '/history',      label: 'HISTORY' },
   { href: '/works',        label: 'WORKS' },
-  { href: '/products',     label: 'PRODUCT' },
   { href: '/contact',      label: 'CONTACT' },
 ];
 

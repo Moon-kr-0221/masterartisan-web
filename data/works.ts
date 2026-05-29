@@ -1,5 +1,8 @@
 export type WorkCategory = 'all' | 'maintenance' | 'repair' | 'fabrication';
 
+// Images mirror the Pencil "WORKS" board (Unsplash, 전통건축 테마).
+const U = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1080&q=80`;
+
 export const worksData = [
   {
     id: 1,
@@ -7,7 +10,7 @@ export const worksData = [
     category: 'maintenance' as WorkCategory,
     year: '2022',
     description: '전통 목구조 대웅전의 지붕 및 기둥 보수 공사.',
-    image: '/images/works/work-01.jpg',
+    image: U('photo-1759662802641-1748a95ade41'),
   },
   {
     id: 2,
@@ -15,7 +18,7 @@ export const worksData = [
     category: 'repair' as WorkCategory,
     year: '2021',
     description: '조선시대 전통 한옥 기와 및 목구조 전면 수리.',
-    image: '/images/works/work-02.jpg',
+    image: U('photo-1512059555341-6a121e7d4d86'),
   },
   {
     id: 3,
@@ -23,7 +26,7 @@ export const worksData = [
     category: 'fabrication' as WorkCategory,
     year: '2023',
     description: '전통 소나무 목재를 이용한 사찰 법당 문짝 제작.',
-    image: '/images/works/work-03.jpg',
+    image: U('photo-1542722578-f2971981d74f'),
   },
   {
     id: 4,
@@ -31,7 +34,7 @@ export const worksData = [
     category: 'maintenance' as WorkCategory,
     year: '2022',
     description: '조선시대 향교 건물 기와 전면 교체 및 보수.',
-    image: '/images/works/work-04.jpg',
+    image: U('photo-1765570710985-fe9e17af1b6c'),
   },
   {
     id: 5,
@@ -39,7 +42,7 @@ export const worksData = [
     category: 'repair' as WorkCategory,
     year: '2020',
     description: '화재로 소실된 전통 누각의 원형 복원 작업.',
-    image: '/images/works/work-05.jpg',
+    image: U('photo-1584264415558-6580a2bf40a0'),
   },
   {
     id: 6,
@@ -47,7 +50,7 @@ export const worksData = [
     category: 'fabrication' as WorkCategory,
     year: '2023',
     description: '전통 한지와 목재를 사용한 격자창호 주문 제작.',
-    image: '/images/works/work-06.jpg',
+    image: U('photo-1621083377566-7ba9edc11ae6'),
   },
 ];
 

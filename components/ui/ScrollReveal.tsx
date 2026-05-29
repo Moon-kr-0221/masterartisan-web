@@ -8,6 +8,7 @@ interface ScrollRevealProps {
   delay?: number;
   direction?: 'up' | 'left' | 'right' | 'none';
   className?: string;
+  style?: React.CSSProperties;
 }
 
 export default function ScrollReveal({
@@ -15,6 +16,7 @@ export default function ScrollReveal({
   delay = 0,
   direction = 'up',
   className,
+  style,
 }: ScrollRevealProps) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -32,6 +34,7 @@ export default function ScrollReveal({
       animate={inView ? { opacity: 1, y: 0, x: 0 } : initial}
       transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1], delay }}
       className={className}
+      style={style}
     >
       {children}
     </motion.div>

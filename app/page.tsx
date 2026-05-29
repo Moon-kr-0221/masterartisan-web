@@ -1,5 +1,4 @@
 import HeroSection     from '@/components/home/HeroSection';
-import PhilosophyBand  from '@/components/home/PhilosophyBand';
 import ContrastSection from '@/components/home/ContrastSection';
 import MarqueeBand     from '@/components/home/MarqueeBand';
 import HeritageStats   from '@/components/home/HeritageStats';
@@ -11,7 +10,6 @@ export default function HomePage() {
   return (
     <>
       <HeroSection />
-      <PhilosophyBand />
       <ContrastSection />
       <MarqueeBand />
       <HeritageStats />

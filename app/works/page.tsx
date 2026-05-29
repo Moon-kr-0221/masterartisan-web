@@ -2,12 +2,17 @@
 
 import { useState } from 'react';
 import { worksData, categoryLabels, type WorkCategory } from '@/data/works';
-import SectionTitle from '@/components/ui/SectionTitle';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
 const categories: WorkCategory[] = ['all', 'maintenance', 'repair', 'fabrication'];
+const PAGE_SIZE = 6;
 
-const PAGE_SIZE = 9;
+const SERIF = 'var(--font-serif)';
+const SANS = 'var(--font-sans)';
+
+// Banner mirrors the Pencil WORKS PageHero (height 360 + image + light scrim)
+const BANNER_IMG = 'https://images.unsplash.com/photo-1761452776106-78710d4fada9?auto=format&fit=crop&w=1600&q=80';
+const BANNER_SCRIM = 'linear-gradient(180deg, rgba(247,246,243,0.55) 0%, rgba(247,246,243,0.3) 45%, rgba(247,246,243,0.95) 100%)';
 
 export default function WorksPage() {
   const [active, setActive] = useState<WorkCategory>('all');
@@ -18,148 +23,149 @@ export default function WorksPage() {
   const shown = filtered.slice(0, visible);
   const hasMore = visible < filtered.length;
 
-  // 카테고리 바뀌면 visible 초기화
   const handleCategory = (cat: WorkCategory) => {
     setActive(cat);
     setVisible(PAGE_SIZE);
   };
 
   return (
-    <div style={{ backgroundColor: 'var(--color-bg-base)' }} className="pt-20">
-      <section
-        className="py-24 px-6 md:px-12 text-center"
-        style={{
-          borderBottom: '1px solid var(--color-border)',
-          background: 'linear-gradient(to bottom, var(--color-bg-elevated), var(--color-bg-base))',
-        }}
-      >
-        <SectionTitle
-          en="Our Works"
-          kr="작업 사례"
-          description="전통건축 유지보수·수리·제작에 걸친 대표 작업물을 소개합니다."
-          centered
-        />
-      </section>
-
-      <section className="py-24 px-6 md:px-12">
-        <div className="max-w-7xl mx-auto">
-          {/* 필터 */}
-          <div className="flex flex-wrap gap-3 mb-16 justify-center">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => handleCategory(cat)}
-                className="px-6 py-2 text-xs tracking-[0.2em] transition-all duration-300"
-                style={{
-                  backgroundColor: active === cat ? 'var(--color-accent)' : 'transparent',
-                  color: active === cat ? '#0D0B08' : 'var(--color-text-secondary)',
-                  border: `1px solid ${active === cat ? 'var(--color-accent)' : 'var(--color-border)'}`,
-                  fontWeight: active === cat ? 700 : 400,
-                }}
-              >
-                {categoryLabels[cat]}
-              </button>
-            ))}
-          </div>
-
-          {/* 갤러리 그리드 */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px" style={{ backgroundColor: 'var(--color-border)' }}>
-            {shown.map((work, i) => (
-              <ScrollReveal key={work.id} delay={i * 0.05}>
-                <div
-                  className="group relative aspect-square cursor-pointer overflow-hidden"
-                  style={{ backgroundColor: 'var(--color-bg-elevated)' }}
-                  onClick={() => setLightbox(work)}
-                >
-                  {/* 플레이스홀더 이미지 */}
-                  <div
-                    className="absolute inset-0 flex items-center justify-center"
-                    style={{ backgroundColor: 'var(--color-bg-subtle)' }}
-                  >
-                    <p style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-kr-serif)', fontSize: '1.5rem' }}>
-                      {work.title}
-                    </p>
-                  </div>
-
-                  {/* 호버 오버레이 */}
-                  <div
-                    className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{ background: 'linear-gradient(to top, rgba(13,11,8,0.95) 0%, transparent 60%)' }}
-                  >
-                    <p className="text-xs tracking-widest mb-2" style={{ color: 'var(--color-accent)' }}>
-                      {categoryLabels[work.category]} · {work.year}
-                    </p>
-                    <p
-                      className="text-lg font-semibold"
-                      style={{ color: 'var(--color-timber-100)', fontFamily: 'var(--font-kr-serif)' }}
-                    >
-                      {work.title}
-                    </p>
-                  </div>
-                </div>
-              </ScrollReveal>
-            ))}
-          </div>
-
-          {/* 더 보기 / 카운터 */}
-          <div className="flex flex-col items-center gap-6 mt-16">
-            <p className="text-xs tracking-widest" style={{ color: 'var(--color-text-muted)' }}>
-              {shown.length} / {filtered.length}
+    <div style={{ backgroundColor: '#FFFFFF', paddingTop: 72 }}>
+      {/* ── Page Hero: title left, filters right ── */}
+      <section style={{ position: 'relative', height: 360, overflow: 'hidden', borderBottom: '1px solid #E8E8E8' }}>
+        <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
+        <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
+        <div
+          className="absolute inset-0 flex flex-col gap-8 md:flex-row md:items-end md:justify-between"
+          style={{ padding: '72px 80px' }}
+        >
+          <div className="flex flex-col gap-[10px]">
+            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: '#AAAAAA' }}>
+              OUR WORKS
+            </span>
+            <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: '#1A1A1A' }}>
+              작업 사례
+            </h1>
+            <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: '#888888' }}>
+              전통건축 유지보수·수리·제작에 걸친 대표 작업물을 소개합니다.
             </p>
-            {hasMore && (
-              <button
-                onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                className="px-12 py-3 text-xs tracking-[0.3em] transition-all duration-300 hover:opacity-70"
-                style={{
-                  border: '1px solid var(--color-border)',
-                  color: 'var(--color-text-secondary)',
-                  backgroundColor: 'transparent',
-                }}
-              >
-                더 보기
-              </button>
-            )}
+          </div>
+
+          {/* Filter tabs */}
+          <div className="flex flex-wrap gap-1 flex-shrink-0">
+            {categories.map((cat) => {
+              const on = active === cat;
+              return (
+                <button
+                  key={cat}
+                  onClick={() => handleCategory(cat)}
+                  style={{
+                    fontFamily: SANS,
+                    fontSize: 11,
+                    letterSpacing: '0.08em',
+                    padding: '8px 18px',
+                    backgroundColor: on ? '#1A1A1A' : 'transparent',
+                    color: on ? '#FFFFFF' : '#888888',
+                    border: on ? '1px solid #1A1A1A' : '1px solid #E0E0E0',
+                    transition: 'all 0.3s',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {categoryLabels[cat]}
+                </button>
+              );
+            })}
           </div>
         </div>
+      </section>
+
+      {/* ── Grid ── */}
+      <section style={{ padding: '72px 80px 80px' }}>
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
+          style={{ columnGap: 16, rowGap: 48 }}
+        >
+          {shown.map((work, i) => (
+            <ScrollReveal key={work.id} delay={(i % 3) * 0.06}>
+              <div className="group cursor-pointer" onClick={() => setLightbox(work)}>
+                <div style={{ height: 280, overflow: 'hidden', backgroundColor: '#EDEAE4' }}>
+                  <img
+                    src={work.image}
+                    alt={work.title}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                </div>
+                <div style={{ paddingTop: 20, display: 'flex', flexDirection: 'column', gap: 6 }}>
+                  <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.08em', color: '#AAAAAA' }}>
+                    {categoryLabels[work.category]} · {work.year}
+                  </span>
+                  <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: '#1A1A1A' }}>
+                    {work.title}
+                  </span>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+
+        {shown.length === 0 && (
+          <p className="text-center" style={{ padding: '96px 0', fontFamily: SANS, color: '#AAAAAA' }}>
+            해당 카테고리의 작업이 없습니다.
+          </p>
+        )}
+
+        {hasMore && (
+          <div className="flex justify-center" style={{ paddingTop: 40 }}>
+            <button
+              onClick={() => setVisible((v) => v + PAGE_SIZE)}
+              style={{
+                fontFamily: SANS,
+                fontSize: 11,
+                letterSpacing: '0.3em',
+                padding: '12px 48px',
+                backgroundColor: '#FFFFFF',
+                color: '#888888',
+                border: '1px solid #E8E8E8',
+                transition: 'opacity 0.3s',
+                cursor: 'pointer',
+              }}
+              className="hover:opacity-70"
+            >
+              더 보기
+            </button>
+          </div>
+        )}
       </section>
 
       {/* Lightbox */}
       {lightbox && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-6"
+          className="fixed inset-0 z-[60] flex items-center justify-center p-6"
           style={{ backgroundColor: 'rgba(13,11,8,0.95)' }}
           onClick={() => setLightbox(null)}
         >
           <div
-            className="max-w-2xl w-full p-10"
-            style={{ backgroundColor: 'var(--color-bg-elevated)', border: '1px solid var(--color-border)' }}
+            className="max-w-2xl w-full"
+            style={{ backgroundColor: '#FFFFFF' }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div
-              className="aspect-video w-full mb-8 flex items-center justify-center"
-              style={{ backgroundColor: 'var(--color-bg-subtle)' }}
-            >
-              <p style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-kr-serif)', fontSize: '1.5rem' }}>
-                {lightbox.title}
+            <img src={lightbox.image} alt={lightbox.title} className="w-full aspect-video object-cover" />
+            <div style={{ padding: 32 }}>
+              <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.08em', color: '#AAAAAA', marginBottom: 8 }}>
+                {categoryLabels[lightbox.category]} · {lightbox.year}
               </p>
+              <h3 style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: '#1A1A1A', marginBottom: 16 }}>
+                {lightbox.title}
+              </h3>
+              <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: '#555555' }}>
+                {lightbox.description}
+              </p>
+              <button
+                onClick={() => setLightbox(null)}
+                style={{ marginTop: 32, fontFamily: SANS, fontSize: 11, letterSpacing: '0.1em', color: '#AAAAAA', cursor: 'pointer' }}
+              >
+                닫기 ✕
+              </button>
             </div>
-            <p className="text-xs tracking-widest mb-3" style={{ color: 'var(--color-accent)' }}>
-              {categoryLabels[lightbox.category]} · {lightbox.year}
-            </p>
-            <h3
-              className="text-2xl font-bold mb-4"
-              style={{ color: 'var(--color-timber-100)', fontFamily: 'var(--font-kr-serif)' }}
-            >
-              {lightbox.title}
-            </h3>
-            <p style={{ color: 'var(--color-text-secondary)' }}>{lightbox.description}</p>
-            <button
-              className="mt-8 text-xs tracking-widest"
-              style={{ color: 'var(--color-text-muted)' }}
-              onClick={() => setLightbox(null)}
-            >
-              닫기 ✕
-            </button>
           </div>
         </div>
       )}

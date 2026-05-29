@@ -18,7 +18,7 @@ export default function ProcessSection() {
       {/* 배경 이미지 — 패럴랙스 */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center scale-110"
-        style={{ backgroundImage: 'url(/images/home/process.jpg)', backgroundColor: '#1A1410', y: bgY }}
+        style={{ backgroundColor: '#1F1B17', y: bgY }}
       />
       <div className="absolute inset-0" style={{ background: 'rgba(10, 8, 6, 0.72)' }} />
 
@@ -66,41 +66,38 @@ export default function ProcessSection() {
           </Link>
         </motion.div>
 
-        {/* 우측 — 공정 단계 */}
+        {/* 우측 — 공정 이미지 2x2 그리드 */}
         <motion.div
-          className="flex flex-col gap-0 flex-1"
+          className="grid grid-cols-2 flex-1 w-full"
+          style={{ gap: 12 }}
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true, margin: '-80px' }}
         >
           {[
-            ['01', '목재 선별', '수령·건조도·결 방향 기준으로 직접 선별'],
-            ['02', '치목 (治木)', '전통 대패·끌로 부재 성형'],
-            ['03', '가조립 검증', '현장 조립 전 완전 가조립으로 오차 확인'],
-            ['04', '설치 및 마감', '전통 공법 그대로 현장 조립 완성'],
-          ].map(([num, title, desc], i) => (
+            ['목재 선별', 'photo-1703541585777-5b9349aa4f6f'],
+            ['치목 (治木)', 'photo-1564067018527-8584aca23a04'],
+            ['가조립 검증', 'photo-1768573263769-49bd0ddfa104'],
+            ['설치 및 마감', 'photo-1758696654625-29937273a271'],
+          ].map(([title, pid], i) => (
             <motion.div
-              key={num}
-              className="flex items-start gap-6 py-6"
-              style={{ borderBottom: i < 3 ? '1px solid rgba(255,255,255,0.08)' : 'none' }}
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              key={title}
+              className="relative overflow-hidden"
+              style={{ aspectRatio: '4 / 3' }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15 + i * 0.1 }}
               viewport={{ once: true, margin: '-60px' }}
             >
-              <span
-                className="text-[11px] tracking-widest shrink-0 pt-1"
-                style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.25)' }}
-              >
-                {num}
-              </span>
-              <div>
-                <p className="text-[15px] mb-1" style={{ fontFamily: 'var(--font-serif)', color: '#FFFFFF', fontWeight: 300 }}>
+              <div
+                className="absolute inset-0 bg-cover bg-center"
+                style={{ backgroundImage: `url(https://images.unsplash.com/${pid}?auto=format&fit=crop&w=800&q=80)`, backgroundColor: '#1A1816' }}
+              />
+              <div className="absolute inset-0" style={{ backgroundColor: 'rgba(0,0,0,0.4)' }} />
+              <div className="absolute left-4 bottom-3 z-10">
+                <p style={{ fontFamily: 'var(--font-serif)', fontSize: 14, fontWeight: 300, color: '#FFFFFF' }}>
                   {title}
-                </p>
-                <p className="text-[12px] leading-[1.7]" style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.4)' }}>
-                  {desc}
                 </p>
               </div>
             </motion.div>

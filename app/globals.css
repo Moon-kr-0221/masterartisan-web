@@ -12,8 +12,32 @@
 }
 
 :root {
-  --font-serif: var(--font-noto-serif-kr), 'Nanum Myeongjo', serif;
-  --font-sans:  var(--font-noto-sans-kr), sans-serif;
+  /* typography */
+  --font-serif:    var(--font-noto-serif-kr), 'Nanum Myeongjo', serif;
+  --font-sans:     var(--font-noto-sans-kr), sans-serif;
+  --font-kr-serif: var(--font-noto-serif-kr), 'Nanum Myeongjo', serif;
+  --font-en-serif: var(--font-playfair), Georgia, 'Times New Roman', serif;
+
+  /* surface — warm cream editorial palette */
+  --color-bg-base:       #F8F5F0;
+  --color-bg-elevated:   #F0EBE3;
+  --color-bg-subtle:     #E8E2D9;
+
+  /* text */
+  --color-text-primary:   #1A1714;
+  --color-text-secondary: #554E47;
+  --color-text-muted:     #A09890;
+
+  /* border */
+  --color-border: #E2DDD6;
+
+  /* accent — warm amber gold */
+  --color-accent: #C4A882;
+
+  /* timber scale — warm wood tones */
+  --color-timber-100: #2C1A0E;
+  --color-timber-200: #6B4A2C;
+  --color-timber-400: #A07848;
 }
 
 * { box-sizing: border-box; padding: 0; margin: 0; }
@@ -21,8 +45,8 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background-color: #FAFAF8;
-  color: #1A1A1A;
+  background-color: #F8F5F0;
+  color: #1A1714;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
 }

@@ -19,7 +19,7 @@ export default function ContrastSection() {
       >
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.4s] ease-out hover:scale-105"
-          style={{ backgroundImage: 'url(/images/home/contrast-dark.jpg)', backgroundColor: '#1A1410' }}
+          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1559825491-a529dd302927?auto=format&fit=crop&w=1080&q=80)', backgroundColor: '#1A1410' }}
         />
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%)' }} />
@@ -65,7 +65,7 @@ export default function ContrastSection() {
       >
         <div
           className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.4s] ease-out hover:scale-105"
-          style={{ backgroundImage: 'url(/images/home/contrast-light.jpg)', backgroundColor: '#E8E4DC' }}
+          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1688341750245-f16a2ce6e56d?auto=format&fit=crop&w=1080&q=80)', backgroundColor: '#E8E4DC' }}
         />
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(to left, rgba(250,250,248,0.9) 0%, rgba(250,250,248,0.3) 60%)' }} />

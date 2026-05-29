@@ -24,10 +24,10 @@ export default function HeroSection() {
 
   return (
     <section ref={ref} className="relative w-full h-screen min-h-[700px] overflow-hidden bg-[#111111]">
-      {/* 배경 패럴랙스 */}
+      {/* 배경 패럴랙스 (펜슬 HOME 보드와 동일 이미지) */}
       <motion.div
         className="absolute inset-0 bg-cover bg-center scale-110"
-        style={{ backgroundImage: 'url(/images/home/hero.jpg)', y: bgY }}
+        style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1577735518457-06de4c9d81ca?auto=format&fit=crop&w=1600&q=80)', backgroundColor: '#0D0C0A', y: bgY }}
       />
 
       {/* 오버레이 */}
