@@ -1,7 +1,7 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState, useEffect, useCallback, useRef } from 'react';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 
 const SLIDES = [
   {
@@ -61,8 +61,32 @@ export default function HeroSection() {
   const slide = SLIDES[current];
   const pgnLabel = String(current + 1).padStart(2, '0');
 
+  // 마우스 패럴랙스
+  const sectionRef = useRef<HTMLElement>(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const springX = useSpring(mouseX, { stiffness: 60, damping: 20 });
+  const springY = useSpring(mouseY, { stiffness: 60, damping: 20 });
+  const textX  = useTransform(springX, [-1, 1], [-14, 14]);
+  const textY  = useTransform(springY, [-1, 1], [-8, 8]);
+  const bgX    = useTransform(springX, [-1, 1], [10, -10]);
+  const bgY    = useTransform(springY, [-1, 1], [6, -6]);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const onMove = (e: MouseEvent) => {
+      const { left, top, width, height } = el.getBoundingClientRect();
+      mouseX.set(((e.clientX - left) / width  - 0.5) * 2);
+      mouseY.set(((e.clientY - top)  / height - 0.5) * 2);
+    };
+    el.addEventListener('mousemove', onMove);
+    return () => el.removeEventListener('mousemove', onMove);
+  }, [mouseX, mouseY]);
+
   return (
     <section
+      ref={sectionRef}
       className="relative w-full h-screen min-h-[700px] overflow-hidden"
       style={{ backgroundColor: '#0D0C0A' }}
     >
@@ -71,7 +95,7 @@ export default function HeroSection() {
         <motion.div
           key={current}
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${slide.image})` }}
+          style={{ backgroundImage: `url(${slide.image})`, x: bgX, y: bgY }}
           initial={{ opacity: 0, scale: 1.08 }}
           animate={{ opacity: 1, scale: 1.0 }}
           exit={{ opacity: 0, scale: 1.02 }}
@@ -93,10 +117,10 @@ export default function HeroSection() {
         <motion.div
           key={`text-${current}`}
           className="absolute left-[52px]"
-          style={{ top: '46.875%' }}
-          initial={{ opacity: 0, y: 28, filter: 'blur(6px)' }}
-          animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, y: -10, filter: 'blur(4px)' }}
+          style={{ top: '46.875%', x: textX, y: textY }}
+          initial={{ opacity: 0, filter: 'blur(6px)' }}
+          animate={{ opacity: 1, filter: 'blur(0px)' }}
+          exit={{ opacity: 0, filter: 'blur(4px)' }}
           transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: current === 0 ? 2.9 : 0 }}
         >
           {/* 단일 텍스트 블록, 줄바꿈 포함 */}

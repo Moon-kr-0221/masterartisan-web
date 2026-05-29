@@ -1,7 +1,56 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useRef } from 'react';
+import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
+
+import type { Transition, TargetAndTransition, VariantLabels } from 'framer-motion';
+
+function TiltCard({ children, className, style, initial, whileInView, transition, viewport }: {
+  children: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  initial?: TargetAndTransition;
+  whileInView?: TargetAndTransition | VariantLabels;
+  transition?: Transition;
+  viewport?: { once?: boolean; margin?: string };
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const rx = useMotionValue(0);
+  const ry = useMotionValue(0);
+  const sRx = useSpring(rx, { stiffness: 300, damping: 30 });
+  const sRy = useSpring(ry, { stiffness: 300, damping: 30 });
+  const rotX = useTransform(sRx, v => `${v}deg`);
+  const rotY = useTransform(sRy, v => `${v}deg`);
+
+  const onMove = (e: React.MouseEvent) => {
+    const el = ref.current;
+    if (!el) return;
+    const { left, top, width, height } = el.getBoundingClientRect();
+    const xPct = (e.clientX - left) / width  - 0.5;
+    const yPct = (e.clientY - top)  / height - 0.5;
+    ry.set(xPct * 10);
+    rx.set(-yPct * 7);
+  };
+  const onLeave = () => { rx.set(0); ry.set(0); };
+
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      style={{ ...style, rotateX: rotX, rotateY: rotY, transformStyle: 'preserve-3d', perspective: '800px' }}
+      initial={initial}
+      whileInView={whileInView}
+      transition={transition}
+      viewport={viewport}
+      onMouseMove={onMove}
+      onMouseLeave={onLeave}
+      data-cursor="image"
+    >
+      {children}
+    </motion.div>
+  );
+}
 
 const U = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1080&q=80`;
 
@@ -54,7 +103,7 @@ export default function WorksGrid() {
       {/* 비대칭 그리드 */}
       <div className="flex gap-[3px]">
         {/* 왼쪽 큰 카드 */}
-        <motion.div
+        <TiltCard
           className="relative overflow-hidden"
           style={{ width: '58.5%', height: '540px', backgroundColor: works[0].color, flexShrink: 0 }}
           initial={{ opacity: 0, scale: 0.97 }}
@@ -69,7 +118,7 @@ export default function WorksGrid() {
           {/* 웜톤 컬러 그레이딩 — 채도 낮춤 + 세피아 */}
           <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(44,31,16,0) 0%, rgba(44,31,16,0.45) 100%)', mixBlendMode: 'multiply' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%)' }} />
-          <div className="absolute left-[36px]" style={{ bottom: '39px' }}>
+          <div className="absolute left-[36px]" style={{ bottom: '39px', transform: 'translateZ(20px)' }}>
             <p className="section-label mb-[6px]" style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '2px' }}>
               {works[0].cat} · {works[0].year}
             </p>
@@ -77,12 +126,12 @@ export default function WorksGrid() {
               {works[0].title}
             </p>
           </div>
-        </motion.div>
+        </TiltCard>
 
         {/* 오른쪽 두 카드 (세로) */}
         <div className="flex flex-col gap-[3px] flex-1">
           {works.slice(1).map((w, i) => (
-            <motion.div
+            <TiltCard
               key={w.title}
               className="relative overflow-hidden flex-1"
               style={{ backgroundColor: w.color, height: '268px' }}
@@ -98,7 +147,7 @@ export default function WorksGrid() {
               {/* 웜톤 컬러 그레이딩 */}
               <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(44,31,16,0) 0%, rgba(44,31,16,0.4) 100%)', mixBlendMode: 'multiply' }} />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)' }} />
-              <div className="absolute left-[28px]" style={{ bottom: '18px' }}>
+              <div className="absolute left-[28px]" style={{ bottom: '18px', transform: 'translateZ(16px)' }}>
                 <p className="section-label mb-1" style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '2px' }}>
                   {w.cat} · {w.year}
                 </p>
@@ -106,7 +155,7 @@ export default function WorksGrid() {
                   {w.title}
                 </p>
               </div>
-            </motion.div>
+            </TiltCard>
           ))}
         </div>
       </div>

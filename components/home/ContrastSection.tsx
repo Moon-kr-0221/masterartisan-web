@@ -1,12 +1,19 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
+import { useRef } from 'react';
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 
 export default function ContrastSection() {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
+  // 배경 패럴랙스 — 좌우 이미지 반대 방향
+  const leftBgY  = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+  const rightBgY = useTransform(scrollYProgress, [0, 1], ['8%', '-8%']);
+
   return (
-    <section className="flex flex-col md:flex-row w-full">
+    <section ref={ref} className="flex flex-col md:flex-row w-full overflow-hidden">
 
       {/* 왼쪽 — 다릅니다 (다크), 660px 고정 */}
       <motion.div
@@ -17,9 +24,9 @@ export default function ContrastSection() {
         transition={{ duration: 1, ease: EASE }}
         viewport={{ once: true, margin: '-60px' }}
       >
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.4s] ease-out hover:scale-105"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1559825491-a529dd302927?auto=format&fit=crop&w=1080&q=80)' }}
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1559825491-a529dd302927?auto=format&fit=crop&w=1080&q=80)', y: leftBgY, scale: 1.15 }}
         />
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(to top, rgba(14,13,11,0.87) 0%, rgba(14,13,11,0) 60%)' }} />
@@ -33,9 +40,9 @@ export default function ContrastSection() {
             DIFFERENT THINKING
           </motion.span>
           <motion.p
-            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.15, ease: EASE }}
-            viewport={{ once: true, margin: '-20px' }}
+            initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }} whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1.1, delay: 0.2, ease: EASE }}
+            viewport={{ once: true, margin: '-40px' }}
             className="font-light"
             style={{ fontFamily: 'var(--font-serif)', fontSize: '60px', letterSpacing: '-0.033em', color: '#FFFFFF', lineHeight: 1.43 }}
           >
@@ -61,9 +68,9 @@ export default function ContrastSection() {
         transition={{ duration: 1, ease: EASE }}
         viewport={{ once: true, margin: '-60px' }}
       >
-        <div
-          className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.4s] ease-out hover:scale-105"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1688341750245-f16a2ce6e56d?auto=format&fit=crop&w=1080&q=80)' }}
+        <motion.div
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1688341750245-f16a2ce6e56d?auto=format&fit=crop&w=1080&q=80)', y: rightBgY, scale: 1.15 }}
         />
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(to top, rgba(14,13,11,0.87) 0%, rgba(14,13,11,0) 60%)' }} />
@@ -77,9 +84,9 @@ export default function ContrastSection() {
             RIGHT THINKING
           </motion.span>
           <motion.p
-            initial={{ opacity: 0, y: 12 }} whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.15, ease: EASE }}
-            viewport={{ once: true, margin: '-20px' }}
+            initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }} whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1.1, delay: 0.25, ease: EASE }}
+            viewport={{ once: true, margin: '-40px' }}
             className="font-light"
             style={{ fontFamily: 'var(--font-serif)', fontSize: '60px', letterSpacing: '-0.033em', color: '#FFFFFF', lineHeight: 1.43 }}
           >
