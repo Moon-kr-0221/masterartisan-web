@@ -1,9 +1,19 @@
+'use client';
+
+import { useState } from 'react';
 import { productsData } from '@/data/products';
 import SectionTitle from '@/components/ui/SectionTitle';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 import Link from 'next/link';
 
+const PAGE_SIZE = 4; // 2열 × 2행
+
 export default function ProductsPage() {
+  const [visible, setVisible] = useState(PAGE_SIZE);
+
+  const shown = productsData.slice(0, visible);
+  const hasMore = visible < productsData.length;
+
   return (
     <div style={{ backgroundColor: 'var(--color-bg-base)' }} className="pt-20">
       <section
@@ -24,7 +34,7 @@ export default function ProductsPage() {
       <section className="py-24 px-6 md:px-12">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-px" style={{ backgroundColor: 'var(--color-border)' }}>
-            {productsData.map((product, i) => (
+            {shown.map((product, i) => (
               <ScrollReveal key={product.id} delay={i * 0.1}>
                 <div
                   className="group flex flex-col"
@@ -35,13 +45,7 @@ export default function ProductsPage() {
                     className="aspect-video w-full flex items-center justify-center overflow-hidden"
                     style={{ backgroundColor: 'var(--color-bg-elevated)' }}
                   >
-                    <p
-                      style={{
-                        color: 'var(--color-text-muted)',
-                        fontFamily: 'var(--font-kr-serif)',
-                        fontSize: '1.5rem',
-                      }}
-                    >
+                    <p style={{ color: 'var(--color-text-muted)', fontFamily: 'var(--font-kr-serif)', fontSize: '1.5rem' }}>
                       {product.name}
                     </p>
                   </div>
@@ -70,10 +74,7 @@ export default function ProductsPage() {
                         <span
                           key={m}
                           className="px-3 py-1 text-xs"
-                          style={{
-                            border: '1px solid var(--color-border)',
-                            color: 'var(--color-text-muted)',
-                          }}
+                          style={{ border: '1px solid var(--color-border)', color: 'var(--color-text-muted)' }}
                         >
                           {m}
                         </span>
@@ -82,10 +83,7 @@ export default function ProductsPage() {
                     <Link
                       href="/contact"
                       className="mt-4 self-start text-xs tracking-[0.2em] pb-px transition-colors duration-300"
-                      style={{
-                        color: 'var(--color-accent)',
-                        borderBottom: '1px solid var(--color-timber-400)',
-                      }}
+                      style={{ color: 'var(--color-accent)', borderBottom: '1px solid var(--color-timber-400)' }}
                     >
                       문의하기 →
                     </Link>
@@ -93,6 +91,26 @@ export default function ProductsPage() {
                 </div>
               </ScrollReveal>
             ))}
+          </div>
+
+          {/* 더 보기 / 카운터 */}
+          <div className="flex flex-col items-center gap-6 mt-16">
+            <p className="text-xs tracking-widest" style={{ color: 'var(--color-text-muted)' }}>
+              {shown.length} / {productsData.length}
+            </p>
+            {hasMore && (
+              <button
+                onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                className="px-12 py-3 text-xs tracking-[0.3em] transition-all duration-300 hover:opacity-70"
+                style={{
+                  border: '1px solid var(--color-border)',
+                  color: 'var(--color-text-secondary)',
+                  backgroundColor: 'transparent',
+                }}
+              >
+                더 보기
+              </button>
+            )}
           </div>
         </div>
       </section>

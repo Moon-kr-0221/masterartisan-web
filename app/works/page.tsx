@@ -7,11 +7,22 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 
 const categories: WorkCategory[] = ['all', 'maintenance', 'repair', 'fabrication'];
 
+const PAGE_SIZE = 9;
+
 export default function WorksPage() {
   const [active, setActive] = useState<WorkCategory>('all');
+  const [visible, setVisible] = useState(PAGE_SIZE);
   const [lightbox, setLightbox] = useState<null | (typeof worksData)[0]>(null);
 
   const filtered = active === 'all' ? worksData : worksData.filter((w) => w.category === active);
+  const shown = filtered.slice(0, visible);
+  const hasMore = visible < filtered.length;
+
+  // 카테고리 바뀌면 visible 초기화
+  const handleCategory = (cat: WorkCategory) => {
+    setActive(cat);
+    setVisible(PAGE_SIZE);
+  };
 
   return (
     <div style={{ backgroundColor: 'var(--color-bg-base)' }} className="pt-20">
@@ -37,7 +48,7 @@ export default function WorksPage() {
             {categories.map((cat) => (
               <button
                 key={cat}
-                onClick={() => setActive(cat)}
+                onClick={() => handleCategory(cat)}
                 className="px-6 py-2 text-xs tracking-[0.2em] transition-all duration-300"
                 style={{
                   backgroundColor: active === cat ? 'var(--color-accent)' : 'transparent',
@@ -53,7 +64,7 @@ export default function WorksPage() {
 
           {/* 갤러리 그리드 */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px" style={{ backgroundColor: 'var(--color-border)' }}>
-            {filtered.map((work, i) => (
+            {shown.map((work, i) => (
               <ScrollReveal key={work.id} delay={i * 0.05}>
                 <div
                   className="group relative aspect-square cursor-pointer overflow-hidden"
@@ -88,6 +99,26 @@ export default function WorksPage() {
                 </div>
               </ScrollReveal>
             ))}
+          </div>
+
+          {/* 더 보기 / 카운터 */}
+          <div className="flex flex-col items-center gap-6 mt-16">
+            <p className="text-xs tracking-widest" style={{ color: 'var(--color-text-muted)' }}>
+              {shown.length} / {filtered.length}
+            </p>
+            {hasMore && (
+              <button
+                onClick={() => setVisible((v) => v + PAGE_SIZE)}
+                className="px-12 py-3 text-xs tracking-[0.3em] transition-all duration-300 hover:opacity-70"
+                style={{
+                  border: '1px solid var(--color-border)',
+                  color: 'var(--color-text-secondary)',
+                  backgroundColor: 'transparent',
+                }}
+              >
+                더 보기
+              </button>
+            )}
           </div>
         </div>
       </section>
