@@ -5,10 +5,12 @@ import HeritageStats   from '@/components/home/HeritageStats';
 import WorksGrid       from '@/components/home/WorksGrid';
 import ProcessSection  from '@/components/home/ProcessSection';
 import CtaSection      from '@/components/home/CtaSection';
+import PageIntro       from '@/components/home/PageIntro';
 
 export default function HomePage() {
   return (
     <>
+      <PageIntro />
       <HeroSection />
       <ContrastSection />
       <MarqueeBand />

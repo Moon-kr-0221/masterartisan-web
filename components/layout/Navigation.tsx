@@ -29,7 +29,7 @@ export default function Navigation() {
     ? 'rgba(250,250,248,0.97)'
     : scrolled || menuOpen ? 'rgba(10,9,8,0.92)' : 'transparent';
 
-  const border = !isHome ? '#E4E0D8' : scrolled || menuOpen ? 'rgba(255,255,255,0.08)' : 'transparent';
+  const border = !isHome ? '#E8E8E8' : scrolled || menuOpen ? 'rgba(255,255,255,0.08)' : 'transparent';
   const logoColor = !isHome ? '#1A1A1A' : '#FFFFFF';
   const linkColor = (active: boolean) =>
     !isHome ? (active ? '#1A1A1A' : '#888888') : (active ? '#FFFFFF' : 'rgba(255,255,255,0.55)');
@@ -39,22 +39,22 @@ export default function Navigation() {
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
       style={{ backgroundColor: bg, borderBottom: `1px solid ${border}`, backdropFilter: scrolled ? 'blur(12px)' : 'none' }}
     >
-      <div className="flex items-center justify-between h-[72px] px-12">
+      <div className="flex items-center justify-between h-[72px]" style={{ paddingLeft: '60px', paddingRight: '60px' }}>
         <Link
           href="/"
-          className="text-[14px] font-bold tracking-[0.2em] transition-colors duration-300"
-          style={{ fontFamily: 'var(--font-sans)', color: logoColor }}
+          className="font-bold transition-colors duration-300"
+          style={{ fontFamily: 'var(--font-sans)', fontSize: '16px', letterSpacing: '2px', color: logoColor }}
         >
           MASTERARTISAN
         </Link>
 
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex items-center gap-[44px]">
           {navLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
-              className="text-[10px] tracking-[0.18em] transition-opacity duration-300 hover:opacity-100"
-              style={{ fontFamily: 'var(--font-sans)', color: linkColor(pathname === link.href), opacity: pathname === link.href ? 1 : 0.7 }}
+              className="transition-colors duration-300 hover:opacity-70"
+              style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', letterSpacing: '1.5px', color: linkColor(pathname === link.href) }}
             >
               {link.label}
             </Link>
@@ -80,8 +80,8 @@ export default function Navigation() {
         <nav className="flex flex-col px-12 pb-8 gap-5" style={{ borderTop: `1px solid ${border}` }}>
           {navLinks.map(link => (
             <Link key={link.href} href={link.href}
-              className="text-[11px] tracking-[0.18em] py-1 transition-colors duration-300"
-              style={{ fontFamily: 'var(--font-sans)', color: linkColor(pathname === link.href) }}
+              className="py-1 transition-colors duration-300"
+              style={{ fontFamily: 'var(--font-sans)', fontSize: '11px', letterSpacing: '1.5px', color: linkColor(pathname === link.href) }}
             >
               {link.label}
             </Link>

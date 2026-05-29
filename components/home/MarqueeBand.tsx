@@ -3,7 +3,7 @@ export default function MarqueeBand() {
   const repeated = text.repeat(6);
 
   return (
-    <div className="overflow-hidden py-4" style={{ backgroundColor: '#1A1A1A' }}>
+    <div className="overflow-hidden h-16 flex items-center" style={{ backgroundColor: '#111111' }}>
       <div className="animate-marquee">
         <span
           className="whitespace-nowrap text-[12px] tracking-[0.25em] pr-4"

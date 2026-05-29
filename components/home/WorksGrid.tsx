@@ -13,28 +13,39 @@ const works = [
 
 export default function WorksGrid() {
   return (
-    <section style={{ backgroundColor: '#FAFAF8', padding: '0 48px 80px' }}>
+    <section style={{ backgroundColor: '#FAFAF8', padding: '0 52px 72px' }}>
       {/* 헤더 */}
       <motion.div
-        className="flex items-end justify-between py-16"
+        className="flex items-end justify-between"
+        style={{ paddingTop: '64px', paddingBottom: '40px' }}
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
         viewport={{ once: true, margin: '-60px' }}
       >
-        <div className="flex flex-col gap-2">
-          <span className="section-label">OUR WORKS</span>
+        <div className="flex flex-col gap-[6px]">
+          <span
+            className="section-label"
+            style={{ letterSpacing: '4px', lineHeight: 1.44 }}
+          >
+            OUR WORKS
+          </span>
           <h2
             className="font-light"
-            style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(32px, 4vw, 48px)', color: '#1A1A1A' }}
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(32px, 4vw, 48px)',
+              color: '#1A1A1A',
+              lineHeight: 1.44,
+            }}
           >
             작업 사례
           </h2>
         </div>
         <Link
           href="/works"
-          className="text-[12px] tracking-[0.1em] transition-opacity hover:opacity-50 mb-2"
-          style={{ fontFamily: 'var(--font-sans)', color: '#888888' }}
+          className="text-[12px] transition-opacity hover:opacity-50"
+          style={{ fontFamily: 'var(--font-sans)', color: '#999999', letterSpacing: '1px' }}
         >
           전체 보기 →
         </Link>
@@ -45,7 +56,7 @@ export default function WorksGrid() {
         {/* 왼쪽 큰 카드 */}
         <motion.div
           className="relative overflow-hidden"
-          style={{ width: '55%', height: '560px', backgroundColor: works[0].color, flexShrink: 0 }}
+          style={{ width: '58.5%', height: '540px', backgroundColor: works[0].color, flexShrink: 0 }}
           initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -58,11 +69,11 @@ export default function WorksGrid() {
           {/* 웜톤 컬러 그레이딩 — 채도 낮춤 + 세피아 */}
           <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(44,31,16,0) 0%, rgba(44,31,16,0.45) 100%)', mixBlendMode: 'multiply' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%)' }} />
-          <div className="absolute bottom-8 left-8">
-            <p className="section-label mb-2" style={{ color: 'rgba(255,255,255,0.5)' }}>
+          <div className="absolute left-[36px]" style={{ bottom: '39px' }}>
+            <p className="section-label mb-[6px]" style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '2px' }}>
               {works[0].cat} · {works[0].year}
             </p>
-            <p className="font-light text-[20px]" style={{ fontFamily: 'var(--font-serif)', color: '#FFFFFF' }}>
+            <p className="font-light text-[22px]" style={{ fontFamily: 'var(--font-serif)', color: '#FFFFFF' }}>
               {works[0].title}
             </p>
           </div>
@@ -74,7 +85,7 @@ export default function WorksGrid() {
             <motion.div
               key={w.title}
               className="relative overflow-hidden flex-1"
-              style={{ backgroundColor: w.color, minHeight: '278px' }}
+              style={{ backgroundColor: w.color, height: '268px' }}
               initial={{ opacity: 0, scale: 0.97 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.12 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -87,11 +98,11 @@ export default function WorksGrid() {
               {/* 웜톤 컬러 그레이딩 */}
               <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(44,31,16,0) 0%, rgba(44,31,16,0.4) 100%)', mixBlendMode: 'multiply' }} />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)' }} />
-              <div className="absolute bottom-6 left-6">
-                <p className="section-label mb-1" style={{ color: 'rgba(255,255,255,0.5)', fontSize: '8px' }}>
+              <div className="absolute left-[28px]" style={{ bottom: '18px' }}>
+                <p className="section-label mb-1" style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '2px' }}>
                   {w.cat} · {w.year}
                 </p>
-                <p className="font-light text-[15px]" style={{ fontFamily: 'var(--font-serif)', color: '#FFFFFF' }}>
+                <p className="font-light text-[18px]" style={{ fontFamily: 'var(--font-serif)', color: '#FFFFFF' }}>
                   {w.title}
                 </p>
               </div>
