@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MASTERARTISAN — 장인 이야기</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 완성된 /history ClockIntro와 동일 엔진: GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas:'#FAFAF8', surface:'#F0EDE6', surface2:'#ECEAE4', paper:'#F8F5F0',
+            ink:'#1A1A1A', ink2:'#1A1714', inksoft:'#3D3A36', body:'#555555',
+            muted:'#999999', mutedl:'#AAAAAA', sage:'#A09890',
+            hairline:'#E8E8E8', hairline2:'#E2DDD6', gold:'#C8963C', gold2:'#C4A882',
+            night:'#0D0C0A', coal:'#111111', forest:'#16261C',
+          },
+          fontFamily: { serif:['"Noto Serif KR"','serif'], sans:['"Noto Sans KR"','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    html { -webkit-tap-highlight-color: transparent; }
+    body { font-family: '"Noto Sans KR"', sans-serif; }
+    .scrollbar-hide { -ms-overflow-style:none; scrollbar-width:none; }
+    .scrollbar-hide::-webkit-scrollbar { display:none; }
+  </style>
+</head>
+
+<body class="bg-paper text-ink antialiased mx-auto max-w-[430px] overflow-x-hidden">
+
+  <!-- GNB -->
+  <header class="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-hairline2 bg-paper px-6">
+    <a href="home.html" class="font-sans text-[13px] font-bold tracking-[2px] text-ink">MASTERARTISAN</a>
+    <button id="menuOpen" aria-label="메뉴 열기" class="p-1 -mr-1">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Fullscreen menu -->
+  <nav id="menu" class="fixed inset-0 z-50 translate-y-full overflow-y-auto bg-night text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+    <div class="flex h-14 items-center justify-between border-b border-white/10 px-6">
+      <span class="font-sans text-[13px] font-bold tracking-[2px]">MASTERARTISAN</span>
+      <button id="menuClose" aria-label="메뉴 닫기" class="p-1 -mr-1">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round">
+          <line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/>
+        </svg>
+      </button>
+    </div>
+    <ul class="flex flex-col px-6 py-4">
+      <li><a href="home.html"          class="block border-b border-white/10 py-6 font-serif text-3xl font-light text-white/60">HOME <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">01</span></a></li>
+      <li><a href="masterartisan.html" class="block border-b border-white/10 py-6 font-serif text-3xl font-light text-white/60">MASTERARTISAN <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">02</span></a></li>
+      <li><a href="history.html"       class="block border-b border-white/10 py-6 font-serif text-3xl font-light">HISTORY <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">03</span></a></li>
+      <li><a href="works.html"         class="block border-b border-white/10 py-6 font-serif text-3xl font-light text-white/60">WORKS <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">04</span></a></li>
+      <li><a href="contact.html"       class="block py-6 font-serif text-3xl font-light text-white/60">CONTACT <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">05</span></a></li>
+    </ul>
+    <p class="px-6 pb-12 pt-4 font-sans text-[11px] leading-relaxed text-white/40">전통건축에 관한 문의나 방문을 환영합니다.<br/>경기무형문화재 제36호.</p>
+  </nav>
+
+  <!-- ════ ClockIntro — 3D 다이얼 (완성된 /history ClockIntro 1:1 포팅) ════ -->
+  <section id="clockSection" class="relative bg-forest">
+    <div id="clockPin" class="relative flex h-screen items-center justify-center overflow-hidden">
+
+      <!-- Phase 1: 위에서 중심으로 그려지는 세로선 -->
+      <div id="clockLine" class="pointer-events-none absolute left-1/2 top-0 z-[4] h-[50vh] w-px -ml-px bg-[rgba(245,240,232,0.7)]"></div>
+      <div id="clockDot" class="pointer-events-none absolute left-1/2 top-1/2 z-[6] -ml-[5px] -mt-[5px] h-[10px] w-[10px] rounded-full bg-[#F5F0E8]"></div>
+
+      <!-- 3D perspective stage -->
+      <div style="perspective:1600px; perspective-origin:50% 58%;">
+        <div id="clockDial" style="position:relative; width:min(900px,92vmin); height:min(900px,92vmin); will-change:transform;">
+          <svg id="dialSvg" viewBox="0 0 1000 1000" width="100%" height="100%" style="overflow:visible; display:block;">
+            <g id="ring">
+              <circle cx="500" cy="500" r="340" fill="none" stroke="rgba(245,240,232,0.34)" stroke-width="1.2"/>
+              <circle cx="500" cy="500" r="265" fill="none" stroke="rgba(245,240,232,0.16)" stroke-width="0.9"/>
+            </g>
+            <g id="minor"></g>
+            <g id="orbit"></g>
+            <g id="hand"><line x1="500" y1="500" x2="500" y2="-450" stroke="#C4A882" stroke-width="1.8"/></g>
+            <circle id="pivot" cx="500" cy="500" r="6" fill="#C4A882"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Centre copy -->
+      <div id="clockCopy" class="pointer-events-none absolute left-1/2 top-1/2 z-[5] flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-3.5 text-center">
+        <span class="font-sans text-[10px] tracking-[0.32em] text-[rgba(245,240,232,0.5)]">SINCE 1936</span>
+        <span class="font-serif text-[27px] font-light leading-[1.45] text-[#F5F0E8]">70여 년,<br/>전통의 토대를 쌓다</span>
+      </div>
+
+      <!-- Scroll hint -->
+      <div id="clockHint" class="pointer-events-none absolute bottom-10 left-1/2 z-[5] flex -translate-x-1/2 flex-col items-center gap-2.5">
+        <span class="font-sans text-[8px] uppercase tracking-[0.35em] text-[rgba(245,240,232,0.4)]">SCROLL</span>
+        <div class="h-9 w-px bg-[rgba(196,168,130,0.4)]"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Story header + stats ── -->
+  <section class="border-b border-hairline2 bg-paper px-6 py-16">
+    <p class="reveal-up font-sans text-[10px] tracking-[3.8px] text-gold2">HISTORY · 장인 이야기</p>
+    <h1 class="reveal-up mt-6 font-serif text-[34px] font-light leading-[1.15] tracking-[-1px] text-ink2">천년의 기술,<br/>삼대로 이어온<br/>90년의 여정</h1>
+    <p class="reveal-up mt-6 font-sans text-sm leading-[1.8] text-sage">1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.</p>
+    <div class="mt-8 flex gap-6">
+      <div class="reveal-up"><p class="font-serif text-[32px] font-light leading-none tracking-[-1px] text-ink2">70+</p><p class="mt-1.5 font-sans text-[9px] tracking-wide text-sage">년간 활동</p></div>
+      <div class="reveal-up"><p class="font-serif text-[32px] font-light leading-none tracking-[-1px] text-ink2">90+</p><p class="mt-1.5 font-sans text-[9px] tracking-wide text-sage">완공 프로젝트</p></div>
+      <div class="reveal-up"><p class="font-serif text-[32px] font-light leading-none tracking-[-1px] text-ink2">3</p><p class="mt-1.5 font-sans text-[9px] tracking-wide text-sage">대를 이은 기술</p></div>
+    </div>
+  </section>
+
+  <!-- ── Era tabs (sticky 가로 스와이프 · 스크롤 스파이) ── -->
+  <div class="scrollbar-hide sticky top-14 z-30 flex overflow-x-auto border-b border-hairline2 bg-paper">
+    <button data-era="ALL"       class="era-tab shrink-0 border-b-2 border-ink2 px-4 py-3.5 font-sans text-[10px] font-semibold tracking-[1.4px] text-ink2">ALL</button>
+    <button data-era="1960~1951" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1960~1951</button>
+    <button data-era="1970~1961" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1970~1961</button>
+    <button data-era="1980~1971" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1980~1971</button>
+    <button data-era="1990~1981" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1990~1981</button>
+    <button data-era="2000~1991" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">2000~1991</button>
+    <button data-era="2010~2001" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">2010~2001</button>
+    <button data-era="~2011"     class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">~2011</button>
+  </div>
+
+  <!-- ── Era 1960~1951 ── -->
+  <section data-era-section="1960~1951" class="border-b border-hairline2 bg-paper px-6 py-14">
+    <div class="reveal-up flex items-center gap-3 pb-3">
+      <span class="h-px w-5 bg-gold2"></span><span class="font-sans text-[9px] tracking-[4px] text-gold2">01 / 07</span>
+    </div>
+    <h2 class="reveal-up font-serif text-[44px] font-light leading-none tracking-[-2px] text-ink2">1960~1951</h2>
+    <div class="mt-8">
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-3.5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1936</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up border-b border-hairline2 py-2.5"><p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">수덕사 대웅전 보수 工事</p></div>
+
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1958</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up border-b border-hairline2 py-2.5"><p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">인천 수봉산 부용암 법당신축 工事</p></div>
+      <div class="reveal-up border-b border-hairline2 py-2.5"><p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">양양 낙산사 일주문 신축 工事</p></div>
+
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1960</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">무량사 봉향각 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Era 1970~1961 ── -->
+  <section data-era-section="1970~1961" class="border-b border-hairline2 bg-paper px-6 py-14">
+    <div class="reveal-up flex items-center gap-3 pb-3">
+      <span class="h-px w-5 bg-gold2"></span><span class="font-sans text-[9px] tracking-[4px] text-gold2">02 / 07</span>
+    </div>
+    <h2 class="reveal-up font-serif text-[44px] font-light leading-none tracking-[-2px] text-ink2">1970~1961</h2>
+    <div class="mt-8">
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-3.5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1963</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">낙산사 누각 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">낙산사 홍련암 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1968</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">진관사 명부전 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1970</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">안양 망혜암 종각 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="flex flex-col items-center gap-2 bg-ink px-6 py-10">
+    <span class="font-sans text-[13px] font-bold tracking-[2px] text-white">MASTERARTISAN</span>
+    <span class="font-sans text-[10px] text-[#555]">© 2024 MasterArtisan. All rights reserved.</span>
+  </footer>
+
+  <script>
+    // ── Fullscreen menu ──
+    const menu = document.getElementById('menu');
+    const openMenu  = () => { menu.classList.remove('translate-y-full'); document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { menu.classList.add('translate-y-full');    document.body.style.overflow = ''; };
+    document.getElementById('menuOpen').addEventListener('click', openMenu);
+    document.getElementById('menuClose').addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ═══════════ ClockIntro 다이얼 — 완성본 1:1 포팅 ═══════════ */
+    const BOX=1000, CX=500, CY=500;
+    const R_RING=340, R_LBL=388, R_TICK=372, MINOR=60, N=8;
+    const YEARS=[1936,1958,1972,1984,1995,2005,2011,2016];
+    const NS='http://www.w3.org/2000/svg';
+    const polar=(deg,r)=>({x:CX+r*Math.cos(deg*Math.PI/180), y:CY+r*Math.sin(deg*Math.PI/180)});
+    const yearDeg=i=>(i/N)*360-90;
+    const el=(t,a)=>{const e=document.createElementNS(NS,t); for(const k in a) e.setAttribute(k,a[k]); return e;};
+
+    // minute ticks
+    const minor=document.getElementById('minor');
+    for(let i=0;i<MINOR;i++){
+      const deg=(i/MINOR)*360-90, major=i%5===0;
+      const p0=polar(deg, R_RING-(major?15:8)), p1=polar(deg, R_RING);
+      minor.appendChild(el('line',{x1:p0.x,y1:p0.y,x2:p1.x,y2:p1.y,
+        stroke:major?'rgba(245,240,232,0.62)':'rgba(245,240,232,0.32)', 'stroke-width':major?1.1:0.7}));
+    }
+    // year markers (ticks + radial labels)
+    const orbit=document.getElementById('orbit');
+    const labels=[];
+    YEARS.forEach((year,i)=>{
+      const deg=yearDeg(i);
+      const t0=polar(deg, R_RING-8), t1=polar(deg, R_TICK), lp=polar(deg, R_LBL);
+      const labelRot=(i/N)*360;
+      orbit.appendChild(el('line',{x1:t0.x,y1:t0.y,x2:t1.x,y2:t1.y,stroke:'rgba(245,240,232,0.7)','stroke-width':2}));
+      const tx=el('text',{x:lp.x,y:lp.y,'text-anchor':'middle','dominant-baseline':'middle',
+        'font-size':19,'font-family':"'Noto Serif KR', serif",'font-weight':400,fill:'#F5F0E8'});
+      tx.setAttribute('class','ylabel');
+      tx.style.transformBox='fill-box'; tx.style.transformOrigin='center'; tx.style.transform=`rotate(${labelRot}deg)`;
+      tx.textContent=year;
+      orbit.appendChild(tx); labels.push(tx);
+    });
+
+    const TILT=72;
+    const line=document.getElementById('clockLine'), dot=document.getElementById('clockDot');
+    const dial=document.getElementById('clockDial'), ring=document.getElementById('ring');
+    const hand=document.getElementById('hand'), pivot=document.getElementById('pivot');
+    const copy=document.getElementById('clockCopy'), hint=document.getElementById('clockHint');
+
+    // initial states (ClockIntro와 동일)
+    gsap.set(line,  { scaleY:0, transformOrigin:'top center' });
+    gsap.set(dot,   { opacity:0, scale:0 });
+    gsap.set(dial,  { opacity:0, rotationX:TILT });          // 72° 바닥에 누운 상태
+    gsap.set(ring,  { opacity:0 });
+    gsap.set(minor, { opacity:0 });
+    gsap.set(pivot, { opacity:0 });
+    gsap.set(hand,  { opacity:0, rotation:0, svgOrigin:`${CX} ${CY}` });
+    gsap.set(copy,  { opacity:0, y:16 });
+    gsap.set(orbit, { opacity:0, scale:0.07, rotation:-420, svgOrigin:`${CX} ${CY}` }); // 중심에서 한 바퀴 돌며 펼쳐짐
+    gsap.set(labels,{ opacity:0 });
+
+    const tl = gsap.timeline({
+      scrollTrigger: { trigger:'#clockSection', start:'top top', end:'+=4200', scrub:1.6, pin:'#clockPin', anticipatePin:1 }
+    });
+
+    // Phase 1: 세로선이 위→중심으로 그려짐
+    tl.to(line, { scaleY:1, ease:'none', duration:1.5 }, 0)
+      .to(dot,  { opacity:1, scale:1, ease:'back.out(2.5)', duration:0.5 }, 1.1)
+      .to(hint, { opacity:0, ease:'none', duration:0.7 }, 0.3);
+
+    // Phase 2: 선 사라지고, 72° 기울어진 다이얼+링 등장 (바닥에 누운 채)
+    tl.to(line, { opacity:0, ease:'none', duration:0.6 }, 1.3)
+      .to(dot,  { opacity:0, ease:'none', duration:0.4 }, 1.5)
+      .to(dial, { opacity:1, ease:'none', duration:0.9 }, 1.5)
+      .to(ring, { opacity:1, ease:'none', duration:1.0 }, 1.9);
+
+    // Phase 3: 바닥에서 — 마커가 중심에서 회전하며 펼쳐져 시계 모양 완성 (강약 이징)
+    tl.to(orbit, { opacity:1, ease:'power1.in',     duration:0.4 }, 2.6)
+      .to(orbit, { rotation:0, ease:'expo.out',     duration:1.9 }, 2.6)
+      .to(orbit, { scale:1,    ease:'back.out(1.2)', duration:2.3 }, 2.7);
+    labels.forEach((l,i)=> tl.to(l, { opacity:0.72, ease:'none', duration:0.6 }, 4.0 + i*0.1));
+    tl.to(pivot, { opacity:1, ease:'none', duration:0.5 }, 5.2)
+      .to(minor, { opacity:1, ease:'power1.inOut', duration:1.0 }, 5.4);
+
+    // Phase 4: 완성된 다이얼이 일어섬 — rotateX 72° → 0° (3D → 2D), 1936이 12시로
+    tl.to(dial, { rotationX:0, ease:'power2.inOut', duration:3.4 }, 6.4);
+
+    // Phase 5: 금색 바늘이 12시에서 시계방향으로 360° 한 바퀴 → 사라짐
+    tl.to(hand,  { opacity:1, ease:'none', duration:0.4 }, 10.0)
+      .to(hand,  { rotation:360, svgOrigin:`${CX} ${CY}`, ease:'power1.inOut', duration:3.4 }, 10.4)
+      .to(hand,  { opacity:0, ease:'none', duration:0.6 }, 13.8)
+      .to(pivot, { opacity:0, ease:'none', duration:0.6 }, 13.8);
+
+    // Phase 6: 바늘이 사라진 뒤 중심 카피 등장
+    tl.to(copy, { opacity:1, y:0, ease:'power2.out', duration:1.5 }, 14.4);
+
+    /* ════ 연혁 마일스톤 — Fade-in & Slide-up (순차 리빌) ════ */
+    gsap.utils.toArray('.reveal-up').forEach((node) => {
+      gsap.from(node, { opacity:0, y:32, duration:0.8, ease:'power3.out',
+        scrollTrigger:{ trigger:node, start:'top 90%', toggleActions:'play none none none' } });
+    });
+
+    /* ════ Era 탭 스크롤 스파이 ════ */
+    const tabs = Array.from(document.querySelectorAll('.era-tab'));
+    const tabBar = tabs[0].parentElement;
+    function setActive(label) {
+      tabs.forEach((t) => {
+        const on = t.dataset.era === label;
+        t.classList.toggle('border-ink2', on);
+        t.classList.toggle('border-transparent', !on);
+        t.classList.toggle('font-semibold', on);
+        t.classList.toggle('text-ink2', on);
+        t.classList.toggle('font-light', !on);
+        t.classList.toggle('text-sage', !on);
+        if (on) { const left = t.offsetLeft - (tabBar.clientWidth - t.clientWidth)/2; tabBar.scrollTo({ left: Math.max(0,left), behavior:'smooth' }); }
+      });
+    }
+    document.querySelectorAll('[data-era-section]').forEach((sec) => {
+      ScrollTrigger.create({ trigger: sec, start:'top 45%', end:'bottom 45%',
+        onToggle: (self) => { if (self.isActive) setActive(sec.dataset.eraSection); } });
+    });
+    ScrollTrigger.create({ trigger:'#clockSection', start:'top top', end:'bottom 45%',
+      onToggle: (self) => { if (self.isActive) setActive('ALL'); } });
+</script>
+</body>
+</html>

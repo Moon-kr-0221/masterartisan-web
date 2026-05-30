@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MASTERARTISAN — 작업 사례</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas:'#FAFAF8', surface:'#F0EDE6', surface2:'#ECEAE4',
+            ink:'#1A1A1A', ink2:'#1A1714', inksoft:'#3D3A36', body:'#555555',
+            muted:'#999999', mutedl:'#AAAAAA', sage:'#A09890',
+            hairline:'#E8E8E8', hairline2:'#E2DDD6', gold:'#C8963C', gold2:'#C4A882',
+            night:'#0D0C0A', coal:'#111111', forest:'#16261C',
+          },
+          fontFamily: { serif:['"Noto Serif KR"','serif'], sans:['"Noto Sans KR"','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    html { -webkit-tap-highlight-color: transparent; }
+    body { font-family: '"Noto Sans KR"', sans-serif; }
+    .scrollbar-hide { -ms-overflow-style:none; scrollbar-width:none; }
+    .scrollbar-hide::-webkit-scrollbar { display:none; }
+  </style>
+</head>
+
+<body class="bg-white text-ink antialiased mx-auto max-w-[430px] overflow-x-hidden">
+
+  <!-- GNB -->
+  <header class="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-hairline bg-white px-6">
+    <a href="home.html" class="font-sans text-[13px] font-bold tracking-[2px] text-ink">MASTERARTISAN</a>
+    <button id="menuOpen" aria-label="메뉴 열기" class="p-1 -mr-1">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Fullscreen menu -->
+  <nav id="menu" class="fixed inset-0 z-50 translate-y-full overflow-y-auto bg-night text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+    <div class="flex h-14 items-center justify-between border-b border-white/10 px-6">
+      <span class="font-sans text-[13px] font-bold tracking-[2px]">MASTERARTISAN</span>
+      <button id="menuClose" aria-label="메뉴 닫기" class="p-1 -mr-1">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round">
+          <line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/>
+        </svg>
+      </button>
+    </div>
+    <ul class="flex flex-col px-6 py-4">
+      <li><a href="home.html"          class="block border-b border-white/10 py-6 font-serif text-3xl font-light text-white/60">HOME <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">01</span></a></li>
+      <li><a href="masterartisan.html" class="block border-b border-white/10 py-6 font-serif text-3xl font-light text-white/60">MASTERARTISAN <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">02</span></a></li>
+      <li><a href="history.html"       class="block border-b border-white/10 py-6 font-serif text-3xl font-light text-white/60">HISTORY <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">03</span></a></li>
+      <li><a href="works.html"         class="block border-b border-white/10 py-6 font-serif text-3xl font-light">WORKS <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">04</span></a></li>
+      <li><a href="contact.html"       class="block py-6 font-serif text-3xl font-light text-white/60">CONTACT <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">05</span></a></li>
+    </ul>
+    <p class="px-6 pb-12 pt-4 font-sans text-[11px] leading-relaxed text-white/40">전통건축에 관한 문의나 방문을 환영합니다.<br/>경기무형문화재 제36호.</p>
+  </nav>
+
+  <!-- Page hero -->
+  <section class="relative h-[300px] overflow-hidden bg-night">
+    <img src="https://images.unsplash.com/photo-1761452776106-78710d4fada9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="absolute inset-0 h-full w-full object-cover" />
+    <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.65) 100%)"></div>
+    <div data-reveal class="absolute bottom-8 left-6 right-6 translate-y-10 opacity-0 transition-all duration-700 ease-out">
+      <p class="font-sans text-[11px] tracking-[4px] text-white/60">OUR WORKS</p>
+      <h1 class="mt-2.5 font-serif text-4xl font-light text-white">작업 사례</h1>
+      <p class="mt-2.5 font-sans text-[13px] leading-[1.7] text-white/65">전통건축 유지보수·수리·제작에 걸친 대표 작업물을 소개합니다.</p>
+    </div>
+  </section>
+
+  <!-- Filter row (가로 스크롤) -->
+  <div class="scrollbar-hide sticky top-14 z-30 flex gap-2 overflow-x-auto border-b border-hairline bg-white px-6 py-4">
+    <button class="filter-tab shrink-0 bg-ink px-[18px] py-2 font-sans text-[11px] tracking-wide text-white">전체</button>
+    <button class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">유지보수</button>
+    <button class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">수리</button>
+    <button class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">제작</button>
+  </div>
+
+  <!-- Works grid (세로 1단) -->
+  <section class="bg-white px-6 pb-16 pt-12">
+    <div class="flex flex-col gap-10">
+      <article data-reveal class="translate-y-10 opacity-0 transition-all duration-700 ease-out">
+        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1759662802641-1748a95ade41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="h-60 w-full object-cover" /></div>
+        <p class="mt-5 font-sans text-[10px] tracking-wide text-mutedl">유지보수 · 2022</p>
+        <h2 class="mt-1.5 font-serif text-lg font-light text-ink">수원 사찰 대웅전 보수</h2>
+      </article>
+      <article data-reveal class="translate-y-10 opacity-0 transition-all duration-700 ease-out" style="transition-delay:80ms">
+        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1512059555341-6a121e7d4d86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="h-60 w-full object-cover" /></div>
+        <p class="mt-5 font-sans text-[10px] tracking-wide text-mutedl">수리 · 2021</p>
+        <h2 class="mt-1.5 font-serif text-lg font-light text-ink">용인 전통 가옥 수리</h2>
+      </article>
+      <article data-reveal class="translate-y-10 opacity-0 transition-all duration-700 ease-out" style="transition-delay:160ms">
+        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1542722578-f2971981d74f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="h-60 w-full object-cover" /></div>
+        <p class="mt-5 font-sans text-[10px] tracking-wide text-mutedl">제작 · 2023</p>
+        <h2 class="mt-1.5 font-serif text-lg font-light text-ink">전통 문짝 제작</h2>
+      </article>
+    </div>
+
+    <button class="mt-10 flex h-12 w-full items-center justify-center border border-ink/35 font-sans text-xs tracking-[2px] text-ink active:bg-ink active:text-white transition-colors">작업 더 보기</button>
+  </section>
+
+  <!-- Footer -->
+  <footer class="flex flex-col items-center gap-2 bg-ink px-6 py-10">
+    <span class="font-sans text-[13px] font-bold tracking-[2px] text-white">MASTERARTISAN</span>
+    <span class="font-sans text-[10px] text-[#555]">© 2024 MasterArtisan. All rights reserved.</span>
+  </footer>
+
+  <script>
+    const menu = document.getElementById('menu');
+    const openMenu  = () => { menu.classList.remove('translate-y-full'); document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { menu.classList.add('translate-y-full');    document.body.style.overflow = ''; };
+    document.getElementById('menuOpen').addEventListener('click', openMenu);
+    document.getElementById('menuClose').addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    // Filter tab active state
+    const tabs = document.querySelectorAll('.filter-tab');
+    tabs.forEach((t) => t.addEventListener('click', () => {
+      tabs.forEach((x) => {
+        x.classList.remove('bg-ink', 'text-white');
+        x.classList.add('border', 'border-[#D8D5CF]', 'text-muted');
+      });
+      t.classList.remove('border', 'border-[#D8D5CF]', 'text-muted');
+      t.classList.add('bg-ink', 'text-white');
+    }));
+
+    // Scroll reveal
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          e.target.classList.remove('opacity-0', 'translate-y-10');
+          e.target.classList.add('opacity-100', 'translate-y-0');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
+    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+  </script>
+</body>
+</html>
