@@ -9,7 +9,7 @@ export default function PhilosophyBand() {
   const bgX = useTransform(scrollYProgress, [0, 1], ['-3%', '3%']);
 
   return (
-    <section ref={ref} className="relative overflow-hidden py-20" style={{ backgroundColor: '#FFFFFF' }}>
+    <section ref={ref} className="relative overflow-hidden flex items-center" style={{ backgroundColor: '#FFFFFF', height: '360px' }}>
       {/* 배경 초대형 텍스트 — 패럴랙스 */}
       <motion.p
         className="absolute top-1/2 -translate-y-1/2 whitespace-nowrap font-light select-none pointer-events-none"
@@ -32,22 +32,32 @@ export default function PhilosophyBand() {
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
         viewport={{ once: true, margin: '-80px' }}
-        className="relative z-10 flex flex-col md:flex-row items-center gap-10 px-12 py-8"
+        className="relative z-10 w-full flex flex-col md:flex-row md:items-center md:justify-between gap-10"
+        style={{ paddingLeft: '52px', paddingRight: '52px' }}
       >
-        <span className="section-label shrink-0">BRAND PHILOSOPHY</span>
-        <div className="w-px h-8 bg-[#DDDDDD] hidden md:block shrink-0" />
-        <p
-          className="font-light text-[18px] leading-[1.75] max-w-2xl"
-          style={{ fontFamily: 'var(--font-serif)', color: '#1A1A1A' }}
-        >
-          나무의 결을 읽고, 세월의 흔적을 존중하며, 전통의 기술로 미래를 짓습니다.
-        </p>
+        <div className="flex flex-col md:flex-row items-center gap-10">
+          <span className="section-label shrink-0">BRAND PHILOSOPHY</span>
+          <div className="w-px h-8 bg-[#DDDDDD] hidden md:block shrink-0" />
+          <p
+            className="font-light text-[18px] leading-[1.75] max-w-2xl"
+            style={{ fontFamily: 'var(--font-serif)', color: '#1A1A1A' }}
+          >
+            나무의 결을 읽고, 세월의 흔적을 존중하며, 전통의 기술로 미래를 짓습니다.
+          </p>
+        </div>
         <a
           href="/masterartisan"
-          className="shrink-0 text-[12px] tracking-[0.12em] transition-opacity hover:opacity-50"
-          style={{ fontFamily: 'var(--font-sans)', color: '#1A1A1A' }}
+          className="shrink-0 inline-block transition-opacity duration-300 hover:opacity-60"
+          style={{
+            padding: '18px 44px',
+            border: '1px solid rgba(26,26,26,0.35)',
+            fontFamily: 'var(--font-sans)',
+            fontSize: '12px',
+            color: '#1A1A1A',
+            letterSpacing: '3px',
+          }}
         >
-          장인 소개 →
+          장인 소개
         </a>
       </motion.div>
     </section>

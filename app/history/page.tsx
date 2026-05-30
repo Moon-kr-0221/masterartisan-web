@@ -396,9 +396,12 @@ export default function HistoryPage() {
       {/* ══ CLOCK INTRO ANIMATION ════════════════════════════════════════════ */}
       <ClockIntro />
 
-      {/* ══ STICKY TAB BAR ══════════════════════════════════════════════════ */}
+      {/* ══ STICKY TAB BAR — 고정 네비(pE4bF) 바로 아래에 붙어 함께 이동 ════════ */}
       <div style={{
-        position: 'sticky', top: 0, zIndex: 50,
+        position: 'sticky',
+        top: 'var(--nav-h, 72px)',
+        zIndex: 40,
+        transition: 'top 0.3s ease',
         backgroundColor: `${C.bg}F2`,
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
@@ -492,8 +495,9 @@ export default function HistoryPage() {
         <div style={{
           width: '42%',
           position: 'sticky',
-          top: '49px',
-          height: 'calc(100vh - 49px)',
+          top: 'calc(var(--nav-h, 72px) + 49px)',
+          height: 'calc(100vh - var(--nav-h, 72px) - 49px)',
+          transition: 'top 0.3s ease, height 0.3s ease',
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',

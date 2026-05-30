@@ -113,11 +113,14 @@ export default function WorksPage() {
           </p>
         )}
 
+        {/* vpVEG LoadMoreSection: padding-top 40, gap 16, alignItems center */}
         {hasMore && (
-          <div className="flex justify-center" style={{ paddingTop: 40 }}>
+          <div style={{ paddingTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+            {/* m8OBJ LoadMoreBtn: fill_container, padding [12,48], border #E8E8E8 */}
             <button
               onClick={() => setVisible((v) => v + PAGE_SIZE)}
               style={{
+                width: '100%',
                 fontFamily: SANS,
                 fontSize: 11,
                 letterSpacing: '0.3em',

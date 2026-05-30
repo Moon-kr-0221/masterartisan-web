@@ -3,14 +3,12 @@ import ScrollReveal from '@/components/ui/ScrollReveal';
 const SERIF = 'var(--font-serif)';
 const SANS = 'var(--font-sans)';
 
-// Banner mirrors the Pencil CONTACT PageHero (height 360 + image + light scrim)
 const BANNER_IMG = 'https://images.unsplash.com/photo-1772331274809-4a6ad75c9947?auto=format&fit=crop&w=1600&q=80';
 const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
 
 const LEFT_ITEMS = [
   { label: '전화', value: '031-000-0000', href: 'tel:031-000-0000' },
   { label: '이메일', value: 'info@masterartisan.co.kr', href: 'mailto:info@masterartisan.co.kr' },
-  { label: '주소', value: '경기도 ○○시 ○○구 ○○로 000', href: null },
 ];
 
 const LOCATIONS = [
@@ -18,9 +16,29 @@ const LOCATIONS = [
   { type: '공장', typeEn: 'Workshop', address: '경기도 ○○시 ○○구 ○○로 000', detail: '전통건축 목공장' },
 ];
 
-function InfoRow({ label, value, href }: { label: string; value: string; href: string | null }) {
+function InfoRow({
+  label, value, href,
+  paddingBottom = 24,
+  height,
+  flex,
+}: {
+  label: string;
+  value: string;
+  href: string | null;
+  paddingBottom?: number;
+  height?: number;
+  flex?: number;
+}) {
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 22, borderBottom: '1px solid #EAE7E1' }}>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 8,
+      paddingBottom,
+      borderBottom: '1px solid #F0EEEA',
+      ...(height !== undefined ? { height } : {}),
+      ...(flex !== undefined ? { flex } : {}),
+    }}>
       <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: '#AAAAAA' }}>{label}</span>
       {href ? (
         <a href={href} className="transition-opacity hover:opacity-70"
@@ -39,7 +57,7 @@ function InfoRow({ label, value, href }: { label: string; value: string; href: s
 export default function ContactPage() {
   return (
     <div style={{ backgroundColor: '#FFFFFF', paddingTop: 72 }}>
-      {/* ── Page Hero (generous padding under the nav) ── */}
+      {/* ── Page Hero ── */}
       <section style={{ position: 'relative', height: 360, overflow: 'hidden', borderBottom: '1px solid #E8E8E8' }}>
         <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
@@ -52,39 +70,50 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── CONTACT INFORMATION — centred 50:50 two-column ── */}
+      {/* ── CONTACT INFORMATION ── */}
+      {/* V58cDN ContactLeft: padding 80, gap 36 */}
       <section style={{ padding: '80px' }}>
         <div style={{ maxWidth: 1120, margin: '0 auto' }}>
           <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: '#AAAAAA' }}>
             CONTACT INFORMATION
           </span>
 
+          {/* oLN86 InfoColumns: gap 64, height 254 */}
           <div
             className="grid grid-cols-1 md:grid-cols-2 items-stretch"
-            style={{ gap: 64, marginTop: 36 }}
+            style={{ gap: 64, marginTop: 36, height: 254 }}
           >
-            {/* Left: 전화 / 이메일 / 주소 */}
+            {/* UkqIZ LeftCol: gap 22, fill_container → flex col */}
             <ScrollReveal direction="left" className="flex flex-col" style={{ gap: 22 }}>
+              {/* YTEyD, z8ZjmC: fill_container → flex:1 each */}
               {LEFT_ITEMS.map((it) => (
-                <InfoRow key={it.label} {...it} />
+                <InfoRow key={it.label} {...it} flex={1} />
               ))}
             </ScrollReveal>
 
-            {/* Right: 운영시간 + cert box */}
-            <ScrollReveal direction="right" className="flex flex-col" style={{ gap: 22 }}>
-              <InfoRow label="운영시간" value={'평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)'} href={null} />
+            {/* E73V4e RightCol: gap 12, fill_container → flex col */}
+            <ScrollReveal direction="right" className="flex flex-col" style={{ gap: 12 }}>
+              {/* fbHeD 운영시간_row: height 116, paddingBottom 12 */}
+              <InfoRow
+                label="운영시간"
+                value={'평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)'}
+                href={null}
+                paddingBottom={12}
+                height={116}
+              />
+              {/* oa84Y CertBox: fill_container → flex:1, padding 24, gap 10, fill #F7F6F3 */}
               <div
                 style={{
                   flex: 1,
-                  backgroundColor: '#F4EFE7',
-                  padding: 28,
+                  backgroundColor: '#F7F6F3',
+                  padding: 24,
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
-                  gap: 12,
+                  gap: 10,
                 }}
               >
-                <span style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, color: '#1A1A1A' }}>
+                <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: '#1A1A1A' }}>
                   경기무형문화재 제36호
                 </span>
                 <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.8, color: '#666666', whiteSpace: 'pre-line' }}>
@@ -96,7 +125,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── LOCATIONS — 50:50 cards, wide 2:1 map areas ── */}
+      {/* ── LOCATIONS ── */}
       <section style={{ padding: '0 80px 88px' }}>
         <div style={{ maxWidth: 1120, margin: '0 auto' }}>
           <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: '#8C6D3F' }}>LOCATIONS</span>
@@ -112,8 +141,6 @@ export default function ContactPage() {
                   <span style={{ fontFamily: SANS, fontSize: 12, color: '#555555' }}>{loc.address}</span>
                   <span style={{ fontFamily: SANS, fontSize: 10, color: '#AAAAAA' }}>{loc.detail}</span>
                 </div>
-
-                {/* Map placeholder — wide 2:1 rectangle, centred pin + text */}
                 <div
                   style={{
                     aspectRatio: '2 / 1',

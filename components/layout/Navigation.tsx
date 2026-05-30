@@ -11,32 +11,45 @@ const navLinks = [
   { href: '/contact',      label: 'CONTACT' },
 ];
 
+// 네비 표시를 유지하는 상단 감지 영역.
+// 네비(72px) + 히스토리 TabBar(약 48px)를 포함해야 연도 탭을 클릭할 수 있다.
+const REVEAL_ZONE = 124;
+
 export default function Navigation() {
   const pathname = usePathname();
   const isHome = pathname === '/';
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [visible, setVisible] = useState(true);
-  const lastScrollY = useRef(0);
   const mouseNearTop = useRef(false);
 
   useEffect(() => {
     const onScroll = () => {
       const current = window.scrollY;
-      const goingDown = current > lastScrollY.current;
       setScrolled(current > 80);
-      if (!mouseNearTop.current) {
-        setVisible(!goingDown || current <= 80);
+
+      // 페이지 바닥(또는 근처)에 도달하면 더 내려갈 곳이 없으므로 네비를 항상 표시
+      const atBottom =
+        current + window.innerHeight >= document.documentElement.scrollHeight - 8;
+
+      // 네비는 최상단 / 마우스 상단 / 페이지 바닥에서만 표시.
+      // 스크롤만으로는 자동으로 다시 내려오지 않는다 (마우스를 상단으로 올려야 함).
+      if (current <= 80 || mouseNearTop.current || atBottom) {
+        setVisible(true);
+      } else {
+        setVisible(false);
       }
-      lastScrollY.current = current;
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      if (e.clientY < 72) {
+      // 감지 영역(네비 + TabBar) 안에 있으면 네비·TabBar를 함께 표시 유지 → 연도 탭 클릭 가능
+      if (e.clientY < REVEAL_ZONE) {
         mouseNearTop.current = true;
         setVisible(true);
       } else {
         mouseNearTop.current = false;
+        // 감지 영역을 벗어났고 이미 스크롤된 상태면 다시 숨긴다
+        if (window.scrollY > 80) setVisible(false);
       }
     };
 
@@ -49,6 +62,12 @@ export default function Navigation() {
   }, []);
 
   useEffect(() => { setMenuOpen(false); }, [pathname]);
+
+  // 네비의 표시 높이를 CSS 변수로 노출 → 히스토리 TabBar가 네비와 묶여 함께 이동
+  useEffect(() => {
+    const shown = visible || menuOpen;
+    document.documentElement.style.setProperty('--nav-h', shown ? '72px' : '0px');
+  }, [visible, menuOpen]);
 
   const bg = !isHome
     ? 'rgba(250,250,248,0.97)'

@@ -52,6 +52,30 @@ export const worksData = [
     description: '전통 한지와 목재를 사용한 격자창호 주문 제작.',
     image: U('photo-1621083377566-7ba9edc11ae6'),
   },
+  {
+    id: 7,
+    title: '남한산성 문루 보수',
+    category: 'maintenance' as WorkCategory,
+    year: '2021',
+    description: '남한산성 내 조선시대 문루 목구조 부재 교체 및 단청 보수.',
+    image: U('photo-1565073624497-7144969d4a9d'),
+  },
+  {
+    id: 8,
+    title: '전통 소반 제작',
+    category: 'fabrication' as WorkCategory,
+    year: '2022',
+    description: '전통 나주소반 형식의 주문 제작. 느티나무 원목 사용.',
+    image: U('photo-1558618666-fcd25c85cd64'),
+  },
+  {
+    id: 9,
+    title: '화성 행궁 별당 수리',
+    category: 'repair' as WorkCategory,
+    year: '2023',
+    description: '화성 행궁 부속 별당 지붕 및 대들보 균열 보수 공사.',
+    image: U('photo-1519581706030-bf476f0f5eb0'),
+  },
 ];
 
 export const categoryLabels: Record<WorkCategory, string> = {

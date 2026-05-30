@@ -128,17 +128,21 @@
                 "type": "gradient",
                 "gradientType": "linear",
                 "enabled": true,
-                "rotation": 270,
+                "rotation": 0,
                 "size": {
                   "height": 1
                 },
                 "colors": [
                   {
-                    "color": "#FFFFFF88",
+                    "color": "#000000A6",
                     "position": 0
                   },
                   {
-                    "color": "#FFFFFF00",
+                    "color": "#00000040",
+                    "position": 0.5
+                  },
+                  {
+                    "color": "#0000000D",
                     "position": 1
                   }
                 ]
@@ -159,7 +163,7 @@
                   "type": "text",
                   "id": "Y3E0eR",
                   "name": "HeroEN",
-                  "fill": "#888888",
+                  "fill": "#FFFFFF99",
                   "content": "THE ARTISANS",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 11,
@@ -170,7 +174,7 @@
                   "type": "text",
                   "id": "xAz9z",
                   "name": "HeroKR",
-                  "fill": "#1A1A1A",
+                  "fill": "#FFFFFF",
                   "content": "장인을 소개합니다",
                   "lineHeight": 1.2,
                   "fontFamily": "Noto Serif KR",
@@ -776,7 +780,7 @@
           "id": "Z1dmXC",
           "name": "CertSection",
           "width": "fill_container",
-          "fill": "#1A1A1A",
+          "fill": "#0d0c0a",
           "layout": "vertical",
           "gap": 24,
           "padding": [
@@ -1012,21 +1016,21 @@
                 "type": "gradient",
                 "gradientType": "linear",
                 "enabled": true,
-                "rotation": 270,
+                "rotation": 0,
                 "size": {
                   "height": 1
                 },
                 "colors": [
                   {
-                    "color": "#F7F6F38C",
+                    "color": "#000000BF",
                     "position": 0
                   },
                   {
-                    "color": "#F7F6F34D",
+                    "color": "#00000059",
                     "position": 0.45
                   },
                   {
-                    "color": "#F7F6F3F2",
+                    "color": "#0000001A",
                     "position": 1
                   }
                 ]
@@ -1045,7 +1049,7 @@
                   "type": "text",
                   "id": "ekSSZ",
                   "name": "HeroEN",
-                  "fill": "#AAAAAA",
+                  "fill": "#FFFFFF99",
                   "content": "OUR WORKS",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 11,
@@ -1056,7 +1060,7 @@
                   "type": "text",
                   "id": "ErwZc",
                   "name": "HeroKR",
-                  "fill": "#1A1A1A",
+                  "fill": "#FFFFFF",
                   "content": "작업 사례",
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 52,
@@ -1066,7 +1070,7 @@
                   "type": "text",
                   "id": "VNv8d",
                   "name": "HeroDesc",
-                  "fill": "#888888",
+                  "fill": "#FFFFFFA6",
                   "content": "전통건축 유지보수·수리·제작에 걸친 대표 작업물을 소개합니다.",
                   "lineHeight": 1.8,
                   "fontFamily": "Noto Sans KR",
@@ -1086,7 +1090,7 @@
                   "type": "frame",
                   "id": "dmjed",
                   "name": "Tab_전체",
-                  "fill": "#1A1A1A",
+                  "fill": "#FFFFFFE6",
                   "padding": [
                     8,
                     18
@@ -1096,7 +1100,7 @@
                       "type": "text",
                       "id": "uvmha",
                       "name": "TabLabel_전체",
-                      "fill": "#FFFFFF",
+                      "fill": "#1A1A1A",
                       "content": "전체",
                       "fontFamily": "Noto Sans KR",
                       "fontSize": 11,
@@ -1109,10 +1113,10 @@
                   "type": "frame",
                   "id": "SRGiS",
                   "name": "Tab_유지보수",
-                  "fill": "#00000000",
+                  "fill": "#FFFFFF14",
                   "stroke": {
                     "thickness": 1,
-                    "fill": "#E0E0E0"
+                    "fill": "#FFFFFF4D"
                   },
                   "padding": [
                     8,
@@ -1123,7 +1127,7 @@
                       "type": "text",
                       "id": "n2nabA",
                       "name": "TabLabel_유지보수",
-                      "fill": "#888888",
+                      "fill": "#FFFFFFA6",
                       "content": "유지보수",
                       "fontFamily": "Noto Sans KR",
                       "fontSize": 11,
@@ -1136,10 +1140,10 @@
                   "type": "frame",
                   "id": "agvgJ",
                   "name": "Tab_수리",
-                  "fill": "#00000000",
+                  "fill": "#FFFFFF14",
                   "stroke": {
                     "thickness": 1,
-                    "fill": "#E0E0E0"
+                    "fill": "#FFFFFF4D"
                   },
                   "padding": [
                     8,
@@ -1150,7 +1154,7 @@
                       "type": "text",
                       "id": "EZNh4",
                       "name": "TabLabel_수리",
-                      "fill": "#888888",
+                      "fill": "#FFFFFFA6",
                       "content": "수리",
                       "fontFamily": "Noto Sans KR",
                       "fontSize": 11,
@@ -1163,10 +1167,10 @@
                   "type": "frame",
                   "id": "b1dRLV",
                   "name": "Tab_제작",
-                  "fill": "#00000000",
+                  "fill": "#FFFFFF14",
                   "stroke": {
                     "thickness": 1,
-                    "fill": "#E0E0E0"
+                    "fill": "#FFFFFF4D"
                   },
                   "padding": [
                     8,
@@ -1177,7 +1181,7 @@
                       "type": "text",
                       "id": "o5y4Tn",
                       "name": "TabLabel_제작",
-                      "fill": "#888888",
+                      "fill": "#FFFFFFA6",
                       "content": "제작",
                       "fontFamily": "Noto Sans KR",
                       "fontSize": 11,
@@ -1195,7 +1199,6 @@
           "id": "d4sVz",
           "name": "WorksGrid",
           "width": "fill_container",
-          "fill": "#e8e8e8",
           "layout": "vertical",
           "padding": [
             0,
@@ -1649,6 +1652,7 @@
                   "type": "frame",
                   "id": "m8OBJ",
                   "name": "LoadMoreBtn",
+                  "width": "fill_container",
                   "fill": "#ffffff",
                   "stroke": {
                     "thickness": 1,
@@ -1683,7 +1687,7 @@
     {
       "type": "frame",
       "id": "e3wyu5",
-      "x": 6000,
+      "x": 6117,
       "y": 0,
       "name": "Page — CONTACT",
       "width": 1440,
@@ -1819,21 +1823,21 @@
                 "type": "gradient",
                 "gradientType": "linear",
                 "enabled": true,
-                "rotation": 270,
+                "rotation": 0,
                 "size": {
                   "height": 1
                 },
                 "colors": [
                   {
-                    "color": "#F7F6F38C",
+                    "color": "#000000BF",
                     "position": 0
                   },
                   {
-                    "color": "#F7F6F34D",
+                    "color": "#00000059",
                     "position": 0.45
                   },
                   {
-                    "color": "#F7F6F3F2",
+                    "color": "#0000001A",
                     "position": 1
                   }
                 ]
@@ -1845,7 +1849,7 @@
               "type": "text",
               "id": "b0KBsp",
               "name": "HeroEN",
-              "fill": "#AAAAAA",
+              "fill": "#FFFFFF99",
               "content": "GET IN TOUCH",
               "fontFamily": "Noto Sans KR",
               "fontSize": 11,
@@ -1856,7 +1860,7 @@
               "type": "text",
               "id": "hHYdY",
               "name": "HeroKR",
-              "fill": "#1A1A1A",
+              "fill": "#FFFFFF",
               "content": "찾아오시는 길",
               "fontFamily": "Noto Serif KR",
               "fontSize": 52,
@@ -1866,7 +1870,7 @@
               "type": "text",
               "id": "onWsX",
               "name": "HeroDesc",
-              "fill": "#888888",
+              "fill": "#FFFFFFA6",
               "content": "전통건축에 관한 문의나 방문을 환영합니다.",
               "lineHeight": 1.8,
               "fontFamily": "Noto Sans KR",
@@ -1909,6 +1913,7 @@
                   "id": "oLN86",
                   "name": "InfoColumns",
                   "width": "fill_container",
+                  "height": 254,
                   "gap": 64,
                   "children": [
                     {
@@ -1916,6 +1921,7 @@
                       "id": "UkqIZ",
                       "name": "LeftCol",
                       "width": "fill_container",
+                      "height": "fill_container",
                       "layout": "vertical",
                       "gap": 22,
                       "children": [
@@ -1924,6 +1930,7 @@
                           "id": "YTEyD",
                           "name": "전화_row",
                           "width": "fill_container",
+                          "height": "fill_container",
                           "stroke": {
                             "thickness": {
                               "bottom": 1
@@ -1970,6 +1977,7 @@
                           "id": "z8ZjmC",
                           "name": "이메일_row",
                           "width": "fill_container",
+                          "height": "fill_container",
                           "stroke": {
                             "thickness": {
                               "bottom": 1
@@ -2010,52 +2018,6 @@
                               "fontWeight": "300"
                             }
                           ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "Znags",
-                          "name": "주소_row",
-                          "width": "fill_container",
-                          "stroke": {
-                            "thickness": {
-                              "bottom": 1
-                            },
-                            "fill": "#F0EEEA"
-                          },
-                          "layout": "vertical",
-                          "gap": 8,
-                          "padding": [
-                            0,
-                            0,
-                            24,
-                            0
-                          ],
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "Xgd9e",
-                              "name": "전화_lbl",
-                              "fill": "#AAAAAA",
-                              "content": "주소",
-                              "fontFamily": "Noto Sans KR",
-                              "fontSize": 10,
-                              "fontWeight": "normal",
-                              "letterSpacing": 2
-                            },
-                            {
-                              "type": "text",
-                              "id": "QUC1Q",
-                              "name": "전화_val",
-                              "fill": "#1A1A1A",
-                              "textGrowth": "fixed-width",
-                              "width": 440,
-                              "content": "경기도 ○○시 ○○구 ○○로 000",
-                              "lineHeight": 1.6,
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 18,
-                              "fontWeight": "300"
-                            }
-                          ]
                         }
                       ]
                     },
@@ -2064,14 +2026,16 @@
                       "id": "E73V4e",
                       "name": "RightCol",
                       "width": "fill_container",
+                      "height": "fill_container",
                       "layout": "vertical",
-                      "gap": 22,
+                      "gap": 12,
                       "children": [
                         {
                           "type": "frame",
                           "id": "fbHeD",
                           "name": "운영시간_row",
                           "width": "fill_container",
+                          "height": 116,
                           "stroke": {
                             "thickness": {
                               "bottom": 1
@@ -2083,7 +2047,7 @@
                           "padding": [
                             0,
                             0,
-                            24,
+                            12,
                             0
                           ],
                           "children": [
@@ -4525,6 +4489,67 @@
       "fill": "#F8F5F0",
       "layout": "vertical",
       "children": [
+        {
+          "type": "frame",
+          "id": "ztlMd",
+          "name": "StoryHeader",
+          "width": "fill_container",
+          "fill": "#F8F5F0",
+          "stroke": {
+            "thickness": {
+              "bottom": 1
+            },
+            "fill": "#E2DDD6"
+          },
+          "layout": "vertical",
+          "gap": 28,
+          "padding": [
+            120,
+            80,
+            100,
+            80
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "b1zmy",
+              "name": "Eyebrow",
+              "fill": "#C4A882",
+              "content": "HISTORY · 장인 이야기",
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 10,
+              "fontWeight": "normal",
+              "letterSpacing": 3.8
+            },
+            {
+              "type": "text",
+              "id": "tlFlN",
+              "name": "HeroTitle",
+              "fill": "#1A1714",
+              "textGrowth": "fixed-width",
+              "width": 780,
+              "content": "천년의 기술,\n삼대로 이어온\n90년의 여정",
+              "lineHeight": 1.08,
+              "fontFamily": "Noto Serif KR",
+              "fontSize": 80,
+              "fontWeight": "300",
+              "letterSpacing": -2.4
+            },
+            {
+              "type": "text",
+              "id": "fEDfA",
+              "name": "Desc",
+              "fill": "#A09890",
+              "textGrowth": "fixed-width",
+              "width": 452,
+              "content": "1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.",
+              "lineHeight": 1.9,
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 14,
+              "fontWeight": "normal"
+            }
+          ]
+        },
         {
           "type": "frame",
           "id": "yIbFI",
