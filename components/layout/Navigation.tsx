@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const navLinks = [
   { href: '/masterartisan', label: 'MASTERARTISAN' },
@@ -16,11 +16,36 @@ export default function Navigation() {
   const isHome = pathname === '/';
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const mouseNearTop = useRef(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
+    const onScroll = () => {
+      const current = window.scrollY;
+      const goingDown = current > lastScrollY.current;
+      setScrolled(current > 80);
+      if (!mouseNearTop.current) {
+        setVisible(!goingDown || current <= 80);
+      }
+      lastScrollY.current = current;
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      if (e.clientY < 72) {
+        mouseNearTop.current = true;
+        setVisible(true);
+      } else {
+        mouseNearTop.current = false;
+      }
+    };
+
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('mousemove', onMouseMove);
+    };
   }, []);
 
   useEffect(() => { setMenuOpen(false); }, [pathname]);
@@ -34,10 +59,20 @@ export default function Navigation() {
   const linkColor = (active: boolean) =>
     !isHome ? (active ? '#1A1A1A' : '#888888') : (active ? '#FFFFFF' : 'rgba(255,255,255,0.55)');
 
+  const show = visible || menuOpen;
+
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={{ backgroundColor: bg, borderBottom: `1px solid ${border}`, backdropFilter: scrolled ? 'blur(12px)' : 'none' }}
+      style={{
+        backgroundColor: bg,
+        borderBottom: `1px solid ${border}`,
+        backdropFilter: scrolled ? 'blur(12px)' : 'none',
+        transform: show ? 'translateY(0)' : 'translateY(-100%)',
+        transition: show
+          ? 'transform 0.15s ease, background-color 0.5s, border-color 0.5s'
+          : 'transform 0.3s ease, background-color 0.5s, border-color 0.5s',
+      }}
     >
       <div className="flex items-center justify-between h-[72px]" style={{ paddingLeft: '60px', paddingRight: '60px' }}>
         <Link

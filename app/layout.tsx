@@ -50,7 +50,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ko" className={`${notoSansKR.variable} ${notoSerifKR.variable} ${playfair.variable} ${nanumMyeongjo.variable}`}>
-      <body style={{ fontFamily: 'var(--font-noto-sans-kr), sans-serif' }}>
+      <body>
         <GlobalLenis />
         <ScrollProgress />
         <Navigation />
