@@ -84,17 +84,6 @@
                 },
                 {
                   "type": "text",
-                  "id": "YbLzz",
-                  "name": "PRODUCT",
-                  "fill": "#888888",
-                  "content": "PRODUCT",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 11,
-                  "fontWeight": "normal",
-                  "letterSpacing": 1.5
-                },
-                {
-                  "type": "text",
                   "id": "pLdBK",
                   "name": "CONTACT",
                   "fill": "#888888",
@@ -114,9 +103,9 @@
           "name": "PageHero",
           "metadata": {
             "type": "unsplash",
-            "username": "jujulielie",
-            "link": "https://unsplash.com/@jujulielie",
-            "author": "Julie Bounseng"
+            "username": "yangluhan091",
+            "link": "https://unsplash.com/@yangluhan091",
+            "author": "LUHAN YANG"
           },
           "clip": true,
           "width": "fill_container",
@@ -124,7 +113,7 @@
           "fill": {
             "type": "image",
             "enabled": true,
-            "url": "https://images.unsplash.com/photo-1728395342404-aea52623b7f4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgyNTV8&ixlib=rb-4.1.0&q=80&w=1080",
+            "url": "https://images.unsplash.com/photo-1769159828138-a7b3f8540d71?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA3OTN8&ixlib=rb-4.1.0&q=80&w=1080",
             "mode": "fill"
           },
           "layout": "none",
@@ -205,9 +194,9 @@
               "name": "초대 장인_img",
               "metadata": {
                 "type": "unsplash",
-                "username": "javad_esmaeili",
-                "link": "https://unsplash.com/@javad_esmaeili",
-                "author": "Javad Esmaeili"
+                "username": "www_erzetich_com",
+                "link": "https://unsplash.com/@www_erzetich_com",
+                "author": "Blaz Erzetic"
               },
               "clip": true,
               "width": 600,
@@ -215,7 +204,7 @@
               "fill": {
                 "type": "image",
                 "enabled": true,
-                "url": "https://images.unsplash.com/photo-1602629726592-cdcbadc1599b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgyODB8&ixlib=rb-4.1.0&q=80&w=1080",
+                "url": "https://images.unsplash.com/photo-1560846389-956694677531?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA3OTV8&ixlib=rb-4.1.0&q=80&w=1080",
                 "mode": "fill"
               }
             },
@@ -247,7 +236,7 @@
                   "id": "JTlvY",
                   "name": "초대 장인_name",
                   "fill": "#1A1A1A",
-                  "content": "박○○",
+                  "content": "故장조웅 대목장",
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 44,
                   "fontWeight": "300"
@@ -257,7 +246,7 @@
                   "id": "NUDKS",
                   "name": "초대 장인_period",
                   "fill": "#AAAAAA",
-                  "content": "1960년대 – 1990년대",
+                  "content": "The founder of Jangga Woodworks",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 12,
                   "fontWeight": "normal",
@@ -278,7 +267,7 @@
                   "fill": "#555555",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
-                  "content": "전통 목구조 건축의 기초를 닦으며 경기 지역 주요 사찰과 전통 가옥의 신축·수리를 도맡았다. 평생을 나무와 함께하며 장인의 길을 개척했다.",
+                  "content": "목공소 장가의 창립자로 전통 목구조 건축의 기초를 닦았다.",
                   "lineHeight": 1.9,
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 14,
@@ -287,8 +276,11 @@
                 {
                   "type": "frame",
                   "id": "SjQ1b",
+                  "x": 80,
+                  "y": 341,
                   "name": "초대 장인_bullets",
-                  "width": "fill_container",
+                  "enabled": false,
+                  "width": "fill_container(680)",
                   "layout": "vertical",
                   "gap": 12,
                   "children": [
@@ -414,7 +406,7 @@
                   "id": "gyrI0",
                   "name": "이대 장인_name",
                   "fill": "#1A1A1A",
-                  "content": "박○○",
+                  "content": "장효순 대목장",
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 44,
                   "fontWeight": "300"
@@ -424,7 +416,7 @@
                   "id": "Qt8ga",
                   "name": "이대 장인_period",
                   "fill": "#AAAAAA",
-                  "content": "1990년대 – 현재",
+                  "content": "Master Artisan of Wood Architecture",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 12,
                   "fontWeight": "normal",
@@ -445,7 +437,7 @@
                   "fill": "#555555",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
-                  "content": "초대 장인의 기술을 이어받아 전통건축의 보존과 복원에 헌신했다. 2003년 경기무형문화재 제36호로 지정되어 공식 보유자로 인정받았다.",
+                  "content": "경기무형문화재 36호 대목장 보유자.",
                   "lineHeight": 1.9,
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 14,
@@ -454,15 +446,22 @@
                 {
                   "type": "frame",
                   "id": "B0S9Vm",
+                  "x": 80,
+                  "y": 314,
                   "name": "이대 장인_bullets",
-                  "width": "fill_container",
+                  "enabled": false,
+                  "width": "fill_container(680)",
+                  "height": "fit_content(0)",
                   "layout": "vertical",
                   "gap": 12,
                   "children": [
                     {
                       "type": "frame",
                       "id": "n8YEYG",
+                      "x": 0,
+                      "y": 0,
                       "name": "경기무형문화재 제36호 지정 (2003)",
+                      "enabled": false,
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
@@ -489,7 +488,10 @@
                     {
                       "type": "frame",
                       "id": "N7cmm",
+                      "x": 0,
+                      "y": 31,
                       "name": "문화재청 등록 수리기술자",
+                      "enabled": false,
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
@@ -516,7 +518,10 @@
                     {
                       "type": "frame",
                       "id": "G2kp6",
+                      "x": 0,
+                      "y": 62,
                       "name": "국가 지정 문화재 복원 다수 참여",
+                      "enabled": false,
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
@@ -550,9 +555,9 @@
               "name": "이대 장인_img",
               "metadata": {
                 "type": "unsplash",
-                "username": "insungpandora",
-                "link": "https://unsplash.com/@insungpandora",
-                "author": "insung yoon"
+                "username": "ryno_marais",
+                "link": "https://unsplash.com/@ryno_marais",
+                "author": "Ryno Marais"
               },
               "clip": true,
               "width": 600,
@@ -560,7 +565,7 @@
               "fill": {
                 "type": "image",
                 "enabled": true,
-                "url": "https://images.unsplash.com/photo-1650476524542-c5cc53306700?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgyODF8&ixlib=rb-4.1.0&q=80&w=1080",
+                "url": "https://images.unsplash.com/photo-1683115097279-415af7be0209?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA3OTZ8&ixlib=rb-4.1.0&q=80&w=1080",
                 "mode": "fill"
               }
             }
@@ -579,9 +584,9 @@
               "name": "삼대 장인_img",
               "metadata": {
                 "type": "unsplash",
-                "username": "ngnng",
-                "link": "https://unsplash.com/@ngnng",
-                "author": "Claire"
+                "username": "markusspiske",
+                "link": "https://unsplash.com/@markusspiske",
+                "author": "Markus Spiske"
               },
               "clip": true,
               "width": 600,
@@ -589,7 +594,7 @@
               "fill": {
                 "type": "image",
                 "enabled": true,
-                "url": "https://images.unsplash.com/photo-1731940523869-0d7c9a26bf46?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgyODJ8&ixlib=rb-4.1.0&q=80&w=1080",
+                "url": "https://images.unsplash.com/photo-1547044479-59ce6c0a784a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4NjR8&ixlib=rb-4.1.0&q=80&w=1080",
                 "mode": "fill"
               }
             },
@@ -621,7 +626,7 @@
                   "id": "jgKOq",
                   "name": "삼대 장인_name",
                   "fill": "#1A1A1A",
-                  "content": "박○○",
+                  "content": "장원희 대목장",
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 44,
                   "fontWeight": "300"
@@ -631,7 +636,7 @@
                   "id": "uSkoV",
                   "name": "삼대 장인_period",
                   "fill": "#AAAAAA",
-                  "content": "2010년대 – 현재",
+                  "content": "Teaching Assistant of Master Artisan",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 12,
                   "fontWeight": "normal",
@@ -652,7 +657,7 @@
                   "fill": "#555555",
                   "textGrowth": "fixed-width",
                   "width": "fill_container",
-                  "content": "3대를 이어온 전통건축 기술을 현대적 감각으로 재해석하며 전승하고 있다. 선대의 기술을 바탕으로 새로운 문화재 복원 프로젝트를 이끌고 있다.",
+                  "content": "경기무형문화재 36호 대목장 전수교육 조교.",
                   "lineHeight": 1.9,
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 14,
@@ -661,15 +666,22 @@
                 {
                   "type": "frame",
                   "id": "X01yVN",
+                  "x": 80,
+                  "y": 341,
                   "name": "삼대 장인_bullets",
-                  "width": "fill_container",
+                  "enabled": false,
+                  "width": "fill_container(680)",
+                  "height": "fit_content(81)",
                   "layout": "vertical",
                   "gap": 12,
                   "children": [
                     {
                       "type": "frame",
                       "id": "o1hNbf",
+                      "x": 0,
+                      "y": 0,
                       "name": "전통건축 기술 3대 계승",
+                      "enabled": false,
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
@@ -696,7 +708,10 @@
                     {
                       "type": "frame",
                       "id": "V2eQw",
+                      "x": 0,
+                      "y": 31,
                       "name": "현대적 공법과 전통 기법의 융합",
+                      "enabled": false,
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
@@ -723,7 +738,10 @@
                     {
                       "type": "frame",
                       "id": "gaIyU",
+                      "x": 0,
+                      "y": 62,
                       "name": "차세대 장인 양성",
+                      "enabled": false,
                       "gap": 10,
                       "alignItems": "center",
                       "children": [
@@ -939,17 +957,6 @@
                 },
                 {
                   "type": "text",
-                  "id": "G8Xgz",
-                  "name": "PRODUCT",
-                  "fill": "#888888",
-                  "content": "PRODUCT",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 11,
-                  "fontWeight": "normal",
-                  "letterSpacing": 1.5
-                },
-                {
-                  "type": "text",
                   "id": "JJ8T0",
                   "name": "CONTACT",
                   "fill": "#888888",
@@ -967,8 +974,20 @@
           "type": "frame",
           "id": "JkzHf",
           "name": "PageHero",
+          "metadata": {
+            "type": "unsplash",
+            "username": "lifeinkorea",
+            "link": "https://unsplash.com/@lifeinkorea",
+            "author": "IRa Kang"
+          },
           "width": "fill_container",
-          "fill": "#F7F6F3",
+          "height": 360,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "https://images.unsplash.com/photo-1761452776106-78710d4fada9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjI3ODh8&ixlib=rb-4.1.0&q=80&w=1080",
+            "mode": "fill"
+          },
           "stroke": {
             "thickness": {
               "bottom": 1
@@ -982,6 +1001,39 @@
           "justifyContent": "space_between",
           "alignItems": "end",
           "children": [
+            {
+              "type": "rectangle",
+              "id": "Z6KSr",
+              "layoutPosition": "absolute",
+              "x": 0,
+              "y": 0,
+              "name": "BannerScrim",
+              "fill": {
+                "type": "gradient",
+                "gradientType": "linear",
+                "enabled": true,
+                "rotation": 270,
+                "size": {
+                  "height": 1
+                },
+                "colors": [
+                  {
+                    "color": "#F7F6F38C",
+                    "position": 0
+                  },
+                  {
+                    "color": "#F7F6F34D",
+                    "position": 0.45
+                  },
+                  {
+                    "color": "#F7F6F3F2",
+                    "position": 1
+                  }
+                ]
+              },
+              "width": 1440,
+              "height": 360
+            },
             {
               "type": "frame",
               "id": "iNusC",
@@ -1143,7 +1195,7 @@
           "id": "d4sVz",
           "name": "WorksGrid",
           "width": "fill_container",
-          "fill": "#FFFFFF",
+          "fill": "#e8e8e8",
           "layout": "vertical",
           "padding": [
             0,
@@ -1159,7 +1211,7 @@
               "width": "fill_container",
               "gap": 16,
               "padding": [
-                48,
+                72,
                 0,
                 0,
                 0
@@ -1179,9 +1231,9 @@
                       "name": "수원 사찰 대웅전 보수_img",
                       "metadata": {
                         "type": "unsplash",
-                        "username": "ohtaeyeon",
-                        "link": "https://unsplash.com/@ohtaeyeon",
-                        "author": "Oh Taeyeon"
+                        "username": "kimphodo",
+                        "link": "https://unsplash.com/@kimphodo",
+                        "author": "DongHoo Kim"
                       },
                       "clip": true,
                       "width": "fill_container",
@@ -1189,7 +1241,7 @@
                       "fill": {
                         "type": "image",
                         "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1700929260280-c56b6b1e0748?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgzODl8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "url": "https://images.unsplash.com/photo-1759662802641-1748a95ade41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4MjF8&ixlib=rb-4.1.0&q=80&w=1080",
                         "mode": "fill"
                       }
                     },
@@ -1245,9 +1297,9 @@
                       "name": "용인 전통 가옥 수리_img",
                       "metadata": {
                         "type": "unsplash",
-                        "username": "kgbaek",
-                        "link": "https://unsplash.com/@kgbaek",
-                        "author": "KG Baek"
+                        "username": "u66kie",
+                        "link": "https://unsplash.com/@u66kie",
+                        "author": "JEONGUK -"
                       },
                       "clip": true,
                       "width": "fill_container",
@@ -1255,7 +1307,7 @@
                       "fill": {
                         "type": "image",
                         "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1644647926144-80ce08db26ee?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgzOTF8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "url": "https://images.unsplash.com/photo-1512059555341-6a121e7d4d86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4MjF8&ixlib=rb-4.1.0&q=80&w=1080",
                         "mode": "fill"
                       }
                     },
@@ -1311,9 +1363,9 @@
                       "name": "전통 문짝 제작_img",
                       "metadata": {
                         "type": "unsplash",
-                        "username": "mr_wdh",
-                        "link": "https://unsplash.com/@mr_wdh",
-                        "author": "王 大洪"
+                        "username": "beingabstrac",
+                        "link": "https://unsplash.com/@beingabstrac",
+                        "author": "rishi"
                       },
                       "clip": true,
                       "width": "fill_container",
@@ -1321,7 +1373,7 @@
                       "fill": {
                         "type": "image",
                         "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1768314558125-68d15e9452bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgzOTF8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "url": "https://images.unsplash.com/photo-1542722578-f2971981d74f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4MjJ8&ixlib=rb-4.1.0&q=80&w=1080",
                         "mode": "fill"
                       }
                     },
@@ -1372,7 +1424,7 @@
               "width": "fill_container",
               "gap": 16,
               "padding": [
-                16,
+                48,
                 0,
                 0,
                 0
@@ -1392,9 +1444,9 @@
                       "name": "경기도 향교 기와 보수_img",
                       "metadata": {
                         "type": "unsplash",
-                        "username": "chulho",
-                        "link": "https://unsplash.com/@chulho",
-                        "author": "Chulho Choi"
+                        "username": "elijahjcobb",
+                        "link": "https://unsplash.com/@elijahjcobb",
+                        "author": "Elijah Cobb"
                       },
                       "clip": true,
                       "width": "fill_container",
@@ -1402,7 +1454,7 @@
                       "fill": {
                         "type": "image",
                         "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1771583788198-f18042d6a860?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgzOTJ8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "url": "https://images.unsplash.com/photo-1765570710985-fe9e17af1b6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4MjN8&ixlib=rb-4.1.0&q=80&w=1080",
                         "mode": "fill"
                       }
                     },
@@ -1458,9 +1510,9 @@
                       "name": "전통 누각 복원_img",
                       "metadata": {
                         "type": "unsplash",
-                        "username": "nicklbaert",
-                        "link": "https://unsplash.com/@nicklbaert",
-                        "author": "Niclas Illg"
+                        "username": "heylindaaaaa",
+                        "link": "https://unsplash.com/@heylindaaaaa",
+                        "author": "Linda Yuan"
                       },
                       "clip": true,
                       "width": "fill_container",
@@ -1468,7 +1520,7 @@
                       "fill": {
                         "type": "image",
                         "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1568456774218-ca9ea97e6c9c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgzOTN8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "url": "https://images.unsplash.com/photo-1584264415558-6580a2bf40a0?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4MjR8&ixlib=rb-4.1.0&q=80&w=1080",
                         "mode": "fill"
                       }
                     },
@@ -1524,9 +1576,9 @@
                       "name": "전통 창호 제작_img",
                       "metadata": {
                         "type": "unsplash",
-                        "username": "teresawang",
-                        "link": "https://unsplash.com/@teresawang",
-                        "author": "Jing Bo Wang"
+                        "username": "onkysf",
+                        "link": "https://unsplash.com/@onkysf",
+                        "author": "Yusuf Onuk"
                       },
                       "clip": true,
                       "width": "fill_container",
@@ -1534,7 +1586,7 @@
                       "fill": {
                         "type": "image",
                         "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1680741560280-b919303d525c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5NjgzOTR8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "url": "https://images.unsplash.com/photo-1621083377566-7ba9edc11ae6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4MjV8&ixlib=rb-4.1.0&q=80&w=1080",
                         "mode": "fill"
                       }
                     },
@@ -1577,904 +1629,48 @@
                   ]
                 }
               ]
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "h9Zrg",
-      "x": 6080,
-      "y": 0,
-      "name": "Page — PRODUCT",
-      "width": 1440,
-      "fill": "#FFFFFF",
-      "layout": "vertical",
-      "children": [
-        {
-          "type": "frame",
-          "id": "i3jQT",
-          "name": "Nav",
-          "width": "fill_container",
-          "height": 72,
-          "fill": "#FFFFFF",
-          "stroke": {
-            "thickness": {
-              "bottom": 1
-            },
-            "fill": "#E8E8E8"
-          },
-          "padding": [
-            0,
-            60
-          ],
-          "justifyContent": "space_between",
-          "alignItems": "center",
-          "children": [
-            {
-              "type": "text",
-              "id": "IQi18",
-              "name": "Logo",
-              "fill": "#1A1A1A",
-              "content": "MASTERARTISAN",
-              "fontFamily": "Noto Sans KR",
-              "fontSize": 16,
-              "fontWeight": "700",
-              "letterSpacing": 2
             },
             {
               "type": "frame",
-              "id": "X8Lt9",
-              "name": "NavLinks",
-              "gap": 44,
+              "id": "vpVEG",
+              "name": "LoadMoreSection",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "padding": [
+                40,
+                0,
+                0,
+                0
+              ],
               "alignItems": "center",
               "children": [
                 {
-                  "type": "text",
-                  "id": "IY6VU",
-                  "name": "MASTERARTISAN",
-                  "fill": "#888888",
-                  "content": "MASTERARTISAN",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 11,
-                  "fontWeight": "normal",
-                  "letterSpacing": 1.5
-                },
-                {
-                  "type": "text",
-                  "id": "WzoYE",
-                  "name": "HISTORY",
-                  "fill": "#888888",
-                  "content": "HISTORY",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 11,
-                  "fontWeight": "normal",
-                  "letterSpacing": 1.5
-                },
-                {
-                  "type": "text",
-                  "id": "mSVbY",
-                  "name": "WORKS",
-                  "fill": "#888888",
-                  "content": "WORKS",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 11,
-                  "fontWeight": "normal",
-                  "letterSpacing": 1.5
-                },
-                {
-                  "type": "text",
-                  "id": "mwhHu",
-                  "name": "PRODUCT",
-                  "fill": "#1A1A1A",
-                  "content": "PRODUCT",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 11,
-                  "fontWeight": "normal",
-                  "letterSpacing": 1.5
-                },
-                {
-                  "type": "text",
-                  "id": "T6rgbv",
-                  "name": "CONTACT",
-                  "fill": "#888888",
-                  "content": "CONTACT",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 11,
-                  "fontWeight": "normal",
-                  "letterSpacing": 1.5
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "j1FjH",
-          "name": "PageHero",
-          "width": "fill_container",
-          "fill": "#F7F6F3",
-          "stroke": {
-            "thickness": {
-              "bottom": 1
-            },
-            "fill": "#E8E8E8"
-          },
-          "layout": "vertical",
-          "gap": 10,
-          "padding": [
-            72,
-            80
-          ],
-          "children": [
-            {
-              "type": "text",
-              "id": "uEAlJ",
-              "name": "HeroEN",
-              "fill": "#AAAAAA",
-              "content": "OUR PRODUCTS",
-              "fontFamily": "Noto Sans KR",
-              "fontSize": 11,
-              "fontWeight": "normal",
-              "letterSpacing": 4
-            },
-            {
-              "type": "text",
-              "id": "FCIqN",
-              "name": "HeroKR",
-              "fill": "#1A1A1A",
-              "content": "제품 소개",
-              "fontFamily": "Noto Serif KR",
-              "fontSize": 52,
-              "fontWeight": "300"
-            },
-            {
-              "type": "text",
-              "id": "P36TJ",
-              "name": "HeroDesc",
-              "fill": "#888888",
-              "content": "전통 목구조 기법과 재료를 사용하여 제작된 대표 제품들입니다.",
-              "lineHeight": 1.8,
-              "fontFamily": "Noto Sans KR",
-              "fontSize": 14,
-              "fontWeight": "normal"
-            }
-          ]
-        },
-        {
-          "type": "frame",
-          "id": "kQCuI",
-          "name": "ProductGrid",
-          "width": "fill_container",
-          "fill": "#E8E8E8",
-          "layout": "vertical",
-          "gap": 1,
-          "padding": 80,
-          "children": [
-            {
-              "type": "frame",
-              "id": "Wufvd",
-              "name": "PRow1",
-              "width": "fill_container",
-              "fill": "#E8E8E8",
-              "gap": 1,
-              "children": [
-                {
                   "type": "frame",
-                  "id": "Y7PjPc",
-                  "name": "전통 격자창호",
-                  "width": "fill_container",
-                  "fill": "#FFFFFF",
-                  "layout": "vertical",
+                  "id": "m8OBJ",
+                  "name": "LoadMoreBtn",
+                  "fill": "#ffffff",
+                  "stroke": {
+                    "thickness": 1,
+                    "fill": "#E8E8E8"
+                  },
+                  "padding": [
+                    12,
+                    48
+                  ],
+                  "justifyContent": "center",
+                  "alignItems": "center",
                   "children": [
                     {
-                      "type": "frame",
-                      "id": "h6YCR",
-                      "name": "전통 격자창호_img",
-                      "metadata": {
-                        "type": "unsplash",
-                        "username": "declansun",
-                        "link": "https://unsplash.com/@declansun",
-                        "author": "Declan Sun"
-                      },
-                      "clip": true,
-                      "width": "fill_container",
-                      "height": 320,
-                      "fill": {
-                        "type": "image",
-                        "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1730165867774-8e8566471639?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5Njg0NTl8&ixlib=rb-4.1.0&q=80&w=1080",
-                        "mode": "fill"
-                      }
-                    },
-                    {
-                      "type": "frame",
-                      "id": "I91A4x",
-                      "name": "전통 격자창호_info",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 14,
-                      "padding": 28,
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "aSW81",
-                          "name": "전통 격자창호_nameRow",
-                          "gap": 10,
-                          "alignItems": "end",
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "m5Uxa",
-                              "name": "전통 격자창호_kr",
-                              "fill": "#1A1A1A",
-                              "content": "전통 격자창호",
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 22,
-                              "fontWeight": "300"
-                            },
-                            {
-                              "type": "text",
-                              "id": "RG7HE",
-                              "name": "전통 격자창호_hanja",
-                              "fill": "#AAAAAA",
-                              "content": "格子窓戶",
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 13,
-                              "fontWeight": "300"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "id": "UQIEc",
-                          "name": "전통 격자창호_desc",
-                          "fill": "#666666",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "전통 소나무와 한지를 사용한 격자 문양의 전통 창호. 주문 제작으로 크기와 문양 선택 가능.",
-                          "lineHeight": 1.8,
-                          "fontFamily": "Noto Sans KR",
-                          "fontSize": 13,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "dk8fF",
-                          "name": "전통 격자창호_mats",
-                          "gap": 6,
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "VRJM2",
-                              "name": "국내산 소나무_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "FlTrv",
-                                  "name": "국내산 소나무_lbl",
-                                  "fill": "#888888",
-                                  "content": "국내산 소나무",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "jRuGd",
-                              "name": "전통 한지_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "Xji5L",
-                                  "name": "전통 한지_lbl",
-                                  "fill": "#888888",
-                                  "content": "전통 한지",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "lQEu5",
-                              "name": "전통 경첩_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "myBig",
-                                  "name": "전통 경첩_lbl",
-                                  "fill": "#888888",
-                                  "content": "전통 경첩",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "id": "J5ZZK",
-                          "name": "전통 격자창호_cta",
-                          "fill": "#1A1A1A",
-                          "content": "문의하기 →",
-                          "fontFamily": "Noto Sans KR",
-                          "fontSize": 12,
-                          "fontWeight": "normal",
-                          "letterSpacing": 1
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "eT9U5",
-                  "name": "전통 대문",
-                  "width": "fill_container",
-                  "fill": "#FFFFFF",
-                  "layout": "vertical",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "FurkC",
-                      "name": "전통 대문_img",
-                      "metadata": {
-                        "type": "unsplash",
-                        "username": "htlin",
-                        "link": "https://unsplash.com/@htlin",
-                        "author": "Harrison Lin"
-                      },
-                      "clip": true,
-                      "width": "fill_container",
-                      "height": 320,
-                      "fill": {
-                        "type": "image",
-                        "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1774249254128-dc9d91e4699a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5Njg0NjF8&ixlib=rb-4.1.0&q=80&w=1080",
-                        "mode": "fill"
-                      }
-                    },
-                    {
-                      "type": "frame",
-                      "id": "U5Jtip",
-                      "name": "전통 대문_info",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 14,
-                      "padding": 28,
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "imcFu",
-                          "name": "전통 대문_nameRow",
-                          "gap": 10,
-                          "alignItems": "end",
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "T2qOs",
-                              "name": "전통 대문_kr",
-                              "fill": "#1A1A1A",
-                              "content": "전통 대문",
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 22,
-                              "fontWeight": "300"
-                            },
-                            {
-                              "type": "text",
-                              "id": "pCZrI",
-                              "name": "전통 대문_hanja",
-                              "fill": "#AAAAAA",
-                              "content": "大門",
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 13,
-                              "fontWeight": "300"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "id": "YYvBJ",
-                          "name": "전통 대문_desc",
-                          "fill": "#666666",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "한옥 및 전통 건축물에 어울리는 솟을대문과 평대문. 현대 주택에도 적용 가능.",
-                          "lineHeight": 1.8,
-                          "fontFamily": "Noto Sans KR",
-                          "fontSize": 13,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "tmeD7",
-                          "name": "전통 대문_mats",
-                          "gap": 6,
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "k2e9U",
-                              "name": "느티나무_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "WzBMl",
-                                  "name": "느티나무_lbl",
-                                  "fill": "#888888",
-                                  "content": "느티나무",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "z5JBI",
-                              "name": "단청 도료_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "o6ns7",
-                                  "name": "단청 도료_lbl",
-                                  "fill": "#888888",
-                                  "content": "단청 도료",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "k0WgEZ",
-                              "name": "전통 철물_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "wgsjt",
-                                  "name": "전통 철물_lbl",
-                                  "fill": "#888888",
-                                  "content": "전통 철물",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "id": "fKFJI",
-                          "name": "전통 대문_cta",
-                          "fill": "#1A1A1A",
-                          "content": "문의하기 →",
-                          "fontFamily": "Noto Sans KR",
-                          "fontSize": 12,
-                          "fontWeight": "normal",
-                          "letterSpacing": 1
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "B69VbS",
-              "name": "PRow2",
-              "width": "fill_container",
-              "fill": "#E8E8E8",
-              "gap": 1,
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "NwDkt",
-                  "name": "전통 마루",
-                  "width": "fill_container",
-                  "fill": "#FFFFFF",
-                  "layout": "vertical",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "iTmBh",
-                      "name": "전통 마루_img",
-                      "metadata": {
-                        "type": "unsplash",
-                        "username": "sesambrotchen",
-                        "link": "https://unsplash.com/@sesambrotchen",
-                        "author": "Alizea Sidorov"
-                      },
-                      "clip": true,
-                      "width": "fill_container",
-                      "height": 320,
-                      "fill": {
-                        "type": "image",
-                        "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1559777616-25cf6e9695cb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5Njg0NjJ8&ixlib=rb-4.1.0&q=80&w=1080",
-                        "mode": "fill"
-                      }
-                    },
-                    {
-                      "type": "frame",
-                      "id": "gljRV",
-                      "name": "전통 마루_info",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 14,
-                      "padding": 28,
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "D6VoK4",
-                          "name": "전통 마루_nameRow",
-                          "gap": 10,
-                          "alignItems": "end",
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "D9FfO",
-                              "name": "전통 마루_kr",
-                              "fill": "#1A1A1A",
-                              "content": "전통 마루",
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 22,
-                              "fontWeight": "300"
-                            },
-                            {
-                              "type": "text",
-                              "id": "tDJJI",
-                              "name": "전통 마루_hanja",
-                              "fill": "#AAAAAA",
-                              "content": "廳",
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 13,
-                              "fontWeight": "300"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "id": "Jzqc6",
-                          "name": "전통 마루_desc",
-                          "fill": "#666666",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "전통 공법으로 제작한 우물마루와 장마루. 내구성과 미관을 모두 갖춘 전통 바닥재.",
-                          "lineHeight": 1.8,
-                          "fontFamily": "Noto Sans KR",
-                          "fontSize": 13,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "HwoWA",
-                          "name": "전통 마루_mats",
-                          "gap": 6,
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "Qbc5D",
-                              "name": "소나무_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "u6hsia",
-                                  "name": "소나무_lbl",
-                                  "fill": "#888888",
-                                  "content": "소나무",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "u9X1A",
-                              "name": "오동나무_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "ZO9e5",
-                                  "name": "오동나무_lbl",
-                                  "fill": "#888888",
-                                  "content": "오동나무",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "O0Szz",
-                              "name": "전통 오일_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "vCKtL",
-                                  "name": "전통 오일_lbl",
-                                  "fill": "#888888",
-                                  "content": "전통 오일",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "id": "UjV4v",
-                          "name": "전통 마루_cta",
-                          "fill": "#1A1A1A",
-                          "content": "문의하기 →",
-                          "fontFamily": "Noto Sans KR",
-                          "fontSize": 12,
-                          "fontWeight": "normal",
-                          "letterSpacing": 1
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "J2ETE",
-                  "name": "사찰 불단",
-                  "width": "fill_container",
-                  "fill": "#FFFFFF",
-                  "layout": "vertical",
-                  "children": [
-                    {
-                      "type": "frame",
-                      "id": "PBWjn",
-                      "name": "사찰 불단_img",
-                      "metadata": {
-                        "type": "unsplash",
-                        "username": "sterlingvn",
-                        "link": "https://unsplash.com/@sterlingvn",
-                        "author": "Thuỷ Nguyễn"
-                      },
-                      "clip": true,
-                      "width": "fill_container",
-                      "height": 320,
-                      "fill": {
-                        "type": "image",
-                        "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1675699588875-5e3b5bc80f6c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5Njg0NjN8&ixlib=rb-4.1.0&q=80&w=1080",
-                        "mode": "fill"
-                      }
-                    },
-                    {
-                      "type": "frame",
-                      "id": "higiq",
-                      "name": "사찰 불단_info",
-                      "width": "fill_container",
-                      "layout": "vertical",
-                      "gap": 14,
-                      "padding": 28,
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "OZ4dD",
-                          "name": "사찰 불단_nameRow",
-                          "gap": 10,
-                          "alignItems": "end",
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "ECmYb",
-                              "name": "사찰 불단_kr",
-                              "fill": "#1A1A1A",
-                              "content": "사찰 불단",
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 22,
-                              "fontWeight": "300"
-                            },
-                            {
-                              "type": "text",
-                              "id": "qLBSg",
-                              "name": "사찰 불단_hanja",
-                              "fill": "#AAAAAA",
-                              "content": "佛壇",
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 13,
-                              "fontWeight": "300"
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "id": "mMLFv",
-                          "name": "사찰 불단_desc",
-                          "fill": "#666666",
-                          "textGrowth": "fixed-width",
-                          "width": "fill_container",
-                          "content": "전통 사찰 법당을 위한 수제 불단. 전통 단청으로 채색되며 주문 제작.",
-                          "lineHeight": 1.8,
-                          "fontFamily": "Noto Sans KR",
-                          "fontSize": 13,
-                          "fontWeight": "normal"
-                        },
-                        {
-                          "type": "frame",
-                          "id": "zmI2e",
-                          "name": "사찰 불단_mats",
-                          "gap": 6,
-                          "children": [
-                            {
-                              "type": "frame",
-                              "id": "cvwo0",
-                              "name": "느티나무_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "HXkdI",
-                                  "name": "느티나무_lbl",
-                                  "fill": "#888888",
-                                  "content": "느티나무",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "x3BUYa",
-                              "name": "전통 단청_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "ydNFK",
-                                  "name": "전통 단청_lbl",
-                                  "fill": "#888888",
-                                  "content": "전통 단청",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            },
-                            {
-                              "type": "frame",
-                              "id": "YmYCP",
-                              "name": "금박_tag",
-                              "stroke": {
-                                "thickness": 1,
-                                "fill": "#E0E0E0"
-                              },
-                              "padding": [
-                                4,
-                                10
-                              ],
-                              "children": [
-                                {
-                                  "type": "text",
-                                  "id": "mK4nE",
-                                  "name": "금박_lbl",
-                                  "fill": "#888888",
-                                  "content": "금박",
-                                  "fontFamily": "Noto Sans KR",
-                                  "fontSize": 10,
-                                  "fontWeight": "normal"
-                                }
-                              ]
-                            }
-                          ]
-                        },
-                        {
-                          "type": "text",
-                          "id": "H9GeY",
-                          "name": "사찰 불단_cta",
-                          "fill": "#1A1A1A",
-                          "content": "문의하기 →",
-                          "fontFamily": "Noto Sans KR",
-                          "fontSize": 12,
-                          "fontWeight": "normal",
-                          "letterSpacing": 1
-                        }
-                      ]
+                      "type": "text",
+                      "id": "i8vSPr",
+                      "name": "BtnLabel",
+                      "fill": "#888888",
+                      "content": "더 보기",
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 3
                     }
                   ]
                 }
@@ -2487,7 +1683,7 @@
     {
       "type": "frame",
       "id": "e3wyu5",
-      "x": 7600,
+      "x": 6000,
       "y": 0,
       "name": "Page — CONTACT",
       "width": 1440,
@@ -2567,17 +1763,6 @@
                 },
                 {
                   "type": "text",
-                  "id": "VpKLg",
-                  "name": "PRODUCT",
-                  "fill": "#888888",
-                  "content": "PRODUCT",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 11,
-                  "fontWeight": "normal",
-                  "letterSpacing": 1.5
-                },
-                {
-                  "type": "text",
                   "id": "F3jiCU",
                   "name": "CONTACT",
                   "fill": "#1A1A1A",
@@ -2595,8 +1780,20 @@
           "type": "frame",
           "id": "v3vLI",
           "name": "PageHero",
+          "metadata": {
+            "type": "unsplash",
+            "username": "xinchan",
+            "link": "https://unsplash.com/@xinchan",
+            "author": "chansu shin"
+          },
           "width": "fill_container",
-          "fill": "#F7F6F3",
+          "height": 360,
+          "fill": {
+            "type": "image",
+            "enabled": true,
+            "url": "https://images.unsplash.com/photo-1772331274809-4a6ad75c9947?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjI3ODl8&ixlib=rb-4.1.0&q=80&w=1080",
+            "mode": "fill"
+          },
           "stroke": {
             "thickness": {
               "bottom": 1
@@ -2609,7 +1806,41 @@
             72,
             80
           ],
+          "justifyContent": "end",
           "children": [
+            {
+              "type": "rectangle",
+              "id": "E5xys",
+              "layoutPosition": "absolute",
+              "x": 0,
+              "y": 0,
+              "name": "BannerScrim",
+              "fill": {
+                "type": "gradient",
+                "gradientType": "linear",
+                "enabled": true,
+                "rotation": 270,
+                "size": {
+                  "height": 1
+                },
+                "colors": [
+                  {
+                    "color": "#F7F6F38C",
+                    "position": 0
+                  },
+                  {
+                    "color": "#F7F6F34D",
+                    "position": 0.45
+                  },
+                  {
+                    "color": "#F7F6F3F2",
+                    "position": 1
+                  }
+                ]
+              },
+              "width": 1440,
+              "height": 360
+            },
             {
               "type": "text",
               "id": "b0KBsp",
@@ -2650,15 +1881,16 @@
           "name": "ContactBody",
           "width": "fill_container",
           "fill": "#FFFFFF",
+          "layout": "vertical",
           "children": [
             {
               "type": "frame",
               "id": "V58cDN",
               "name": "ContactLeft",
-              "width": 600,
+              "width": "fill_container",
               "fill": "#FFFFFF",
               "layout": "vertical",
-              "gap": 48,
+              "gap": 36,
               "padding": 80,
               "children": [
                 {
@@ -2674,215 +1906,249 @@
                 },
                 {
                   "type": "frame",
-                  "id": "YTEyD",
-                  "name": "전화_row",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#F0EEEA"
-                  },
-                  "layout": "vertical",
-                  "gap": 8,
-                  "padding": [
-                    0,
-                    0,
-                    24,
-                    0
-                  ],
+                  "id": "oLN86",
+                  "name": "InfoColumns",
+                  "width": "fill_container",
+                  "gap": 64,
                   "children": [
                     {
-                      "type": "text",
-                      "id": "g0acwu",
-                      "name": "전화_lbl",
-                      "fill": "#AAAAAA",
-                      "content": "전화",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 10,
-                      "fontWeight": "normal",
-                      "letterSpacing": 2
+                      "type": "frame",
+                      "id": "UkqIZ",
+                      "name": "LeftCol",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 22,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "YTEyD",
+                          "name": "전화_row",
+                          "width": "fill_container",
+                          "stroke": {
+                            "thickness": {
+                              "bottom": 1
+                            },
+                            "fill": "#F0EEEA"
+                          },
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": [
+                            0,
+                            0,
+                            24,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "g0acwu",
+                              "name": "전화_lbl",
+                              "fill": "#AAAAAA",
+                              "content": "전화",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 2
+                            },
+                            {
+                              "type": "text",
+                              "id": "UBGVo",
+                              "name": "전화_val",
+                              "fill": "#1A1A1A",
+                              "textGrowth": "fixed-width",
+                              "width": 440,
+                              "content": "031-000-0000",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Noto Serif KR",
+                              "fontSize": 18,
+                              "fontWeight": "300"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "z8ZjmC",
+                          "name": "이메일_row",
+                          "width": "fill_container",
+                          "stroke": {
+                            "thickness": {
+                              "bottom": 1
+                            },
+                            "fill": "#F0EEEA"
+                          },
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": [
+                            0,
+                            0,
+                            24,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "ofsQD",
+                              "name": "이메일_lbl",
+                              "fill": "#AAAAAA",
+                              "content": "이메일",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 2
+                            },
+                            {
+                              "type": "text",
+                              "id": "DD4Gs",
+                              "name": "이메일_val",
+                              "fill": "#1A1A1A",
+                              "textGrowth": "fixed-width",
+                              "width": 440,
+                              "content": "info@masterartisan.co.kr",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Noto Serif KR",
+                              "fontSize": 18,
+                              "fontWeight": "300"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "Znags",
+                          "name": "주소_row",
+                          "width": "fill_container",
+                          "stroke": {
+                            "thickness": {
+                              "bottom": 1
+                            },
+                            "fill": "#F0EEEA"
+                          },
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": [
+                            0,
+                            0,
+                            24,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "Xgd9e",
+                              "name": "전화_lbl",
+                              "fill": "#AAAAAA",
+                              "content": "주소",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 2
+                            },
+                            {
+                              "type": "text",
+                              "id": "QUC1Q",
+                              "name": "전화_val",
+                              "fill": "#1A1A1A",
+                              "textGrowth": "fixed-width",
+                              "width": 440,
+                              "content": "경기도 ○○시 ○○구 ○○로 000",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Noto Serif KR",
+                              "fontSize": 18,
+                              "fontWeight": "300"
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
-                      "type": "text",
-                      "id": "UBGVo",
-                      "name": "전화_val",
-                      "fill": "#1A1A1A",
-                      "textGrowth": "fixed-width",
-                      "width": 440,
-                      "content": "031-000-0000",
-                      "lineHeight": 1.6,
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 18,
-                      "fontWeight": "300"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "z8ZjmC",
-                  "name": "이메일_row",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#F0EEEA"
-                  },
-                  "layout": "vertical",
-                  "gap": 8,
-                  "padding": [
-                    0,
-                    0,
-                    24,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "ofsQD",
-                      "name": "이메일_lbl",
-                      "fill": "#AAAAAA",
-                      "content": "이메일",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 10,
-                      "fontWeight": "normal",
-                      "letterSpacing": 2
-                    },
-                    {
-                      "type": "text",
-                      "id": "DD4Gs",
-                      "name": "이메일_val",
-                      "fill": "#1A1A1A",
-                      "textGrowth": "fixed-width",
-                      "width": 440,
-                      "content": "info@masterartisan.co.kr",
-                      "lineHeight": 1.6,
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 18,
-                      "fontWeight": "300"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "aTzej",
-                  "name": "주소_row",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#F0EEEA"
-                  },
-                  "layout": "vertical",
-                  "gap": 8,
-                  "padding": [
-                    0,
-                    0,
-                    24,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "R5Cf7",
-                      "name": "주소_lbl",
-                      "fill": "#AAAAAA",
-                      "content": "주소",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 10,
-                      "fontWeight": "normal",
-                      "letterSpacing": 2
-                    },
-                    {
-                      "type": "text",
-                      "id": "PQfkS",
-                      "name": "주소_val",
-                      "fill": "#1A1A1A",
-                      "textGrowth": "fixed-width",
-                      "width": 440,
-                      "content": "경기도 ○○시 ○○구 ○○로 000",
-                      "lineHeight": 1.6,
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 18,
-                      "fontWeight": "300"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "fbHeD",
-                  "name": "운영시간_row",
-                  "stroke": {
-                    "thickness": {
-                      "bottom": 1
-                    },
-                    "fill": "#F0EEEA"
-                  },
-                  "layout": "vertical",
-                  "gap": 8,
-                  "padding": [
-                    0,
-                    0,
-                    24,
-                    0
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "FCb0z",
-                      "name": "운영시간_lbl",
-                      "fill": "#AAAAAA",
-                      "content": "운영시간",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 10,
-                      "fontWeight": "normal",
-                      "letterSpacing": 2
-                    },
-                    {
-                      "type": "text",
-                      "id": "KDbOJ",
-                      "name": "운영시간_val",
-                      "fill": "#1A1A1A",
-                      "textGrowth": "fixed-width",
-                      "width": 440,
-                      "content": "평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)",
-                      "lineHeight": 1.6,
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 18,
-                      "fontWeight": "300"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "oa84Y",
-                  "name": "CertBox",
-                  "fill": "#F7F6F3",
-                  "layout": "vertical",
-                  "gap": 10,
-                  "padding": 24,
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "HxQdU",
-                      "name": "CertTitle",
-                      "fill": "#1A1A1A",
-                      "content": "경기무형문화재 제36호",
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 16,
-                      "fontWeight": "300"
-                    },
-                    {
-                      "type": "text",
-                      "id": "O4538x",
-                      "name": "CertDesc",
-                      "fill": "#666666",
-                      "textGrowth": "fixed-width",
-                      "width": 460,
-                      "content": "전통건축 유지보수·수리·제작에 관한 모든 문의를 환영합니다.\n방문 전 사전 연락을 부탁드립니다.",
-                      "lineHeight": 1.8,
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 13,
-                      "fontWeight": "normal"
+                      "type": "frame",
+                      "id": "E73V4e",
+                      "name": "RightCol",
+                      "width": "fill_container",
+                      "layout": "vertical",
+                      "gap": 22,
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "fbHeD",
+                          "name": "운영시간_row",
+                          "width": "fill_container",
+                          "stroke": {
+                            "thickness": {
+                              "bottom": 1
+                            },
+                            "fill": "#F0EEEA"
+                          },
+                          "layout": "vertical",
+                          "gap": 8,
+                          "padding": [
+                            0,
+                            0,
+                            24,
+                            0
+                          ],
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "FCb0z",
+                              "name": "운영시간_lbl",
+                              "fill": "#AAAAAA",
+                              "content": "운영시간",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 10,
+                              "fontWeight": "normal",
+                              "letterSpacing": 2
+                            },
+                            {
+                              "type": "text",
+                              "id": "KDbOJ",
+                              "name": "운영시간_val",
+                              "fill": "#1A1A1A",
+                              "textGrowth": "fixed-width",
+                              "width": 440,
+                              "content": "평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)",
+                              "lineHeight": 1.6,
+                              "fontFamily": "Noto Serif KR",
+                              "fontSize": 18,
+                              "fontWeight": "300"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "oa84Y",
+                          "name": "CertBox",
+                          "width": "fill_container",
+                          "fill": "#F7F6F3",
+                          "layout": "vertical",
+                          "gap": 10,
+                          "padding": 24,
+                          "children": [
+                            {
+                              "type": "text",
+                              "id": "HxQdU",
+                              "name": "CertTitle",
+                              "fill": "#1A1A1A",
+                              "content": "경기무형문화재 제36호",
+                              "fontFamily": "Noto Serif KR",
+                              "fontSize": 16,
+                              "fontWeight": "300"
+                            },
+                            {
+                              "type": "text",
+                              "id": "O4538x",
+                              "name": "CertDesc",
+                              "fill": "#666666",
+                              "textGrowth": "fixed-width",
+                              "width": 460,
+                              "content": "전통건축 유지보수·수리·제작에 관한 모든 문의를 환영합니다.\n방문 전 사전 연락을 부탁드립니다.",
+                              "lineHeight": 1.8,
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 13,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -2890,56 +2156,286 @@
             },
             {
               "type": "frame",
-              "id": "mXcmm",
-              "name": "MapArea",
-              "metadata": {
-                "type": "unsplash",
-                "username": "dhs4590",
-                "link": "https://unsplash.com/@dhs4590",
-                "author": "Hoseung Han"
-              },
-              "clip": true,
+              "id": "WUMjS",
+              "name": "LocationsSection",
               "width": "fill_container",
-              "height": 600,
-              "fill": {
-                "type": "image",
-                "enabled": true,
-                "url": "https://images.unsplash.com/photo-1741446396242-a64b1e25b1f3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5Njg0OTd8&ixlib=rb-4.1.0&q=80&w=1080",
-                "mode": "fill"
-              },
+              "layout": "vertical",
+              "gap": 32,
+              "padding": [
+                0,
+                80,
+                80,
+                80
+              ],
               "children": [
                 {
+                  "type": "text",
+                  "id": "wAARj",
+                  "name": "LocLabel",
+                  "fill": "#8C6D3F",
+                  "content": "LOCATIONS",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 3
+                },
+                {
                   "type": "frame",
-                  "id": "JCQSr",
-                  "layoutPosition": "absolute",
-                  "x": 0,
-                  "y": 0,
-                  "name": "MapOverlay",
-                  "width": 840,
-                  "height": 600,
-                  "fill": "#00000022",
-                  "layout": "vertical",
-                  "gap": 8,
-                  "justifyContent": "center",
-                  "alignItems": "center",
+                  "id": "AUei0",
+                  "name": "LocGrid",
+                  "width": "fill_container",
+                  "fill": "#E8E8E8",
+                  "gap": 1,
                   "children": [
                     {
-                      "type": "ellipse",
-                      "id": "qurMT",
-                      "name": "MapPin",
-                      "fill": "#1A1A1A",
-                      "width": 16,
-                      "height": 16
+                      "type": "frame",
+                      "id": "Z6obZC",
+                      "name": "사무실Card",
+                      "width": "fill_container",
+                      "fill": "#FFFFFF",
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "VWulM",
+                          "name": "CardHeader",
+                          "width": "fill_container",
+                          "stroke": {
+                            "thickness": {
+                              "bottom": 1
+                            },
+                            "fill": "#E8E8E8"
+                          },
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            24,
+                            24,
+                            20,
+                            24
+                          ],
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "HaZqZ",
+                              "name": "TitleRow",
+                              "gap": 10,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "IUDwS",
+                                  "name": "LocName",
+                                  "fill": "#1A1A1A",
+                                  "content": "사무실",
+                                  "fontFamily": "Noto Serif KR",
+                                  "fontSize": 20,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "jQhGZ",
+                                  "name": "LocEn",
+                                  "fill": "#AAAAAA",
+                                  "content": "Office",
+                                  "fontFamily": "Noto Sans KR",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 2
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "ECPgl",
+                              "name": "LocAddr",
+                              "fill": "#555555",
+                              "content": "경기도 ○○시 ○○구 ○○로 000",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "HDXpF",
+                              "name": "LocDetail",
+                              "fill": "#AAAAAA",
+                              "content": "○○빌딩 3층",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 10,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "ZeZPa",
+                          "name": "MapBox",
+                          "width": "fill_container",
+                          "height": 320,
+                          "fill": "#E0E0E0",
+                          "layout": "vertical",
+                          "gap": 12,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "Zey2O",
+                              "name": "PinIcon",
+                              "geometry": "M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z m0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
+                              "viewBox": [
+                                0,
+                                0,
+                                24,
+                                24
+                              ],
+                              "fill": "#AAAAAA",
+                              "width": 32,
+                              "height": 32
+                            },
+                            {
+                              "type": "text",
+                              "id": "y4505",
+                              "name": "MapLabel",
+                              "fill": "#AAAAAA",
+                              "textGrowth": "fixed-width",
+                              "width": 160,
+                              "content": "네이버 지도 embed\n(주소 확정 후 교체)",
+                              "lineHeight": 1.7,
+                              "textAlign": "center",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 10,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
                     },
                     {
-                      "type": "text",
-                      "id": "TbPOz",
-                      "name": "MapLabel",
+                      "type": "frame",
+                      "id": "fKquU",
+                      "name": "공장Card",
+                      "width": "fill_container",
                       "fill": "#FFFFFF",
-                      "content": "MasterArtisan",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 12,
-                      "fontWeight": "700"
+                      "layout": "vertical",
+                      "children": [
+                        {
+                          "type": "frame",
+                          "id": "e3Kyi",
+                          "name": "CardHeader",
+                          "width": "fill_container",
+                          "stroke": {
+                            "thickness": {
+                              "bottom": 1
+                            },
+                            "fill": "#E8E8E8"
+                          },
+                          "layout": "vertical",
+                          "gap": 4,
+                          "padding": [
+                            24,
+                            24,
+                            20,
+                            24
+                          ],
+                          "children": [
+                            {
+                              "type": "frame",
+                              "id": "QDfos",
+                              "name": "TitleRow",
+                              "gap": 10,
+                              "alignItems": "center",
+                              "children": [
+                                {
+                                  "type": "text",
+                                  "id": "QJFkH",
+                                  "name": "LocName",
+                                  "fill": "#1A1A1A",
+                                  "content": "공장",
+                                  "fontFamily": "Noto Serif KR",
+                                  "fontSize": 20,
+                                  "fontWeight": "normal"
+                                },
+                                {
+                                  "type": "text",
+                                  "id": "X5fPd",
+                                  "name": "LocEn",
+                                  "fill": "#AAAAAA",
+                                  "content": "Workshop",
+                                  "fontFamily": "Noto Sans KR",
+                                  "fontSize": 10,
+                                  "fontWeight": "normal",
+                                  "letterSpacing": 2
+                                }
+                              ]
+                            },
+                            {
+                              "type": "text",
+                              "id": "F6nGRE",
+                              "name": "LocAddr",
+                              "fill": "#555555",
+                              "content": "경기도 ○○시 ○○구 ○○로 000",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 12,
+                              "fontWeight": "normal"
+                            },
+                            {
+                              "type": "text",
+                              "id": "eN4IG",
+                              "name": "LocDetail",
+                              "fill": "#AAAAAA",
+                              "content": "전통건축 목공장",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 10,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "frame",
+                          "id": "PPmRc",
+                          "name": "MapBox",
+                          "width": "fill_container",
+                          "height": 320,
+                          "fill": "#E0E0E0",
+                          "layout": "vertical",
+                          "gap": 12,
+                          "justifyContent": "center",
+                          "alignItems": "center",
+                          "children": [
+                            {
+                              "type": "path",
+                              "id": "tM8xk",
+                              "name": "PinIcon",
+                              "geometry": "M12 2c-3.87 0-7 3.13-7 7 0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z m0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z",
+                              "viewBox": [
+                                0,
+                                0,
+                                24,
+                                24
+                              ],
+                              "fill": "#AAAAAA",
+                              "width": 32,
+                              "height": 32
+                            },
+                            {
+                              "type": "text",
+                              "id": "tjZdw",
+                              "name": "MapLabel",
+                              "fill": "#AAAAAA",
+                              "textGrowth": "fixed-width",
+                              "width": 160,
+                              "content": "네이버 지도 embed\n(주소 확정 후 교체)",
+                              "lineHeight": 1.7,
+                              "textAlign": "center",
+                              "fontFamily": "Noto Sans KR",
+                              "fontSize": 10,
+                              "fontWeight": "normal"
+                            }
+                          ]
+                        }
+                      ]
                     }
                   ]
                 }
@@ -3065,17 +2561,6 @@
                 },
                 {
                   "type": "text",
-                  "id": "r6phJ",
-                  "name": "PRODUCT",
-                  "fill": "#ffffff8c",
-                  "content": "PRODUCT",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 10,
-                  "fontWeight": "normal",
-                  "letterSpacing": 2
-                },
-                {
-                  "type": "text",
                   "id": "gZPRl",
                   "name": "CONTACT",
                   "fill": "#ffffff8c",
@@ -3107,9 +2592,9 @@
               "name": "HeroBg",
               "metadata": {
                 "type": "unsplash",
-                "username": "sanderhallaste",
-                "link": "https://unsplash.com/@sanderhallaste",
-                "author": "Sander Hallaste"
+                "username": "felifox",
+                "link": "https://unsplash.com/@felifox",
+                "author": "Felix"
               },
               "clip": true,
               "width": 1440,
@@ -3117,7 +2602,7 @@
               "fill": {
                 "type": "image",
                 "enabled": true,
-                "url": "https://images.unsplash.com/photo-1759523131742-af817477bcd9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODUzMjl8&ixlib=rb-4.1.0&q=80&w=1080",
+                "url": "https://images.unsplash.com/photo-1577735518457-06de4c9d81ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4NjV8&ixlib=rb-4.1.0&q=80&w=1080",
                 "mode": "fill"
               }
             },
@@ -3157,75 +2642,109 @@
               "type": "frame",
               "id": "lmIdy",
               "x": 52,
-              "y": 480,
+              "y": 450,
               "name": "HeroText",
+              "width": "fill_container(900)",
               "layout": "vertical",
+              "gap": 30,
               "children": [
                 {
-                  "type": "text",
-                  "id": "D3acSa",
-                  "name": "H1a",
-                  "fill": "#FFFFFF",
-                  "textGrowth": "fixed-width",
-                  "width": 900,
-                  "content": "삼대의 손,",
-                  "lineHeight": 1,
-                  "fontFamily": "Noto Serif KR",
-                  "fontSize": 104,
-                  "fontWeight": "300",
-                  "letterSpacing": -3
+                  "type": "group",
+                  "id": "hCHFG",
+                  "layout": "horizontal",
+                  "gap": 30,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "UKnsA",
+                      "name": "H1b",
+                      "fill": "#FFFFFF",
+                      "textGrowth": "fixed-width",
+                      "width": 900,
+                      "content": "천년의 기술\n삼대의 손",
+                      "lineHeight": 1.3,
+                      "fontFamily": "Noto Serif KR",
+                      "fontSize": 100,
+                      "fontWeight": "300"
+                    }
+                  ]
                 },
                 {
-                  "type": "text",
-                  "id": "UKnsA",
-                  "name": "H1b",
-                  "fill": "#FFFFFF",
-                  "textGrowth": "fixed-width",
-                  "width": 900,
-                  "content": "천년의 기술.",
-                  "lineHeight": 1.05,
-                  "fontFamily": "Noto Serif KR",
-                  "fontSize": 104,
-                  "fontWeight": "300",
-                  "letterSpacing": -3
-                },
-                {
-                  "type": "text",
-                  "id": "LWqkQ",
-                  "name": "HeroSubCopy",
-                  "fill": "#ffffff61",
-                  "textGrowth": "fixed-width",
-                  "width": 600,
-                  "content": "Heritage of Master Artisan",
-                  "lineHeight": 1,
-                  "fontFamily": "Noto Serif KR",
-                  "fontSize": 18,
-                  "fontWeight": "300",
-                  "letterSpacing": 4
+                  "type": "group",
+                  "id": "C75CE",
+                  "layout": "vertical",
+                  "gap": 46,
+                  "padding": [
+                    0,
+                    0,
+                    0,
+                    10
+                  ],
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "LWqkQ",
+                      "name": "HeroSubCopy",
+                      "fill": "#ffffff61",
+                      "content": "Heritage of Master Artisan",
+                      "lineHeight": 1,
+                      "textAlignVertical": "middle",
+                      "fontFamily": "Noto Serif KR",
+                      "fontSize": 20,
+                      "fontWeight": "300",
+                      "letterSpacing": 8
+                    }
+                  ]
                 }
               ]
             },
             {
-              "type": "text",
-              "id": "KuHhE",
-              "x": 960,
+              "type": "frame",
+              "id": "DzJuz",
+              "x": 696,
               "y": 840,
-              "name": "HeroEnSub",
-              "fill": "#ffffff66",
-              "textGrowth": "fixed-width",
-              "width": 380,
-              "content": "We Make Quality\nThat Stands the Test of Time.",
-              "lineHeight": 1.7,
-              "fontFamily": "Noto Sans KR",
-              "fontSize": 13,
-              "fontWeight": "normal",
-              "letterSpacing": 1
+              "name": "ScrollInd",
+              "layout": "vertical",
+              "gap": 6,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "L3aDS",
+                  "name": "ScrLabel",
+                  "fill": "#ffffff59",
+                  "content": "SCROLL",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 8,
+                  "fontWeight": "normal",
+                  "letterSpacing": 4
+                },
+                {
+                  "type": "rectangle",
+                  "id": "Gt9Fj",
+                  "name": "ScrLine",
+                  "fill": "#ffffff33",
+                  "width": 1,
+                  "height": 52
+                },
+                {
+                  "type": "rectangle",
+                  "id": "QCDCH",
+                  "layoutPosition": "absolute",
+                  "x": 1379,
+                  "y": 870,
+                  "name": "ScrDot",
+                  "fill": "#ffffffb3",
+                  "width": 3,
+                  "height": 18
+                }
+              ]
             },
             {
               "type": "frame",
               "id": "oF6Zn",
               "x": 52,
-              "y": 902,
+              "y": 867,
               "name": "Pagination",
               "gap": 10,
               "alignItems": "center",
@@ -3264,43 +2783,89 @@
             },
             {
               "type": "frame",
-              "id": "DzJuz",
-              "x": 1380,
-              "y": 860,
-              "name": "ScrollInd",
-              "layout": "vertical",
-              "gap": 6,
+              "id": "yPaVc",
+              "x": 0,
+              "y": 0,
+              "name": "Nav",
+              "width": "fill_container(1440)",
+              "height": 72,
+              "fill": "#FFFFFF",
+              "stroke": {
+                "thickness": {
+                  "bottom": 1
+                },
+                "fill": "#E8E8E8"
+              },
+              "padding": [
+                0,
+                60
+              ],
+              "justifyContent": "space_between",
               "alignItems": "center",
               "children": [
                 {
                   "type": "text",
-                  "id": "L3aDS",
-                  "name": "ScrLabel",
-                  "fill": "#ffffff59",
-                  "content": "SCROLL",
+                  "id": "mbXMp",
+                  "name": "Logo",
+                  "fill": "#1A1A1A",
+                  "content": "MASTERARTISAN",
                   "fontFamily": "Noto Sans KR",
-                  "fontSize": 8,
-                  "fontWeight": "normal",
-                  "letterSpacing": 4
+                  "fontSize": 16,
+                  "fontWeight": "700",
+                  "letterSpacing": 2
                 },
                 {
-                  "type": "rectangle",
-                  "id": "Gt9Fj",
-                  "name": "ScrLine",
-                  "fill": "#ffffff33",
-                  "width": 1,
-                  "height": 52
-                },
-                {
-                  "type": "rectangle",
-                  "id": "QCDCH",
-                  "layoutPosition": "absolute",
-                  "x": 1379,
-                  "y": 870,
-                  "name": "ScrDot",
-                  "fill": "#ffffffb3",
-                  "width": 3,
-                  "height": 18
+                  "type": "frame",
+                  "id": "J4wU7",
+                  "name": "NavLinks",
+                  "gap": 44,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "q3hE6Q",
+                      "name": "MASTERARTISAN",
+                      "fill": "#1A1A1A",
+                      "content": "MASTERARTISAN",
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "Drovz",
+                      "name": "HISTORY",
+                      "fill": "#888888",
+                      "content": "HISTORY",
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "S0hwN",
+                      "name": "WORKS",
+                      "fill": "#888888",
+                      "content": "WORKS",
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 1.5
+                    },
+                    {
+                      "type": "text",
+                      "id": "Q2ODH",
+                      "name": "CONTACT",
+                      "fill": "#888888",
+                      "content": "CONTACT",
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 1.5
+                    }
+                  ]
                 }
               ]
             }
@@ -3318,7 +2883,7 @@
               "id": "bul6X",
               "name": "S2Left — 다릅니다",
               "clip": true,
-              "width": 660,
+              "width": 720,
               "height": 700,
               "fill": "#0E0D0B",
               "layout": "none",
@@ -3327,21 +2892,21 @@
                   "type": "frame",
                   "id": "ZIZVq",
                   "x": 0,
-                  "y": -40,
+                  "y": 0,
                   "name": "S2LBg",
                   "metadata": {
                     "type": "unsplash",
-                    "username": "ingvar_erik",
-                    "link": "https://unsplash.com/@ingvar_erik",
-                    "author": "Igor Karimov"
+                    "username": "brandonkaida",
+                    "link": "https://unsplash.com/@brandonkaida",
+                    "author": "Brandon Kaida"
                   },
                   "clip": true,
-                  "width": 660,
-                  "height": 780,
+                  "width": 720,
+                  "height": 700,
                   "fill": {
                     "type": "image",
                     "enabled": true,
-                    "url": "https://images.unsplash.com/photo-1778882996096-cc3cd8ec48b5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODUzNTN8&ixlib=rb-4.1.0&q=80&w=1080",
+                    "url": "https://images.unsplash.com/photo-1559825491-a529dd302927?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4NjV8&ixlib=rb-4.1.0&q=80&w=1080",
                     "mode": "fill"
                   }
                 },
@@ -3370,7 +2935,7 @@
                       }
                     ]
                   },
-                  "width": 660,
+                  "width": 720,
                   "height": 700
                 },
                 {
@@ -3439,56 +3004,57 @@
                   "name": "S2RBg",
                   "metadata": {
                     "type": "unsplash",
-                    "username": "mazinomron",
-                    "link": "https://unsplash.com/@mazinomron",
-                    "author": "Mazin Omron"
+                    "username": "yoofan",
+                    "link": "https://unsplash.com/@yoofan",
+                    "author": "Juwhan Yu"
                   },
                   "clip": true,
-                  "width": 780,
-                  "height": 780,
+                  "width": 720,
+                  "height": 700,
                   "fill": {
                     "type": "image",
                     "enabled": true,
-                    "url": "https://images.unsplash.com/photo-1777107508801-1aa0a4513780?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODUzNTR8&ixlib=rb-4.1.0&q=80&w=1080",
+                    "url": "https://images.unsplash.com/photo-1688341750245-f16a2ce6e56d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4NjZ8&ixlib=rb-4.1.0&q=80&w=1080",
                     "mode": "fill"
                   }
                 },
                 {
                   "type": "rectangle",
-                  "id": "bpsce",
+                  "id": "gKBJL",
                   "x": 0,
                   "y": 0,
-                  "name": "S2ROvl",
+                  "name": "S2LOvl",
                   "fill": {
                     "type": "gradient",
                     "gradientType": "linear",
                     "enabled": true,
-                    "rotation": 0,
+                    "rotation": 180,
                     "size": {
                       "height": 1
                     },
                     "colors": [
                       {
-                        "color": "#F0EDE600",
-                        "position": 0
+                        "color": "#00000000",
+                        "position": 0.3
                       },
                       {
-                        "color": "#F0EDE6DD",
+                        "color": "#0E0D0BDD",
                         "position": 1
                       }
                     ]
                   },
-                  "width": 780,
+                  "width": 720,
                   "height": 700
                 },
                 {
                   "type": "frame",
                   "id": "rfgmC",
-                  "x": 440,
+                  "x": 340,
                   "y": 480,
                   "name": "S2RText",
                   "layout": "vertical",
                   "gap": 14,
+                  "alignItems": "end",
                   "children": [
                     {
                       "type": "text",
@@ -3505,7 +3071,7 @@
                       "type": "text",
                       "id": "x4J8dD",
                       "name": "S2R_KR",
-                      "fill": "#1A1A1A",
+                      "fill": "#ffffff",
                       "content": "바릅니다",
                       "fontFamily": "Noto Serif KR",
                       "fontSize": 60,
@@ -3521,6 +3087,7 @@
                       "width": 320,
                       "content": "전통 목구조 기법 그대로,\n원형을 존중하며 정직하게 짓습니다.",
                       "lineHeight": 1.85,
+                      "textAlign": "right",
                       "fontFamily": "Noto Sans KR",
                       "fontSize": 13,
                       "fontWeight": "normal"
@@ -3570,6 +3137,7 @@
               "id": "yI2QX",
               "name": "S4Left",
               "width": 520,
+              "height": 480,
               "fill": "#FFFFFF",
               "stroke": {
                 "thickness": {
@@ -3583,43 +3151,54 @@
                 80,
                 52
               ],
+              "justifyContent": "center",
+              "alignItems": "center",
               "children": [
                 {
-                  "type": "text",
-                  "id": "S3nbKj",
-                  "name": "S4Label",
-                  "fill": "#AAAAAA",
-                  "content": "WHY MASTERARTISAN",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 9,
-                  "fontWeight": "normal",
-                  "letterSpacing": 4
-                },
-                {
-                  "type": "text",
-                  "id": "eedr9",
-                  "name": "S4Title",
-                  "fill": "#1A1A1A",
-                  "textGrowth": "fixed-width",
-                  "width": 400,
-                  "content": "숫자로\n증명합니다",
-                  "lineHeight": 1.2,
-                  "fontFamily": "Noto Serif KR",
-                  "fontSize": 52,
-                  "fontWeight": "300"
-                },
-                {
-                  "type": "text",
-                  "id": "ZERTp",
-                  "name": "S4Desc",
-                  "fill": "#999999",
-                  "textGrowth": "fixed-width",
-                  "width": 400,
-                  "content": "1960년대부터 3대에 걸쳐 이어온 전통건축 기술.\n수백 개의 문화재 복원 프로젝트가 우리의 실력을 말합니다.",
-                  "lineHeight": 1.9,
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 14,
-                  "fontWeight": "normal"
+                  "type": "group",
+                  "id": "C8xKV",
+                  "layout": "vertical",
+                  "gap": 34,
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "S3nbKj",
+                      "name": "S4Label",
+                      "fill": "#AAAAAA",
+                      "content": "WHY MASTERARTISAN",
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 9,
+                      "fontWeight": "normal",
+                      "letterSpacing": 4
+                    },
+                    {
+                      "type": "text",
+                      "id": "eedr9",
+                      "name": "S4Title",
+                      "fill": "#1A1A1A",
+                      "textGrowth": "fixed-width",
+                      "width": 400,
+                      "content": "시간이 빚어낸\n가치를 짓습니다",
+                      "lineHeight": 1.3076923076923077,
+                      "fontFamily": "Noto Serif KR",
+                      "fontSize": 52,
+                      "fontWeight": "300",
+                      "letterSpacing": -1
+                    },
+                    {
+                      "type": "text",
+                      "id": "ZERTp",
+                      "name": "S4Desc",
+                      "fill": "#999999",
+                      "textGrowth": "fixed-width",
+                      "width": 400,
+                      "content": "1960년대부터 3대에 걸쳐 이어온 전통건축 기술.\n수백 개의 문화재 복원 프로젝트가 우리의 실력을 말합니다.",
+                      "lineHeight": 1.9,
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 14,
+                      "fontWeight": "normal"
+                    }
+                  ]
                 }
               ]
             },
@@ -4005,9 +3584,9 @@
                       "name": "BigImg",
                       "metadata": {
                         "type": "unsplash",
-                        "username": "joesun",
-                        "link": "https://unsplash.com/@joesun",
-                        "author": "joe sun"
+                        "username": "aismutahir",
+                        "link": "https://unsplash.com/@aismutahir",
+                        "author": "Aismu Tahir"
                       },
                       "clip": true,
                       "width": 780,
@@ -4015,7 +3594,7 @@
                       "fill": {
                         "type": "image",
                         "enabled": true,
-                        "url": "https://images.unsplash.com/photo-1643544668026-e8a843f046d7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODU0MTF8&ixlib=rb-4.1.0&q=80&w=1080",
+                        "url": "https://images.unsplash.com/photo-1560083270-5aa41ed4e1c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4Njd8&ixlib=rb-4.1.0&q=80&w=1080",
                         "mode": "fill"
                       },
                       "children": [
@@ -4165,9 +3744,9 @@
                           "name": "경복궁 근정전 유지보수Img",
                           "metadata": {
                             "type": "unsplash",
-                            "username": "yangluhan091",
-                            "link": "https://unsplash.com/@yangluhan091",
-                            "author": "LUHAN YANG"
+                            "username": "huyqtran",
+                            "link": "https://unsplash.com/@huyqtran",
+                            "author": "Huy Q. Tran"
                           },
                           "clip": true,
                           "width": 660,
@@ -4175,7 +3754,7 @@
                           "fill": {
                             "type": "image",
                             "enabled": true,
-                            "url": "https://images.unsplash.com/photo-1769157755504-512ab9c4f133?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODU0MTJ8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "url": "https://images.unsplash.com/photo-1748835600856-dba50a909dfb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4Njh8&ixlib=rb-4.1.0&q=80&w=1080",
                             "mode": "fill"
                           },
                           "children": [
@@ -4290,9 +3869,9 @@
                           "name": "전통 목구조 누각 신축Img",
                           "metadata": {
                             "type": "unsplash",
-                            "username": "markuswinkler",
-                            "link": "https://unsplash.com/@markuswinkler",
-                            "author": "Markus Winkler"
+                            "username": "ja024",
+                            "link": "https://unsplash.com/@ja024",
+                            "author": "Jay"
                           },
                           "clip": true,
                           "width": 660,
@@ -4300,7 +3879,7 @@
                           "fill": {
                             "type": "image",
                             "enabled": true,
-                            "url": "https://images.unsplash.com/photo-1570001240297-d974871c3533?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODU0MTN8&ixlib=rb-4.1.0&q=80&w=1080",
+                            "url": "https://images.unsplash.com/photo-1675143967358-8b0651f4c679?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4Njl8&ixlib=rb-4.1.0&q=80&w=1080",
                             "mode": "fill"
                           },
                           "children": [
@@ -4408,18 +3987,21 @@
           "id": "BXN6C",
           "name": "S6 Process — Parallax Mosaic",
           "width": "fill_container",
+          "height": 600,
           "children": [
             {
               "type": "frame",
               "id": "FW5YS",
               "name": "S6Left",
-              "width": 480,
+              "height": 600,
               "fill": "#111111",
               "layout": "vertical",
               "gap": 28,
               "padding": [
-                80,
-                52
+                60,
+                50,
+                59,
+                50
               ],
               "children": [
                 {
@@ -4440,8 +4022,8 @@
                   "fill": "#FFFFFF",
                   "textGrowth": "fixed-width",
                   "width": 380,
-                  "content": "모든 공정은\n손으로\n완성됩니다",
-                  "lineHeight": 1.15,
+                  "content": "장인의 혼을 담아 ",
+                  "lineHeight": 1.3541666666666667,
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 48,
                   "fontWeight": "300"
@@ -4636,7 +4218,7 @@
               "name": "S6TileGrid",
               "clip": true,
               "width": "fill_container",
-              "height": 600,
+              "height": "fill_container",
               "fill": "#1A1816",
               "layout": "none",
               "children": [
@@ -4648,9 +4230,9 @@
                   "name": "Tile_0",
                   "metadata": {
                     "type": "unsplash",
-                    "username": "chanphoto",
-                    "link": "https://unsplash.com/@chanphoto",
-                    "author": "Chandler Cruttenden"
+                    "username": "edoa_rdo",
+                    "link": "https://unsplash.com/@edoa_rdo",
+                    "author": "Edoardo Bortoli"
                   },
                   "clip": true,
                   "width": 480,
@@ -4658,7 +4240,7 @@
                   "fill": {
                     "type": "image",
                     "enabled": true,
-                    "url": "https://images.unsplash.com/photo-1638718260002-18bdc8082608?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODU0NDB8&ixlib=rb-4.1.0&q=80&w=1080",
+                    "url": "https://images.unsplash.com/photo-1703541585777-5b9349aa4f6f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4Njl8&ixlib=rb-4.1.0&q=80&w=1080",
                     "mode": "fill"
                   },
                   "children": [
@@ -4683,9 +4265,9 @@
                   "name": "Tile_1",
                   "metadata": {
                     "type": "unsplash",
-                    "username": "meanduck",
-                    "link": "https://unsplash.com/@meanduck",
-                    "author": "Minh Đức"
+                    "username": "vekonyorsi",
+                    "link": "https://unsplash.com/@vekonyorsi",
+                    "author": "Orsolya Vékony"
                   },
                   "clip": true,
                   "width": 478,
@@ -4693,7 +4275,7 @@
                   "fill": {
                     "type": "image",
                     "enabled": true,
-                    "url": "https://images.unsplash.com/photo-1756736668751-dbe8bfed8a1a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODU0NDF8&ixlib=rb-4.1.0&q=80&w=1080",
+                    "url": "https://images.unsplash.com/photo-1564067018527-8584aca23a04?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4NzB8&ixlib=rb-4.1.0&q=80&w=1080",
                     "mode": "fill"
                   },
                   "children": [
@@ -4718,9 +4300,9 @@
                   "name": "Tile_2",
                   "metadata": {
                     "type": "unsplash",
-                    "username": "philhearing",
-                    "link": "https://unsplash.com/@philhearing",
-                    "author": "Phil Hearing"
+                    "username": "tanyabarrow",
+                    "link": "https://unsplash.com/@tanyabarrow",
+                    "author": "Tanya Barrow"
                   },
                   "clip": true,
                   "width": 480,
@@ -4728,7 +4310,7 @@
                   "fill": {
                     "type": "image",
                     "enabled": true,
-                    "url": "https://images.unsplash.com/photo-1538333119730-fffed7d5b6c2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODU0NDJ8&ixlib=rb-4.1.0&q=80&w=1080",
+                    "url": "https://images.unsplash.com/photo-1768573263769-49bd0ddfa104?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4NzF8&ixlib=rb-4.1.0&q=80&w=1080",
                     "mode": "fill"
                   },
                   "children": [
@@ -4753,9 +4335,9 @@
                   "name": "Tile_3",
                   "metadata": {
                     "type": "unsplash",
-                    "username": "takeshi2",
-                    "link": "https://unsplash.com/@takeshi2",
-                    "author": "wu yi"
+                    "username": "brother_yoon",
+                    "link": "https://unsplash.com/@brother_yoon",
+                    "author": "Brother Yoon"
                   },
                   "clip": true,
                   "width": 478,
@@ -4763,7 +4345,7 @@
                   "fill": {
                     "type": "image",
                     "enabled": true,
-                    "url": "https://images.unsplash.com/photo-1615987541581-8fd4edd74572?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODU0NDN8&ixlib=rb-4.1.0&q=80&w=1080",
+                    "url": "https://images.unsplash.com/photo-1758696654625-29937273a271?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3ODAwNjA4NzJ8&ixlib=rb-4.1.0&q=80&w=1080",
                     "mode": "fill"
                   },
                   "children": [
@@ -4797,23 +4379,34 @@
               "id": "e5dhm",
               "name": "CTABand",
               "width": "fill_container",
-              "fill": "#0D0C0A",
+              "height": "fit_content(360)",
+              "fill": "#0000000d",
               "stroke": {
                 "thickness": {
                   "bottom": 1
                 },
                 "fill": "#222222"
               },
-              "padding": [
-                80,
-                52
-              ],
-              "justifyContent": "space_between",
-              "alignItems": "center",
+              "layout": "none",
               "children": [
+                {
+                  "type": "text",
+                  "id": "D18jN",
+                  "x": 114,
+                  "y": 160,
+                  "name": "BigLogo",
+                  "fill": "#ffffff0a",
+                  "content": "MASTERARTISAN",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 120,
+                  "fontWeight": "700",
+                  "letterSpacing": 8
+                },
                 {
                   "type": "frame",
                   "id": "byqAo",
+                  "x": 52,
+                  "y": 134,
                   "name": "CTALeft",
                   "layout": "vertical",
                   "gap": 16,
@@ -4823,9 +4416,10 @@
                       "id": "dfzDJ",
                       "name": "CTATitle",
                       "fill": "#FFFFFF",
-                      "textGrowth": "fixed-width",
-                      "width": 520,
-                      "content": "전통건축을\n의뢰하시겠습니까?",
+                      "textGrowth": "fixed-width-height",
+                      "width": 608,
+                      "height": 57,
+                      "content": "전통건축을 의뢰하시겠습니까?",
                       "lineHeight": 1.2,
                       "fontFamily": "Noto Serif KR",
                       "fontSize": 40,
@@ -4846,19 +4440,22 @@
                 {
                   "type": "frame",
                   "id": "HfcV7",
+                  "x": 1243,
+                  "y": 153,
                   "name": "CTABtn",
+                  "width": "fit_content(145)",
+                  "height": "fit_content(53)",
                   "stroke": {
                     "thickness": 1,
                     "fill": "#ffffff59"
                   },
-                  "padding": [
-                    18,
-                    44
-                  ],
+                  "layout": "none",
                   "children": [
                     {
                       "type": "text",
                       "id": "XCnTs",
+                      "x": 44,
+                      "y": 18,
                       "name": "CTABtnLbl",
                       "fill": "#FFFFFF",
                       "content": "문의하기",
@@ -4870,172 +4467,49 @@
                   ]
                 }
               ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "lVXgV",
+          "name": "Footer",
+          "width": "fill_container",
+          "height": 74,
+          "fill": "#1A1A1A",
+          "stroke": {
+            "thickness": {
+              "top": 1
+            },
+            "fill": "#2A2A2A"
+          },
+          "padding": [
+            48,
+            80
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "FcvPK",
+              "name": "FootLogo",
+              "fill": "#FFFFFF",
+              "content": "MASTERARTISAN",
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 13,
+              "fontWeight": "700",
+              "letterSpacing": 2
             },
             {
-              "type": "frame",
-              "id": "Aeryh",
-              "name": "LogoBand",
-              "clip": true,
-              "width": "fill_container",
-              "height": 200,
-              "fill": "#0D0C0A",
-              "layout": "none",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "NGjMz",
-                  "x": 0,
-                  "y": 0,
-                  "name": "LogoBg",
-                  "metadata": {
-                    "type": "unsplash",
-                    "username": "hansphoto",
-                    "link": "https://unsplash.com/@hansphoto",
-                    "author": "Hans"
-                  },
-                  "clip": true,
-                  "width": 1440,
-                  "height": 200,
-                  "fill": {
-                    "type": "image",
-                    "enabled": true,
-                    "url": "https://images.unsplash.com/photo-1635315619556-5826839a1bea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w4NDM0ODN8MHwxfHJhbmRvbXx8fHx8fHx8fDE3Nzk5ODU0Njh8&ixlib=rb-4.1.0&q=80&w=1080",
-                    "mode": "fill"
-                  }
-                },
-                {
-                  "type": "rectangle",
-                  "id": "mnhLG",
-                  "x": 0,
-                  "y": 0,
-                  "name": "LogoBgOvl",
-                  "fill": "#0D0C0AE0",
-                  "width": 1440,
-                  "height": 200
-                },
-                {
-                  "type": "text",
-                  "id": "ohgUK",
-                  "x": -8,
-                  "y": 40,
-                  "name": "BigLogo",
-                  "fill": "#ffffff0f",
-                  "textGrowth": "fixed-width",
-                  "width": 1600,
-                  "content": "MASTERARTISAN",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 120,
-                  "fontWeight": "700",
-                  "letterSpacing": 8
-                },
-                {
-                  "type": "text",
-                  "id": "n2wlAu",
-                  "x": 52,
-                  "y": 80,
-                  "name": "FooterLogo",
-                  "fill": "#FFFFFF",
-                  "content": "MASTERARTISAN",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 24,
-                  "fontWeight": "700",
-                  "letterSpacing": 4
-                }
-              ]
-            },
-            {
-              "type": "frame",
-              "id": "c4t7z2",
-              "name": "FooterBottom",
-              "width": "fill_container",
-              "fill": "#0D0C0A",
-              "stroke": {
-                "thickness": {
-                  "top": 1
-                },
-                "fill": "#1A1A1A"
-              },
-              "padding": [
-                32,
-                52
-              ],
-              "justifyContent": "space_between",
-              "alignItems": "center",
-              "children": [
-                {
-                  "type": "text",
-                  "id": "W52xQK",
-                  "name": "FCopy",
-                  "fill": "#444444",
-                  "content": "© 2024 MasterArtisan. All rights reserved. | 경기무형문화재 제36호",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 10,
-                  "fontWeight": "normal"
-                },
-                {
-                  "type": "frame",
-                  "id": "D6tmXw",
-                  "name": "FootLinks",
-                  "gap": 28,
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "gH0TN",
-                      "name": "FL_MASTERARTISAN",
-                      "fill": "#555555",
-                      "content": "MASTERARTISAN",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
-                      "fontWeight": "normal",
-                      "letterSpacing": 1.5
-                    },
-                    {
-                      "type": "text",
-                      "id": "FGKGB",
-                      "name": "FL_HISTORY",
-                      "fill": "#555555",
-                      "content": "HISTORY",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
-                      "fontWeight": "normal",
-                      "letterSpacing": 1.5
-                    },
-                    {
-                      "type": "text",
-                      "id": "DJpu4",
-                      "name": "FL_WORKS",
-                      "fill": "#555555",
-                      "content": "WORKS",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
-                      "fontWeight": "normal",
-                      "letterSpacing": 1.5
-                    },
-                    {
-                      "type": "text",
-                      "id": "UdUaS",
-                      "name": "FL_PRODUCT",
-                      "fill": "#555555",
-                      "content": "PRODUCT",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
-                      "fontWeight": "normal",
-                      "letterSpacing": 1.5
-                    },
-                    {
-                      "type": "text",
-                      "id": "jvxDk",
-                      "name": "FL_CONTACT",
-                      "fill": "#555555",
-                      "content": "CONTACT",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
-                      "fontWeight": "normal",
-                      "letterSpacing": 1.5
-                    }
-                  ]
-                }
-              ]
+              "type": "text",
+              "id": "Ek6zR",
+              "name": "FootCopy",
+              "fill": "#555555",
+              "content": "© 2024 MasterArtisan. All rights reserved.",
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 10,
+              "fontWeight": "normal"
             }
           ]
         }
@@ -5062,23 +4536,13 @@
           "layout": "none",
           "children": [
             {
-              "type": "rectangle",
-              "id": "QfkH2",
-              "x": 720,
-              "y": 0,
-              "name": "DropLine",
-              "fill": "#f5f0e880",
-              "width": 1,
-              "height": 460
-            },
-            {
               "type": "ellipse",
               "id": "jP7uf",
-              "x": 520,
-              "y": 260,
+              "x": 460,
+              "y": 200,
               "name": "Ring_200",
-              "width": 400,
-              "height": 400,
+              "width": 520,
+              "height": 520,
               "stroke": {
                 "thickness": 1,
                 "fill": "#f5f0e829"
@@ -5087,34 +4551,14 @@
             {
               "type": "ellipse",
               "id": "Q5Qqeb",
-              "x": 570,
-              "y": 310,
+              "x": 518,
+              "y": 258,
               "name": "Ring_150",
-              "width": 300,
-              "height": 300,
+              "width": 404,
+              "height": 404,
               "stroke": {
                 "thickness": 0.8,
                 "fill": "#f5f0e817"
-              }
-            },
-            {
-              "type": "path",
-              "id": "F6ja2",
-              "x": 0,
-              "y": 0,
-              "name": "Indicator",
-              "geometry": "M720 460l0-200",
-              "viewBox": [
-                0,
-                0,
-                1440,
-                920
-              ],
-              "width": 1440,
-              "height": 920,
-              "stroke": {
-                "thickness": 1,
-                "fill": "#c4a882d9"
               }
             },
             {
@@ -5128,252 +4572,107 @@
               "height": 6
             },
             {
-              "type": "path",
-              "id": "Qcj7O",
-              "x": 0,
-              "y": 0,
-              "name": "Tick_1936",
-              "geometry": "M720 274l0-14",
-              "viewBox": [
-                0,
-                0,
-                1440,
-                920
-              ],
-              "width": 1440,
-              "height": 920,
-              "stroke": {
-                "thickness": 1.2,
-                "fill": "#F5F0E8"
-              }
-            },
-            {
               "type": "text",
               "id": "siZzs",
-              "x": 699,
-              "y": 221.4,
+              "x": 700.2,
+              "y": 130.1,
               "name": "Y_1936",
               "fill": "#F5F0E8",
               "content": "1936",
               "fontFamily": "Noto Serif KR",
-              "fontSize": 18
-            },
-            {
-              "type": "path",
-              "id": "h0AEy",
-              "x": 0,
-              "y": 0,
-              "name": "Tick_1958",
-              "geometry": "M851.52186 328.47814l9.8995-9.8995",
-              "viewBox": [
-                0,
-                0,
-                1440,
-                920
-              ],
-              "width": 1440,
-              "height": 920,
-              "stroke": {
-                "thickness": 0.6,
-                "fill": "#f5f0e866"
-              }
+              "fontSize": 18,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
               "id": "zIjUp",
-              "x": 863.8061325481597,
-              "y": 290.3938674518402,
+              "x": 939.2738128459484,
+              "y": 212.72475861906435,
               "name": "Y_1958",
+              "rotation": 315,
               "fill": "#f5f0e86b",
               "content": "1958",
               "fontFamily": "Noto Serif KR",
-              "fontSize": 14
-            },
-            {
-              "type": "path",
-              "id": "yKVTC",
-              "x": 0,
-              "y": 0,
-              "name": "Tick_1972",
-              "geometry": "M906 460l14 0",
-              "viewBox": [
-                0,
-                0,
-                1440,
-                920
-              ],
-              "width": 1440,
-              "height": 920,
-              "stroke": {
-                "thickness": 0.6,
-                "fill": "#f5f0e866"
-              }
+              "fontSize": 18,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
               "id": "dchMg",
-              "x": 930,
-              "y": 450.2,
+              "x": 1049.9,
+              "y": 440.2,
               "name": "Y_1972",
+              "rotation": 270,
               "fill": "#f5f0e86b",
               "content": "1972",
               "fontFamily": "Noto Serif KR",
-              "fontSize": 14
-            },
-            {
-              "type": "path",
-              "id": "siJjN",
-              "x": 0,
-              "y": 0,
-              "name": "Tick_1984",
-              "geometry": "M851.52186 591.52186l9.8995 9.8995",
-              "viewBox": [
-                0,
-                0,
-                1440,
-                920
-              ],
-              "width": 1440,
-              "height": 920,
-              "stroke": {
-                "thickness": 0.6,
-                "fill": "#f5f0e866"
-              }
+              "fontSize": 18,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
               "id": "vxt0h",
-              "x": 863.8061325481598,
-              "y": 610.0061325481597,
+              "x": 967.2752413809357,
+              "y": 679.2738128459484,
               "name": "Y_1984",
+              "rotation": 225,
               "fill": "#f5f0e86b",
               "content": "1984",
               "fontFamily": "Noto Serif KR",
-              "fontSize": 14
-            },
-            {
-              "type": "path",
-              "id": "dm0Hp",
-              "x": 0,
-              "y": 0,
-              "name": "Tick_1995",
-              "geometry": "M720 646l0 14",
-              "viewBox": [
-                0,
-                0,
-                1440,
-                920
-              ],
-              "width": 1440,
-              "height": 920,
-              "stroke": {
-                "thickness": 0.6,
-                "fill": "#f5f0e866"
-              }
+              "fontSize": 18,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
               "id": "YtOK6",
-              "x": 704,
-              "y": 676.2,
+              "x": 739.8,
+              "y": 789.9,
               "name": "Y_1995",
+              "rotation": 180,
               "fill": "#f5f0e86b",
               "content": "1995",
               "fontFamily": "Noto Serif KR",
-              "fontSize": 14
-            },
-            {
-              "type": "path",
-              "id": "kYoEY",
-              "x": 0,
-              "y": 0,
-              "name": "Tick_2005",
-              "geometry": "M588.47814 591.52186l-9.8995 9.8995",
-              "viewBox": [
-                0,
-                0,
-                1440,
-                920
-              ],
-              "width": 1440,
-              "height": 920,
-              "stroke": {
-                "thickness": 0.6,
-                "fill": "#f5f0e866"
-              }
+              "fontSize": 18,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
               "id": "Ko1Oe",
-              "x": 544.1938674518403,
-              "y": 610.0061325481598,
+              "x": 500.7261871540516,
+              "y": 707.2752413809357,
               "name": "Y_2005",
+              "rotation": 135,
               "fill": "#f5f0e86b",
               "content": "2005",
               "fontFamily": "Noto Serif KR",
-              "fontSize": 14
-            },
-            {
-              "type": "path",
-              "id": "x6RsB6",
-              "x": 0,
-              "y": 0,
-              "name": "Tick_2011",
-              "geometry": "M534 460l-14 0",
-              "viewBox": [
-                0,
-                0,
-                1440,
-                920
-              ],
-              "width": 1440,
-              "height": 920,
-              "stroke": {
-                "thickness": 0.6,
-                "fill": "#f5f0e866"
-              }
+              "fontSize": 18,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
               "id": "L3bQS",
-              "x": 478,
-              "y": 450.20000000000005,
+              "x": 390.1,
+              "y": 479.80000000000007,
               "name": "Y_2011",
+              "rotation": 90,
               "fill": "#f5f0e86b",
               "content": "2011",
               "fontFamily": "Noto Serif KR",
-              "fontSize": 14
-            },
-            {
-              "type": "path",
-              "id": "bjLmR",
-              "x": 0,
-              "y": 0,
-              "name": "Tick_2016",
-              "geometry": "M588.47814 328.47814l-9.8995-9.8995",
-              "viewBox": [
-                0,
-                0,
-                1440,
-                920
-              ],
-              "width": 1440,
-              "height": 920,
-              "stroke": {
-                "thickness": 0.6,
-                "fill": "#f5f0e866"
-              }
+              "fontSize": 18,
+              "fontWeight": "normal"
             },
             {
               "type": "text",
               "id": "DRYnw",
-              "x": 544.1938674518402,
-              "y": 290.3938674518403,
+              "x": 472.7247586190643,
+              "y": 240.72618715405164,
               "name": "Y_2016",
+              "rotation": 45,
               "fill": "#f5f0e86b",
               "content": "2016",
               "fontFamily": "Noto Serif KR",
-              "fontSize": 14
+              "fontSize": 18,
+              "fontWeight": "normal"
             },
             {
               "type": "frame",
@@ -5526,17 +4825,6 @@
                   "name": "WORKS",
                   "fill": "#AAAAAA",
                   "content": "WORKS",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 10,
-                  "fontWeight": "normal",
-                  "letterSpacing": 2
-                },
-                {
-                  "type": "text",
-                  "id": "oUh4V",
-                  "name": "PRODUCT",
-                  "fill": "#AAAAAA",
-                  "content": "PRODUCT",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 10,
                   "fontWeight": "normal",
@@ -8364,7 +7652,8 @@
                           "fill": "#1A1714",
                           "content": "1960~1951",
                           "fontFamily": "Noto Serif KR",
-                          "fontSize": 10
+                          "fontSize": 10,
+                          "fontWeight": "normal"
                         },
                         {
                           "type": "text",
@@ -8595,7 +7884,8 @@
           "fill": "#F5F0E8",
           "content": "1936",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 15
+          "fontSize": 15,
+          "fontWeight": "normal"
         },
         {
           "type": "ellipse",
@@ -8616,7 +7906,8 @@
           "fill": "#f5f0e86b",
           "content": "1958",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "ellipse",
@@ -8637,7 +7928,8 @@
           "fill": "#f5f0e86b",
           "content": "1972",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "ellipse",
@@ -8658,7 +7950,8 @@
           "fill": "#f5f0e86b",
           "content": "1984",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "ellipse",
@@ -8679,7 +7972,8 @@
           "fill": "#f5f0e86b",
           "content": "1995",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "ellipse",
@@ -8700,7 +7994,8 @@
           "fill": "#f5f0e86b",
           "content": "2005",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "ellipse",
@@ -8721,7 +8016,8 @@
           "fill": "#f5f0e86b",
           "content": "2011",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "ellipse",
@@ -8742,7 +8038,8 @@
           "fill": "#f5f0e86b",
           "content": "2016",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "ellipse",
@@ -8829,7 +8126,8 @@
           "fill": "#F5F0E8",
           "content": "1936",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 16
+          "fontSize": 16,
+          "fontWeight": "normal"
         },
         {
           "type": "path",
@@ -8860,7 +8158,8 @@
           "fill": "#f5f0e86b",
           "content": "1958",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "path",
@@ -8891,7 +8190,8 @@
           "fill": "#f5f0e86b",
           "content": "1972",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "path",
@@ -8922,7 +8222,8 @@
           "fill": "#f5f0e86b",
           "content": "1984",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "path",
@@ -8953,7 +8254,8 @@
           "fill": "#f5f0e86b",
           "content": "1995",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "path",
@@ -8984,7 +8286,8 @@
           "fill": "#f5f0e86b",
           "content": "2005",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "path",
@@ -9015,7 +8318,8 @@
           "fill": "#f5f0e86b",
           "content": "2011",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "path",
@@ -9046,7 +8350,8 @@
           "fill": "#f5f0e86b",
           "content": "2016",
           "fontFamily": "Noto Serif KR",
-          "fontSize": 12
+          "fontSize": 12,
+          "fontWeight": "normal"
         },
         {
           "type": "ellipse",

@@ -13,18 +13,17 @@ export default function MasterArtisanPage() {
         <div
           className="absolute inset-0"
           style={{
-            background:
-              'linear-gradient(180deg, rgba(248,245,240,0.55) 0%, rgba(248,245,240,0.3) 45%, rgba(248,245,240,0.9) 100%)',
+            background: 'linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.05) 100%)',
           }}
         />
         <div
           className="absolute"
-          style={{ left: 80, bottom: 64, display: 'flex', flexDirection: 'column', gap: 10 }}
+          style={{ left: 80, top: 220, display: 'flex', flexDirection: 'column', gap: 10 }}
         >
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: '#888888' }}>
+          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '4px', color: 'rgba(255,255,255,0.6)' }}>
             THE ARTISANS
           </span>
-          <h1 style={{ fontFamily: SERIF, fontSize: 48, fontWeight: 300, lineHeight: 1.2, color: '#1A1A1A' }}>
+          <h1 style={{ fontFamily: SERIF, fontSize: 48, fontWeight: 300, lineHeight: 1.2, color: '#FFFFFF' }}>
             장인을 소개합니다
           </h1>
         </div>
@@ -48,16 +47,17 @@ export default function MasterArtisanPage() {
               {/* Text */}
               <ScrollReveal
                 direction={reversed ? 'left' : 'right'}
-                className="flex-1 flex flex-col justify-center px-8 py-16 md:px-20 md:py-[72px]"
+                className="flex-1 flex flex-col"
+                style={{ padding: '72px 80px' }}
               >
                 <div className="flex flex-col gap-6">
-                  <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: '#AAAAAA' }}>
+                  <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '3px', color: '#AAAAAA' }}>
                     {artisan.generationEn}
                   </span>
-                  <h2 style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 300, lineHeight: 1.2, color: '#1A1A1A' }}>
+                  <h2 style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 300, lineHeight: '63px', color: '#1A1A1A' }}>
                     {artisan.name} {artisan.title}
                   </h2>
-                  <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: '0.08em', color: '#AAAAAA' }}>
+                  <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: '1px', color: '#AAAAAA' }}>
                     {artisan.role}
                   </span>
                   <div style={{ width: 32, height: 1, backgroundColor: '#CCCCCC' }} />
@@ -73,11 +73,11 @@ export default function MasterArtisanPage() {
 
       {/* ── Certification ── */}
       <section
-        style={{ backgroundColor: '#1A1A1A', padding: '80px 24px' }}
+        style={{ backgroundColor: '#0d0c0a', padding: '80px 0' }}
         className="flex flex-col items-center text-center"
       >
         <ScrollReveal className="flex flex-col items-center" style={{ maxWidth: 600 }}>
-          <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.4em', color: '#666666' }}>
+          <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '4px', color: '#666666' }}>
             OFFICIAL CERTIFICATION
           </span>
           <h3 style={{ fontFamily: SERIF, fontSize: 40, fontWeight: 300, color: '#FFFFFF', marginTop: 24 }}>

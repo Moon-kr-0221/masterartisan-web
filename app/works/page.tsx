@@ -12,7 +12,7 @@ const SANS = 'var(--font-sans)';
 
 // Banner mirrors the Pencil WORKS PageHero (height 360 + image + light scrim)
 const BANNER_IMG = 'https://images.unsplash.com/photo-1761452776106-78710d4fada9?auto=format&fit=crop&w=1600&q=80';
-const BANNER_SCRIM = 'linear-gradient(180deg, rgba(247,246,243,0.55) 0%, rgba(247,246,243,0.3) 45%, rgba(247,246,243,0.95) 100%)';
+const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
 
 export default function WorksPage() {
   const [active, setActive] = useState<WorkCategory>('all');
@@ -39,13 +39,13 @@ export default function WorksPage() {
           style={{ padding: '72px 80px' }}
         >
           <div className="flex flex-col gap-[10px]">
-            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: '#AAAAAA' }}>
+            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>
               OUR WORKS
             </span>
-            <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: '#1A1A1A' }}>
+            <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: '#FFFFFF' }}>
               작업 사례
             </h1>
-            <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: '#888888' }}>
+            <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>
               전통건축 유지보수·수리·제작에 걸친 대표 작업물을 소개합니다.
             </p>
           </div>
@@ -63,9 +63,9 @@ export default function WorksPage() {
                     fontSize: 11,
                     letterSpacing: '0.08em',
                     padding: '8px 18px',
-                    backgroundColor: on ? '#1A1A1A' : 'transparent',
-                    color: on ? '#FFFFFF' : '#888888',
-                    border: on ? '1px solid #1A1A1A' : '1px solid #E0E0E0',
+                    backgroundColor: on ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.08)',
+                    color: on ? '#1A1A1A' : 'rgba(255,255,255,0.65)',
+                    border: on ? 'none' : '1px solid rgba(255,255,255,0.3)',
                     transition: 'all 0.3s',
                     cursor: 'pointer',
                   }}

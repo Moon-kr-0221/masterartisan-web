@@ -5,7 +5,7 @@ const SANS = 'var(--font-sans)';
 
 // Banner mirrors the Pencil CONTACT PageHero (height 360 + image + light scrim)
 const BANNER_IMG = 'https://images.unsplash.com/photo-1772331274809-4a6ad75c9947?auto=format&fit=crop&w=1600&q=80';
-const BANNER_SCRIM = 'linear-gradient(180deg, rgba(247,246,243,0.55) 0%, rgba(247,246,243,0.3) 45%, rgba(247,246,243,0.95) 100%)';
+const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
 
 const LEFT_ITEMS = [
   { label: '전화', value: '031-000-0000', href: 'tel:031-000-0000' },
@@ -44,9 +44,9 @@ export default function ContactPage() {
         <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
         <div className="absolute inset-0 flex flex-col justify-end gap-3" style={{ padding: '72px 80px' }}>
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: '#AAAAAA' }}>GET IN TOUCH</span>
-          <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: '#1A1A1A' }}>찾아오시는 길</h1>
-          <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: '#888888' }}>
+          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>GET IN TOUCH</span>
+          <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: '#FFFFFF' }}>찾아오시는 길</h1>
+          <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>
             전통건축에 관한 문의나 방문을 환영합니다.
           </p>
         </div>

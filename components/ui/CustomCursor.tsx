@@ -46,6 +46,8 @@ export default function CustomCursor() {
     };
   }, [mx, my]);
 
+  return null;
+
   const dotSize  = DOT_SIZE[mode];
   const trailSize = TRAIL_SIZE[mode];
 
@@ -61,10 +63,11 @@ export default function CustomCursor() {
           animate={{
             width: dotSize,
             height: dotSize,
-            backgroundColor: mode === 'image' ? 'transparent' : '#FFFFFF',
-            border: mode === 'image' ? '1px solid rgba(255,255,255,0.85)' : 'none',
+            backgroundColor: mode === 'image' ? 'transparent' : '#1A1A1A',
+            boxShadow: mode === 'image'
+              ? '0 0 0 1px rgba(255,255,255,0.85)'
+              : '0 0 0 1.5px rgba(255,255,255,0.5)',
           }}
-          style={{ mixBlendMode: 'difference' }}
           transition={{ type: 'spring', stiffness: 500, damping: 28 }}
         >
           {mode === 'image' && (
@@ -93,7 +96,7 @@ export default function CustomCursor() {
         <motion.div
           className="rounded-full"
           animate={{ width: trailSize, height: trailSize, opacity: mode === 'default' ? 0.35 : 0 }}
-          style={{ backgroundColor: '#FFFFFF', mixBlendMode: 'difference' }}
+          style={{ backgroundColor: '#1A1A1A', boxShadow: '0 0 0 1px rgba(255,255,255,0.4)' }}
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
         />
       </motion.div>

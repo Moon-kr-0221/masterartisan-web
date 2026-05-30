@@ -44,8 +44,6 @@
 
 html { scroll-behavior: auto; } /* Lenis handles smooth scroll */
 
-* { cursor: none !important; }
-
 body {
   background-color: #F8F5F0;
   color: #1A1714;
