@@ -69,41 +69,40 @@
     <p class="px-6 pb-12 pt-4 font-sans text-[11px] leading-relaxed text-white/40">전통건축에 관한 문의나 방문을 환영합니다.<br/>경기무형문화재 제36호.</p>
   </nav>
 
-  <!-- ════ ClockIntro — 3D 다이얼 (완성된 /history ClockIntro 1:1 포팅) ════ -->
-  <section id="clockSection" class="relative bg-forest">
-    <div id="clockPin" class="relative flex h-screen items-center justify-center overflow-hidden">
+  <!-- ════ ClockIntro — 레이어 분리: 시계(BG, sticky 고정) + 타이포 2개(FG, 위로 스크롤) ════ -->
+  <section id="clockSection" class="relative bg-forest" style="height:300vh">
 
-      <!-- Phase 1: 위에서 중심으로 그려지는 세로선 -->
+    <!-- [1] BG 레이어: 시계 (sticky 고정 · 스크롤 스크럽) -->
+    <div id="clockStage" class="sticky top-0 z-0 flex h-screen items-center justify-center overflow-hidden">
       <div id="clockLine" class="pointer-events-none absolute left-1/2 top-0 z-[4] h-[50vh] w-px -ml-px bg-[rgba(245,240,232,0.7)]"></div>
       <div id="clockDot" class="pointer-events-none absolute left-1/2 top-1/2 z-[6] -ml-[5px] -mt-[5px] h-[10px] w-[10px] rounded-full bg-[#F5F0E8]"></div>
-
-      <!-- 3D perspective stage -->
       <div style="perspective:1600px; perspective-origin:50% 58%;">
-        <div id="clockDial" style="position:relative; width:min(900px,92vmin); height:min(900px,92vmin); will-change:transform;">
+        <div id="clockDial" style="position:relative; width:min(116.89vw,502px); height:min(116.89vw,502px); will-change:transform;">
           <svg id="dialSvg" viewBox="0 0 1000 1000" width="100%" height="100%" style="overflow:visible; display:block;">
-            <g id="ring">
-              <circle cx="500" cy="500" r="340" fill="none" stroke="rgba(245,240,232,0.34)" stroke-width="1.2"/>
-              <circle cx="500" cy="500" r="265" fill="none" stroke="rgba(245,240,232,0.16)" stroke-width="0.9"/>
-            </g>
+            <g id="ring"></g>
             <g id="minor"></g>
             <g id="orbit"></g>
-            <g id="hand"><line x1="500" y1="500" x2="500" y2="-450" stroke="#C4A882" stroke-width="1.8"/></g>
             <circle id="pivot" cx="500" cy="500" r="6" fill="#C4A882"/>
           </svg>
         </div>
       </div>
-
-      <!-- Centre copy -->
-      <div id="clockCopy" class="pointer-events-none absolute left-1/2 top-1/2 z-[5] flex -translate-x-1/2 -translate-y-1/2 flex-col items-center gap-3.5 text-center">
-        <span class="font-sans text-[10px] tracking-[0.32em] text-[rgba(245,240,232,0.5)]">SINCE 1936</span>
-        <span class="font-serif text-[27px] font-light leading-[1.45] text-[#F5F0E8]">70여 년,<br/>전통의 토대를 쌓다</span>
-      </div>
-
-      <!-- Scroll hint -->
       <div id="clockHint" class="pointer-events-none absolute bottom-10 left-1/2 z-[5] flex -translate-x-1/2 flex-col items-center gap-2.5">
         <span class="font-sans text-[8px] uppercase tracking-[0.35em] text-[rgba(245,240,232,0.4)]">SCROLL</span>
         <div class="h-9 w-px bg-[rgba(196,168,130,0.4)]"></div>
       </div>
+    </div>
+
+    <!-- [2] FG 레이어: 타이포 2개 (고정된 시계 위로 따로 스크롤 · 패럴럭스) -->
+    <div class="pointer-events-none absolute inset-x-0 top-0 z-10">
+      <div class="copy-block flex h-screen flex-col items-center justify-center px-6 text-center will-change-transform">
+        <span class="font-sans text-[10px] tracking-[0.32em] text-[rgba(245,240,232,0.55)]">SINCE 1936</span>
+        <span class="mt-3 font-serif text-[22px] font-light leading-[1.45] text-[#F5F0E8]">70여 년,<br/>전통의 토대를 쌓다</span>
+      </div>
+      <div class="copy-block flex h-screen flex-col items-center justify-center px-6 text-center will-change-transform">
+        <span class="font-sans text-[10px] tracking-[0.32em] text-[rgba(245,240,232,0.55)]">三代 · THREE GENERATIONS</span>
+        <span class="mt-3 font-serif text-[22px] font-light leading-[1.45] text-[#F5F0E8]">끊임없는 정진으로<br/>미래를 잇다</span>
+      </div>
+      <div class="h-screen"></div>
     </div>
   </section>
 
@@ -203,7 +202,7 @@
 
     /* ═══════════ ClockIntro 다이얼 — 완성본 1:1 포팅 ═══════════ */
     const BOX=1000, CX=500, CY=500;
-    const R_RING=340, R_LBL=388, R_TICK=372, MINOR=60, N=8;
+    const R_RING=340, R_LBL=365, R_TICK=372, MINOR=60, N=8;
     const YEARS=[1936,1958,1972,1984,1995,2005,2011,2016];
     const NS='http://www.w3.org/2000/svg';
     const polar=(deg,r)=>({x:CX+r*Math.cos(deg*Math.PI/180), y:CY+r*Math.sin(deg*Math.PI/180)});
@@ -214,22 +213,25 @@
     const minor=document.getElementById('minor');
     for(let i=0;i<MINOR;i++){
       const deg=(i/MINOR)*360-90, major=i%5===0;
-      const p0=polar(deg, R_RING-(major?15:8)), p1=polar(deg, R_RING);
+      const p0=polar(deg, R_RING-(major?14:9)), p1=polar(deg, R_RING);
       minor.appendChild(el('line',{x1:p0.x,y1:p0.y,x2:p1.x,y2:p1.y,
-        stroke:major?'rgba(245,240,232,0.62)':'rgba(245,240,232,0.32)', 'stroke-width':major?1.1:0.7}));
+        stroke:major?'rgba(245,240,232,0.5)':'rgba(245,240,232,0.34)', 'stroke-width':1}));
     }
     // year markers (ticks + radial labels)
     const orbit=document.getElementById('orbit');
     const labels=[];
     YEARS.forEach((year,i)=>{
       const deg=yearDeg(i);
-      const t0=polar(deg, R_RING-8), t1=polar(deg, R_TICK), lp=polar(deg, R_LBL);
+      const t0=polar(deg, R_RING-55), t1=polar(deg, R_RING), lp=polar(deg, R_LBL);
       const labelRot=(i/N)*360;
-      orbit.appendChild(el('line',{x1:t0.x,y1:t0.y,x2:t1.x,y2:t1.y,stroke:'rgba(245,240,232,0.7)','stroke-width':2}));
+      orbit.appendChild(el('line',{x1:t0.x,y1:t0.y,x2:t1.x,y2:t1.y,stroke:'rgba(245,240,232,0.9)','stroke-width':1.72}));
       const tx=el('text',{x:lp.x,y:lp.y,'text-anchor':'middle','dominant-baseline':'middle',
-        'font-size':19,'font-family':"'Noto Serif KR', serif",'font-weight':400,fill:'#F5F0E8'});
+        'font-size':30,'font-family':"'Noto Serif KR', serif",'font-weight':600,fill:'#F5F0E8'});
       tx.setAttribute('class','ylabel');
-      tx.style.transformBox='fill-box'; tx.style.transformOrigin='center'; tx.style.transform=`rotate(${labelRot}deg)`;
+      // iOS Safari/WebKit는 SVG <text>의 transform-box:fill-box를 제대로 지원하지 않아
+      // transform-origin이 SVG 원점(0,0)으로 풀려 라벨이 튄다. 모든 렌더러에서 안전한
+      // SVG presentation transform(자기 좌표 기준 회전)으로 처리.
+      tx.setAttribute('transform', `rotate(${labelRot} ${lp.x} ${lp.y})`);
       tx.textContent=year;
       orbit.appendChild(tx); labels.push(tx);
     });
@@ -237,8 +239,8 @@
     const TILT=72;
     const line=document.getElementById('clockLine'), dot=document.getElementById('clockDot');
     const dial=document.getElementById('clockDial'), ring=document.getElementById('ring');
-    const hand=document.getElementById('hand'), pivot=document.getElementById('pivot');
-    const copy=document.getElementById('clockCopy'), hint=document.getElementById('clockHint');
+    const pivot=document.getElementById('pivot');
+    const hint=document.getElementById('clockHint');
 
     // initial states (ClockIntro와 동일)
     gsap.set(line,  { scaleY:0, transformOrigin:'top center' });
@@ -247,13 +249,12 @@
     gsap.set(ring,  { opacity:0 });
     gsap.set(minor, { opacity:0 });
     gsap.set(pivot, { opacity:0 });
-    gsap.set(hand,  { opacity:0, rotation:0, svgOrigin:`${CX} ${CY}` });
-    gsap.set(copy,  { opacity:0, y:16 });
     gsap.set(orbit, { opacity:0, scale:0.07, rotation:-420, svgOrigin:`${CX} ${CY}` }); // 중심에서 한 바퀴 돌며 펼쳐짐
     gsap.set(labels,{ opacity:0 });
 
+    // BG 시계는 CSS sticky로 고정 — 핀 대신 섹션 스크롤에 스크럽
     const tl = gsap.timeline({
-      scrollTrigger: { trigger:'#clockSection', start:'top top', end:'+=4200', scrub:1.6, pin:'#clockPin', anticipatePin:1 }
+      scrollTrigger: { trigger:'#clockSection', start:'top top', end:'bottom bottom', scrub:1.6 }
     });
 
     // Phase 1: 세로선이 위→중심으로 그려짐
@@ -261,31 +262,36 @@
       .to(dot,  { opacity:1, scale:1, ease:'back.out(2.5)', duration:0.5 }, 1.1)
       .to(hint, { opacity:0, ease:'none', duration:0.7 }, 0.3);
 
-    // Phase 2: 선 사라지고, 72° 기울어진 다이얼+링 등장 (바닥에 누운 채)
-    tl.to(line, { opacity:0, ease:'none', duration:0.6 }, 1.3)
-      .to(dot,  { opacity:0, ease:'none', duration:0.4 }, 1.5)
-      .to(dial, { opacity:1, ease:'none', duration:0.9 }, 1.5)
+    // Phase 2: 세로선·중심점은 그대로 유지한 채, 72° 기울어진 다이얼+링 등장 (바닥에 누운 채)
+    tl.to(dial, { opacity:1, ease:'none', duration:0.9 }, 1.5)
       .to(ring, { opacity:1, ease:'none', duration:1.0 }, 1.9);
 
     // Phase 3: 바닥에서 — 마커가 중심에서 회전하며 펼쳐져 시계 모양 완성 (강약 이징)
     tl.to(orbit, { opacity:1, ease:'power1.in',     duration:0.4 }, 2.6)
       .to(orbit, { rotation:0, ease:'expo.out',     duration:1.9 }, 2.6)
       .to(orbit, { scale:1,    ease:'back.out(1.2)', duration:2.3 }, 2.7);
-    labels.forEach((l,i)=> tl.to(l, { opacity:0.72, ease:'none', duration:0.6 }, 4.0 + i*0.1));
-    tl.to(pivot, { opacity:1, ease:'none', duration:0.5 }, 5.2)
-      .to(minor, { opacity:1, ease:'power1.inOut', duration:1.0 }, 5.4);
+    labels.forEach((l,i)=> tl.to(l, { opacity:0.95, ease:'none', duration:0.6 }, 4.0 + i*0.1));
+    // 시 마커·연도 완성 후 · 분 마커 등장 전 — 시계가 살짝 확대됐다 원상복귀(호흡)
+    tl.to(dial, { scale:1.05, ease:'power2.out',   duration:0.3 }, 5.0)
+      .to(dial, { scale:1,    ease:'power2.inOut', duration:0.5 }, 5.3);
+    tl.to(minor, { opacity:1, ease:'power1.inOut', duration:1.0 }, 5.9);
 
     // Phase 4: 완성된 다이얼이 일어섬 — rotateX 72° → 0° (3D → 2D), 1936이 12시로
     tl.to(dial, { rotationX:0, ease:'power2.inOut', duration:3.4 }, 6.4);
 
-    // Phase 5: 금색 바늘이 12시에서 시계방향으로 360° 한 바퀴 → 사라짐
-    tl.to(hand,  { opacity:1, ease:'none', duration:0.4 }, 10.0)
-      .to(hand,  { rotation:360, svgOrigin:`${CX} ${CY}`, ease:'power1.inOut', duration:3.4 }, 10.4)
-      .to(hand,  { opacity:0, ease:'none', duration:0.6 }, 13.8)
-      .to(pivot, { opacity:0, ease:'none', duration:0.6 }, 13.8);
+    // Phase 5: 처음에 내려온 그 세로선이 계속 유지되다가, 중심을 축으로
+    //          시계방향 360° 한 바퀴 돈 뒤 사라짐 (선=바늘, 사라졌다 다시 나타나지 않음)
+    //          돌면서 화면 전체를 가로지르도록 길이도 함께 늘어남(scaleY) — 화면에서 잘리지 않음
+    tl.to(line,  { transformOrigin:'center bottom', scaleY:5, rotation:360, ease:'power1.inOut', duration:3.4 }, 10.4)
+      .to([line, dot], { y: () => -(window.innerHeight*1.4), ease:'power2.in', duration:1.6 }, 13.8);
 
-    // Phase 6: 바늘이 사라진 뒤 중심 카피 등장
-    tl.to(copy, { opacity:1, y:0, ease:'power2.out', duration:1.5 }, 14.4);
+    /* ════ FG 타이포 레이어 — 고정된 시계 위로 따로 스크롤(패럴럭스) + 진입/이탈 페이드 ════ */
+    gsap.utils.toArray('.copy-block').forEach((block) => {
+      gsap.timeline({ scrollTrigger:{ trigger:block, start:'top bottom', end:'bottom top', scrub:true } })
+        .fromTo(block, { yPercent:11, opacity:0 }, { yPercent:2, opacity:1, ease:'none', duration:0.4 })
+        .to(block, { yPercent:-2, opacity:1, ease:'none', duration:0.2 })
+        .to(block, { yPercent:-11, opacity:0, ease:'none', duration:0.4 });
+    });
 
     /* ════ 연혁 마일스톤 — Fade-in & Slide-up (순차 리빌) ════ */
     gsap.utils.toArray('.reveal-up').forEach((node) => {
