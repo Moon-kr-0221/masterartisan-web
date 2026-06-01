@@ -124,6 +124,7 @@ function HistoryDial({ activeIdx, groupRef, labelRefs }: DialProps) {
               <text
                 ref={(el) => { labelRefs.current[i] = el; }}
                 x={lp.x} y={lp.y}
+                data-cx={lp.x} data-cy={lp.y}
                 textAnchor="middle" dominantBaseline="middle"
                 fontSize={isActive ? 9.5 : 8.5}
                 fontFamily="'Noto Sans KR', sans-serif"
@@ -310,10 +311,12 @@ export default function HistoryPage() {
           end:   'bottom bottom',
           scrub: 1.6,                 // 1.6 s lag = cinematic inertia
           onUpdate(self) {
-            // Counter-rotate each label so it always reads upright
+            // Counter-rotate each label around ITS OWN centre (svgOrigin) so it
+            // stays upright AND keeps its orbit position. Without svgOrigin GSAP
+            // rotates around the SVG origin (0,0) and flings labels off-position.
             const currentDeg = -(self.progress * 360);
             labelRefs.current.forEach((el) => {
-              if (el) gsap.set(el, { rotation: -currentDeg });
+              if (el) gsap.set(el, { rotation: -currentDeg, svgOrigin: `${el.dataset.cx} ${el.dataset.cy}` });
             });
           },
         },
