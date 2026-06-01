@@ -5,7 +5,7 @@ import { motion, useInView, useMotionValue, useTransform, animate } from 'framer
 
 const stats = [
   { prefix: '',    raw: 3,  suffix: '代',   label: '장인 계승',     desc: '초대 → 이대 → 삼대, 끊어지지 않은 기술의 계보',    duration: 1.2 },
-  { prefix: '',    raw: 60, suffix: '+',    label: '년의 경험',     desc: '1960년대 창업부터 현재까지 이어온 전통건축 외길',    duration: 2.0 },
+  { prefix: '',    raw: 90, suffix: '+',    label: '년의 경험',     desc: '1936년 창업 이래 현재까지 이어온 전통건축 외길',    duration: 2.0 },
   { prefix: '',    raw: 36, suffix: '호',    label: '경기무형문화재', desc: '국가가 공인한 전통건축 기술 보유자',                 duration: 1.6 },
 ];
 
@@ -52,8 +52,8 @@ export default function HeritageStats() {
         </h2>
         <p className="text-[14px] leading-[1.9]"
           style={{ fontFamily: 'var(--font-sans)', color: '#888888', maxWidth: '360px' }}>
-          1960년대부터 3대에 걸쳐 이어온 전통건축 기술.<br />
-          수백 개의 문화재 복원 프로젝트가 우리의 실력을 말해줍니다.
+          1936년부터 3대에 걸쳐 이어온 전통건축 기술.<br />
+          수많은 문화재 복원 프로젝트가 우리의 실력을 말해줍니다.
         </p>
       </motion.div>
 

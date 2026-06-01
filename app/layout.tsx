@@ -1,11 +1,7 @@
 import type { Metadata } from 'next';
 import { Noto_Sans_KR, Noto_Serif_KR, Playfair_Display, Nanum_Myeongjo } from 'next/font/google';
 import './globals.css';
-import Navigation from '@/components/layout/Navigation';
-import Footer from '@/components/layout/Footer';
-import ScrollProgress from '@/components/ui/ScrollProgress';
-import GlobalLenis from '@/components/ui/GlobalLenis';
-import CustomCursor from '@/components/ui/CustomCursor';
+import SiteFrame from '@/components/layout/SiteFrame';
 
 const notoSansKR = Noto_Sans_KR({
   subsets: ['latin'],
@@ -51,11 +47,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="ko" className={`${notoSansKR.variable} ${notoSerifKR.variable} ${playfair.variable} ${nanumMyeongjo.variable}`}>
       <body>
-        <GlobalLenis />
-        <ScrollProgress />
-        <Navigation />
-        <main>{children}</main>
-        <Footer />
+        <SiteFrame>{children}</SiteFrame>
       </body>
     </html>
   );

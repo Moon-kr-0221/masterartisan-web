@@ -7,15 +7,13 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /* ─── constants ─────────────────────────────────────────────── */
-const YEARS  = [1936, 1958, 1972, 1984, 1995, 2005, 2011, 2016];
-const N      = YEARS.length;
+// Fallback milestone years used when no history data is supplied.
+const DEFAULT_YEARS = [1936, 1958, 1972, 1984, 1995, 2005, 2015, 2026];
 const BOX    = 1000;         // SVG viewBox side
 const CX     = BOX / 2;
 const CY     = BOX / 2;
-const R_RING = 340;          // main clock ring radius
-const R_IN   = 265;          // inner faint ring
-const R_LBL  = 388;          // year-label radius (just outside ring)
-const R_TICK = 372;          // year tick: a short mark straddling the ring
+const R_RING = 340;          // main clock tick-circle radius
+const R_LBL  = 365;          // year-label radius — 시 마커 끝(R_RING)에서 1920 기준 16px 간격
 const R_HAND = 950;          // sweeping hand reaches across the whole screen
 const MINOR  = 60;           // minute-tick count
 const TILT   = 72;           // floor tilt — rotateX 72° (per design spec)
@@ -30,10 +28,14 @@ const polar = (deg: number, r: number) => ({
   x: round(CX + r * Math.cos((deg * Math.PI) / 180)),
   y: round(CY + r * Math.sin((deg * Math.PI) / 180)),
 });
-const yearDeg = (i: number) => (i / N) * 360 - 90; // -90 = 12 o'clock
 
 /* ─── component ─────────────────────────────────────────────── */
-export default function ClockIntro() {
+export default function ClockIntro({ years }: { years?: number[] }) {
+  // Marker years are data-driven (from the history archive); fall back to defaults.
+  const YEARS = years && years.length >= 2 ? years : DEFAULT_YEARS;
+  const N = YEARS.length;
+  const yearDeg = (i: number) => (i / N) * 360 - 90; // -90 = 12 o'clock
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinRef     = useRef<HTMLDivElement>(null);
   const lineRef    = useRef<HTMLDivElement>(null);
@@ -81,10 +83,8 @@ export default function ClockIntro() {
         .to(dotRef.current,  { opacity: 1, scale: 1, ease: 'back.out(2.5)', duration: 0.5 }, 1.1)
         .to(hintRef.current, { opacity: 0, ease: 'none', duration: 0.7 }, 0.3);
 
-      // Phase 2 (1.3 → 2.3): line fades; the tilted dial + ring fade in, lying flat
-      tl.to(lineRef.current, { opacity: 0, ease: 'none', duration: 0.6 }, 1.3)
-        .to(dotRef.current,  { opacity: 0, ease: 'none', duration: 0.4 }, 1.5)
-        .to(dialRef.current, { opacity: 1, ease: 'none', duration: 0.9 }, 1.5)
+      // Phase 2: line + centre dot STAY on screen; the tilted dial + ring fade in, lying flat
+      tl.to(dialRef.current, { opacity: 1, ease: 'none', duration: 0.9 }, 1.5)
         .to(ringRef.current, { opacity: 1, ease: 'none', duration: 1.0 }, 1.9);
 
       // Phase 3 (2.6 → 5.6): ON THE FLOOR — markers spiral out from a tiny rotating
@@ -96,12 +96,16 @@ export default function ClockIntro() {
 
       // Labels fade up, staggered, as the orbit settles into place (uniform opacity)
       labelRefs.current.forEach((el, i) => {
-        tl.to(el, { opacity: 0.72, ease: 'none', duration: 0.6 }, 4.0 + i * 0.1);
+        tl.to(el, { opacity: 0.95, ease: 'none', duration: 0.6 }, 4.0 + i * 0.1);
       });
 
-      // Minute ticks + centre pivot fill in — clock now COMPLETE, still flat
-      tl.to(pivotRef.current, { opacity: 1, ease: 'none', duration: 0.5 }, 5.2)
-        .to(minorRef.current, { opacity: 1, ease: 'power1.inOut', duration: 1.0 }, 5.4);
+      // After year/hour markers settle, BEFORE the minute ticks: the dial gives a
+      //   subtle scale "breath" — pops up slightly, then returns to 1.
+      tl.to(dialRef.current, { scale: 1.05, ease: 'power2.out',   duration: 0.3 }, 5.0)
+        .to(dialRef.current, { scale: 1,    ease: 'power2.inOut', duration: 0.5 }, 5.3);
+
+      // Minute ticks fill in — clock now COMPLETE, still flat (centre dot already present from Phase 1)
+      tl.to(minorRef.current, { opacity: 1, ease: 'power1.inOut', duration: 1.0 }, 5.9);
 
       // ── HOLD beat: the finished dial rests flat on the floor ──
 
@@ -109,12 +113,14 @@ export default function ClockIntro() {
       //                       (3D → 2D), 1936 settling at 12:00
       tl.to(dialRef.current, { rotationX: 0, ease: 'power2.inOut', duration: 3.4 }, 6.4);
 
-      // Phase 5 (10.0 → 13.8): the gold hand appears at 12:00 and sweeps a full 360°
-      //   clockwise across the whole screen, then fades out before the copy
-      tl.to(handRef.current,  { opacity: 1, ease: 'none', duration: 0.4 }, 10.0)
-        .to(handRef.current,  { rotation: 360, svgOrigin: `${CX} ${CY}`, ease: 'power1.inOut', duration: 3.4 }, 10.4)
-        .to(handRef.current,  { opacity: 0, ease: 'none', duration: 0.6 }, 13.8)
-        .to(pivotRef.current, { opacity: 0, ease: 'none', duration: 0.6 }, 13.8);
+      // Phase 5 (10.4 → 13.8): the SAME drawn line — kept on screen the whole time —
+      //   sweeps a full 360° clockwise about the centre, then fades out before the copy.
+      //   No separate hand: the line never disappears-and-reappears.
+      //   It also lengthens (scaleY) as it turns so it spans the ENTIRE screen
+      //   instead of being cut short.
+      tl.to(lineRef.current,  { transformOrigin: 'center bottom', scaleY: 5, rotation: 360, ease: 'power1.inOut', duration: 3.4 }, 10.4)
+        // 마지막엔 페이드아웃이 아니라 화면 위로 슬라이드되어 사라짐 — 선(CZvIS)과 중심점(XvqxL)이 함께
+        .to([lineRef.current, dotRef.current], { y: () => -(window.innerHeight * 1.4), ease: 'power2.in', duration: 1.6 }, 13.8);
 
       // Phase 6 (14.4 → 15.9): centre copy fades up only after the hand has gone
       tl.to(copyRef.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 1.5 }, 14.4);
@@ -163,8 +169,9 @@ export default function ClockIntro() {
             ref={dialRef}
             style={{
               position: 'relative',
-              width: 'min(900px, 92vmin)',
-              height: 'min(900px, 92vmin)',
+              // 시계 원형(눈금원) 지름 = 0.68 × dial. 1920px 기준 790px → dial ≈ 1162px.
+              width: 'min(1162px, 60.5vw)',
+              height: 'min(1162px, 60.5vw)',
               willChange: 'transform',
             }}
           >
@@ -173,26 +180,21 @@ export default function ClockIntro() {
               width="100%" height="100%"
               style={{ overflow: 'visible', display: 'block' }}
             >
-              {/* Concentric rings */}
-              <g ref={(el) => { ringRef.current = el; }}>
-                <circle cx={CX} cy={CY} r={R_RING} fill="none"
-                  stroke="rgba(245,240,232,0.34)" strokeWidth={1.2} />
-                <circle cx={CX} cy={CY} r={R_IN} fill="none"
-                  stroke="rgba(245,240,232,0.16)" strokeWidth={0.9} />
-              </g>
+              {/* 원형 링 라인 제거 — 눈금(ticks)과 연도만으로 시계를 표현 */}
+              <g ref={(el) => { ringRef.current = el; }} />
 
               {/* Minute ticks */}
               <g ref={(el) => { minorRef.current = el; }}>
                 {Array.from({ length: MINOR }).map((_, i) => {
-                  const deg   = (i / MINOR) * 360 - 90;
-                  const major = i % 5 === 0;
-                  const p0    = polar(deg, R_RING - (major ? 15 : 8));
-                  const p1    = polar(deg, R_RING);
+                  const deg = (i / MINOR) * 360 - 90;
+                  // 분 마커 — 5분 단위 구분 없이 전부 균일한 길이·색
+                  const p0  = polar(deg, R_RING - 9);
+                  const p1  = polar(deg, R_RING);
                   return (
                     <line key={i}
                       x1={p0.x} y1={p0.y} x2={p1.x} y2={p1.y}
-                      stroke={major ? 'rgba(245,240,232,0.62)' : 'rgba(245,240,232,0.32)'}
-                      strokeWidth={major ? 1.1 : 0.7} />
+                      stroke="rgba(245,240,232,0.4)"
+                      strokeWidth={1} />
                   );
                 })}
               </g>
@@ -201,26 +203,27 @@ export default function ClockIntro() {
               <g ref={(el) => { orbitRef.current = el; }}>
                 {YEARS.map((year, i) => {
                   const deg    = yearDeg(i);
-                  const t0     = polar(deg, R_RING - 8);
-                  const t1     = polar(deg, R_TICK);    // short tick at the ring
+                  // 시 마커: 1920 기준 길이 64px (= 55 × dial스케일 1.162), 원 안쪽으로만
+                  const t0     = polar(deg, R_RING - 55);
+                  const t1     = polar(deg, R_RING);   // ends at the rim — never crosses it
                   const lp     = polar(deg, R_LBL);
                   // radial orientation: text baseline faces the centre
                   const labelRot = (i / N) * 360;
                   return (
                     <g key={year}>
-                      {/* all year ticks identical: thick + clearly visible */}
+                      {/* hour markers (numbered positions only): 1920 기준 두께 2px (= 1.72 × 1.162) */}
                       <line
                         x1={t0.x} y1={t0.y} x2={t1.x} y2={t1.y}
-                        stroke="rgba(245,240,232,0.7)"
-                        strokeWidth={2}
+                        stroke="rgba(245,240,232,0.9)"
+                        strokeWidth={1.72}
                       />
                       <text
                         ref={(el) => { labelRefs.current[i] = el; }}
                         x={lp.x} y={lp.y}
                         textAnchor="middle" dominantBaseline="middle"
-                        fontSize={19}
+                        fontSize={30}
                         fontFamily="'Noto Serif KR', serif"
-                        fontWeight={400}
+                        fontWeight={600}
                         fill={CREAM}
                         style={{
                           transformBox: 'fill-box',
@@ -251,23 +254,23 @@ export default function ClockIntro() {
         <div
           ref={copyRef}
           style={{
-            position: 'absolute', top: '50%', left: '50%',
+            position: 'absolute', top: 'calc(36.5%)', left: '50%',
             transform: 'translate(-50%,-50%)',
             display: 'flex', flexDirection: 'column', alignItems: 'center',
-            gap: 14, textAlign: 'center', pointerEvents: 'none', zIndex: 5,
+            gap: 20, textAlign: 'center', pointerEvents: 'none', zIndex: 5,
           }}
         >
           <span style={{
             fontFamily: "'Noto Sans KR', sans-serif",
-            fontSize: 10, letterSpacing: '0.32em', color: 'rgba(245,240,232,0.5)',
+            fontSize: 14, letterSpacing: '0.34em', color: 'rgba(245,240,232,0.55)',
           }}>
             SINCE 1936
           </span>
           <span style={{
             fontFamily: "'Noto Serif KR', serif",
-            fontSize: 27, fontWeight: 300, lineHeight: 1.45, color: CREAM,
+            fontSize: 52, fontWeight: 300, lineHeight: 1.4, color: CREAM,
           }}>
-            70여 년,<br />전통의 토대를 쌓다
+            90여 년,<br />전통의 토대를 쌓다
           </span>
         </div>
 

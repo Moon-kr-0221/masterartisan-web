@@ -1,4 +1,4 @@
-export type WorkCategory = 'all' | 'maintenance' | 'repair' | 'fabrication';
+export type WorkCategory = 'all' | 'maintenance' | 'repair' | 'fabrication' | 'drawing';
 
 // Images mirror the Pencil "WORKS" board (Unsplash, 전통건축 테마).
 const U = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1080&q=80`;
@@ -83,4 +83,5 @@ export const categoryLabels: Record<WorkCategory, string> = {
   maintenance: '유지보수',
   repair: '수리',
   fabrication: '제작',
+  drawing: '도면',
 };

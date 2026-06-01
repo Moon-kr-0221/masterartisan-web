@@ -1,10 +1,12 @@
-import { masterartisanData, masterartisanHeroImage } from '@/data/masterartisan';
+import { masterartisanHeroImage } from '@/data/masterartisan';
+import { getArtisans } from '@/lib/data/queries';
 import ScrollReveal from '@/components/ui/ScrollReveal';
 
 const SERIF = 'var(--font-serif)';
 const SANS = 'var(--font-sans)';
 
-export default function MasterArtisanPage() {
+export default async function MasterArtisanPage() {
+  const masterartisanData = await getArtisans();
   return (
     <div style={{ backgroundColor: '#FFFFFF', paddingTop: 72 }}>
       {/* ── Page Hero ── */}

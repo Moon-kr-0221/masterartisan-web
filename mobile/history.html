@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>MASTERARTISAN — 장인 이야기</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- 완성된 /history ClockIntro와 동일 엔진: GSAP + ScrollTrigger -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@200;300;400&display=swap" rel="stylesheet" />
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            canvas:'#FAFAF8', surface:'#F0EDE6', surface2:'#ECEAE4', paper:'#F8F5F0',
+            ink:'#1A1A1A', ink2:'#1A1714', inksoft:'#3D3A36', body:'#555555',
+            muted:'#999999', mutedl:'#AAAAAA', sage:'#A09890',
+            hairline:'#E8E8E8', hairline2:'#E2DDD6', gold:'#C8963C', gold2:'#C4A882',
+            night:'#0D0C0A', coal:'#111111', forest:'#16261C', cream:'#F5F0E8',
+          },
+          fontFamily: { serif:['"Noto Serif KR"','serif'], sans:['"Noto Sans KR"','sans-serif'] },
+        },
+      },
+    };
+  </script>
+  <style>
+    html { -webkit-tap-highlight-color: transparent; }
+    body { font-family: '"Noto Sans KR"', sans-serif; }
+    .scrollbar-hide { -ms-overflow-style:none; scrollbar-width:none; }
+    .scrollbar-hide::-webkit-scrollbar { display:none; }
+
+    /* ── Dial Intro: jakomosofa(?p=9) 모바일 time_sect 모션 1:1 (배경 시계 고정 레이어 + 전경 카피 스크롤) ── */
+    :root { --tk-cream:#F5F0E8; }   /* = colors.cream 토큰(커스텀 CSS용 매핑) */
+    .time_sect .time_cont { position:relative; padding:30vh 0; }
+
+    /* center_line: 뷰포트 중앙에 고정(핀 영역) — 섹션에 들어오면(.on)만 보임 */
+    .time_sect .center_line { position:fixed; left:0; top:0; width:100%; height:50%; transform-origin:bottom; z-index:0; opacity:0; pointer-events:none; transition:opacity .4s ease; }
+    .time_sect.on .center_line { opacity:.3; }   /* CZvIS 중앙선 + XvqxL 중심점 = 30% */
+    .time_sect .center_line .line { position:absolute; left:50%; bottom:110%; transform:translateX(-50%); width:1px; height:300%; background:var(--tk-cream); }
+    .time_sect .center_line .line::before { content:""; position:absolute; left:50%; bottom:0; transform:translate(-50%,50%); width:7px; height:7px; border-radius:50%; background:var(--tk-cream); }
+
+    /* circle_wrap: 고정 배경 시계(패럴럭스) — .on에서 흐릿하게(0.5), 스크럽으로 모션 */
+    .time_sect .circle_wrap { width:20vh; height:20vh; max-width:88vw; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); perspective:2500px; perspective-origin:top; z-index:0; opacity:0 !important; pointer-events:none; transition:opacity .4s ease; }
+    .time_sect.on .circle_wrap { opacity:.3 !important; }   /* 마커+연혁숫자 = 30% (!important로 GSAP 인라인 opacity를 눌러 섹션 밖에선 항상 숨김) */
+    .time_sect .circle_box { position:absolute; width:100%; height:100%; transform:rotateX(75deg) rotateZ(0deg); }
+    .time_sect .circle { position:absolute; width:100%; height:100%; }
+    .time_sect .circle .line { position:absolute; top:50%; left:0; width:50%; height:2px; background:transparent; transform-origin:100%; }
+    /* .rect 길이는 라인(=반지름) 대비 %로 — 다이얼 크기에 정비례(펜슬 390px: R≈167, 연도눈금 27=16.2%, 분눈금 4.42=2.6%) */
+    .time_sect .circle .line .rect { position:absolute; top:0; left:0; height:100%; background:var(--tk-cream); }
+    .time_sect .circle .line.em .rect { width:2.6%; }
+    .time_sect .circle .line.sm { opacity:0; }
+    .time_sect .circle .line.sm .rect { width:2.6%; opacity:.3; }
+    .time_sect .circle .line .num { position:absolute; left:0; top:50%; transform:translate(-92%,-50%) rotate(-90deg); white-space:nowrap; font-family:'Noto Serif KR',serif; font-weight:600; font-size:clamp(12px,3.4vw,16px); color:var(--tk-cream); opacity:0; }
+
+    /* circle_txt: 전경 카피(스크롤) — 배경 시계 위를 덮으며 흐름 */
+    .time_sect .circle_txt { position:relative; z-index:10; text-align:center; padding:0 24px; }
+    .time_sect .circle_txt .txt_cont + .txt_cont { margin-top:36vh; }
+  </style>
+</head>
+
+<body class="bg-paper text-ink antialiased mx-auto max-w-[430px] overflow-x-hidden">
+
+  <!-- GNB -->
+  <header class="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-hairline2 bg-paper px-6">
+    <a href="home.html" class="font-sans text-[13px] font-bold tracking-[2px] text-ink">MASTERARTISAN</a>
+    <button id="menuOpen" aria-label="메뉴 열기" class="p-1 -mr-1">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1A1A1A" stroke-width="1.5" stroke-linecap="round">
+        <line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/>
+      </svg>
+    </button>
+  </header>
+
+  <!-- Fullscreen menu -->
+  <nav id="menu" class="fixed inset-0 z-50 translate-y-full overflow-y-auto bg-night text-white transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+    <div class="flex h-14 items-center justify-between border-b border-white/10 px-6">
+      <span class="font-sans text-[13px] font-bold tracking-[2px]">MASTERARTISAN</span>
+      <button id="menuClose" aria-label="메뉴 닫기" class="p-1 -mr-1">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.5" stroke-linecap="round">
+          <line x1="5" y1="5" x2="19" y2="19"/><line x1="19" y1="5" x2="5" y2="19"/>
+        </svg>
+      </button>
+    </div>
+    <ul class="flex flex-col px-6 py-4">
+      <li><a href="home.html"          class="block border-b border-white/10 py-6 font-serif text-3xl font-light text-white/60">HOME <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">01</span></a></li>
+      <li><a href="masterartisan.html" class="block border-b border-white/10 py-6 font-serif text-3xl font-light text-white/60">MASTERARTISAN <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">02</span></a></li>
+      <li><a href="history.html"       class="block border-b border-white/10 py-6 font-serif text-3xl font-light">HISTORY <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">03</span></a></li>
+      <li><a href="works.html"         class="block border-b border-white/10 py-6 font-serif text-3xl font-light text-white/60">WORKS <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">04</span></a></li>
+      <li><a href="contact.html"       class="block py-6 font-serif text-3xl font-light text-white/60">CONTACT <span class="ml-2 align-middle font-sans text-[10px] tracking-[2px] text-gold2">05</span></a></li>
+    </ul>
+    <p class="px-6 pb-12 pt-4 font-sans text-[11px] leading-relaxed text-white/40">전통건축에 관한 문의나 방문을 환영합니다.<br/>경기무형문화재 제36호.</p>
+  </nav>
+
+  <!-- ════ [1] StoryHeader (펜슬 wU6rG) — 페이지 순서 1번 ════ -->
+  <section class="border-b border-hairline2 bg-paper px-6 py-16">
+    <p class="reveal-up font-sans text-[10px] tracking-[3.8px] text-gold2">HISTORY · 장인 이야기</p>
+    <h1 class="reveal-up mt-6 font-serif text-[34px] font-light leading-[1.15] tracking-[-1px] text-ink2">천년의 기술,<br/>삼대로 이어온<br/>90년의 여정</h1>
+    <p class="reveal-up mt-6 font-sans text-sm leading-[1.8] text-sage">1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.</p>
+  </section>
+
+  <!-- ════ [2] Dial Intro (펜슬 bgtaE) — jakomosofa(?p=9) 모바일 time_sect 모션 1:1 — 페이지 순서 2번 ════
+       배경 시계(center_line + circle_wrap, position:fixed 고정 레이어·패럴럭스) + 전경 카피(circle_txt, 스크롤)
+       center_line·circle_wrap 모션을 그대로 재현: 선 그리기 → 시계 확대·회전·기립 → 선 360° 스윕·이탈 ════ -->
+  <section id="clockSection" class="time_sect relative bg-forest">
+    <div class="time_cont">
+
+      <!-- [BG · z0 · fixed] 중앙선 -->
+      <div class="center_line"><div class="line"></div></div>
+
+      <!-- [BG · z0 · fixed] 원형 시계 — 눈금/연도는 JS로 생성 -->
+      <div class="circle_wrap">
+        <div class="circle_box"><div class="circle" id="dialCircle"></div></div>
+      </div>
+
+      <!-- [FG · z10] 카피 2단 — 배경 시계 위로 스크롤 -->
+      <div class="circle_txt">
+        <div class="txt_cont num1">
+          <p class="font-sans text-[12px] tracking-[0.34em] text-cream/55">SINCE 1936</p>
+          <p class="mt-3.5 font-serif font-light leading-[1.35] text-cream" style="font-size:clamp(30px,9vw,40px);">90여 년,<br/>전통의 토대를 쌓다</p>
+        </div>
+        <div class="txt_cont num2">
+          <p class="font-sans text-[12px] tracking-[0.34em] text-cream/55">三代 · THREE GENERATIONS</p>
+          <p class="mt-3.5 font-serif font-light leading-[1.35] text-cream" style="font-size:clamp(30px,9vw,40px);">끊임없는 정진으로<br/>미래를 잇다</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Era tabs (sticky 가로 스와이프 · 스크롤 스파이) ── -->
+  <div class="scrollbar-hide sticky top-14 z-30 flex overflow-x-auto border-b border-hairline2 bg-paper">
+    <button data-era="ALL"       class="era-tab shrink-0 border-b-2 border-ink2 px-4 py-3.5 font-sans text-[10px] font-semibold tracking-[1.4px] text-ink2">ALL</button>
+    <button data-era="1960~1951" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1960~1951</button>
+    <button data-era="1970~1961" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1970~1961</button>
+    <button data-era="1980~1971" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1980~1971</button>
+    <button data-era="1990~1981" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1990~1981</button>
+    <button data-era="2000~1991" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">2000~1991</button>
+    <button data-era="2010~2001" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">2010~2001</button>
+    <button data-era="~2011"     class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">~2011</button>
+  </div>
+
+  <!-- ── Era 1960~1951 ── -->
+  <section data-era-section="1960~1951" class="border-b border-hairline2 bg-paper px-6 py-14">
+    <div class="reveal-up flex items-center gap-3 pb-3">
+      <span class="h-px w-5 bg-gold2"></span><span class="font-sans text-[9px] tracking-[4px] text-gold2">01 / 07</span>
+    </div>
+    <h2 class="reveal-up font-serif text-[44px] font-light leading-none tracking-[-2px] text-ink2">1960~1951</h2>
+    <div class="mt-8">
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-3.5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1936</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up border-b border-hairline2 py-2.5"><p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">수덕사 대웅전 보수 工事</p></div>
+
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1958</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up border-b border-hairline2 py-2.5"><p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">인천 수봉산 부용암 법당신축 工事</p></div>
+      <div class="reveal-up border-b border-hairline2 py-2.5"><p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">양양 낙산사 일주문 신축 工事</p></div>
+
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1960</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">무량사 봉향각 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Era 1970~1961 ── -->
+  <section data-era-section="1970~1961" class="border-b border-hairline2 bg-paper px-6 py-14">
+    <div class="reveal-up flex items-center gap-3 pb-3">
+      <span class="h-px w-5 bg-gold2"></span><span class="font-sans text-[9px] tracking-[4px] text-gold2">02 / 07</span>
+    </div>
+    <h2 class="reveal-up font-serif text-[44px] font-light leading-none tracking-[-2px] text-ink2">1970~1961</h2>
+    <div class="mt-8">
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-3.5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1963</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">낙산사 누각 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">낙산사 홍련암 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1968</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">진관사 명부전 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+
+      <div class="reveal-up flex items-center gap-4 pb-2 pt-5"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">1970</span><span class="h-px flex-1 bg-hairline2"></span></div>
+      <div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5">
+        <p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">안양 망혜암 종각 신축 工事</p>
+        <span class="shrink-0 border border-hairline2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-sage">MEDIA</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="flex flex-col items-center gap-2 bg-ink px-6 py-10">
+    <span class="font-sans text-[13px] font-bold tracking-[2px] text-white">MASTERARTISAN</span>
+    <span class="font-sans text-[10px] text-body">© 2024 MasterArtisan. All rights reserved.</span>
+  </footer>
+
+  <script>
+    // ── Fullscreen menu ──
+    const menu = document.getElementById('menu');
+    const openMenu  = () => { menu.classList.remove('translate-y-full'); document.body.style.overflow = 'hidden'; };
+    const closeMenu = () => { menu.classList.add('translate-y-full');    document.body.style.overflow = ''; };
+    document.getElementById('menuOpen').addEventListener('click', openMenu);
+    document.getElementById('menuClose').addEventListener('click', closeMenu);
+    menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    /* ═══════════ Dial Intro — jakomosofa(?p=9) 모바일 time_sect 모션 1:1 ═══════════
+       배경 시계(center_line + circle_wrap)는 position:fixed 고정 레이어(패럴럭스),
+       전경 카피(circle_txt)는 일반 흐름으로 스크롤. .time_cont 스크럽 타임라인으로
+       center_line·circle_wrap 모션을 그대로 재현(선 그리기 → 시계 확대·회전·기립 → 선 360° 스윕·이탈). */
+    const clockSection=document.getElementById('clockSection');
+
+    // 원형 시계 눈금/연도 생성 — 48개(7.5°), 6개마다 강조(em)·연도 (jakomosofa r0~r3525, em 45°마다)
+    const circle=document.getElementById('dialCircle');
+    const YEARS=[1936,1958,1972,1984,1995,2005,2011,2016];   // 12시부터 시계방향, em 위치에 매핑
+    for(let i=0;i<48;i++){
+      const deg=i*7.5, em=(i%6===0);
+      const line=document.createElement('div');
+      line.className='line '+(em?'em':'sm');
+      line.style.transform='rotate('+deg+'deg)';
+      const rect=document.createElement('div'); rect.className='rect'; line.appendChild(rect);
+      if(em){ const num=document.createElement('div'); num.className='num'; num.textContent=YEARS[(i/6)%YEARS.length]; line.appendChild(num); }
+      circle.appendChild(line);
+    }
+
+    // 시작 상태: 시계판은 75° 기울어 누워 있음(CSS와 동일, GSAP가 3D 보간하도록 명시)
+    gsap.set('.time_sect .circle_box',{ rotateX:75 });
+
+    /* ── 스크럽 타임라인(pin:false, 배경 시계는 position:fixed로 고정) ── */
+    const timeTl=gsap.timeline({
+      scrollTrigger:{
+        trigger:'.time_cont', start:'top center', end:'bottom center', scrub:0,
+        onEnter:()=>clockSection.classList.add('on'),
+        onLeave:()=>clockSection.classList.remove('on'),
+        onLeaveBack:()=>clockSection.classList.remove('on'),
+        onEnterBack:()=>clockSection.classList.add('on'),
+      },
+    });
+    timeTl
+      .to('.time_sect .center_line .line',{ bottom:'0' })                                  // 중앙선이 위→중앙으로 그려짐
+      .to('.time_sect .circle_wrap',{ opacity:1 })                                         // 시계 페이드(가시성은 .on CSS가 제어)
+      .to('.time_sect .circle_wrap',{ width:'80vw', height:'80vw' })                       // 시계 확대
+      .to('.time_sect .circle',{ rotate:360, duration:1 }, '>-0.5')                        // 시계판 360° 회전
+      .to('.time_sect .circle_wrap .num',{ opacity:1 }, '>-0.4')                           // 연도 등장
+      .to('.time_sect .circle .line.em .rect',{ width:'16.2%' })                           // 강조(연도) 눈금이 반지름 대비 16.2%로 길어짐(정비례)
+      .to('.time_sect .circle_wrap',{ width:'100vw', height:'100vw' }, '>-0.5')            // 더 확대
+      .to('.time_sect .circle .line.sm',{ opacity:1 })                                     // 분 눈금 등장
+      .to('.time_sect .circle_box',{ rotateX:0, rotateY:0, rotateZ:0 })                    // 기립(3D→2D)
+      .to('.time_sect .circle_wrap',{ width:'80vw', height:'80vw' }, '>-0.75')             // 되돌아 축소
+      .to('.time_sect .center_line',{ rotate:360, duration:1.5 }, '>')                     // 중앙선 360° 스윕
+      .to('.time_sect .center_line .line',{ bottom:'150%', duration:1.5 });               // 중앙선 위로 이탈
+
+    /* ════ 연혁 마일스톤 — Fade-in & Slide-up (순차 리빌) ════ */
+    gsap.utils.toArray('.reveal-up').forEach((node) => {
+      gsap.from(node, { opacity:0, y:32, duration:0.8, ease:'power3.out',
+        scrollTrigger:{ trigger:node, start:'top 90%', toggleActions:'play none none none' } });
+    });
+
+    /* ════ Era 탭 스크롤 스파이 ════ */
+    const tabs = Array.from(document.querySelectorAll('.era-tab'));
+    const tabBar = tabs[0].parentElement;
+    function setActive(label) {
+      tabs.forEach((t) => {
+        const on = t.dataset.era === label;
+        t.classList.toggle('border-ink2', on);
+        t.classList.toggle('border-transparent', !on);
+        t.classList.toggle('font-semibold', on);
+        t.classList.toggle('text-ink2', on);
+        t.classList.toggle('font-light', !on);
+        t.classList.toggle('text-sage', !on);
+        if (on) { const left = t.offsetLeft - (tabBar.clientWidth - t.clientWidth)/2; tabBar.scrollTo({ left: Math.max(0,left), behavior:'smooth' }); }
+      });
+    }
+    document.querySelectorAll('[data-era-section]').forEach((sec) => {
+      ScrollTrigger.create({ trigger: sec, start:'top 45%', end:'bottom 45%',
+        onToggle: (self) => { if (self.isActive) setActive(sec.dataset.eraSection); } });
+    });
+    ScrollTrigger.create({ trigger:'#clockSection', start:'top top', end:'bottom 45%',
+      onToggle: (self) => { if (self.isActive) setActive('ALL'); } });
+</script>
+</body>
+</html>
