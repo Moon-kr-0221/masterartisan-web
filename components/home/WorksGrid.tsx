@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
 
@@ -54,13 +54,39 @@ function TiltCard({ children, className, style, initial, whileInView, transition
 
 const U = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1080&q=80`;
 
-const works = [
+type FeaturedWork = { title: string; cat: string; year: string; bg: string; color: string };
+
+// Built-in default showcase, used when the admin hasn't marked any works for the home.
+const FALLBACK: FeaturedWork[] = [
   { title: '수원화성 서북공심돈 보수', cat: '수리', year: '2023', bg: U('photo-1560083270-5aa41ed4e1c5'), color: '#2A2218' },
   { title: '경복궁 근정전 유지보수', cat: '유지보수', year: '2023', bg: U('photo-1748835600856-dba50a909dfb'), color: '#1E2018' },
   { title: '전통 목구조 누각 신축', cat: '제작', year: '2022', bg: U('photo-1675143967358-8b0651f4c679'), color: '#181C1A' },
 ];
 
-export default function WorksGrid() {
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+export default function WorksGrid({ items, pool = [], random = false }: {
+  items?: FeaturedWork[]; pool?: FeaturedWork[]; random?: boolean;
+}) {
+  // Random mode: server + first client render are deterministic (pool.slice) to
+  // avoid hydration mismatch; after mount we shuffle so each visit differs.
+  const randomBase = pool.length > 0 ? pool : FALLBACK;
+  const [picked, setPicked] = useState<FeaturedWork[] | null>(null);
+  useEffect(() => {
+    if (random) setPicked(shuffle(randomBase).slice(0, 3));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [random]);
+
+  const works = random
+    ? (picked ?? randomBase.slice(0, 3))
+    : (items && items.length > 0 ? items : FALLBACK);
   return (
     <section style={{ backgroundColor: '#FAFAF8', padding: '0 52px 72px' }}>
       {/* 헤더 */}

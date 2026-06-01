@@ -7,8 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 gsap.registerPlugin(ScrollTrigger);
 
 /* ─── constants ─────────────────────────────────────────────── */
-const YEARS  = [1936, 1958, 1972, 1984, 1995, 2005, 2015, 2026];
-const N      = YEARS.length;
+// Fallback milestone years used when no history data is supplied.
+const DEFAULT_YEARS = [1936, 1958, 1972, 1984, 1995, 2005, 2015, 2026];
 const BOX    = 1000;         // SVG viewBox side
 const CX     = BOX / 2;
 const CY     = BOX / 2;
@@ -28,10 +28,14 @@ const polar = (deg: number, r: number) => ({
   x: round(CX + r * Math.cos((deg * Math.PI) / 180)),
   y: round(CY + r * Math.sin((deg * Math.PI) / 180)),
 });
-const yearDeg = (i: number) => (i / N) * 360 - 90; // -90 = 12 o'clock
 
 /* ─── component ─────────────────────────────────────────────── */
-export default function ClockIntro() {
+export default function ClockIntro({ years }: { years?: number[] }) {
+  // Marker years are data-driven (from the history archive); fall back to defaults.
+  const YEARS = years && years.length >= 2 ? years : DEFAULT_YEARS;
+  const N = YEARS.length;
+  const yearDeg = (i: number) => (i / N) * 360 - 90; // -90 = 12 o'clock
+
   const sectionRef = useRef<HTMLDivElement>(null);
   const pinRef     = useRef<HTMLDivElement>(null);
   const lineRef    = useRef<HTMLDivElement>(null);

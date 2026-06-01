@@ -7,8 +7,10 @@ import WorksGrid       from '@/components/home/WorksGrid';
 import ProcessSection  from '@/components/home/ProcessSection';
 import CtaSection      from '@/components/home/CtaSection';
 import PageIntro       from '@/components/home/PageIntro';
+import { getHomeFeatured } from '@/lib/data/queries';
 
-export default function HomePage() {
+export default async function HomePage() {
+  const { random, pinned, pool } = await getHomeFeatured();
   return (
     <>
       <PageIntro />
@@ -17,7 +19,7 @@ export default function HomePage() {
       <ContrastSection />
       <MarqueeBand />
       <HeritageStats />
-      <WorksGrid />
+      <WorksGrid items={pinned} pool={pool} random={random} />
       <ProcessSection />
       <CtaSection />
     </>
