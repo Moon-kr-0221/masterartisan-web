@@ -266,7 +266,7 @@ export default function ClockIntro() {
             fontFamily: "'Noto Serif KR', serif",
             fontSize: 52, fontWeight: 300, lineHeight: 1.4, color: CREAM,
           }}>
-            70여 년,<br />전통의 토대를 쌓다
+            90여 년,<br />전통의 토대를 쌓다
           </span>
         </div>
 

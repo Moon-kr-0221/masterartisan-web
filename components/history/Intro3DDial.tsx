@@ -191,7 +191,7 @@ export default function Intro3DDial() {
               </p>
               <p style={{ fontFamily: "'Noto Serif KR',serif", fontSize: 27, fontWeight: 300,
                 color: CREAM, letterSpacing: '-0.01em', lineHeight: 1.45 }}>
-                70여 년,<br />전통의 토대를 쌓다
+                90여 년,<br />전통의 토대를 쌓다
               </p>
             </div>
           </div>

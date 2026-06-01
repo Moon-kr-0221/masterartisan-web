@@ -457,19 +457,19 @@ export default function HistoryPage() {
                 fontSize: 'clamp(48px, 6vw, 88px)',
                 fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.04em',
                 color: C.ink, marginBottom: '32px' }}>
-                70여 년의<br />장인 이야기
+                90여 년의<br />장인 이야기
               </h1>
             </BlurReveal>
             <BlurReveal delay={0.16}>
               <p style={{ fontFamily: "'Noto Sans KR'", fontSize: '13px',
                 color: C.muted, lineHeight: 1.9, maxWidth: '380px', fontWeight: 300 }}>
-                전통 한옥 건축의 길을 묵묵히 걸어온 70년의 기록.<br />
+                전통 한옥 건축의 길을 묵묵히 걸어온 90년의 기록.<br />
                 한 땀 한 땀 새긴 시간들이 오늘의 마스터아티잔을 만들었습니다.
               </p>
             </BlurReveal>
             <BlurReveal delay={0.24}>
               <div style={{ display: 'flex', gap: '48px', marginTop: '48px' }}>
-                {[['70+', '년간 활동'], ['90+', '완공 프로젝트'], ['3', '대를 이은 기술']].map(([n, l]) => (
+                {[['90+', '년간 활동'], ['70+', '완공 프로젝트'], ['3', '대를 이은 기술']].map(([n, l]) => (
                   <div key={l}>
                     <div style={{ fontFamily: "'Noto Serif KR', serif",
                       fontSize: '36px', fontWeight: 300,

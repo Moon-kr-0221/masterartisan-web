@@ -56,7 +56,7 @@ export default function PageIntro() {
         >
           <div className="h-px w-6" style={{ backgroundColor: 'rgba(255,255,255,0.4)' }} />
           <span style={{ fontFamily: 'var(--font-sans)', fontSize: '9px', color: '#FFFFFF', letterSpacing: '2px' }}>
-            SINCE 1960s
+            SINCE 1936
           </span>
         </motion.div>
       </motion.div>

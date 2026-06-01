@@ -1,5 +1,5 @@
 export default function MarqueeBand() {
-  const text = 'MASTERARTISAN · 경기무형문화재 제36호 · TRADITIONAL ARCHITECTURE · 전통건축 · SINCE 1960s · ';
+  const text = 'MASTERARTISAN · 경기무형문화재 제36호 · TRADITIONAL ARCHITECTURE · 전통건축 · SINCE 1936 · ';
   const repeated = text.repeat(6);
 
   return (
