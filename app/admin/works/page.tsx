@@ -3,6 +3,7 @@ import { createWork, updateWork, deleteWork, importWorks, setHomeWorksRandom } f
 import { categoryLabels } from '@/data/works';
 import { TextField, TextArea, SelectField, ImageInput, SubmitButton } from '@/components/admin/ui';
 import ImportPanel from '@/components/admin/ImportPanel';
+import WorksList from './WorksList';
 
 const WORKS_TEMPLATE =
   '﻿제목,분류,연도,설명\n' +
@@ -105,33 +106,8 @@ export default async function AdminWorksPage() {
         </div>
       </form>
 
-      {/* ── Existing list ── */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-        {works.map((w) => (
-          <div key={w.id} style={{ backgroundColor: '#FFFFFF', border: `1px solid ${HAIR}`, padding: 24 }}>
-            <form action={updateWork}>
-              <input type="hidden" name="id" value={w.id} />
-              <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-                <ImageInput current={w.image} hint={WORKS_IMG_HINT} />
-                <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr', gap: 16 }}>
-                  <TextField label="제목" name="title" defaultValue={w.title} required />
-                  <SelectField label="분류" name="category" defaultValue={w.category} options={catOptions} />
-                  <TextField label="연도" name="year" defaultValue={w.year} />
-                </div>
-                <TextArea label="설명" name="description" defaultValue={w.description} />
-                <FeaturedFields checked={w.featured} order={w.featuredOrder} />
-              </div>
-              <div style={{ marginTop: 20 }}>
-                <SubmitButton>저장</SubmitButton>
-              </div>
-            </form>
-            <form action={deleteWork} style={{ marginTop: 12, paddingTop: 16, borderTop: `1px solid ${HAIR}` }}>
-              <input type="hidden" name="id" value={w.id} />
-              <SubmitButton variant="danger">이 작업 삭제</SubmitButton>
-            </form>
-          </div>
-        ))}
-      </div>
+      {/* ── Existing list (분류 탭으로 필터) ── */}
+      <WorksList works={works} updateWork={updateWork} deleteWork={deleteWork} />
     </div>
   );
 }

@@ -1,17 +1,16 @@
 import { getHistoryWorksFlat } from '@/lib/data/queries';
-import { eraBucket } from '@/lib/data/era';
 import {
   createHistoryWork, updateHistoryWork, deleteHistoryWork,
   addHistoryMedia, deleteHistoryMedia, importHistory,
 } from '@/lib/admin/actions';
-import { TextField, SubmitButton, ADMIN } from '@/components/admin/ui';
+import { TextField, SubmitButton } from '@/components/admin/ui';
 import ImportPanel from '@/components/admin/ImportPanel';
+import HistoryList from './HistoryList';
 
 const HISTORY_TEMPLATE = '﻿연도,제목\n2024,예시 - 강화 전등사 범종각 보수\n2023,예시 - 화성 행궁 별당 수리\n';
 
 const SERIF = 'var(--font-serif)';
 const SANS = 'var(--font-sans)';
-const HAIR = '#E4E0D8';
 
 export default async function AdminHistoryPage() {
   const works = await getHistoryWorksFlat();
@@ -58,84 +57,14 @@ export default async function AdminHistoryPage() {
         </div>
       </form>
 
-      {/* ── Existing list ── */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-        {works.map((w) => (
-          <div key={w.id} style={{ backgroundColor: '#FFFFFF', border: `1px solid ${HAIR}`, padding: 24 }}>
-            {/* edit year + title */}
-            <form action={updateHistoryWork}>
-              <input type="hidden" name="id" value={w.id} />
-              <div style={{ display: 'flex', alignItems: 'baseline', gap: 8, marginBottom: 16 }}>
-                <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.1em', color: ADMIN.muted }}>
-                  시대 구간 {eraBucket(w.year).label}
-                </span>
-              </div>
-              <div style={{ display: 'grid', gridTemplateColumns: '160px 1fr auto', gap: 16, alignItems: 'end' }}>
-                <TextField label="연도" name="year" type="number" defaultValue={w.year} required />
-                <TextField label="제목" name="title" defaultValue={w.title} required />
-                <SubmitButton>저장</SubmitButton>
-              </div>
-            </form>
-
-            {/* media */}
-            <div style={{ marginTop: 20, paddingTop: 18, borderTop: `1px solid ${HAIR}` }}>
-              <p style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.08em', color: ADMIN.muted,
-                textTransform: 'uppercase', marginBottom: 12 }}>
-                사진 ({w.media.length})
-              </p>
-
-              {w.media.length > 0 && (
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginBottom: 16 }}>
-                  {w.media.map((m) => (
-                    <div key={m.id ?? m.image_url} style={{ width: 130 }}>
-                      <div style={{ width: 130, height: 92, overflow: 'hidden', backgroundColor: ADMIN.surface,
-                        border: `1px solid ${HAIR}` }}>
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={m.image_url} alt={m.caption ?? ''} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                      </div>
-                      {m.caption && (
-                        <p style={{ fontFamily: SANS, fontSize: 11, color: '#888', marginTop: 4, lineHeight: 1.4 }}>
-                          {m.caption}
-                        </p>
-                      )}
-                      {m.id && (
-                        <form action={deleteHistoryMedia} style={{ marginTop: 6 }}>
-                          <input type="hidden" name="id" value={m.id} />
-                          <SubmitButton variant="danger">사진 삭제</SubmitButton>
-                        </form>
-                      )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {/* add media */}
-              <form action={addHistoryMedia}
-                style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'flex-end',
-                  backgroundColor: ADMIN.canvas, border: `1px solid ${HAIR}`, padding: 16 }}>
-                <input type="hidden" name="history_work_id" value={w.id} />
-                <label style={{ display: 'block' }}>
-                  <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.08em', color: ADMIN.muted,
-                    textTransform: 'uppercase', display: 'block', marginBottom: 6 }}>사진 파일</span>
-                  <input type="file" name="image" accept="image/*" required
-                    style={{ fontFamily: SANS, fontSize: 12, color: ADMIN.inkSoft }} />
-                  <span style={{ display: 'block', fontFamily: SANS, fontSize: 11, color: ADMIN.ink, marginTop: 5 }}>
-                    권장 1600 × 1066px · 최소 1200 × 800px (가로 3:2 · 5MB 이하)
-                  </span>
-                </label>
-                <TextField label="설명 (선택)" name="caption" placeholder="사진 설명" style={{ minWidth: 220 }} />
-                <SubmitButton variant="ghost">사진 추가</SubmitButton>
-              </form>
-            </div>
-
-            {/* delete whole entry */}
-            <form action={deleteHistoryWork} style={{ marginTop: 16, paddingTop: 14, borderTop: `1px solid ${HAIR}` }}>
-              <input type="hidden" name="id" value={w.id} />
-              <SubmitButton variant="danger">이 연혁 항목 삭제</SubmitButton>
-            </form>
-          </div>
-        ))}
-      </div>
+      {/* ── Existing list (시대 구간 탭으로 필터) ── */}
+      <HistoryList
+        works={works}
+        updateHistoryWork={updateHistoryWork}
+        deleteHistoryWork={deleteHistoryWork}
+        addHistoryMedia={addHistoryMedia}
+        deleteHistoryMedia={deleteHistoryMedia}
+      />
     </div>
   );
 }
