@@ -49,6 +49,7 @@ export default function ClockIntro({ years }: { years?: number[] }) {
   const pivotRef   = useRef<SVGCircleElement | null>(null);
   const labelRefs  = useRef<(SVGTextElement | null)[]>([]);
   const copyRef    = useRef<HTMLDivElement>(null);
+  const copy2Ref   = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -62,6 +63,7 @@ export default function ClockIntro({ years }: { years?: number[] }) {
       gsap.set(pivotRef.current, { opacity: 0 });
       gsap.set(handRef.current,  { opacity: 0, rotation: 0, svgOrigin: `${CX} ${CY}` });
       gsap.set(copyRef.current,  { opacity: 0, y: 16 });
+      gsap.set(copy2Ref.current, { opacity: 0, y: 16 });
       // markers begin as a tiny cluster at centre, then spiral out doing a FULL turn
       gsap.set(orbitRef.current, { opacity: 0, scale: 0.07, rotation: -420, svgOrigin: `${CX} ${CY}` });
       labelRefs.current.forEach((el) => gsap.set(el, { opacity: 0 }));
@@ -71,7 +73,7 @@ export default function ClockIntro({ years }: { years?: number[] }) {
         scrollTrigger: {
           trigger: sectionRef.current,
           start:   'top top',
-          end:     '+=8400',
+          end:     '+=10300',
           scrub:   1.6,
           pin:     pinRef.current,
           anticipatePin: 1,
@@ -122,12 +124,18 @@ export default function ClockIntro({ years }: { years?: number[] }) {
         // 마지막엔 페이드아웃이 아니라 화면 위로 슬라이드되어 사라짐 — 선(CZvIS)과 중심점(XvqxL)이 함께
         .to([lineRef.current, dotRef.current], { y: () => -(window.innerHeight * 1.4), ease: 'power2.in', duration: 1.6 }, 13.8);
 
-      // Phase 6 (14.4 → 15.9): centre copy fades up only after the hand has gone
-      tl.to(copyRef.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 1.5 }, 14.4);
+      // Phase 6a (14.4 → 15.8): 첫 번째 카피 등장 (SINCE 1936 / 90여 년, 전통의 토대를 쌓다)
+      tl.to(copyRef.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 1.4 }, 14.4);
 
-      // Phase 7: fade out → blend into the archive
-      tl.to(pinRef.current,     { opacity: 0, ease: 'none', duration: 0.9 }, 16.4)
-        .to(sectionRef.current, { backgroundColor: IVORY, ease: 'none', duration: 1.1 }, 16.2);
+      // Phase 6b (16.6 → 17.6): 첫 번째 카피 사라짐
+      tl.to(copyRef.current, { opacity: 0, y: -16, ease: 'power2.in', duration: 1.0 }, 16.6);
+
+      // Phase 6c (17.8 → 19.2): 두 번째 카피 등장 (三代 · THREE GENERATIONS / 끊임없는 정진으로 미래를 잇다)
+      tl.to(copy2Ref.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 1.4 }, 17.8);
+
+      // Phase 7: 두 번째 카피가 보인 뒤 → 화면 전환(아카이브로 블렌드)
+      tl.to(pinRef.current,     { opacity: 0, ease: 'none', duration: 0.9 }, 20.4)
+        .to(sectionRef.current, { backgroundColor: IVORY, ease: 'none', duration: 1.1 }, 20.2);
     }, sectionRef);
 
     return () => ctx.revert();
@@ -148,8 +156,8 @@ export default function ClockIntro({ years }: { years?: number[] }) {
           ref={lineRef}
           style={{
             position: 'absolute', top: 0, left: '50%',
-            width: 1, height: '50vh', marginLeft: -0.5,
-            backgroundColor: 'rgba(245,240,232,0.7)',
+            width: 2, height: '50vh', marginLeft: -1,
+            backgroundColor: '#FFFFFF',
             pointerEvents: 'none', zIndex: 4,
           }}
         />
@@ -215,7 +223,7 @@ export default function ClockIntro({ years }: { years?: number[] }) {
                       <line
                         x1={t0.x} y1={t0.y} x2={t1.x} y2={t1.y}
                         stroke="rgba(245,240,232,0.9)"
-                        strokeWidth={1.72}
+                        strokeWidth={2}
                       />
                       <text
                         ref={(el) => { labelRefs.current[i] = el; }}
@@ -271,6 +279,30 @@ export default function ClockIntro({ years }: { years?: number[] }) {
             fontSize: 52, fontWeight: 300, lineHeight: 1.4, color: CREAM,
           }}>
             90여 년,<br />전통의 토대를 쌓다
+          </span>
+        </div>
+
+        {/* Centre copy #2 — 첫 카피가 사라진 뒤 등장 (모바일 num2와 동일) */}
+        <div
+          ref={copy2Ref}
+          style={{
+            position: 'absolute', top: 'calc(36.5%)', left: '50%',
+            transform: 'translate(-50%,-50%)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center',
+            gap: 20, textAlign: 'center', pointerEvents: 'none', zIndex: 5,
+          }}
+        >
+          <span style={{
+            fontFamily: "'Noto Sans KR', sans-serif",
+            fontSize: 14, letterSpacing: '0.34em', color: 'rgba(245,240,232,0.55)',
+          }}>
+            三代 · THREE GENERATIONS
+          </span>
+          <span style={{
+            fontFamily: "'Noto Serif KR', serif",
+            fontSize: 52, fontWeight: 300, lineHeight: 1.4, color: CREAM,
+          }}>
+            끊임없는 정진으로<br />미래를 잇다
           </span>
         </div>
 

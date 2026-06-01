@@ -446,13 +446,14 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
           maxWidth: 780,
         }}>
           천년의 기술,<br />
-          삼대로 이어온 90년의 여정
+          삼대로 이어온<br />
+          90년의 여정
         </h1>
         <p style={{
           fontFamily: "'Noto Sans KR', sans-serif",
           fontSize: 14, lineHeight: 1.9,
           color: C.muted, fontWeight: 300,
-          maxWidth: 440,
+          whiteSpace: 'nowrap',
         }}>
           1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.
         </p>
