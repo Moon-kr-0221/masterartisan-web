@@ -182,33 +182,7 @@
       <a href="works.html" class="font-sans text-xs text-muted">전체 보기 →</a>
     </div>
 
-    <div class="scrollbar-hide mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-1">
-      <!-- card -->
-      <article class="relative h-[340px] w-[280px] shrink-0 snap-start overflow-hidden bg-[#1E1C18]">
-        <img src="https://images.unsplash.com/photo-1560083270-5aa41ed4e1c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="absolute inset-0 h-full w-full object-cover" />
-        <div class="absolute inset-0" style="background:linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.67) 100%)"></div>
-        <div class="absolute bottom-6 left-5">
-          <p class="font-sans text-[9px] tracking-[2px] text-white/55">수리 · 2023</p>
-          <h3 class="mt-1.5 font-serif text-xl font-light text-white">수원화성 서북공심돈 보수</h3>
-        </div>
-      </article>
-      <article class="relative h-[340px] w-[280px] shrink-0 snap-start overflow-hidden bg-[#1E1C18]">
-        <img src="https://images.unsplash.com/photo-1748835600856-dba50a909dfb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="absolute inset-0 h-full w-full object-cover" />
-        <div class="absolute inset-0" style="background:linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.67) 100%)"></div>
-        <div class="absolute bottom-6 left-5">
-          <p class="font-sans text-[9px] tracking-[2px] text-white/55">유지보수 · 2023</p>
-          <h3 class="mt-1.5 font-serif text-xl font-light text-white">경복궁 근정전 유지보수</h3>
-        </div>
-      </article>
-      <article class="relative h-[340px] w-[280px] shrink-0 snap-start overflow-hidden bg-[#1E1C18]">
-        <img src="https://images.unsplash.com/photo-1675143967358-8b0651f4c679?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="absolute inset-0 h-full w-full object-cover" />
-        <div class="absolute inset-0" style="background:linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.67) 100%)"></div>
-        <div class="absolute bottom-6 left-5">
-          <p class="font-sans text-[9px] tracking-[2px] text-white/55">제작 · 2022</p>
-          <h3 class="mt-1.5 font-serif text-xl font-light text-white">전통 목구조 누각 신축</h3>
-        </div>
-      </article>
-    </div>
+    <div id="worksCarousel" class="scrollbar-hide mt-6 flex snap-x snap-mandatory gap-4 overflow-x-auto px-6 pb-1"></div>
   </section>
 
   <!-- ─────────────────── The Process ─────────────────── -->
@@ -270,6 +244,68 @@
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
     document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+
+    // 3) Works 카루셀 — 데스크탑 메인(getHomeFeatured)과 동일 데이터(대표작업 + 랜덤 토글)
+    const SB_URL = 'https://oizjcdtnlbqehbgoyyyr.supabase.co';
+    const SB_KEY = 'sb_publishable_zaS1vhs9KDHDeMxkVMCGwg_0sscVBQR';
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    const CAT_LABEL = { maintenance:'유지보수', repair:'수리', fabrication:'제작', drawing:'도면' };
+    const MAX_PINNED = 10, MAX_POOL = 8;
+    const U = (id) => 'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=1080&q=80';
+
+    // DB 미응답 시 폴백 — 기존 home 쇼케이스 3장
+    const FALLBACK = [
+      { title:'수원화성 서북공심돈 보수', category:'repair', year:'2023', image_url:'https://images.unsplash.com/photo-1560083270-5aa41ed4e1c5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
+      { title:'경복궁 근정전 유지보수', category:'maintenance', year:'2023', image_url:'https://images.unsplash.com/photo-1748835600856-dba50a909dfb?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
+      { title:'전통 목구조 누각 신축', category:'fabrication', year:'2022', image_url:'https://images.unsplash.com/photo-1675143967358-8b0651f4c679?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080' },
+    ];
+
+    function shuffle(arr){ const a=[...arr]; for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; }
+
+    function workCard(w){
+      return '<article class="relative h-[340px] w-[280px] shrink-0 snap-start overflow-hidden bg-[#1E1C18]">'
+        + '<img src="'+esc(w.image_url)+'" alt="'+esc(w.title)+'" class="absolute inset-0 h-full w-full object-cover" />'
+        + '<div class="absolute inset-0" style="background:linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.67) 100%)"></div>'
+        + '<div class="absolute bottom-6 left-5">'
+        + '<p class="font-sans text-[9px] tracking-[2px] text-white/55">'+esc(CAT_LABEL[w.category]||'')+' · '+esc(w.year)+'</p>'
+        + '<h3 class="mt-1.5 font-serif text-xl font-light text-white">'+esc(w.title)+'</h3>'
+        + '</div></article>';
+    }
+
+    // 카루셀 끝 "전체 보기" CTA 카드 (무한 로드 대신 자연스러운 종료점)
+    function ctaCard(){
+      return '<a href="works.html" class="group relative flex h-[340px] w-[280px] shrink-0 snap-start flex-col items-center justify-center gap-3 overflow-hidden border border-hairline2 bg-canvas">'
+        + '<span class="font-sans text-[9px] tracking-[4px] text-mutedl">OUR WORKS</span>'
+        + '<span class="font-serif text-xl font-light text-ink">전체 보기</span>'
+        + '<span class="font-sans text-base text-muted transition-transform group-active:translate-x-1">→</span>'
+        + '</a>';
+    }
+
+    async function loadWorksCarousel(){
+      const elc = document.getElementById('worksCarousel');
+      let list;
+      try {
+        const [worksRes, setRes] = await Promise.all([
+          fetch(SB_URL+'/rest/v1/ma_works?select=title,category,year,image_url,featured,featured_order&order=sort_order.asc,created_at.asc', { headers:{ apikey:SB_KEY, Authorization:'Bearer '+SB_KEY } }),
+          fetch(SB_URL+'/rest/v1/ma_settings?select=value&key=eq.home_works_random', { headers:{ apikey:SB_KEY, Authorization:'Bearer '+SB_KEY } }),
+        ]);
+        if (!worksRes.ok) throw new Error('http '+worksRes.status);
+        const pool = await worksRes.json();
+        if (!Array.isArray(pool) || !pool.length) throw new Error('empty');
+        const setting = setRes.ok ? await setRes.json() : [];
+        const random = Array.isArray(setting) && setting[0] && setting[0].value === 'true';
+
+        const pinned = pool.filter((w)=>w.featured)
+          .sort((a,b)=>(a.featured_order ?? 0)-(b.featured_order ?? 0));
+        if (pinned.length) list = pinned.slice(0, MAX_PINNED);
+        else if (random)   list = shuffle(pool).slice(0, MAX_POOL);
+        else               list = pool.slice(0, MAX_POOL);
+      } catch(e) {
+        list = FALLBACK;
+      }
+      elc.innerHTML = list.map(workCard).join('') + ctaCard();
+    }
+    loadWorksCarousel();
   </script>
 </body>
 </html>
