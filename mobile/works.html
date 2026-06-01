@@ -79,34 +79,32 @@
 
   <!-- Filter row (가로 스크롤) -->
   <div class="scrollbar-hide sticky top-14 z-30 flex gap-2 overflow-x-auto border-b border-hairline bg-white px-6 py-4">
-    <button class="filter-tab shrink-0 bg-ink px-[18px] py-2 font-sans text-[11px] tracking-wide text-white">전체</button>
-    <button class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">유지보수</button>
-    <button class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">수리</button>
-    <button class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">제작</button>
+    <button data-cat="all" class="filter-tab shrink-0 bg-ink px-[18px] py-2 font-sans text-[11px] tracking-wide text-white">전체</button>
+    <button data-cat="maintenance" class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">유지보수</button>
+    <button data-cat="repair" class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">수리</button>
+    <button data-cat="fabrication" class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">제작</button>
+    <button data-cat="drawing" class="filter-tab shrink-0 border border-[#D8D5CF] px-[18px] py-2 font-sans text-[11px] tracking-wide text-muted">도면</button>
   </div>
 
   <!-- Works grid (세로 1단) -->
   <section class="bg-white px-6 pb-16 pt-12">
-    <div class="flex flex-col gap-10">
-      <article data-reveal class="translate-y-10 opacity-0 transition-all duration-700 ease-out">
-        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1759662802641-1748a95ade41?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="h-60 w-full object-cover" /></div>
-        <p class="mt-5 font-sans text-[10px] tracking-wide text-mutedl">유지보수 · 2022</p>
-        <h2 class="mt-1.5 font-serif text-lg font-light text-ink">수원 사찰 대웅전 보수</h2>
-      </article>
-      <article data-reveal class="translate-y-10 opacity-0 transition-all duration-700 ease-out" style="transition-delay:80ms">
-        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1512059555341-6a121e7d4d86?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="h-60 w-full object-cover" /></div>
-        <p class="mt-5 font-sans text-[10px] tracking-wide text-mutedl">수리 · 2021</p>
-        <h2 class="mt-1.5 font-serif text-lg font-light text-ink">용인 전통 가옥 수리</h2>
-      </article>
-      <article data-reveal class="translate-y-10 opacity-0 transition-all duration-700 ease-out" style="transition-delay:160ms">
-        <div class="overflow-hidden"><img src="https://images.unsplash.com/photo-1542722578-f2971981d74f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080" alt="" class="h-60 w-full object-cover" /></div>
-        <p class="mt-5 font-sans text-[10px] tracking-wide text-mutedl">제작 · 2023</p>
-        <h2 class="mt-1.5 font-serif text-lg font-light text-ink">전통 문짝 제작</h2>
-      </article>
-    </div>
-
-    <button class="mt-10 flex h-12 w-full items-center justify-center border border-ink/35 font-sans text-xs tracking-[2px] text-ink active:bg-ink active:text-white transition-colors">작업 더 보기</button>
+    <div id="worksGrid" class="flex flex-col gap-10"></div>
+    <p id="worksEmpty" class="hidden py-24 text-center font-sans text-sm text-mutedl">해당 카테고리의 작업이 없습니다.</p>
+    <button id="loadMore" class="mt-10 hidden h-12 w-full items-center justify-center border border-ink/35 font-sans text-xs tracking-[2px] text-ink active:bg-ink active:text-white transition-colors">작업 더 보기</button>
   </section>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[60] hidden items-center justify-center bg-black/90 px-6">
+    <div class="max-h-[85vh] w-full max-w-[380px] overflow-y-auto bg-white">
+      <img id="lbImg" src="" alt="" class="aspect-video w-full object-cover" />
+      <div class="p-6">
+        <p id="lbMeta" class="font-sans text-[10px] tracking-wide text-mutedl"></p>
+        <h3 id="lbTitle" class="mt-2 font-serif text-xl font-light text-ink"></h3>
+        <p id="lbDesc" class="mt-3 font-sans text-[13px] leading-[1.9] text-body"></p>
+        <button id="lbClose" class="mt-6 font-sans text-[11px] tracking-wide text-mutedl">닫기 ✕</button>
+      </div>
+    </div>
+  </div>
 
   <!-- Footer -->
   <footer class="flex flex-col items-center gap-2 bg-ink px-6 py-10">
@@ -122,7 +120,56 @@
     document.getElementById('menuClose').addEventListener('click', closeMenu);
     menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 
-    // Filter tab active state
+    // ── Supabase (데스크탑 /works와 동일 데이터) ──
+    const SB_URL = 'https://oizjcdtnlbqehbgoyyyr.supabase.co';
+    const SB_KEY = 'sb_publishable_zaS1vhs9KDHDeMxkVMCGwg_0sscVBQR';
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
+    const CAT_LABEL = { maintenance:'유지보수', repair:'수리', fabrication:'제작', drawing:'도면' };
+    const PAGE_SIZE = 6;
+
+    // 정적 폴백 (DB 미응답 시) — 데스크탑 data/works.ts와 동일
+    const U = (id) => 'https://images.unsplash.com/'+id+'?auto=format&fit=crop&w=1080&q=80';
+    const FALLBACK = [
+      { title:'수원 사찰 대웅전 보수', category:'maintenance', year:'2022', description:'전통 목구조 대웅전의 지붕 및 기둥 보수 공사.', image_url:U('photo-1759662802641-1748a95ade41') },
+      { title:'용인 전통 가옥 수리', category:'repair', year:'2021', description:'조선시대 전통 한옥 기와 및 목구조 전면 수리.', image_url:U('photo-1512059555341-6a121e7d4d86') },
+      { title:'전통 문짝 제작', category:'fabrication', year:'2023', description:'전통 소나무 목재를 이용한 사찰 법당 문짝 제작.', image_url:U('photo-1542722578-f2971981d74f') },
+      { title:'경기도 향교 기와 보수', category:'maintenance', year:'2022', description:'조선시대 향교 건물 기와 전면 교체 및 보수.', image_url:U('photo-1765570710985-fe9e17af1b6c') },
+      { title:'전통 누각 복원', category:'repair', year:'2020', description:'화재로 소실된 전통 누각의 원형 복원 작업.', image_url:U('photo-1584264415558-6580a2bf40a0') },
+      { title:'전통 창호 제작', category:'fabrication', year:'2023', description:'전통 한지와 목재를 사용한 격자창호 주문 제작.', image_url:U('photo-1621083377566-7ba9edc11ae6') },
+      { title:'남한산성 문루 보수', category:'maintenance', year:'2021', description:'남한산성 내 조선시대 문루 목구조 부재 교체 및 단청 보수.', image_url:U('photo-1565073624497-7144969d4a9d') },
+      { title:'전통 소반 제작', category:'fabrication', year:'2022', description:'전통 나주소반 형식의 주문 제작. 느티나무 원목 사용.', image_url:U('photo-1558618666-fcd25c85cd64') },
+      { title:'화성 행궁 별당 수리', category:'repair', year:'2023', description:'화성 행궁 부속 별당 지붕 및 대들보 균열 보수 공사.', image_url:U('photo-1519581706030-bf476f0f5eb0') },
+    ];
+
+    let ALL = [];
+    let active = 'all';
+    let visible = PAGE_SIZE;
+
+    const grid = document.getElementById('worksGrid');
+    const emptyEl = document.getElementById('worksEmpty');
+    const moreBtn = document.getElementById('loadMore');
+
+    function cardHTML(w, i){
+      const delay = (i % 3) * 80;
+      return '<article data-reveal class="translate-y-10 opacity-0 transition-all duration-700 ease-out cursor-pointer" style="transition-delay:'+delay+'ms">'
+        + '<div class="overflow-hidden"><img src="'+esc(w.image_url)+'" alt="'+esc(w.title)+'" class="h-60 w-full object-cover" /></div>'
+        + '<p class="mt-5 font-sans text-[10px] tracking-wide text-mutedl">'+esc(CAT_LABEL[w.category]||'')+' · '+esc(w.year)+'</p>'
+        + '<h2 class="mt-1.5 font-serif text-lg font-light text-ink">'+esc(w.title)+'</h2>'
+        + '</article>';
+    }
+
+    function render(){
+      const filtered = active==='all' ? ALL : ALL.filter((w)=>w.category===active);
+      const shown = filtered.slice(0, visible);
+      grid.innerHTML = shown.map((w,i)=>cardHTML(w,i)).join('');
+      emptyEl.classList.toggle('hidden', shown.length>0);
+      if (visible < filtered.length){ moreBtn.classList.remove('hidden'); moreBtn.classList.add('flex'); }
+      else { moreBtn.classList.add('hidden'); moreBtn.classList.remove('flex'); }
+      grid.querySelectorAll('article').forEach((el,i)=> el.addEventListener('click', ()=> openLightbox(shown[i])));
+      observeReveal();
+    }
+
+    // Filter tabs
     const tabs = document.querySelectorAll('.filter-tab');
     tabs.forEach((t) => t.addEventListener('click', () => {
       tabs.forEach((x) => {
@@ -131,9 +178,29 @@
       });
       t.classList.remove('border', 'border-[#D8D5CF]', 'text-muted');
       t.classList.add('bg-ink', 'text-white');
+      active = t.dataset.cat || 'all';
+      visible = PAGE_SIZE;
+      render();
     }));
 
-    // Scroll reveal
+    moreBtn.addEventListener('click', () => { visible += PAGE_SIZE; render(); });
+
+    // Lightbox
+    const lb = document.getElementById('lightbox');
+    function openLightbox(w){
+      if (!w) return;
+      document.getElementById('lbImg').src = w.image_url || '';
+      document.getElementById('lbMeta').textContent = (CAT_LABEL[w.category]||'') + ' · ' + (w.year||'');
+      document.getElementById('lbTitle').textContent = w.title || '';
+      document.getElementById('lbDesc').textContent = w.description || '';
+      lb.classList.remove('hidden'); lb.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox(){ lb.classList.add('hidden'); lb.classList.remove('flex'); document.body.style.overflow = ''; }
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    lb.addEventListener('click', (e) => { if (e.target === lb) closeLightbox(); });
+
+    // Scroll reveal (렌더마다 재관찰)
     const io = new IntersectionObserver((entries) => {
       entries.forEach((e) => {
         if (e.isIntersecting) {
@@ -143,7 +210,19 @@
         }
       });
     }, { threshold: 0.15, rootMargin: '0px 0px -10% 0px' });
-    document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+    function observeReveal(){ document.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el)); }
+
+    // Init — DB에서 데스크탑과 동일한 작업 목록 로드 (실패 시 폴백)
+    (async function init(){
+      try {
+        const url = SB_URL + '/rest/v1/ma_works?select=title,category,year,description,image_url&order=sort_order.asc,created_at.asc';
+        const r = await fetch(url, { headers:{ apikey:SB_KEY, Authorization:'Bearer '+SB_KEY } });
+        if (!r.ok) throw new Error('http '+r.status);
+        const rows = await r.json();
+        ALL = (Array.isArray(rows) && rows.length) ? rows : FALLBACK;
+      } catch(e) { ALL = FALLBACK; }
+      render();
+    })();
   </script>
 </body>
 </html>
