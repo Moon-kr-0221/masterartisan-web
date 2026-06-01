@@ -179,6 +179,17 @@
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 48,
                   "fontWeight": "300"
+                },
+                {
+                  "type": "text",
+                  "id": "A6pho",
+                  "name": "HeroDesc",
+                  "fill": "#FFFFFFA6",
+                  "content": "1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.",
+                  "lineHeight": 1.8,
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 14,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -4669,7 +4680,7 @@
               "width": 1440,
               "height": 920,
               "stroke": "#F5F0E8E6",
-              "strokeWidth": 1.72
+              "strokeWidth": 2
             },
             {
               "type": "ellipse",
@@ -4823,7 +4834,7 @@
                       "fill": "#F5F0E8",
                       "textGrowth": "fixed-width",
                       "width": 300,
-                      "content": "70여 년,\n전통의 토대를 쌓다",
+                      "content": "90여 년,\n전통의 토대를 쌓다",
                       "lineHeight": 1.45,
                       "textAlign": "center",
                       "fontFamily": "Noto Serif KR",
@@ -8004,7 +8015,7 @@
           "width": 1480,
           "height": 780,
           "stroke": "#c4a882d9",
-          "strokeWidth": 1,
+          "strokeWidth": 2,
           "strokeAlignment": "inner"
         },
         {
@@ -8758,7 +8769,7 @@
                   "id": "LJtRm",
                   "name": "Lbl",
                   "fill": "#1A1A1A",
-                  "content": "장인 소개",
+                  "content": "장인 소개 →",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 12,
                   "fontWeight": "normal",
@@ -10016,6 +10027,19 @@
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 36,
                   "fontWeight": "300"
+                },
+                {
+                  "type": "text",
+                  "id": "a0L14",
+                  "name": "HeroDesc",
+                  "fill": "#FFFFFFA6",
+                  "textGrowth": "fixed-width",
+                  "width": 320,
+                  "content": "1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.",
+                  "lineHeight": 1.7,
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 13,
+                  "fontWeight": "normal"
                 }
               ]
             }
@@ -10671,7 +10695,7 @@
                       "fill": "#F5F0E8",
                       "textGrowth": "fixed-width",
                       "width": 320,
-                      "content": "70여 년,\n전통의 토대를 쌓다",
+                      "content": "90여 년,\n전통의 토대를 쌓다",
                       "lineHeight": 1.4,
                       "textAlign": "center",
                       "fontFamily": "Noto Serif KR",
@@ -11910,6 +11934,34 @@
                   "name": "L",
                   "fill": "#999999",
                   "content": "제작",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 11,
+                  "fontWeight": "normal",
+                  "letterSpacing": 1
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "U2C7tS",
+              "name": "Tab_도면",
+              "fill": "#FFFFFF",
+              "stroke": "#D8D5CF",
+              "strokeWidth": 1,
+              "strokeAlignment": "inner",
+              "padding": [
+                8,
+                18
+              ],
+              "justifyContent": "center",
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "s42bn",
+                  "name": "L",
+                  "fill": "#999999",
+                  "content": "도면",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 11,
                   "fontWeight": "normal",
