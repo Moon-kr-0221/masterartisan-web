@@ -28,6 +28,9 @@ export default async function MasterArtisanPage() {
           <h1 style={{ fontFamily: SERIF, fontSize: 48, fontWeight: 300, lineHeight: 1.2, color: '#FFFFFF' }}>
             장인을 소개합니다
           </h1>
+          <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>
+            1936년부터 3대에 걸쳐 전통건축의 혼을 이어온 장인들을 소개합니다.
+          </p>
         </div>
       </section>
 
