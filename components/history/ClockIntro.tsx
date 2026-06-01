@@ -120,7 +120,10 @@ export default function ClockIntro({ years }: { years?: number[] }) {
       //   No separate hand: the line never disappears-and-reappears.
       //   It also lengthens (scaleY) as it turns so it spans the ENTIRE screen
       //   instead of being cut short.
-      tl.to(lineRef.current,  { transformOrigin: 'center bottom', scaleY: 5, rotation: 360, ease: 'power1.inOut', duration: 3.4 }, 10.4)
+      // 먼저 화면을 가로지를 길이로 늘린 뒤(11.0 완료) → 그 다음 "일정한 길이"로 360° 회전
+      //   (길이와 회전을 동시에 하면 회전 초반 구간에서 선이 짧게 보이는 문제 방지)
+      tl.to(lineRef.current,  { transformOrigin: 'center bottom', scaleY: 5, ease: 'power2.out', duration: 0.6 }, 10.4)
+        .to(lineRef.current,  { rotation: 360, ease: 'power1.inOut', duration: 2.8 }, 11.0)
         // 마지막엔 페이드아웃이 아니라 화면 위로 슬라이드되어 사라짐 — 선(CZvIS)과 중심점(XvqxL)이 함께
         .to([lineRef.current, dotRef.current], { y: () => -(window.innerHeight * 1.4), ease: 'power2.in', duration: 1.6 }, 13.8);
 
