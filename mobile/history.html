@@ -131,8 +131,8 @@
     </div>
   </section>
 
-  <!-- ── Era tabs (sticky 가로 스와이프 · 스크롤 스파이) ── -->
-  <div class="scrollbar-hide sticky top-14 z-30 flex overflow-x-auto border-b border-hairline2 bg-paper">
+  <!-- ── Era tabs (sticky 가로 스와이프 · 스크롤 스파이) — DB 연동 시 JS가 재생성 ── -->
+  <div id="eraTabs" class="scrollbar-hide sticky top-14 z-30 flex overflow-x-auto border-b border-hairline2 bg-paper">
     <button data-era="ALL"       class="era-tab shrink-0 border-b-2 border-ink2 px-4 py-3.5 font-sans text-[10px] font-semibold tracking-[1.4px] text-ink2">ALL</button>
     <button data-era="1960~1951" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1960~1951</button>
     <button data-era="1970~1961" class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">1970~1961</button>
@@ -143,7 +143,9 @@
     <button data-era="~2011"     class="era-tab shrink-0 border-b-2 border-transparent px-4 py-3.5 font-sans text-[10px] font-light tracking-[1.4px] text-sage">~2011</button>
   </div>
 
-  <!-- ── Era 1960~1951 ── -->
+  <!-- ── 연혁 타임라인 (DB 연동 시 JS가 #eraContainer 내용을 교체) ── -->
+  <div id="eraContainer">
+  <!-- ── Era 1960~1951 (정적 폴백) ── -->
   <section data-era-section="1960~1951" class="border-b border-hairline2 bg-paper px-6 py-14">
     <div class="reveal-up flex items-center gap-3 pb-3">
       <span class="h-px w-5 bg-gold2"></span><span class="font-sans text-[9px] tracking-[4px] text-gold2">01 / 07</span>
@@ -195,6 +197,7 @@
       </div>
     </div>
   </section>
+  </div><!-- /#eraContainer -->
 
   <!-- Footer -->
   <footer class="flex flex-col items-center gap-2 bg-ink px-6 py-10">
@@ -259,33 +262,125 @@
       .to('.time_sect .center_line',{ rotate:360, duration:1.5 }, '>')                     // 중앙선 360° 스윕
       .to('.time_sect .center_line .line',{ bottom:'150%', duration:1.5 });               // 중앙선 위로 이탈
 
-    /* ════ 연혁 마일스톤 — Fade-in & Slide-up (순차 리빌) ════ */
-    gsap.utils.toArray('.reveal-up').forEach((node) => {
-      gsap.from(node, { opacity:0, y:32, duration:0.8, ease:'power3.out',
-        scrollTrigger:{ trigger:node, start:'top 90%', toggleActions:'play none none none' } });
-    });
+    /* ═══════════ Supabase 연동 — 연혁을 DB에서 읽어 데스크탑과 동일하게 ═══════════
+       정적 HTML이지만 Supabase REST(공개 읽기)로 ma_history_works를 가져와 시대별로
+       렌더링. 관리자가 CMS에서 연혁을 수정하면 모바일도 자동 반영. 실패 시 정적 폴백 유지. */
+    const SB_URL = 'https://oizjcdtnlbqehbgoyyyr.supabase.co';
+    const SB_KEY = 'sb_publishable_zaS1vhs9KDHDeMxkVMCGwg_0sscVBQR';
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[c]));
 
-    /* ════ Era 탭 스크롤 스파이 ════ */
-    const tabs = Array.from(document.querySelectorAll('.era-tab'));
-    const tabBar = tabs[0].parentElement;
-    function setActive(label) {
-      tabs.forEach((t) => {
-        const on = t.dataset.era === label;
-        t.classList.toggle('border-ink2', on);
-        t.classList.toggle('border-transparent', !on);
-        t.classList.toggle('font-semibold', on);
-        t.classList.toggle('text-ink2', on);
-        t.classList.toggle('font-light', !on);
-        t.classList.toggle('text-sage', !on);
-        if (on) { const left = t.offsetLeft - (tabBar.clientWidth - t.clientWidth)/2; tabBar.scrollTo({ left: Math.max(0,left), behavior:'smooth' }); }
+    function eraBucket(year){ const idx=Math.floor((year-1)/10); return { idx, label:(idx*10+10)+'~'+(idx*10+1) }; }
+    function groupByEra(rows){
+      const map=new Map();
+      rows.forEach((w)=>{ const { idx, label }=eraBucket(Number(w.year)); const e=map.get(idx)||{ label, works:[] }; e.works.push(w); map.set(idx,e); });
+      return [...map.entries()].sort((a,b)=>a[0]-b[0]).map(([,e])=>({ era:e.label, works:e.works }));
+    }
+
+    async function fetchEras(){
+      const url = SB_URL+'/rest/v1/ma_history_works?select=year,title,ma_history_media(image_url,caption,sort_order)&order=year.asc';
+      const r = await fetch(url, { headers:{ apikey:SB_KEY, Authorization:'Bearer '+SB_KEY } });
+      if(!r.ok) throw new Error('http '+r.status);
+      const rows = await r.json();
+      if(!Array.isArray(rows) || !rows.length) throw new Error('empty');
+      rows.forEach((w)=> (w.ma_history_media||[]).sort((a,b)=>(a.sort_order||0)-(b.sort_order||0)));
+      return groupByEra(rows);
+    }
+
+    function renderEras(eras){
+      const total = eras.length;
+      const tab = (label, active) => '<button data-era="'+esc(label)+'" class="era-tab shrink-0 border-b-2 px-4 py-3.5 font-sans text-[10px] tracking-[1.4px] '+(active?'border-ink2 text-ink2 font-semibold':'border-transparent text-sage font-light')+'">'+esc(label)+'</button>';
+      document.getElementById('eraTabs').innerHTML = tab('ALL', true) + eras.map((e)=>tab(e.era,false)).join('');
+
+      document.getElementById('eraContainer').innerHTML = eras.map((e,i)=>{
+        const byYear = {};
+        e.works.forEach((w)=>{ const y=Number(w.year); (byYear[y]=byYear[y]||[]).push(w); });
+        const years = Object.keys(byYear).map(Number).sort((a,b)=>a-b);
+        const rows = years.map((y,yi)=>{
+          const head = '<div class="reveal-up flex items-center gap-4 pb-2 '+(yi===0?'pt-3.5':'pt-5')+'"><span class="font-serif text-2xl font-light tracking-[-0.5px] text-ink2">'+y+'</span><span class="h-px flex-1 bg-hairline2"></span></div>';
+          const items = byYear[y].map((w)=>{
+            const media = w.ma_history_media||[];
+            if(media.length){
+              return '<div class="reveal-up flex items-center justify-between gap-3 border-b border-hairline2 py-2.5"><p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">'+esc(w.title)+'</p>'
+                + '<button class="media-badge shrink-0 border border-ink2 px-[7px] py-0.5 font-sans text-[8px] tracking-[2px] text-ink2" data-title="'+esc(w.title)+'" data-media="'+esc(JSON.stringify(media))+'">MEDIA</button></div>';
+            }
+            return '<div class="reveal-up border-b border-hairline2 py-2.5"><p class="font-sans text-[13px] font-light leading-[1.65] text-inksoft">'+esc(w.title)+'</p></div>';
+          }).join('');
+          return head+items;
+        }).join('');
+        return '<section data-era-section="'+esc(e.era)+'" class="border-b border-hairline2 bg-paper px-6 py-14">'
+          + '<div class="reveal-up flex items-center gap-3 pb-3"><span class="h-px w-5 bg-gold2"></span><span class="font-sans text-[9px] tracking-[4px] text-gold2">'+String(i+1).padStart(2,'0')+' / '+String(total).padStart(2,'0')+'</span></div>'
+          + '<h2 class="reveal-up font-serif text-[44px] font-light leading-none tracking-[-2px] text-ink2">'+esc(e.era)+'</h2>'
+          + '<div class="mt-8">'+rows+'</div></section>';
+      }).join('');
+    }
+
+    function updateDialYears(eras){
+      const years=[...new Set(eras.flatMap((e)=>e.works.map((w)=>Number(w.year))))].sort((a,b)=>a-b);
+      if(years.length<2) return;
+      const min=years[0], max=years[years.length-1], ms=[];
+      for(let i=0;i<8;i++) ms.push(Math.round(min+(max-min)*i/7));
+      circle.querySelectorAll('.num').forEach((n,i)=>{ if(ms[i]!=null) n.textContent=ms[i]; });
+    }
+
+    function openGallery(title, media){
+      const ov=document.createElement('div');
+      ov.className='fixed inset-0 z-[60] overflow-y-auto bg-night/95 px-5 py-8';
+      ov.innerHTML='<div class="mx-auto max-w-[430px]"><div class="mb-5 flex items-center justify-between"><p class="font-serif text-lg font-light text-cream">'+esc(title)+'</p><button class="gclose font-sans text-[12px] text-white/60">닫기 ✕</button></div>'
+        + media.map((m)=>'<figure class="mb-4"><img src="'+esc(m.image_url)+'" alt="" class="w-full object-cover" />'+(m.caption?'<figcaption class="mt-1.5 font-sans text-[12px] leading-relaxed text-white/50">'+esc(m.caption)+'</figcaption>':'')+'</figure>').join('')
+        + '</div>';
+      document.body.style.overflow='hidden';
+      const close=()=>{ ov.remove(); document.body.style.overflow=''; };
+      ov.addEventListener('click',(ev)=>{ if(ev.target===ov || ev.target.classList.contains('gclose')) close(); });
+      document.body.appendChild(ov);
+    }
+    function setupMediaBadges(){
+      document.querySelectorAll('.media-badge').forEach((b)=>{
+        b.addEventListener('click',()=>{ try{ openGallery(b.dataset.title, JSON.parse(b.dataset.media)); }catch(e){} });
       });
     }
-    document.querySelectorAll('[data-era-section]').forEach((sec) => {
-      ScrollTrigger.create({ trigger: sec, start:'top 45%', end:'bottom 45%',
-        onToggle: (self) => { if (self.isActive) setActive(sec.dataset.eraSection); } });
-    });
-    ScrollTrigger.create({ trigger:'#clockSection', start:'top top', end:'bottom 45%',
-      onToggle: (self) => { if (self.isActive) setActive('ALL'); } });
+
+    function setupReveal(){
+      gsap.utils.toArray('.reveal-up').forEach((node) => {
+        gsap.from(node, { opacity:0, y:32, duration:0.8, ease:'power3.out',
+          scrollTrigger:{ trigger:node, start:'top 90%', toggleActions:'play none none none' } });
+      });
+    }
+
+    function setupScrollspy(){
+      const tabs = Array.from(document.querySelectorAll('.era-tab'));
+      if(!tabs.length) return;
+      const tabBar = tabs[0].parentElement;
+      function setActive(label) {
+        tabs.forEach((t) => {
+          const on = t.dataset.era === label;
+          t.classList.toggle('border-ink2', on);
+          t.classList.toggle('border-transparent', !on);
+          t.classList.toggle('font-semibold', on);
+          t.classList.toggle('text-ink2', on);
+          t.classList.toggle('font-light', !on);
+          t.classList.toggle('text-sage', !on);
+          if (on) { const left = t.offsetLeft - (tabBar.clientWidth - t.clientWidth)/2; tabBar.scrollTo({ left: Math.max(0,left), behavior:'smooth' }); }
+        });
+      }
+      document.querySelectorAll('[data-era-section]').forEach((sec) => {
+        ScrollTrigger.create({ trigger: sec, start:'top 45%', end:'bottom 45%',
+          onToggle: (self) => { if (self.isActive) setActive(sec.dataset.eraSection); } });
+      });
+      ScrollTrigger.create({ trigger:'#clockSection', start:'top top', end:'bottom 45%',
+        onToggle: (self) => { if (self.isActive) setActive('ALL'); } });
+    }
+
+    (async function init(){
+      try {
+        const eras = await fetchEras();
+        renderEras(eras);
+        updateDialYears(eras);
+      } catch (e) { /* DB 미연결/오프라인 → 정적 폴백 유지 */ }
+      setupMediaBadges();
+      setupReveal();
+      setupScrollspy();
+      ScrollTrigger.refresh();
+    })();
 </script>
 </body>
 </html>
