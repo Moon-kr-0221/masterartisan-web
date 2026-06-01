@@ -227,7 +227,7 @@ export default function ClockIntro({ years }: { years?: number[] }) {
                       />
                       <text
                         ref={(el) => { labelRefs.current[i] = el; }}
-                        x={lp.x} y={lp.y}
+                        x={lp.x} y={lp.y + 5}
                         textAnchor="middle" dominantBaseline="middle"
                         fontSize={30}
                         fontFamily="'Noto Serif KR', serif"
