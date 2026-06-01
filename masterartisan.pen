@@ -5246,175 +5246,6 @@
               "children": [
                 {
                   "type": "frame",
-                  "id": "fmuuu",
-                  "name": "Hero",
-                  "width": "fill_container",
-                  "stroke": "#E2DDD6",
-                  "strokeWidth": {
-                    "bottom": 1
-                  },
-                  "strokeAlignment": "inner",
-                  "layout": "vertical",
-                  "gap": 20,
-                  "padding": [
-                    88,
-                    64,
-                    72,
-                    64
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "C1t6T",
-                      "name": "Eyebrow",
-                      "fill": "#C4A882",
-                      "content": "HISTORY",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
-                      "fontWeight": "normal",
-                      "letterSpacing": 4
-                    },
-                    {
-                      "type": "text",
-                      "id": "L9mrr",
-                      "name": "HeroTitle",
-                      "fill": "#1A1714",
-                      "textGrowth": "fixed-width",
-                      "width": 660,
-                      "content": "70여 년의\n장인 이야기",
-                      "lineHeight": 1.05,
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 80,
-                      "fontWeight": "300",
-                      "letterSpacing": -3
-                    },
-                    {
-                      "type": "text",
-                      "id": "ByhFR",
-                      "name": "HeroDesc",
-                      "fill": "#A09890",
-                      "textGrowth": "fixed-width",
-                      "width": 400,
-                      "content": "전통 한옥 건축의 길을 묵묵히 걸어온 70년의 기록.\n한 땀 한 땀 새긴 시간들이 오늘의 마스터아티잔을 만들었습니다.",
-                      "lineHeight": 1.9,
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 13,
-                      "fontWeight": "300"
-                    },
-                    {
-                      "type": "frame",
-                      "id": "hfeE9",
-                      "name": "Stats",
-                      "gap": 48,
-                      "padding": [
-                        8,
-                        0,
-                        0,
-                        0
-                      ],
-                      "children": [
-                        {
-                          "type": "frame",
-                          "id": "a3glvg",
-                          "name": "S_년간 활동",
-                          "layout": "vertical",
-                          "gap": 6,
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "PBpaY",
-                              "name": "Num",
-                              "fill": "#1A1714",
-                              "content": "70+",
-                              "lineHeight": 1,
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 36,
-                              "fontWeight": "300",
-                              "letterSpacing": -1
-                            },
-                            {
-                              "type": "text",
-                              "id": "xyYIi",
-                              "name": "Lbl",
-                              "fill": "#A09890",
-                              "content": "년간 활동",
-                              "fontFamily": "Noto Sans KR",
-                              "fontSize": 9,
-                              "fontWeight": "normal",
-                              "letterSpacing": 2
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "EPGQf",
-                          "name": "S_완공 프로젝트",
-                          "layout": "vertical",
-                          "gap": 6,
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "HZLSj",
-                              "name": "Num",
-                              "fill": "#1A1714",
-                              "content": "90+",
-                              "lineHeight": 1,
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 36,
-                              "fontWeight": "300",
-                              "letterSpacing": -1
-                            },
-                            {
-                              "type": "text",
-                              "id": "R4aIJ",
-                              "name": "Lbl",
-                              "fill": "#A09890",
-                              "content": "완공 프로젝트",
-                              "fontFamily": "Noto Sans KR",
-                              "fontSize": 9,
-                              "fontWeight": "normal",
-                              "letterSpacing": 2
-                            }
-                          ]
-                        },
-                        {
-                          "type": "frame",
-                          "id": "NeTre",
-                          "name": "S_대를 이은 기술",
-                          "layout": "vertical",
-                          "gap": 6,
-                          "children": [
-                            {
-                              "type": "text",
-                              "id": "Dcu6k",
-                              "name": "Num",
-                              "fill": "#1A1714",
-                              "content": "3",
-                              "lineHeight": 1,
-                              "fontFamily": "Noto Serif KR",
-                              "fontSize": 36,
-                              "fontWeight": "300",
-                              "letterSpacing": -1
-                            },
-                            {
-                              "type": "text",
-                              "id": "e0NKd",
-                              "name": "Lbl",
-                              "fill": "#A09890",
-                              "content": "대를 이은 기술",
-                              "fontFamily": "Noto Sans KR",
-                              "fontSize": 9,
-                              "fontWeight": "normal",
-                              "letterSpacing": 2
-                            }
-                          ]
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
                   "id": "zdwNq",
                   "name": "Era_1960~1951",
                   "width": "fill_container",
@@ -7917,6 +7748,7 @@
           "x": 440,
           "y": 132,
           "name": "P1_DropLine",
+          "opacity": 0.3,
           "fill": "#f5f0e873",
           "width": 1,
           "height": 240
@@ -8127,6 +7959,7 @@
           "x": 437.5,
           "y": 369.5,
           "name": "P1_Pivot",
+          "opacity": 0.3,
           "fill": "#F5F0E8",
           "width": 5,
           "height": 5
@@ -8602,8 +8435,8 @@
     {
       "type": "frame",
       "id": "MaOi1",
-      "x": 0,
-      "y": 4522,
+      "x": 1023,
+      "y": 4760,
       "name": "M/GNB Header",
       "reusable": true,
       "width": 390,
@@ -8647,8 +8480,8 @@
     {
       "type": "frame",
       "id": "uNs3e",
-      "x": 0,
-      "y": 4612,
+      "x": 1023,
+      "y": 4850,
       "name": "M/Footer",
       "reusable": true,
       "width": 390,
@@ -8687,8 +8520,8 @@
     {
       "type": "frame",
       "id": "Ca5JX",
-      "x": 0,
-      "y": 4760,
+      "x": 1023,
+      "y": 4998,
       "name": "M · HOME",
       "clip": true,
       "width": 390,
@@ -10532,7 +10365,7 @@
     {
       "type": "frame",
       "id": "E6TZs",
-      "x": 3040,
+      "x": 2045,
       "y": 4760,
       "name": "M · HISTORY",
       "clip": true,
@@ -10653,6 +10486,7 @@
               "x": 0,
               "y": 260,
               "name": "time",
+              "opacity": 0.3,
               "children": [
                 {
                   "type": "path",
@@ -11849,8 +11683,8 @@
     {
       "type": "frame",
       "id": "iGTp2",
-      "x": 4560,
-      "y": 4760,
+      "x": 2650,
+      "y": 4772,
       "name": "M · WORKS",
       "clip": true,
       "width": 390,
@@ -12325,8 +12159,8 @@
     {
       "type": "frame",
       "id": "BD0PQ",
-      "x": 6117,
-      "y": 4760,
+      "x": 3238,
+      "y": 4772,
       "name": "M · CONTACT",
       "clip": true,
       "width": 390,
@@ -12833,6 +12667,17 @@
           "name": "Footer"
         }
       ]
+    },
+    {
+      "type": "text",
+      "id": "t0wfr",
+      "x": 4331.114911208921,
+      "y": 4496.504611965373,
+      "fill": "#000000",
+      "content": "id=\"cOrbit\"",
+      "fontFamily": "Inter",
+      "fontSize": 12,
+      "fontWeight": "normal"
     }
   ],
   "variables": {
