@@ -11,7 +11,7 @@ export type HistoryEra = {
 
 export const historyEras: HistoryEra[] = [
   {
-    era: '~2011',
+    era: '2011~2020',
     works: [
       { year: 2016, title: '광명선원 요사채 工事' },
       { year: 2015, title: '순흥안씨 제실 서고 工事' },
@@ -25,7 +25,7 @@ export const historyEras: HistoryEra[] = [
     ],
   },
   {
-    era: '2010~2001',
+    era: '2001~2010',
     works: [
       { year: 2010, title: '파평윤씨 일각문 工事', hasMedia: true },
       { year: 2010, title: '묘적사 화장실 工事' },
@@ -42,7 +42,7 @@ export const historyEras: HistoryEra[] = [
     ],
   },
   {
-    era: '2000~1991',
+    era: '1991~2000',
     works: [
       { year: 2000, title: '구월사 관음전 工事', hasMedia: true },
       { year: 2000, title: '가평 대성사 법당 工事', hasMedia: true },
@@ -58,7 +58,7 @@ export const historyEras: HistoryEra[] = [
     ],
   },
   {
-    era: '1990~1981',
+    era: '1981~1990',
     works: [
       { year: 1990, title: '연안이씨 사당 工事', hasMedia: true },
       { year: 1990, title: '인천 도원동 보각선원 법당 工事' },
@@ -72,7 +72,7 @@ export const historyEras: HistoryEra[] = [
     ],
   },
   {
-    era: '1980~1971',
+    era: '1971~1980',
     works: [
       { year: 1980, title: '중곡동 대순진리회본전 工事' },
       { year: 1979, title: '남양주 오봉산 석굴암 요사처 신축 工事' },
@@ -91,7 +91,7 @@ export const historyEras: HistoryEra[] = [
     ],
   },
   {
-    era: '1970~1961',
+    era: '1961~1970',
     works: [
       { year: 1970, title: '안양 망혜암 종각 신축 工事', hasMedia: true },
       { year: 1969, title: '송추 오봉산 석굴암 법당 工事' },
@@ -108,7 +108,7 @@ export const historyEras: HistoryEra[] = [
     ],
   },
   {
-    era: '1960~1951',
+    era: '1951~1960',
     works: [
       { year: 1960, title: '진관동 진관사 법당 신축 工事' },
       { year: 1960, title: '무량사 봉향각 신축 工事', hasMedia: true },
