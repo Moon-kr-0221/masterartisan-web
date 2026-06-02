@@ -204,14 +204,21 @@ export default function HeroSection() {
           />
         </div>
         <span
-          className="text-[11px]"
+          role="button"
+          tabIndex={0}
+          aria-label="다음 사진"
+          onClick={advance}
+          onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); advance(); } }}
+          className="text-[11px] transition-colors hover:text-white"
           style={{
             fontFamily: 'var(--font-sans)',
             color: 'rgba(255,255,255,0.25)',
             letterSpacing: '2px',
+            cursor: 'pointer',
+            pointerEvents: 'auto',
           }}
         >
-          04
+          {String(SLIDES.length).padStart(2, '0')}
         </span>
       </motion.div>
 

@@ -67,7 +67,7 @@ interface DialProps {
 function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
   const TOTAL = eras.length;
   const CX = 240, CY = 240;
-  const R = { outer: 210, track: 168, inner: 122, center: 68, label: 186 };
+  const R = { outer: 210, track: 168, inner: 122, center: 68, label: 204 };
 
   const polar = (deg: number, r: number) => ({
     x: Math.round((CX + r * Math.cos((deg * Math.PI) / 180)) * 100) / 100,
@@ -81,21 +81,19 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
     <svg viewBox="0 0 480 480" width="100%" height="100%"
       style={{ overflow: 'hidden' }}>
 
-      {/* ── ROTATING RING (GSAP controls transform directly) ── */}
+      {/* ── Static concentric rings ── */}
+      {[R.track, R.inner].map((r) => (
+        <circle key={r} cx={CX} cy={CY} r={r} fill="none"
+          stroke={C.hairline} strokeWidth={0.5} />
+      ))}
+
+      {/* ── ROTATING MARKERS (scroll-linked) — 눈금만 회전, 년도 라벨은 제자리 고정 ── */}
       <g ref={groupRef} style={{ transformOrigin: `${CX}px ${CY}px` }}>
-
-        {/* Concentric orbits */}
-        {[R.outer, R.track, R.inner].map((r, i) => (
-          <circle key={r} cx={CX} cy={CY} r={r} fill="none"
-            stroke={i === 0 ? '#C8C3BA' : C.hairline}
-            strokeWidth={i === 0 ? 0.8 : 0.5} />
-        ))}
-
-        {/* Fine tick marks */}
-        {Array.from({ length: 42 }).map((_, i) => {
-          const a = -90 + (i / 42) * 360;
-          const p0 = polar(a, R.inner - 3);
-          const p1 = polar(a, R.inner + 5);
+        {/* Fine tick marks — 시대(TOTAL)의 배수로 두어 major 눈금이 시 마커와 정확히 겹치게 */}
+        {Array.from({ length: TOTAL * 6 }).map((_, i) => {
+          const a = -90 + (i / (TOTAL * 6)) * 360;
+          const p0 = polar(a, R.inner);
+          const p1 = polar(a, R.inner + 8);
           const major = i % 6 === 0;
           return (
             <line key={i} x1={p0.x} y1={p0.y} x2={p1.x} y2={p1.y}
@@ -104,42 +102,42 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
           );
         })}
 
-        {/* Era ticks + labels — labels counter-rotated by GSAP */}
+        {/* Era tick lines (markers) — 분 마커와 동일 기준에서 뻗어 함께 회전 */}
         {eras.map((era, i) => {
           const a = eraAngle(i);
-          const t0 = polar(a, R.inner - 6);
+          const t0 = polar(a, R.inner);
           const t1 = polar(a, R.track + 8);
-          const lp = polar(a, R.label);
-          const isActive = i === activeIdx;
           return (
-            <g key={era.era}>
-              <line x1={t0.x} y1={t0.y} x2={t1.x} y2={t1.y}
-                stroke={isActive ? C.ink : '#C8C3BA'}
-                strokeWidth={isActive ? 1.0 : 0.5} />
-              <text
-                ref={(el) => { labelRefs.current[i] = el; }}
-                x={lp.x} y={lp.y}
-                data-cx={lp.x} data-cy={lp.y}
-                textAnchor="middle" dominantBaseline="middle"
-                fontSize={isActive ? 9.5 : 8.5}
-                fontFamily="'Noto Sans KR', sans-serif"
-                fontWeight={isActive ? '600' : '300'}
-                fill={isActive ? C.ink : C.muted}
-                style={{
-                  transformBox: 'fill-box',
-                  transformOrigin: 'center center',
-                  transition: 'fill 0.5s, font-size 0.4s',
-                }}
-              >
-                {era.era}
-              </text>
-            </g>
+            <line key={era.era} x1={t0.x} y1={t0.y} x2={t1.x} y2={t1.y}
+              stroke="#B8B3AA" strokeWidth={0.7} />
           );
         })}
 
         {/* Center dot on pivot */}
         <circle cx={CX} cy={CY} r={2.2} fill={C.ink} />
       </g>
+
+      {/* ── STATIC era labels — 제자리 고정(똑바로), 활성 시대만 강조 ── */}
+      {eras.map((era, i) => {
+        const a = eraAngle(i);
+        const lp = polar(a, R.label);
+        const isActive = i === activeIdx;
+        return (
+          <text key={era.era}
+            ref={(el) => { labelRefs.current[i] = el; }}
+            x={lp.x} y={lp.y}
+            textAnchor="middle" dominantBaseline="middle"
+            fontSize={isActive ? 9.5 : 8.5}
+            fontFamily="'Noto Sans KR', sans-serif"
+            fontWeight={isActive ? '600' : '300'}
+            fill={isActive ? C.ink : C.muted}
+            opacity={isActive ? 1 : 0.4}
+            style={{ transition: 'fill 0.5s, font-size 0.4s, opacity 0.5s' }}
+          >
+            {era.era}
+          </text>
+        );
+      })}
 
       {/* ══ FIXED ELEMENTS — never rotate ══════════════════════════════ */}
 
@@ -151,11 +149,6 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
       />
       {/* Hand tip dot */}
       <circle cx={CX} cy={CY - R.track + 2} r={2.6} fill={C.ink} />
-
-      {/* Fixed 12 o'clock top marker */}
-      <line x1={CX} y1={CY - R.outer - 8} x2={CX} y2={CY - R.outer}
-        stroke={C.ink} strokeWidth={1.4} />
-      <circle cx={CX} cy={CY - R.outer - 11} r={2} fill={C.ink} />
 
       {/* Center disc */}
       <circle cx={CX} cy={CY} r={R.center}
@@ -367,6 +360,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
     if (!leftRef.current || !dialGroupRef.current) return;
     const ctx = gsap.context(() => {
 
+      // 하단 다이얼: 마커(눈금)만 스크롤에 연동해 회전 — 년도 라벨은 별도 정적 레이어라 회전 안 함.
       gsap.to(dialGroupRef.current, {
         rotation: -360,
         ease: 'none',
@@ -376,12 +370,6 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
           start: 'top top',
           end:   'bottom bottom',
           scrub: 1.6,
-          onUpdate(self) {
-            const currentDeg = -(self.progress * 360);
-            labelRefs.current.forEach((el) => {
-              if (el) gsap.set(el, { rotation: -currentDeg, svgOrigin: `${el.dataset.cx} ${el.dataset.cy}` });
-            });
-          },
         },
       });
 
