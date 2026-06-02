@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 import type { Transition, TargetAndTransition, VariantLabels } from 'framer-motion';
 
-function TiltCard({ children, className, style, initial, whileInView, transition, viewport }: {
+function TiltCard({ children, className, style, initial, whileInView, transition, viewport, onClick }: {
   children: React.ReactNode;
   className?: string;
   style?: React.CSSProperties;
@@ -14,6 +15,7 @@ function TiltCard({ children, className, style, initial, whileInView, transition
   whileInView?: TargetAndTransition | VariantLabels;
   transition?: Transition;
   viewport?: { once?: boolean; margin?: string };
+  onClick?: () => void;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const rx = useMotionValue(0);
@@ -45,6 +47,7 @@ function TiltCard({ children, className, style, initial, whileInView, transition
       viewport={viewport}
       onMouseMove={onMove}
       onMouseLeave={onLeave}
+      onClick={onClick}
       data-cursor="image"
     >
       {children}
@@ -86,7 +89,12 @@ export default function WorksGrid({ items, pool = [], random = false }: {
 
   const works = random
     ? (picked ?? randomBase.slice(0, 3))
-    : (items && items.length > 0 ? items : FALLBACK);
+    : (items && items.length > 0 ? items
+      : pool.length > 0 ? pool.slice(0, 3)   // 지정 대표작업이 없으면 실제 DB 작업으로 (상세 연결 동작)
+      : FALLBACK);
+
+  const router = useRouter();
+  const openWork = (title: string) => router.push(`/works?work=${encodeURIComponent(title)}`);
   return (
     <section style={{ backgroundColor: '#FAFAF8', padding: '0 52px 72px' }}>
       {/* 헤더 */}
@@ -130,20 +138,23 @@ export default function WorksGrid({ items, pool = [], random = false }: {
       <div className="flex gap-[3px]">
         {/* 왼쪽 큰 카드 */}
         <TiltCard
-          className="relative overflow-hidden"
+          className="group relative cursor-pointer overflow-hidden"
           style={{ width: '58.5%', height: '540px', backgroundColor: works[0].color, flexShrink: 0 }}
           initial={{ opacity: 0, scale: 0.97 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true, margin: '-60px' }}
+          onClick={() => openWork(works[0].title)}
         >
           <div
-            className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.6s] ease-out hover:scale-[1.04]"
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.6s] ease-out group-hover:scale-[1.04]"
             style={{ backgroundImage: `url(${works[0].bg})` }}
           />
           {/* 웜톤 컬러 그레이딩 — 채도 낮춤 + 세피아 */}
           <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(44,31,16,0) 0%, rgba(44,31,16,0.45) 100%)', mixBlendMode: 'multiply' }} />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%)' }} />
+          {/* 마우스 오버 시 밝아짐 */}
+          <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-[0.13]" />
           <div className="absolute left-[36px]" style={{ bottom: '39px', transform: 'translateZ(20px)' }}>
             <p className="section-label mb-[6px]" style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '2px' }}>
               {works[0].cat} · {works[0].year}
@@ -159,20 +170,23 @@ export default function WorksGrid({ items, pool = [], random = false }: {
           {works.slice(1).map((w, i) => (
             <TiltCard
               key={w.title}
-              className="relative overflow-hidden flex-1"
+              className="group relative cursor-pointer overflow-hidden flex-1"
               style={{ backgroundColor: w.color, height: '268px' }}
               initial={{ opacity: 0, scale: 0.97 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.12 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true, margin: '-60px' }}
+              onClick={() => openWork(w.title)}
             >
               <div
-                className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.6s] ease-out hover:scale-[1.06]"
+                className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.6s] ease-out group-hover:scale-[1.06]"
                 style={{ backgroundImage: `url(${w.bg})` }}
               />
               {/* 웜톤 컬러 그레이딩 */}
               <div className="absolute inset-0" style={{ background: 'linear-gradient(160deg, rgba(44,31,16,0) 0%, rgba(44,31,16,0.4) 100%)', mixBlendMode: 'multiply' }} />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)' }} />
+              {/* 마우스 오버 시 밝아짐 */}
+              <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-[0.13]" />
               <div className="absolute left-[28px]" style={{ bottom: '18px', transform: 'translateZ(16px)' }}>
                 <p className="section-label mb-1" style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '2px' }}>
                   {w.cat} · {w.year}

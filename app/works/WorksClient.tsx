@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { categoryLabels, type WorkCategory } from '@/data/works';
 import type { Work } from '@/lib/data/types';
 import ScrollReveal from '@/components/ui/ScrollReveal';
@@ -15,10 +15,17 @@ const SANS = 'var(--font-sans)';
 const BANNER_IMG = 'https://images.unsplash.com/photo-1761452776106-78710d4fada9?auto=format&fit=crop&w=1600&q=80';
 const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
 
-export default function WorksClient({ works }: { works: Work[] }) {
+export default function WorksClient({ works, initialWork }: { works: Work[]; initialWork?: string }) {
   const [active, setActive] = useState<WorkCategory>('all');
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [lightbox, setLightbox] = useState<null | Work>(null);
+
+  // 홈 작업사례에서 사진 클릭 시 → 해당 작업 상세(라이트박스) 자동 오픈
+  useEffect(() => {
+    if (!initialWork) return;
+    const w = works.find((x) => x.title === initialWork);
+    if (w) setLightbox(w);
+  }, [initialWork, works]);
 
   const filtered = active === 'all' ? works : works.filter((w) => w.category === active);
   const shown = filtered.slice(0, visible);
