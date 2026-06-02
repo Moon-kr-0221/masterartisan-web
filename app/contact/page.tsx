@@ -7,13 +7,14 @@ const BANNER_IMG = 'https://images.unsplash.com/photo-1772331274809-4a6ad75c9947
 const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
 
 const LEFT_ITEMS = [
-  { label: '전화', value: '031-000-0000', href: 'tel:031-000-0000' },
-  { label: '이메일', value: 'info@masterartisan.co.kr', href: 'mailto:info@masterartisan.co.kr' },
+  { label: '전화', value: '070-7715-4704', href: 'tel:070-7715-4704' },
+  { label: '팩스', value: '0504-230-4704', href: null },
+  { label: '이메일', value: 'rayarchit@naver.com', href: 'mailto:rayarchit@naver.com' },
 ];
 
 const LOCATIONS = [
-  { type: '사무실', typeEn: 'Office', address: '경기도 ○○시 ○○구 ○○로 000', detail: '○○빌딩 3층' },
-  { type: '공장', typeEn: 'Workshop', address: '경기도 ○○시 ○○구 ○○로 000', detail: '전통건축 목공장' },
+  { type: '공장', typeEn: 'Workshop', address: '인천광역시 강화군 송해면 강화대로 778', detail: '전통건축 작업장' },
+  { type: '사무실', typeEn: 'Office', address: '추후 안내 예정', detail: '' },
 ];
 
 function InfoRow({

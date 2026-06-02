@@ -19,3 +19,9 @@ The design uses proprietary fonts (`WiredDisplay`, `BreveText`, `Apercu`). If th
 ## Elevation
 
 No drop-shadows. Use 1px `colors.hairline` borders for separation, and 2px `colors.ink` borders for emphasis only.
+
+## Design ↔ Code Parity (ALWAYS)
+
+The implemented site (code) and the Pencil design (`masterartisan.pen`) must stay in sync. Whenever you change copy, typography, layout, or visible UI in code — or notice the design lacks something the code has — reflect the same change in the corresponding `.pen` board (and vice versa). Every visible text/typography/element present on the live site must also exist, with matching content and style (font family, size, weight, line-height, letter-spacing, color, alignment), on the matching Pencil board. This applies to all pages (desktop boards + the `M · …` mobile boards). Behavioral/data-only features (CMS, filters, animations) are exempt — only visible design must match.
+
+@DESIGN.md

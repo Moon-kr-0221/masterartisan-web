@@ -31,10 +31,14 @@ export const masterartisanData = [
     generationKr: '삼대',
     generationEn: '3rd Generation',
     name: '장원희',
-    title: '대목장',
-    role: 'Teaching Assistant of Master Artisan',
-    description: '경기무형문화재 36호 대목장 전수교육 조교.',
-    highlights: ['경기무형문화재 제36호 대목장 전수교육 조교'],
+    title: '대표 · 대목장 전승교육사',
+    role: 'Founder & Heritage Repair Technician',
+    description: '국가유산 수리기술자(보수) 제1748호 · 수리기능자(대목수) 제014157호. 경기도 무형유산 대목장 전승교육사로서 회사를 설립해 전통건축의 맥을 잇는다.',
+    highlights: [
+      '국가유산 수리기술자(보수) 제1748호',
+      '국가유산 수리기능자(대목수) 제014157호',
+      '경기도 무형유산 대목장 전승교육사',
+    ],
     image: U('photo-1547044479-59ce6c0a784a'),
   },
 ];
