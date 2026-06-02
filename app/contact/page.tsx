@@ -1,5 +1,3 @@
-import ScrollReveal from '@/components/ui/ScrollReveal';
-
 const SERIF = 'var(--font-serif)';
 const SANS = 'var(--font-sans)';
 
@@ -12,9 +10,19 @@ const LEFT_ITEMS = [
   { label: '이메일', value: 'rayarchit@naver.com', href: 'mailto:rayarchit@naver.com' },
 ];
 
+const ADDRESS = '인천광역시 강화군 송해면 강화대로 778';
+const NAVER_MAP_URL = 'https://naver.me/xtNhmH4G';
+// 키 없이 동작하는 구글맵 임베드 (네이버는 외부 iframe을 막아 임베드 불가 → 링크는 별도 유지)
+const MAP_EMBED_SRC = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}&z=16&hl=ko&output=embed`;
+
 const LOCATIONS = [
-  { type: '공장', typeEn: 'Workshop', address: '인천광역시 강화군 송해면 강화대로 778', detail: '전통건축 작업장' },
-  { type: '사무실', typeEn: 'Office', address: '추후 안내 예정', detail: '' },
+  {
+    type: '고려문화재기술원(주)',
+    typeEn: 'Office & Workshop',
+    address: ADDRESS,
+    detail: '사무실·작업장 통합',
+    mapUrl: NAVER_MAP_URL,
+  },
 ];
 
 function InfoRow({
@@ -74,97 +82,68 @@ export default function ContactPage() {
       {/* ── CONTACT INFORMATION ── */}
       {/* V58cDN ContactLeft: padding 80, gap 36 */}
       <section style={{ padding: '80px' }}>
-        <div style={{ maxWidth: 1120, margin: '0 auto' }}>
+        <div>
           <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: '#AAAAAA' }}>
             CONTACT INFORMATION
           </span>
 
-          {/* oLN86 InfoColumns: gap 64, height 254 */}
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 items-stretch"
-            style={{ gap: 64, marginTop: 36, height: 254 }}
-          >
-            {/* UkqIZ LeftCol: gap 22, fill_container → flex col */}
-            <ScrollReveal direction="left" className="flex flex-col" style={{ gap: 22 }}>
-              {/* YTEyD, z8ZjmC: fill_container → flex:1 each */}
-              {LEFT_ITEMS.map((it) => (
-                <InfoRow key={it.label} {...it} flex={1} />
-              ))}
-            </ScrollReveal>
+          {/* 3열 × 2행 균형 그리드: 전화·팩스·이메일 / 운영시간·회사정보·인증 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 items-stretch" style={{ gap: 64, marginTop: 40 }}>
+            {/* Row 1 */}
+            {LEFT_ITEMS.map((it) => (
+              <InfoRow key={it.label} {...it} />
+            ))}
 
-            {/* E73V4e RightCol: gap 12, fill_container → flex col */}
-            <ScrollReveal direction="right" className="flex flex-col" style={{ gap: 12 }}>
-              {/* fbHeD 운영시간_row: height 116, paddingBottom 12 */}
-              <InfoRow
-                label="운영시간"
-                value={'평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)'}
-                href={null}
-                paddingBottom={12}
-                height={116}
-              />
-              {/* oa84Y CertBox: fill_container → flex:1, padding 24, gap 10, fill #F7F6F3 */}
-              <div
-                style={{
-                  flex: 1,
-                  backgroundColor: '#F7F6F3',
-                  padding: 24,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  gap: 10,
-                }}
-              >
-                <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: '#1A1A1A' }}>
-                  경기무형문화재 제36호
-                </span>
-                <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.8, color: '#666666', whiteSpace: 'pre-line' }}>
-                  {'전통건축 유지보수·수리·제작에 관한 모든 문의를 환영합니다.\n방문 전 사전 연락을 부탁드립니다.'}
-                </span>
+            {/* Row 2 — 운영시간 */}
+            <InfoRow
+              label="운영시간"
+              value={'평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)'}
+              href={null}
+            />
+
+            {/* Row 2 — Office & Workshop */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 24, borderBottom: '1px solid #F0EEEA' }}>
+              <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: '#AAAAAA' }}>
+                {LOCATIONS[0].typeEn}
+              </span>
+              <span style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 300, color: '#1A1A1A' }}>
+                {LOCATIONS[0].type}
+              </span>
+              <div className="flex items-center flex-wrap" style={{ gap: 10, marginTop: 2 }}>
+                <span style={{ fontFamily: SANS, fontSize: 13, color: '#555555' }}>{LOCATIONS[0].address}</span>
+                <a href={LOCATIONS[0].mapUrl} target="_blank" rel="noopener noreferrer"
+                  className="transition-opacity hover:opacity-60"
+                  style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.05em', color: '#8C6D3F' }}>
+                  네이버 지도 →
+                </a>
               </div>
-            </ScrollReveal>
+            </div>
+
+            {/* Row 2 — 인증 */}
+            <div style={{ backgroundColor: '#F7F6F3', padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 10 }}>
+              <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: '#1A1A1A' }}>
+                경기무형문화재 제36호
+              </span>
+              <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.8, color: '#666666', whiteSpace: 'pre-line' }}>
+                {'전통건축 유지보수·수리·제작에 관한 모든 문의를 환영합니다.\n방문 전 사전 연락을 부탁드립니다.'}
+              </span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* ── LOCATIONS ── */}
-      <section style={{ padding: '0 80px 88px' }}>
-        <div style={{ maxWidth: 1120, margin: '0 auto' }}>
-          <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: '#8C6D3F' }}>LOCATIONS</span>
-
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 32, marginTop: 28 }}>
-            {LOCATIONS.map((loc) => (
-              <div key={loc.type} style={{ border: '1px solid #ECE9E3' }}>
-                <div style={{ padding: '24px 24px 20px', display: 'flex', flexDirection: 'column', gap: 4, borderBottom: '1px solid #ECE9E3' }}>
-                  <div className="flex items-center" style={{ gap: 10 }}>
-                    <span style={{ fontFamily: SERIF, fontSize: 20, color: '#1A1A1A' }}>{loc.type}</span>
-                    <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: '#AAAAAA' }}>{loc.typeEn}</span>
-                  </div>
-                  <span style={{ fontFamily: SANS, fontSize: 12, color: '#555555' }}>{loc.address}</span>
-                  <span style={{ fontFamily: SANS, fontSize: 10, color: '#AAAAAA' }}>{loc.detail}</span>
-                </div>
-                <div
-                  style={{
-                    aspectRatio: '2 / 1',
-                    backgroundColor: '#E0E0E0',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 12,
-                  }}
-                >
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#999999" strokeWidth="1.2">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-                    <circle cx="12" cy="9" r="2.5" />
-                  </svg>
-                  <span style={{ fontFamily: SANS, fontSize: 11, lineHeight: 1.7, color: '#999999', textAlign: 'center' }}>
-                    네이버 지도 embed<br />(주소 확정 후 교체)
-                  </span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+      {/* ── 지도 — 화면 좌우 전체 폭(full-bleed), 푸터에 바로 붙음 ── */}
+      <section>
+        <iframe
+          src={MAP_EMBED_SRC}
+          title={`${LOCATIONS[0].type} 위치 지도`}
+          width="100%"
+          height={520}
+          style={{ border: 0, display: 'block', width: '100%' }}
+          loading="lazy"
+          referrerPolicy="no-referrer-when-downgrade"
+          allowFullScreen
+        />
       </section>
     </div>
   );
