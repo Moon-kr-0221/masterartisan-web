@@ -118,8 +118,8 @@ export default function HeroSection() {
       <AnimatePresence mode="wait">
         <motion.div
           key={`text-${current}`}
-          className="absolute left-[52px]"
-          style={{ top: '46.875%', x: textX, y: textY }}
+          className="absolute"
+          style={{ left: 'clamp(24px, 5vw, 52px)', top: '46.875%', x: textX, y: textY }}
           initial={{ opacity: 0, filter: 'blur(6px)' }}
           animate={{ opacity: 1, filter: 'blur(0px)' }}
           exit={{ opacity: 0, filter: 'blur(4px)' }}
@@ -158,10 +158,10 @@ export default function HeroSection() {
         </motion.div>
       </AnimatePresence>
 
-      {/* 하단 우 — 영문 서브카피 */}
+      {/* 하단 우 — 영문 서브카피 (데스크탑 전용) */}
       <motion.div
-        className="absolute"
-        style={{ right: '100px', top: '87.5%', width: '380px' }}
+        className="absolute hidden md:block"
+        style={{ right: 100, top: '87.5%', width: 380 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.0, delay: 3.2 }}
@@ -181,7 +181,7 @@ export default function HeroSection() {
       {/* 하단 좌 — 페이지네이션 */}
       <motion.div
         className="absolute flex items-center"
-        style={{ left: '52px', bottom: '8%', gap: '10px' }}
+        style={{ left: 'clamp(24px, 5vw, 52px)', bottom: '8%', gap: '10px' }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 3.0 }}
