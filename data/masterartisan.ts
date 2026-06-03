@@ -1,7 +1,8 @@
 // Images mirror the Pencil "MASTERARTISAN" board (Unsplash, 목공/전통건축 테마).
 const U = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1080&q=80`;
 
-export const masterartisanHeroImage = U('photo-1769159828138-a7b3f8540d71');
+// 펜슬 Jsfk8(PageHero)와 동일한 이미지
+export const masterartisanHeroImage = U('photo-1779093284989-a0f8016bc895');
 
 export const masterartisanData = [
   {
