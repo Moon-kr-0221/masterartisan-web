@@ -8359,8 +8359,8 @@
     {
       "type": "frame",
       "id": "MaOi1",
-      "x": 1023,
-      "y": 4760,
+      "x": 2649,
+      "y": 4757,
       "name": "M/GNB Header",
       "reusable": true,
       "width": 390,
@@ -8404,8 +8404,8 @@
     {
       "type": "frame",
       "id": "uNs3e",
-      "x": 1023,
-      "y": 4850,
+      "x": 2649,
+      "y": 4952,
       "name": "M/Footer",
       "reusable": true,
       "width": 390,
@@ -8444,8 +8444,8 @@
     {
       "type": "frame",
       "id": "Ca5JX",
-      "x": 1023,
-      "y": 4998,
+      "x": 32,
+      "y": 4757,
       "name": "M · HOME",
       "clip": true,
       "width": 390,
@@ -9849,8 +9849,8 @@
     {
       "type": "frame",
       "id": "AxVs1",
-      "x": 1520,
-      "y": 4760,
+      "x": 502,
+      "y": 4757,
       "name": "M · MASTERARTISAN",
       "clip": true,
       "width": 390,
@@ -10302,8 +10302,8 @@
     {
       "type": "frame",
       "id": "E6TZs",
-      "x": 2045,
-      "y": 4760,
+      "x": 1027,
+      "y": 4757,
       "name": "M · HISTORY",
       "clip": true,
       "width": 390,
@@ -11634,8 +11634,8 @@
     {
       "type": "frame",
       "id": "iGTp2",
-      "x": 2650,
-      "y": 4772,
+      "x": 1632,
+      "y": 4769,
       "name": "M · WORKS",
       "clip": true,
       "width": 390,
@@ -12138,8 +12138,8 @@
     {
       "type": "frame",
       "id": "BD0PQ",
-      "x": 3238,
-      "y": 4772,
+      "x": 2145,
+      "y": 4757,
       "name": "M · CONTACT",
       "clip": true,
       "width": 390,
@@ -12312,6 +12312,48 @@
             },
             {
               "type": "frame",
+              "id": "EuTtX",
+              "name": "전화",
+              "width": "fill_container",
+              "stroke": "#F0EEEA",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                0,
+                0,
+                20,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "FCPi8",
+                  "name": "L",
+                  "fill": "#AAAAAA",
+                  "content": "팩스 ",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "xiZFJ",
+                  "name": "V",
+                  "fill": "#1A1A1A",
+                  "content": "0504-230-4704",
+                  "fontFamily": "Noto Serif KR",
+                  "fontSize": 20,
+                  "fontWeight": "300"
+                }
+              ]
+            },
+            {
+              "type": "frame",
               "id": "TTLBL",
               "name": "이메일",
               "width": "fill_container",
@@ -12399,6 +12441,78 @@
             },
             {
               "type": "frame",
+              "id": "e0qQU",
+              "name": "Office_cell",
+              "width": "fill_container",
+              "stroke": "#F0EEEA",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "strokeAlignment": "inner",
+              "layout": "vertical",
+              "gap": 8,
+              "padding": [
+                0,
+                0,
+                24,
+                0
+              ],
+              "children": [
+                {
+                  "type": "text",
+                  "id": "MQXCc",
+                  "name": "OfficeLabel",
+                  "fill": "#AAAAAA",
+                  "content": "Office & Workshop",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                },
+                {
+                  "type": "text",
+                  "id": "mmSYA",
+                  "name": "OfficeName",
+                  "fill": "#1A1A1A",
+                  "content": "고려문화재기술원(주)",
+                  "fontFamily": "Noto Serif KR",
+                  "fontSize": 22,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "frame",
+                  "id": "uz6aI",
+                  "name": "AddrRow",
+                  "gap": 10,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "WmIXg",
+                      "name": "Addr",
+                      "fill": "#555555",
+                      "content": "인천광역시 강화군 송해면 강화대로 778",
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 13,
+                      "fontWeight": "normal"
+                    },
+                    {
+                      "type": "text",
+                      "id": "N8x76G",
+                      "name": "NaverLink",
+                      "fill": "#8C6D3F",
+                      "content": "네이버 지도 →",
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 11,
+                      "fontWeight": "normal",
+                      "letterSpacing": 0.5
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "frame",
               "id": "TzU0O",
               "name": "CertBox",
               "width": "fill_container",
@@ -12442,25 +12556,7 @@
           "width": 390,
           "fill": "#FFFFFF",
           "layout": "vertical",
-          "gap": 24,
-          "padding": [
-            0,
-            24,
-            64,
-            24
-          ],
           "children": [
-            {
-              "type": "text",
-              "id": "qbEv8",
-              "name": "Label",
-              "fill": "#8C6D3F",
-              "content": "LOCATIONS",
-              "fontFamily": "Noto Sans KR",
-              "fontSize": 10,
-              "fontWeight": "normal",
-              "letterSpacing": 3
-            },
             {
               "type": "frame",
               "id": "EaeRF",
@@ -12471,47 +12567,6 @@
               "strokeAlignment": "inner",
               "layout": "vertical",
               "children": [
-                {
-                  "type": "frame",
-                  "id": "Dc1W6",
-                  "name": "Header",
-                  "width": "fill_container",
-                  "stroke": "#E8E8E8",
-                  "strokeWidth": {
-                    "bottom": 1
-                  },
-                  "strokeAlignment": "inner",
-                  "layout": "vertical",
-                  "gap": 4,
-                  "padding": [
-                    20,
-                    20,
-                    16,
-                    20
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "Ppy1B",
-                      "name": "Name",
-                      "fill": "#1A1A1A",
-                      "content": "본사 사무실",
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 18,
-                      "fontWeight": "300"
-                    },
-                    {
-                      "type": "text",
-                      "id": "a41gDW",
-                      "name": "Addr",
-                      "fill": "#999999",
-                      "content": "경기도 수원시 장안구 전통로 36",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 12,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
                 {
                   "type": "frame",
                   "id": "dmK3h",
@@ -12548,94 +12603,6 @@
                   ]
                 }
               ]
-            },
-            {
-              "type": "frame",
-              "id": "OtYQn",
-              "name": "목공 작업장",
-              "width": "fill_container",
-              "stroke": "#E8E8E8",
-              "strokeWidth": 1,
-              "strokeAlignment": "inner",
-              "layout": "vertical",
-              "children": [
-                {
-                  "type": "frame",
-                  "id": "kIyuX",
-                  "name": "Header",
-                  "width": "fill_container",
-                  "stroke": "#E8E8E8",
-                  "strokeWidth": {
-                    "bottom": 1
-                  },
-                  "strokeAlignment": "inner",
-                  "layout": "vertical",
-                  "gap": 4,
-                  "padding": [
-                    20,
-                    20,
-                    16,
-                    20
-                  ],
-                  "children": [
-                    {
-                      "type": "text",
-                      "id": "E6sK3G",
-                      "name": "Name",
-                      "fill": "#1A1A1A",
-                      "content": "목공 작업장",
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 18,
-                      "fontWeight": "300"
-                    },
-                    {
-                      "type": "text",
-                      "id": "dHPaM",
-                      "name": "Addr",
-                      "fill": "#999999",
-                      "content": "경기도 용인시 처인구 목공길 12",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 12,
-                      "fontWeight": "normal"
-                    }
-                  ]
-                },
-                {
-                  "type": "frame",
-                  "id": "yap04",
-                  "name": "MapBox",
-                  "width": "fill_container",
-                  "height": 200,
-                  "fill": "#E0E0E0",
-                  "layout": "vertical",
-                  "gap": 8,
-                  "justifyContent": "center",
-                  "alignItems": "center",
-                  "children": [
-                    {
-                      "type": "icon",
-                      "id": "BwO04",
-                      "name": "Pin",
-                      "width": 24,
-                      "height": 24,
-                      "icon": "map-pin",
-                      "library": "lucide",
-                      "fill": "#9A9088"
-                    },
-                    {
-                      "type": "text",
-                      "id": "aS40f",
-                      "name": "MapLbl",
-                      "fill": "#9A9088",
-                      "content": "MAP",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
-                      "fontWeight": "normal",
-                      "letterSpacing": 3
-                    }
-                  ]
-                }
-              ]
             }
           ]
         },
@@ -12650,13 +12617,305 @@
     {
       "type": "text",
       "id": "t0wfr",
-      "x": 4331.114911208921,
-      "y": 4496.504611965373,
+      "x": 3312.1149112089206,
+      "y": 4907.504611965373,
       "fill": "#000000",
       "content": "id=\"cOrbit\"",
       "fontFamily": "Inter",
       "fontSize": 12,
       "fontWeight": "normal"
+    },
+    {
+      "type": "frame",
+      "id": "C1p67R",
+      "x": 2649,
+      "y": 5171,
+      "name": "M/GNB Menu Open",
+      "reusable": true,
+      "clip": true,
+      "width": 390,
+      "height": 844,
+      "fill": "#0D0C0A",
+      "layout": "vertical",
+      "children": [
+        {
+          "type": "frame",
+          "id": "SwFor",
+          "name": "TopBar",
+          "width": "fill_container",
+          "height": 56,
+          "stroke": "#ffffff1a",
+          "strokeWidth": {
+            "bottom": 1
+          },
+          "strokeAlignment": "inner",
+          "padding": [
+            0,
+            24
+          ],
+          "justifyContent": "space_between",
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "LefrO",
+              "name": "Logo",
+              "fill": "#FFFFFF",
+              "content": "MASTERARTISAN",
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 13,
+              "fontWeight": "700",
+              "letterSpacing": 2
+            },
+            {
+              "type": "icon",
+              "id": "lYaYN",
+              "name": "CloseBtn",
+              "width": 24,
+              "height": 24,
+              "icon": "x",
+              "library": "lucide",
+              "fill": "#FFFFFF"
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "nYfqD",
+          "name": "NavList",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            16,
+            24
+          ],
+          "children": [
+            {
+              "type": "frame",
+              "id": "ooA39",
+              "name": "HOME_Row",
+              "width": "fill_container",
+              "stroke": "#ffffff1a",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "strokeAlignment": "inner",
+              "gap": 8,
+              "padding": [
+                24,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "qmtFK",
+                  "name": "HOME",
+                  "fill": "#FFFFFF",
+                  "content": "HOME",
+                  "fontFamily": "Noto Serif KR",
+                  "fontSize": 30,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "text",
+                  "id": "X65nAx",
+                  "name": "Num_01",
+                  "fill": "#C4A882",
+                  "content": "01",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "oe8VI",
+              "name": "MASTERARTISAN_Row",
+              "width": "fill_container",
+              "stroke": "#ffffff1a",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "strokeAlignment": "inner",
+              "gap": 8,
+              "padding": [
+                24,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "VrD8L",
+                  "name": "MASTERARTISAN",
+                  "fill": "#FFFFFF",
+                  "content": "MASTERARTISAN",
+                  "fontFamily": "Noto Serif KR",
+                  "fontSize": 30,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "text",
+                  "id": "mKWiS",
+                  "name": "Num_02",
+                  "fill": "#C4A882",
+                  "content": "02",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "f5A32e",
+              "name": "HISTORY_Row",
+              "width": "fill_container",
+              "stroke": "#ffffff1a",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "strokeAlignment": "inner",
+              "gap": 8,
+              "padding": [
+                24,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "f08kAa",
+                  "name": "HISTORY",
+                  "fill": "#FFFFFF",
+                  "content": "HISTORY",
+                  "fontFamily": "Noto Serif KR",
+                  "fontSize": 30,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "text",
+                  "id": "TEtcS",
+                  "name": "Num_03",
+                  "fill": "#C4A882",
+                  "content": "03",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "aSCV1",
+              "name": "WORKS_Row",
+              "width": "fill_container",
+              "stroke": "#ffffff1a",
+              "strokeWidth": {
+                "bottom": 1
+              },
+              "strokeAlignment": "inner",
+              "gap": 8,
+              "padding": [
+                24,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "iuJAi",
+                  "name": "WORKS",
+                  "fill": "#FFFFFF",
+                  "content": "WORKS",
+                  "fontFamily": "Noto Serif KR",
+                  "fontSize": 30,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "text",
+                  "id": "g0In9",
+                  "name": "Num_04",
+                  "fill": "#C4A882",
+                  "content": "04",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                }
+              ]
+            },
+            {
+              "type": "frame",
+              "id": "jeGus",
+              "name": "CONTACT_Row",
+              "width": "fill_container",
+              "gap": 8,
+              "padding": [
+                24,
+                0
+              ],
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "text",
+                  "id": "i0frD",
+                  "name": "CONTACT",
+                  "fill": "#FFFFFF",
+                  "content": "CONTACT",
+                  "fontFamily": "Noto Serif KR",
+                  "fontSize": 30,
+                  "fontWeight": "300"
+                },
+                {
+                  "type": "text",
+                  "id": "tUTqq",
+                  "name": "Num_05",
+                  "fill": "#C4A882",
+                  "content": "05",
+                  "fontFamily": "Noto Sans KR",
+                  "fontSize": 10,
+                  "fontWeight": "normal",
+                  "letterSpacing": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "VxUBy",
+          "name": "BottomWrap",
+          "width": "fill_container",
+          "layout": "vertical",
+          "padding": [
+            16,
+            24,
+            48,
+            24
+          ],
+          "children": [
+            {
+              "type": "text",
+              "id": "KIxQ7",
+              "name": "BottomDesc",
+              "fill": "#ffffff66",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "전통건축에 관한 문의나 방문을 환영합니다.\n경기무형문화재 제36호.",
+              "lineHeight": 1.6,
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 11,
+              "fontWeight": "normal"
+            }
+          ]
+        }
+      ]
     }
   ],
   "variables": {
