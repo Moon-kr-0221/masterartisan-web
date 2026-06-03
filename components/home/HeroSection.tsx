@@ -34,6 +34,106 @@ const INTERVAL = 5500;
 const SANS  = 'var(--font-sans)';
 const SERIF = 'var(--font-serif)';
 
+// ── 모바일 전체화면 슬라이드 히어로 ──────────────────────────────────────
+function MobileHero() {
+  const [cur, setCur] = useState(0);
+  const [prog, setProg] = useState(0);
+  const touchStartX = useRef(0);
+
+  const advance = useCallback(() => setCur((c) => (c + 1) % SLIDES.length), []);
+  const goBack  = useCallback(() => setCur((c) => (c - 1 + SLIDES.length) % SLIDES.length), []);
+
+  // 자동 진행
+  useEffect(() => {
+    const startedAt = Date.now();
+    const raf = { id: 0 };
+    function tick() {
+      const p = Math.min((Date.now() - startedAt) / INTERVAL, 1);
+      setProg(p);
+      if (p < 1) { raf.id = requestAnimationFrame(tick); } else { advance(); }
+    }
+    raf.id = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf.id);
+  }, [cur, advance]);
+
+  // 터치 스와이프
+  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd   = (e: React.TouchEvent) => {
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (delta < -50) advance();
+    else if (delta > 50) goBack();
+  };
+
+  const slide = SLIDES[cur];
+
+  return (
+    <section
+      className="relative overflow-hidden md:hidden"
+      style={{ height: '100svh', minHeight: 600, backgroundColor: '#0D0C0A' }}
+      onTouchStart={onTouchStart}
+      onTouchEnd={onTouchEnd}
+    >
+      {/* 슬라이드 이미지 */}
+      <AnimatePresence mode="sync">
+        <motion.div
+          key={cur}
+          className="absolute inset-0 bg-cover bg-center"
+          style={{ backgroundImage: `url(${slide.image})` }}
+          initial={{ opacity: 0, scale: 1.06 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+        />
+      </AnimatePresence>
+
+      {/* 그라디언트 */}
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(13,12,10,0.73) 55%, rgba(13,12,10,0.94) 100%)' }} />
+
+      {/* 텍스트 — GNB(56px) 아래 여백 확보 */}
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={`m-text-${cur}`}
+          className="absolute inset-x-0 bottom-0 px-6 pb-16"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -10 }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: 'rgba(255,255,255,0.5)' }}>
+            HERITAGE OF MASTER ARTISAN
+          </p>
+          <h1 style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 300, lineHeight: 1.15, color: '#FFFFFF', marginTop: 20 }}>
+            {slide.h1a}<br />{slide.h1b}
+          </h1>
+          <p style={{ fontFamily: SERIF, fontSize: 14, fontWeight: 300, letterSpacing: 4, color: 'rgba(255,255,255,0.4)', marginTop: 20 }}>
+            {slide.sub}
+          </p>
+        </motion.div>
+      </AnimatePresence>
+
+      {/* 페이저 */}
+      <div className="absolute flex items-center" style={{ left: 24, bottom: 28, gap: 10 }}>
+        <span style={{ fontFamily: SANS, fontSize: 11, fontWeight: 700, letterSpacing: 2, color: '#FFFFFF' }}>
+          {String(cur + 1).padStart(2, '0')}
+        </span>
+        <div className="relative h-px" style={{ width: 32, backgroundColor: 'rgba(255,255,255,0.25)' }}>
+          <div className="absolute left-0 top-0 h-full bg-white" style={{ width: `${prog * 100}%`, transition: 'none' }} />
+        </div>
+        <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 2, color: 'rgba(255,255,255,0.4)' }}>
+          {String(SLIDES.length).padStart(2, '0')}
+        </span>
+      </div>
+
+      {/* 스와이프 힌트 도트 */}
+      <div className="absolute flex items-center" style={{ right: 24, bottom: 30, gap: 5 }}>
+        {SLIDES.map((_, i) => (
+          <div key={i} style={{ width: i === cur ? 16 : 5, height: 5, borderRadius: 9999, backgroundColor: i === cur ? '#FFFFFF' : 'rgba(255,255,255,0.3)', transition: 'all 0.3s' }} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
 export default function HeroSection() {
   const [current, setCurrent] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -144,23 +244,8 @@ export default function HeroSection() {
         </motion.div>
       </section>
 
-      {/* ── 모바일 Hero — Pencil Ca5JX·SNvdh / d933990 mobile ── */}
-      <section className="relative overflow-hidden md:hidden" style={{ height: 540, backgroundColor: '#0D0C0A', paddingTop: 56 }}>
-        <img src={SLIDES[0].image} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(13,12,10,0.73) 55%, rgba(13,12,10,0.94) 100%)' }} />
-        <div className="absolute inset-x-0 bottom-0 px-6 pb-14">
-          <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: 'rgba(255,255,255,0.5)' }}>HERITAGE OF MASTER ARTISAN</p>
-          <h1 style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 300, lineHeight: 1.15, color: '#FFFFFF', marginTop: 20 }}>
-            천년의 기술<br />삼대의 손
-          </h1>
-          <p style={{ fontFamily: SERIF, fontSize: 14, fontWeight: 300, letterSpacing: 4, color: 'rgba(255,255,255,0.4)', marginTop: 20 }}>Heritage of Master Artisan</p>
-        </div>
-        <div className="absolute flex items-center" style={{ left: 24, bottom: 24, gap: 10 }}>
-          <span style={{ fontFamily: SANS, fontSize: 11, fontWeight: 700, letterSpacing: 2, color: '#FFFFFF' }}>01</span>
-          <div style={{ width: 32, height: 1, backgroundColor: 'rgba(255,255,255,0.4)' }} />
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 2, color: 'rgba(255,255,255,0.4)' }}>04</span>
-        </div>
-      </section>
+      {/* ── 모바일 Hero — 전체화면 + 터치 스와이프 슬라이드 ── */}
+      <MobileHero />
     </>
   );
 }
