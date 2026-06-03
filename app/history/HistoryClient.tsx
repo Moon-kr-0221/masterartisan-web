@@ -11,6 +11,7 @@ import Lenis from 'lenis';
 import type { HistoryEraGroup, HistoryWorkItem } from '@/lib/data/types';
 import { milestoneYears } from '@/lib/data/era';
 import ClockIntro from '@/components/history/ClockIntro';
+import MobileDialIntro from '@/components/history/MobileDialIntro';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 ScrollTrigger.normalizeScroll(true); // iOS 터치 스크롤 정규화
@@ -523,7 +524,9 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
       </section>
 
       {/* ══ CLOCK INTRO ANIMATION ════════════════════════════════════════════ */}
-      <ClockIntro years={clockYears} />
+      {/* 데스크탑: 기존 ClockIntro / 모바일: d933990 time_sect 다이얼 모션 */}
+      <div className="hidden md:block"><ClockIntro years={clockYears} /></div>
+      <div className="md:hidden"><MobileDialIntro /></div>
 
       {/* ══ STICKY TAB BAR — 고정 네비(pE4bF) 바로 아래에 붙어 함께 이동 ════════ */}
       <div style={{
