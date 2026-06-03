@@ -97,7 +97,41 @@ export default function WorksGrid({ items, pool = [], random = false }: {
   const router = useRouter();
   const openWork = (title: string) => router.push(`/works?work=${encodeURIComponent(title)}`);
   return (
-    <section style={{ backgroundColor: '#FAFAF8', padding: '0 52px 72px' }}>
+    <>
+      {/* ── 모바일 — Pencil Ca5JX·H6LqS / d933990 mobile ── */}
+      {/* #FAFAF8, padding [64,0], gap 24 · 가로 스크롤 캐러셀 280×340 */}
+      <section className="md:hidden flex flex-col" style={{ backgroundColor: '#FAFAF8', padding: '64px 0', gap: 24 }}>
+        <div className="flex items-end justify-between" style={{ padding: '0 24px' }}>
+          <div className="flex flex-col" style={{ gap: 6 }}>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 9, letterSpacing: 4, color: '#AAAAAA' }}>OUR WORKS</span>
+            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 28, fontWeight: 300, color: '#1A1A1A' }}>작업 사례</h2>
+          </div>
+          <Link href="/works" style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: '#999999' }}>전체 보기 →</Link>
+        </div>
+        <div className="flex overflow-x-auto" style={{ gap: 16, padding: '0 24px 4px', scrollbarWidth: 'none' }}>
+          {works.map((w) => (
+            <article key={w.title} className="relative shrink-0 overflow-hidden cursor-pointer"
+              style={{ width: 280, height: 340, backgroundColor: w.color }}
+              onClick={() => openWork(w.title)}>
+              <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${w.bg})` }} />
+              <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.67) 100%)' }} />
+              <div className="absolute" style={{ left: 20, bottom: 24 }}>
+                <p style={{ fontFamily: 'var(--font-sans)', fontSize: 9, letterSpacing: 2, color: 'rgba(255,255,255,0.55)' }}>{w.cat} · {w.year}</p>
+                <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 21, fontWeight: 300, color: '#FFFFFF', marginTop: 6 }}>{w.title}</h3>
+              </div>
+            </article>
+          ))}
+          <Link href="/works" className="shrink-0 flex flex-col items-center justify-center"
+            style={{ width: 280, height: 340, backgroundColor: '#FAFAF8', border: '1px solid #E2DDD6', gap: 12 }}>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 9, letterSpacing: 4, color: '#AAAAAA' }}>OUR WORKS</span>
+            <span style={{ fontFamily: 'var(--font-serif)', fontSize: 21, fontWeight: 300, color: '#1A1A1A' }}>전체 보기</span>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: '#999999' }}>→</span>
+          </Link>
+        </div>
+      </section>
+
+      {/* ── 데스크탑 — d933990 완전 동일 ── */}
+    <section className="hidden md:block" style={{ backgroundColor: '#FAFAF8', padding: '0 52px 72px' }}>
       {/* 헤더 */}
       <motion.div
         className="flex items-end justify-between"
@@ -201,5 +235,6 @@ export default function WorksGrid({ items, pool = [], random = false }: {
         </div>
       </div>
     </section>
+    </>
   );
 }
