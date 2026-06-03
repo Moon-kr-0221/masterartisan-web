@@ -225,13 +225,14 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
 }
 
 // ─── Era section ─────────────────────────────────────────────────────────────
-function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia }: {
+function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isMobile = false }: {
   era: HistoryEraGroup;
   eraIdx: number;
   total: number;
   isActive: boolean;
   sectionRef: React.RefCallback<HTMLElement>;
   onOpenMedia: (work: HistoryWorkItem) => void;
+  isMobile?: boolean;
 }) {
   const byYear: Record<string, HistoryWorkItem[]> = {};
   era.works.forEach((w) => {
@@ -242,7 +243,7 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia }: {
 
   return (
     <section ref={sectionRef} id={`era-${eraIdx}`}
-      style={{ padding: '96px 64px 80px', borderBottom: `1px solid ${C.hairline}` }}>
+      style={{ padding: isMobile ? '56px 24px' : '96px 64px 80px', borderBottom: `1px solid ${C.hairline}` }}>
 
       <FadeUp>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
@@ -551,11 +552,11 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
       {/* ══ MAIN SPLIT LAYOUT ═══════════════════════════════════════════════ */}
       <div style={{ display: 'flex', alignItems: 'start' }}>
 
-        {/* ── LEFT: scrollable (58%) ─────────────────────────────────────── */}
-        <div ref={leftRef} style={{ width: '58%', borderRight: `1px solid ${C.hairline}` }}>
+        {/* ── LEFT: scrollable — 모바일 100%, 데스크탑 58% ─────────────────── */}
+        <div ref={leftRef} style={{ width: isMobile ? '100%' : '58%', borderRight: isMobile ? 'none' : `1px solid ${C.hairline}` }}>
 
           {/* Hero */}
-          <div style={{ padding: '88px 64px 72px', borderBottom: `1px solid ${C.hairline}` }}>
+          <div style={{ padding: isMobile ? '64px 24px 48px' : '88px 64px 72px', borderBottom: `1px solid ${C.hairline}` }}>
             <BlurReveal>
               <p style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
                 letterSpacing: '0.4em', color: C.accent, marginBottom: '28px' }}>
@@ -564,7 +565,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
             </BlurReveal>
             <BlurReveal delay={0.08}>
               <h1 style={{ fontFamily: "'Noto Serif KR', serif",
-                fontSize: 'clamp(48px, 6vw, 88px)',
+                fontSize: isMobile ? '34px' : 'clamp(48px, 6vw, 88px)',
                 fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.04em',
                 color: C.ink, marginBottom: '32px' }}>
                 90여 년의<br />장인 이야기
@@ -602,21 +603,23 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
               isActive={i === activeIdx}
               sectionRef={(el: HTMLElement | null) => { sectionRefs.current[i] = el; }}
               onOpenMedia={setMediaWork}
+              isMobile={isMobile}
             />
           ))}
         </div>
 
-        {/* ── RIGHT: sticky dial (42%) ────────────────────────────────────── */}
+        {/* ── RIGHT: sticky dial — 모바일 숨김, 데스크탑 42% ─────────────── */}
         <div style={{
           width: '42%',
           position: 'sticky',
           top: 'calc(var(--nav-h, 72px) + 49px)',
           height: 'calc(100vh - var(--nav-h, 72px) - 49px)',
           transition: 'top 0.3s ease, height 0.3s ease',
-          display: 'flex',
+          display: isMobile ? 'none' : 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          overflow: 'hidden',
           gap: '28px',
           backgroundColor: C.bg,
         }}>
