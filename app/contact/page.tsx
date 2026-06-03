@@ -1,6 +1,7 @@
 const SERIF = 'var(--font-serif)';
 const SANS = 'var(--font-sans)';
 
+// 펜슬 v3vLI(PageHero)와 동일한 전경 이미지
 const BANNER_IMG = '/images/contact/exterior.jpg';
 const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
 
@@ -12,6 +13,7 @@ const LEFT_ITEMS = [
 
 const ADDRESS = '인천광역시 강화군 송해면 강화대로 778';
 const NAVER_MAP_URL = 'https://naver.me/xtNhmH4G';
+// 키 없이 동작하는 구글맵 임베드 (네이버는 외부 iframe을 막아 임베드 불가 → 링크는 별도 유지)
 const MAP_EMBED_SRC = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}&z=16&hl=ko&output=embed`;
 
 const LOCATIONS = [
@@ -65,18 +67,11 @@ function InfoRow({
 export default function ContactPage() {
   return (
     <div style={{ backgroundColor: '#FFFFFF', paddingTop: 72 }}>
-
       {/* ── Page Hero ── */}
       <section style={{ position: 'relative', height: 360, overflow: 'hidden', borderBottom: '1px solid #E8E8E8' }}>
         <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
-        {/* 모바일: 작은 패딩 */}
-        <div className="absolute inset-0 flex flex-col justify-end gap-3 p-6 md:hidden">
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>GET IN TOUCH</span>
-          <h1 style={{ fontFamily: SERIF, fontSize: 32, fontWeight: 300, lineHeight: 1.1, color: '#FFFFFF' }}>찾아오시는 길</h1>
-        </div>
-        {/* 데스크탑: d933990 정확한 패딩 */}
-        <div className="hidden md:flex md:flex-col md:absolute md:inset-0 md:justify-end md:gap-3" style={{ padding: '72px 80px' }}>
+        <div className="absolute inset-0 flex flex-col justify-end gap-3" style={{ padding: '72px 80px' }}>
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>GET IN TOUCH</span>
           <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: '#FFFFFF' }}>찾아오시는 길</h1>
           <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>
@@ -86,17 +81,22 @@ export default function ContactPage() {
       </section>
 
       {/* ── CONTACT INFORMATION ── */}
-      <section className="px-6 py-12 md:p-[80px]">
+      {/* V58cDN ContactLeft: padding 80, gap 36 */}
+      <section style={{ padding: '80px' }}>
         <div>
           <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: '#AAAAAA' }}>
             CONTACT INFORMATION
           </span>
 
+          {/* 3열 × 2행 균형 그리드: 전화·팩스·이메일 / 운영시간·회사정보·인증 */}
+          {/* 펜슬 oLN86: 열 간격 64, 열 내부 행 간격 24, 라벨↔그리드 간격 36 */}
           <div className="grid grid-cols-1 md:grid-cols-3 items-stretch" style={{ columnGap: 64, rowGap: 24, marginTop: 36 }}>
+            {/* Row 1 */}
             {LEFT_ITEMS.map((it) => (
               <InfoRow key={it.label} {...it} />
             ))}
 
+            {/* Row 2 — 운영시간 (펜슬 운영시간_row: paddingBottom 12) */}
             <InfoRow
               label="운영시간"
               value={'평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)'}
@@ -104,6 +104,7 @@ export default function ContactPage() {
               paddingBottom={12}
             />
 
+            {/* Row 2 — Office & Workshop */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 24, borderBottom: '1px solid #F0EEEA' }}>
               <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: '#AAAAAA' }}>
                 {LOCATIONS[0].typeEn}
@@ -121,6 +122,7 @@ export default function ContactPage() {
               </div>
             </div>
 
+            {/* Row 2 — 인증 */}
             <div style={{ backgroundColor: '#F7F6F3', padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 10 }}>
               <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: '#1A1A1A' }}>
                 경기무형문화재 제36호
@@ -133,7 +135,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* ── 지도 ── */}
+      {/* ── 지도 — 화면 좌우 전체 폭(full-bleed), 푸터에 바로 붙음 ── */}
       <section>
         <iframe
           src={MAP_EMBED_SRC}

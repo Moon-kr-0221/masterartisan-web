@@ -8,29 +8,29 @@ const SANS = 'var(--font-sans)';
 export default async function MasterArtisanPage() {
   const masterartisanData = await getArtisans();
   return (
-    <div style={{ backgroundColor: '#FFFFFF', paddingTop: 72, overflowX: 'hidden' }}>
-
+    <div style={{ backgroundColor: '#FFFFFF', paddingTop: 72 }}>
       {/* ── Page Hero ── */}
       <section style={{ position: 'relative', height: 360, overflow: 'hidden' }}>
         <img src={masterartisanHeroImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.05) 100%)' }}
+          style={{
+            background: 'linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.05) 100%)',
+          }}
         />
-        {/* 모바일: 하단 정렬 */}
-        <div className="absolute inset-0 flex flex-col justify-end gap-3 p-6 md:hidden">
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '4px', color: 'rgba(255,255,255,0.6)' }}>THE ARTISANS</span>
-          <h1 style={{ fontFamily: SERIF, fontSize: 32, fontWeight: 300, lineHeight: 1.2, color: '#FFFFFF' }}>장인을 소개합니다</h1>
-          <p style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>1936년부터 3대에 걸쳐 전통건축의 혼을 이어온 장인들을 소개합니다.</p>
-        </div>
-        {/* 데스크탑: d933990 고정 좌표 */}
         <div
-          className="hidden md:flex md:flex-col md:absolute"
-          style={{ left: 80, top: 152, gap: 10 }}
+          className="absolute"
+          style={{ left: 80, top: 152, display: 'flex', flexDirection: 'column', gap: 10 }}
         >
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '4px', color: 'rgba(255,255,255,0.6)' }}>THE ARTISANS</span>
-          <h1 style={{ fontFamily: SERIF, fontSize: 48, fontWeight: 300, lineHeight: 1.2, color: '#FFFFFF' }}>장인을 소개합니다</h1>
-          <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>1936년부터 3대에 걸쳐 전통건축의 혼을 이어온 장인들을 소개합니다.</p>
+          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '4px', color: 'rgba(255,255,255,0.6)' }}>
+            THE ARTISANS
+          </span>
+          <h1 style={{ fontFamily: SERIF, fontSize: 48, fontWeight: 300, lineHeight: 1.2, color: '#FFFFFF' }}>
+            장인을 소개합니다
+          </h1>
+          <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>
+            1936년부터 3대에 걸쳐 전통건축의 혼을 이어온 장인들을 소개합니다.
+          </p>
         </div>
       </section>
 
@@ -41,11 +41,10 @@ export default async function MasterArtisanPage() {
         return (
           <section key={artisan.generation} style={{ backgroundColor: bg }}>
             <div className={`flex flex-col ${reversed ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
-
               {/* Image */}
               <div
                 className="w-full md:w-[600px] md:flex-shrink-0 overflow-hidden"
-                style={{ height: 'clamp(260px, 40vw, 520px)', backgroundColor: '#EDEAE4' }}
+                style={{ height: 520, backgroundColor: '#EDEAE4' }}
               >
                 <img src={artisan.image} alt={artisan.name} className="w-full h-full object-cover" />
               </div>
@@ -53,14 +52,23 @@ export default async function MasterArtisanPage() {
               {/* Text */}
               <ScrollReveal
                 direction={reversed ? 'left' : 'right'}
-                className="flex-1 flex flex-col px-6 py-10 md:px-[80px] md:py-[72px]"
+                className="flex-1 flex flex-col"
+                style={{ padding: '72px 80px' }}
               >
                 <div className="flex flex-col gap-6">
-                  <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '3px', color: '#AAAAAA' }}>{artisan.generationEn}</span>
-                  <h2 style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 300, lineHeight: '63px', color: '#1A1A1A' }}>{artisan.name} {artisan.title}</h2>
-                  <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: '1px', color: '#AAAAAA' }}>{artisan.role}</span>
+                  <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '3px', color: '#AAAAAA' }}>
+                    {artisan.generationEn}
+                  </span>
+                  <h2 style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 300, lineHeight: '63px', color: '#1A1A1A' }}>
+                    {artisan.name} {artisan.title}
+                  </h2>
+                  <span style={{ fontFamily: SANS, fontSize: 12, letterSpacing: '1px', color: '#AAAAAA' }}>
+                    {artisan.role}
+                  </span>
                   <div style={{ width: 32, height: 1, backgroundColor: '#CCCCCC' }} />
-                  <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: '#555555', maxWidth: 680 }}>{artisan.description}</p>
+                  <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: '#555555', maxWidth: 680 }}>
+                    {artisan.description}
+                  </p>
                 </div>
               </ScrollReveal>
             </div>
@@ -74,8 +82,12 @@ export default async function MasterArtisanPage() {
         className="flex flex-col items-center text-center"
       >
         <ScrollReveal className="flex flex-col items-center" style={{ maxWidth: 600 }}>
-          <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '4px', color: '#666666' }}>OFFICIAL CERTIFICATION</span>
-          <h3 style={{ fontFamily: SERIF, fontSize: 40, fontWeight: 300, color: '#FFFFFF', marginTop: 24 }}>경기무형문화재 제36호</h3>
+          <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '4px', color: '#666666' }}>
+            OFFICIAL CERTIFICATION
+          </span>
+          <h3 style={{ fontFamily: SERIF, fontSize: 40, fontWeight: 300, color: '#FFFFFF', marginTop: 24 }}>
+            경기무형문화재 제36호
+          </h3>
           <div style={{ width: 40, height: 1, backgroundColor: '#444444', margin: '24px 0' }} />
           <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: '#888888' }}>
             경기도가 지정한 무형문화재 제36호로서, 전통건축 기술의 공식 보유자로 인정받았습니다.

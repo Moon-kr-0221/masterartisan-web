@@ -242,8 +242,7 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia }: {
 
   return (
     <section ref={sectionRef} id={`era-${eraIdx}`}
-      className="px-6 py-14 md:px-16 md:pt-24 md:pb-20"
-      style={{ borderBottom: `1px solid ${C.hairline}` }}>
+      style={{ padding: '96px 64px 80px', borderBottom: `1px solid ${C.hairline}` }}>
 
       <FadeUp>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
@@ -470,7 +469,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
         alignItems: isMobile ? 'stretch' : 'center',
         justifyContent: 'space-between',
         gap: isMobile ? 24 : 64,
-        padding: isMobile ? '104px 24px 48px' : '120px 80px 100px',
+        padding: isMobile ? '104px 24px 56px' : '120px 80px 100px',
       }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 28, flex: '0 1 auto', minWidth: 0 }}>
           <p style={{
@@ -552,8 +551,8 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
       {/* ══ MAIN SPLIT LAYOUT ═══════════════════════════════════════════════ */}
       <div style={{ display: 'flex', alignItems: 'start' }}>
 
-        {/* ── LEFT: scrollable — 모바일 100%, 데스크탑 58% ──────────────────── */}
-        <div ref={leftRef} style={{ width: isMobile ? '100%' : '58%', borderRight: isMobile ? 'none' : `1px solid ${C.hairline}` }}>
+        {/* ── LEFT: scrollable (58%) ─────────────────────────────────────── */}
+        <div ref={leftRef} style={{ width: '58%', borderRight: `1px solid ${C.hairline}` }}>
 
           {/* Hero */}
           <div style={{ padding: '88px 64px 72px', borderBottom: `1px solid ${C.hairline}` }}>
@@ -607,14 +606,14 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
           ))}
         </div>
 
-        {/* ── RIGHT: sticky dial — 모바일 숨김, 데스크탑 42% ────────────── */}
+        {/* ── RIGHT: sticky dial (42%) ────────────────────────────────────── */}
         <div style={{
-          display: isMobile ? 'none' : 'flex',
           width: '42%',
           position: 'sticky',
           top: 'calc(var(--nav-h, 72px) + 49px)',
           height: 'calc(100vh - var(--nav-h, 72px) - 49px)',
           transition: 'top 0.3s ease, height 0.3s ease',
+          display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
