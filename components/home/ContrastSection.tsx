@@ -26,7 +26,7 @@ export default function ContrastSection() {
       >
         <motion.div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1559825491-a529dd302927?auto=format&fit=crop&w=1080&q=80)', y: leftBgY, scale: 1.15 }}
+          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1771411068495-11575ea96c51?auto=format&fit=crop&w=1080&q=80)', y: leftBgY, scale: 1.15 }}
         />
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(to top, rgba(14,13,11,0.87) 0%, rgba(14,13,11,0) 60%)' }} />
@@ -70,7 +70,7 @@ export default function ContrastSection() {
       >
         <motion.div
           className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1688341750245-f16a2ce6e56d?auto=format&fit=crop&w=1080&q=80)', y: rightBgY, scale: 1.15 }}
+          style={{ backgroundImage: 'url(https://images.unsplash.com/photo-1655645888733-f0c9f8827a49?auto=format&fit=crop&w=1080&q=80)', y: rightBgY, scale: 1.15 }}
         />
         <div className="absolute inset-0"
           style={{ background: 'linear-gradient(to top, rgba(14,13,11,0.87) 0%, rgba(14,13,11,0) 60%)' }} />

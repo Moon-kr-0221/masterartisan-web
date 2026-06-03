@@ -16,6 +16,9 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
+// 펜슬 ztlMd HeaderImg(y43ExV)와 동일한 전통 목조 건축 이미지 (밝은 처마·살창)
+const HISTORY_HEADER_IMG = '/images/history/header.jpg';
+
 const C = {
   bg:       '#F8F5F0',
   ink:      '#1A1714',
@@ -52,6 +55,52 @@ function FadeUp({ children, delay = 0, style = {} }: {
       transition={{ duration: 0.75, ease: EASE_OUT, delay }}>
       {children}
     </motion.div>
+  );
+}
+
+// ≤767px 여부 (반응형 인라인 스타일용 — Tailwind 임의값 미생성 이슈 회피)
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, [breakpoint]);
+  return isMobile;
+}
+
+// 펜슬 ztlMd HeaderImg — 로딩 시 블러업+페이드인+살짝 줌아웃 이펙트
+function HeaderImage({ src, alt, isMobile }: { src: string; alt: string; isMobile: boolean }) {
+  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  // 캐시/즉시 로드 시 onLoad가 핸들러 부착 전에 발화하는 레이스 방지
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
+  return (
+    <div style={{
+      width: isMobile ? '100%' : 460,
+      height: isMobile ? 'auto' : 440,
+      aspectRatio: isMobile ? '460 / 440' : undefined,
+      maxWidth: '100%', flexShrink: 0,
+      overflow: 'hidden', backgroundColor: C.surface,
+    }}>
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        onLoad={() => setLoaded(true)}
+        style={{
+          width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+          opacity: loaded ? 1 : 0,
+          transform: loaded ? 'scale(1)' : 'scale(1.08)',
+          filter: loaded ? 'blur(0px)' : 'blur(16px)',
+          transition: 'opacity 1.2s ease, transform 1.6s cubic-bezier(0.16,1,0.3,1), filter 1.2s ease',
+        }}
+      />
+    </div>
   );
 }
 
@@ -331,6 +380,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
 
   const [activeIdx, setActiveIdx] = useState(0);
   const [mediaWork, setMediaWork] = useState<HistoryWorkItem | null>(null);
+  const isMobile = useIsMobile();
 
   const leftRef    = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
@@ -410,41 +460,50 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
     <div style={{ backgroundColor: C.bg, color: C.ink, minHeight: '100vh' }}>
 
       {/* ══ STORY HEADER ════════════════════════════════════════════════════ */}
+      {/* 펜슬 ztlMd: 텍스트 좌(TextCol, gap 28) + 이미지 우(HeaderImg 460×440), space-between */}
       <section style={{
-        padding: '120px 80px 100px',
         backgroundColor: C.bg,
         borderBottom: `1px solid ${C.hairline}`,
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
+        alignItems: isMobile ? 'stretch' : 'center',
+        justifyContent: 'space-between',
+        gap: isMobile ? 24 : 64,
+        padding: isMobile ? '104px 24px 56px' : '120px 80px 100px',
       }}>
-        <p style={{
-          fontFamily: "'Noto Sans KR', sans-serif",
-          fontSize: 10, letterSpacing: '0.38em',
-          color: C.accent, marginBottom: 28,
-          textTransform: 'uppercase',
-        }}>
-          HISTORY · 장인 이야기
-        </p>
-        <h1 style={{
-          fontFamily: "'Noto Serif KR', serif",
-          fontSize: 'clamp(48px, 6vw, 86px)',
-          fontWeight: 300,
-          lineHeight: 1.08,
-          letterSpacing: '-0.03em',
-          color: C.ink,
-          marginBottom: 36,
-          maxWidth: 780,
-        }}>
-          천년의 기술,<br />
-          삼대로 이어온<br />
-          90년의 여정
-        </h1>
-        <p style={{
-          fontFamily: "'Noto Sans KR', sans-serif",
-          fontSize: 14, lineHeight: 1.9,
-          color: C.muted, fontWeight: 300,
-          whiteSpace: 'nowrap',
-        }}>
-          1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.
-        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 28, flex: '0 1 auto', minWidth: 0 }}>
+          <p style={{
+            fontFamily: "'Noto Sans KR', sans-serif",
+            fontSize: 10, letterSpacing: '0.38em',
+            color: C.accent,
+            textTransform: 'uppercase',
+          }}>
+            HISTORY · 장인 이야기
+          </p>
+          <h1 style={{
+            fontFamily: "'Noto Serif KR', serif",
+            fontSize: isMobile ? 34 : 80,
+            fontWeight: 300,
+            lineHeight: isMobile ? 1.15 : 1.12,
+            letterSpacing: isMobile ? '-0.03em' : '-0.04em',
+            color: C.ink,
+            maxWidth: isMobile ? '100%' : 600,
+          }}>
+            천년의 기술,<br />
+            삼대로 이어온<br />
+            90년의 여정
+          </h1>
+          <p style={{
+            fontFamily: "'Noto Sans KR', sans-serif",
+            fontSize: 14, lineHeight: isMobile ? 1.8 : 1.9,
+            color: C.muted, fontWeight: 300,
+            maxWidth: isMobile ? '100%' : 452,
+          }}>
+            1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.
+          </p>
+        </div>
+
+        <HeaderImage src={HISTORY_HEADER_IMG} alt="전통 목조 건축 처마와 살창" isMobile={isMobile} />
       </section>
 
       {/* ══ CLOCK INTRO ANIMATION ════════════════════════════════════════════ */}

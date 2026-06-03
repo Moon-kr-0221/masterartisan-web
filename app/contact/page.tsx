@@ -1,7 +1,8 @@
 const SERIF = 'var(--font-serif)';
 const SANS = 'var(--font-sans)';
 
-const BANNER_IMG = 'https://images.unsplash.com/photo-1772331274809-4a6ad75c9947?auto=format&fit=crop&w=1600&q=80';
+// 펜슬 v3vLI(PageHero)와 동일한 전경 이미지
+const BANNER_IMG = '/images/contact/exterior.jpg';
 const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
 
 const LEFT_ITEMS = [
@@ -88,17 +89,19 @@ export default function ContactPage() {
           </span>
 
           {/* 3열 × 2행 균형 그리드: 전화·팩스·이메일 / 운영시간·회사정보·인증 */}
-          <div className="grid grid-cols-1 md:grid-cols-3 items-stretch" style={{ gap: 64, marginTop: 40 }}>
+          {/* 펜슬 oLN86: 열 간격 64, 열 내부 행 간격 24, 라벨↔그리드 간격 36 */}
+          <div className="grid grid-cols-1 md:grid-cols-3 items-stretch" style={{ columnGap: 64, rowGap: 24, marginTop: 36 }}>
             {/* Row 1 */}
             {LEFT_ITEMS.map((it) => (
               <InfoRow key={it.label} {...it} />
             ))}
 
-            {/* Row 2 — 운영시간 */}
+            {/* Row 2 — 운영시간 (펜슬 운영시간_row: paddingBottom 12) */}
             <InfoRow
               label="운영시간"
               value={'평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)'}
               href={null}
+              paddingBottom={12}
             />
 
             {/* Row 2 — Office & Workshop */}

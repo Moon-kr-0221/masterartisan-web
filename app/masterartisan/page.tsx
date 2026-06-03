@@ -20,7 +20,7 @@ export default async function MasterArtisanPage() {
         />
         <div
           className="absolute"
-          style={{ left: 80, top: 220, display: 'flex', flexDirection: 'column', gap: 10 }}
+          style={{ left: 80, top: 152, display: 'flex', flexDirection: 'column', gap: 10 }}
         >
           <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '4px', color: 'rgba(255,255,255,0.6)' }}>
             THE ARTISANS

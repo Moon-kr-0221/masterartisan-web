@@ -60,10 +60,11 @@ const U = (id: string) => `https://images.unsplash.com/${id}?auto=format&fit=cro
 type FeaturedWork = { title: string; cat: string; year: string; bg: string; color: string };
 
 // Built-in default showcase, used when the admin hasn't marked any works for the home.
+// 펜슬 sAPur S5Grid — 밝은 전통건축 이미지로 교체
 const FALLBACK: FeaturedWork[] = [
-  { title: '수원화성 서북공심돈 보수', cat: '수리', year: '2023', bg: U('photo-1560083270-5aa41ed4e1c5'), color: '#2A2218' },
-  { title: '경복궁 근정전 유지보수', cat: '유지보수', year: '2023', bg: U('photo-1748835600856-dba50a909dfb'), color: '#1E2018' },
-  { title: '전통 목구조 누각 신축', cat: '제작', year: '2022', bg: U('photo-1675143967358-8b0651f4c679'), color: '#181C1A' },
+  { title: '수원화성 서북공심돈 보수', cat: '수리', year: '2023', bg: U('photo-1737740068972-d3457e694bac'), color: '#2A2218' },
+  { title: '경복궁 근정전 유지보수', cat: '유지보수', year: '2023', bg: U('photo-1774249254132-4f6fd8382a4a'), color: '#1E2018' },
+  { title: '전통 목구조 누각 신축', cat: '제작', year: '2022', bg: U('photo-1758622043464-875662d94a6c'), color: '#181C1A' },
 ];
 
 function shuffle<T>(arr: T[]): T[] {

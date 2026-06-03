@@ -48,8 +48,10 @@ export default function ClockIntro({ years }: { years?: number[] }) {
   const handRef    = useRef<SVGGElement | null>(null); // sweeping clock hand
   const pivotRef   = useRef<SVGCircleElement | null>(null);
   const labelRefs  = useRef<(SVGTextElement | null)[]>([]);
-  const copyRef    = useRef<HTMLDivElement>(null);
-  const copy2Ref   = useRef<HTMLDivElement>(null);
+  const copyRef         = useRef<HTMLDivElement>(null);
+  const copy2Ref        = useRef<HTMLDivElement>(null);
+  const copy2KickerRef  = useRef<HTMLSpanElement>(null);
+  const copy2TitleRef   = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -62,8 +64,12 @@ export default function ClockIntro({ years }: { years?: number[] }) {
       gsap.set(minorRef.current, { opacity: 0 });
       gsap.set(pivotRef.current, { opacity: 0 });
       gsap.set(handRef.current,  { opacity: 0, rotation: 0, svgOrigin: `${CX} ${CY}` });
-      gsap.set(copyRef.current,  { opacity: 0, y: 16 });
-      gsap.set(copy2Ref.current, { opacity: 0, y: 16 });
+      // kbdY0: 순수 opacity 페이드인 (y 이동 없음)
+      gsap.set(copyRef.current,  { opacity: 0 });
+      // JWTY5: 자식(eyebrow→title) 개별 시간차 페이드인 — 컨테이너는 항상 보임
+      gsap.set(copy2Ref.current, { opacity: 1 });
+      gsap.set(copy2KickerRef.current, { opacity: 0 });
+      gsap.set(copy2TitleRef.current,  { opacity: 0 });
       // markers begin as a tiny cluster at centre, then spiral out doing a FULL turn
       gsap.set(orbitRef.current, { opacity: 0, scale: 0.07, rotation: -420, svgOrigin: `${CX} ${CY}` });
       labelRefs.current.forEach((el) => gsap.set(el, { opacity: 0 }));
@@ -127,14 +133,15 @@ export default function ClockIntro({ years }: { years?: number[] }) {
         // 마지막엔 페이드아웃이 아니라 화면 위로 슬라이드되어 사라짐 — 선(CZvIS)과 중심점(XvqxL)이 함께
         .to([lineRef.current, dotRef.current], { y: () => -(window.innerHeight * 1.4), ease: 'power2.in', duration: 1.6 }, 13.8);
 
-      // Phase 6a (14.4 → 15.8): 첫 번째 카피 등장 (SINCE 1936 / 90여 년, 전통의 토대를 쌓다)
-      tl.to(copyRef.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 1.4 }, 14.4);
+      // Phase 6a (14.4 → 15.8): kbdY0 — 투명도만 올리면서 등장 (y 이동 없음)
+      tl.to(copyRef.current, { opacity: 1, ease: 'power2.out', duration: 1.4 }, 14.4);
 
-      // Phase 6b (16.6 → 17.6): 첫 번째 카피 사라짐
-      tl.to(copyRef.current, { opacity: 0, y: -16, ease: 'power2.in', duration: 1.0 }, 16.6);
+      // Phase 6b (16.6 → 17.6): kbdY0 페이드아웃
+      tl.to(copyRef.current, { opacity: 0, ease: 'power2.in', duration: 1.0 }, 16.6);
 
-      // Phase 6c (17.8 → 19.2): 두 번째 카피 등장 (三代 · THREE GENERATIONS / 끊임없는 정진으로 미래를 잇다)
-      tl.to(copy2Ref.current, { opacity: 1, y: 0, ease: 'power2.out', duration: 1.4 }, 17.8);
+      // Phase 6c: JWTY5 — eyebrow 먼저(17.8), 제목은 0.7s 시간차 두고(18.5) opacity 페이드인
+      tl.to(copy2KickerRef.current, { opacity: 1, ease: 'power2.out', duration: 0.9 }, 17.8);
+      tl.to(copy2TitleRef.current,  { opacity: 1, ease: 'power2.out', duration: 1.1 }, 18.5);
 
       // Phase 7: 두 번째 카피가 보인 뒤 → 화면 전환(아카이브로 블렌드)
       tl.to(pinRef.current,     { opacity: 0, ease: 'none', duration: 0.9 }, 20.4)
@@ -295,13 +302,13 @@ export default function ClockIntro({ years }: { years?: number[] }) {
             gap: 20, textAlign: 'center', pointerEvents: 'none', zIndex: 5,
           }}
         >
-          <span style={{
+          <span ref={copy2KickerRef} style={{
             fontFamily: "'Noto Sans KR', sans-serif",
             fontSize: 14, letterSpacing: '0.34em', color: 'rgba(245,240,232,0.55)',
           }}>
             三代 · THREE GENERATIONS
           </span>
-          <span style={{
+          <span ref={copy2TitleRef} style={{
             fontFamily: "'Noto Serif KR', serif",
             fontSize: 52, fontWeight: 300, lineHeight: 1.4, color: CREAM,
           }}>

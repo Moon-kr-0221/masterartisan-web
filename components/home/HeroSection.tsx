@@ -5,7 +5,8 @@ import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from
 
 const SLIDES = [
   {
-    image: 'https://images.unsplash.com/photo-1577735518457-06de4c9d81ca?auto=format&fit=crop&w=1600&q=80',
+    // 펜슬 roiXG go5it — 동일 이미지
+    image: 'https://images.unsplash.com/photo-1762246569597-2fbf5065a73f?auto=format&fit=crop&w=1600&q=80',
     h1a: '천년의 기술',
     h1b: '삼대의 손',
     sub: 'Heritage of Master Artisan',
@@ -23,7 +24,8 @@ const SLIDES = [
     sub: 'Traditional Craft, Timeless Space',
   },
   {
-    image: 'https://images.unsplash.com/photo-1542626991-cbc4e32524cc?auto=format&fit=crop&w=1600&q=80',
+    // 전통 목조 처마·살창 — 장인 주제 이미지로 교체
+    image: 'https://images.unsplash.com/photo-1636625278157-e7f3cf7d77fb?auto=format&fit=crop&w=1600&q=80',
     h1a: '기술이 아닌,',
     h1b: '예술로 짓습니다.',
     sub: 'Crafted Beyond Convention',
