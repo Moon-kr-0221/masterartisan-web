@@ -52,8 +52,14 @@ export default function Navigation() {
   useEffect(() => { setMenuOpen(false); }, [pathname]);
 
   useEffect(() => {
-    const shown = visible || menuOpen;
-    document.documentElement.style.setProperty('--nav-h', shown ? '72px' : '0px');
+    const isMobileView = window.innerWidth < 768;
+    if (isMobileView) {
+      // 모바일 GNB는 항상 56px 고정
+      document.documentElement.style.setProperty('--nav-h', '56px');
+    } else {
+      const shown = visible || menuOpen;
+      document.documentElement.style.setProperty('--nav-h', shown ? '72px' : '0px');
+    }
   }, [visible, menuOpen]);
 
   useEffect(() => {

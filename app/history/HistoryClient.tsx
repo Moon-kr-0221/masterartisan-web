@@ -13,6 +13,7 @@ import { milestoneYears } from '@/lib/data/era';
 import ClockIntro from '@/components/history/ClockIntro';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+ScrollTrigger.normalizeScroll(true); // iOS 터치 스크롤 정규화
 
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
@@ -391,7 +392,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
   const dialGroupRef = useRef<SVGGElement>(null);
   const labelRefs    = useRef<(SVGTextElement | null)[]>([]);
 
-  // ── Lenis ────────────────────────────────────────────────────────────────
+  // ── Lenis (데스크탑) + 네이티브 스크롤 리스너 (iOS 터치) ────────────────
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.35,
@@ -403,7 +404,15 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
-    return () => { lenis.destroy(); };
+
+    // iOS 터치 스크롤은 Lenis를 거치지 않으므로 네이티브 scroll 이벤트도 연결
+    const onNativeScroll = () => ScrollTrigger.update();
+    window.addEventListener('scroll', onNativeScroll, { passive: true });
+
+    return () => {
+      lenis.destroy();
+      window.removeEventListener('scroll', onNativeScroll);
+    };
   }, []);
 
   // ── GSAP: dial rotation (scrub) + section tracking ───────────────────────
@@ -452,7 +461,13 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
   // ── Tab scroll-to ─────────────────────────────────────────────────────────
   const scrollToEra = useCallback((i: number) => {
     const el = i < 0 ? sectionRefs.current[0] : sectionRefs.current[i];
-    if (el) lenisRef.current?.scrollTo(el, { offset: -120, duration: 1.8 });
+    if (!el) return;
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(el, { offset: -120, duration: 1.8 });
+    } else {
+      // iOS 터치 환경 폴백: 네이티브 scrollIntoView
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, []);
 
   const tabs = ['ALL', ...ERAS.map((e) => e.era)];
