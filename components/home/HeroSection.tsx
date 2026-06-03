@@ -39,9 +39,10 @@ function MobileHero() {
   const [cur, setCur] = useState(0);
   const [prog, setProg] = useState(0);
   const touchStartX = useRef(0);
+  const N = SLIDES.length;
 
-  const advance = useCallback(() => setCur((c) => (c + 1) % SLIDES.length), []);
-  const goBack  = useCallback(() => setCur((c) => (c - 1 + SLIDES.length) % SLIDES.length), []);
+  const advance = useCallback(() => setCur((c) => (c + 1) % N), [N]);
+  const goBack  = useCallback(() => setCur((c) => (c - 1 + N) % N), [N]);
 
   // 자동 진행
   useEffect(() => {
@@ -66,58 +67,67 @@ function MobileHero() {
 
   const slide = SLIDES[cur];
 
-  // Pencil SNvdh: 540px, GNB 56px 아래 시작 → 전체 높이 540+56=596
   return (
     <section
       className="relative overflow-hidden md:hidden"
-      style={{ height: 540, marginTop: 56, backgroundColor: '#0D0C0A' }}
+      style={{ height: '100dvh', backgroundColor: '#0D0C0A' }}
       onTouchStart={onTouchStart}
       onTouchEnd={onTouchEnd}
     >
-      {/* 슬라이드 이미지 */}
-      <AnimatePresence mode="sync">
-        <motion.div
-          key={cur}
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${slide.image})` }}
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-        />
-      </AnimatePresence>
+      {/* 슬라이드 레일 — 전체 슬라이드 수평 나열, CSS transform으로 이동 */}
+      <div
+        style={{
+          position: 'absolute', top: 0, left: 0, height: '100%',
+          width: `${N * 100}%`,
+          display: 'flex',
+          transform: `translateX(-${(cur / N) * 100}%)`,
+          transition: 'transform 0.65s cubic-bezier(0.25, 0.1, 0.25, 1)',
+          willChange: 'transform',
+        }}
+      >
+        {SLIDES.map((s, i) => (
+          <div
+            key={i}
+            style={{
+              flex: '0 0 auto',
+              width: `${100 / N}%`,
+              height: '100%',
+              backgroundImage: `url(${s.image})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+            }}
+          />
+        ))}
+      </div>
 
       {/* 그라디언트 */}
-      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(13,12,10,0.73) 55%, rgba(13,12,10,0.94) 100%)' }} />
+      <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.18) 0%, rgba(13,12,10,0.7) 55%, rgba(13,12,10,0.95) 100%)' }} />
 
-      {/* taAUs HeroText — Pencil x:24, y:300, gap:20 */}
+      {/* HeroText — bottom anchor */}
       <AnimatePresence mode="wait">
         <motion.div
           key={`m-text-${cur}`}
           className="absolute"
-          style={{ left: 24, top: 300, width: 342, display: 'flex', flexDirection: 'column', gap: 20 }}
+          style={{ left: 24, right: 24, bottom: 112, display: 'flex', flexDirection: 'column', gap: 20 }}
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0 }}
+          exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
         >
-          {/* Eyebrow */}
           <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: 'rgba(255,255,255,0.5)' }}>
             HERITAGE OF MASTER ARTISAN
           </span>
-          {/* H1 — 44px, lineHeight 1.15 */}
           <h1 style={{ fontFamily: SERIF, fontSize: 44, fontWeight: 300, lineHeight: 1.15, color: '#FFFFFF', margin: 0 }}>
             {slide.h1a}<br />{slide.h1b}
           </h1>
-          {/* Sub */}
           <p style={{ fontFamily: SERIF, fontSize: 14, fontWeight: 300, letterSpacing: 4, color: 'rgba(255,255,255,0.4)', margin: 0 }}>
             {slide.sub}
           </p>
         </motion.div>
       </AnimatePresence>
 
-      {/* B7OG5 Pager — Pencil x:24, y:496 */}
-      <div className="absolute flex items-center" style={{ left: 24, top: 496, gap: 10 }}>
+      {/* Pager — bottom anchor */}
+      <div className="absolute flex items-center" style={{ left: 24, bottom: 52, gap: 10 }}>
         <span style={{ fontFamily: SANS, fontSize: 11, fontWeight: 700, letterSpacing: 2, color: '#FFFFFF' }}>
           {String(cur + 1).padStart(2, '0')}
         </span>
@@ -125,7 +135,7 @@ function MobileHero() {
           <div className="absolute left-0 top-0 h-full bg-white" style={{ width: `${prog * 100}%`, transition: 'none' }} />
         </div>
         <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 2, color: 'rgba(255,255,255,0.4)' }}>
-          {String(SLIDES.length).padStart(2, '0')}
+          {String(N).padStart(2, '0')}
         </span>
       </div>
     </section>

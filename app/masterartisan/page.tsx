@@ -13,11 +13,11 @@ export default async function MasterArtisanPage() {
       {/* ══ 데스크탑 — d933990 완전 동일 ══ */}
       <div className="hidden md:block" style={{ paddingTop: 72 }}>
         {/* Page Hero */}
-        <section style={{ position: 'relative', height: 360, overflow: 'hidden' }}>
+        <section className="relative overflow-hidden" style={{ height: 360 }}>
           <img src={masterartisanHeroImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.05) 100%)' }} />
           <div className="absolute" style={{ left: 80, top: 152, display: 'flex', flexDirection: 'column', gap: 10 }}>
-            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '4px', color: 'rgba(255,255,255,0.6)' }}>THE ARTISANS</span>
+            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>THE ARTISANS</span>
             <h1 style={{ fontFamily: SERIF, fontSize: 48, fontWeight: 300, lineHeight: 1.2, color: '#FFFFFF' }}>장인을 소개합니다</h1>
             <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>1936년부터 3대에 걸쳐 전통건축의 혼을 이어온 장인들을 소개합니다.</p>
           </div>
@@ -66,11 +66,11 @@ export default async function MasterArtisanPage() {
 
         {/* Page Hero — 300px, 이미지+스크림, 텍스트 하단 */}
         <section className="relative overflow-hidden" style={{ height: 300, backgroundColor: '#0D0C0A' }}>
-          <img src={masterartisanHeroImage} alt="" className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.55) 100%)' }} />
-          <div className="absolute" style={{ bottom: 32, left: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
+          <img src={masterartisanHeroImage} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: '35% center' }} />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)' }} />
+          <div className="absolute" style={{ top: 150, left: 24, right: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: 'rgba(255,255,255,0.6)' }}>THE ARTISANS</span>
-            <h1 style={{ fontFamily: SERIF, fontSize: 36, fontWeight: 300, color: '#FFFFFF' }}>삼대의 장인</h1>
+            <h1 style={{ fontFamily: SERIF, fontSize: 36, fontWeight: 300, lineHeight: 1.2, color: '#FFFFFF' }}>삼대의 장인</h1>
             <p style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: 'rgba(255,255,255,0.65)' }}>1936년부터 3대에 걸쳐 전통건축의 혼을 이어온 장인들을 소개합니다.</p>
           </div>
         </section>

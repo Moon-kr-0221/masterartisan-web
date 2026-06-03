@@ -79,7 +79,31 @@ export default function MobileDialIntro() {
       .to('.mdi-center-line-inner', { bottom: '150%', duration: 1.5 });
 
     tlRef.current = tl;
-    return () => { tl.kill(); ScrollTrigger.getAll().forEach((t) => { if (t.vars.trigger === '.mdi-time-cont') t.kill(); }); };
+
+    // ── 카피 블록 순차 스태거 등장 ──
+    const copyBlocks = section.querySelectorAll<HTMLElement>('.mdi-txt-block');
+    const copyTriggers: ScrollTrigger[] = [];
+    copyBlocks.forEach((block) => {
+      const texts = block.querySelectorAll<HTMLElement>('.mdi-copy-text');
+      copyTriggers.push(ScrollTrigger.create({
+        trigger: block,
+        start: 'top 76%',
+        once: true,
+        onEnter: () => {
+          gsap.to(texts, {
+            opacity: 1, y: 0, filter: 'blur(0px)',
+            duration: 1.05, ease: 'power3.out',
+            stagger: 0.28,
+          });
+        },
+      }));
+    });
+
+    return () => {
+      tl.kill();
+      copyTriggers.forEach((t) => t.kill());
+      ScrollTrigger.getAll().forEach((t) => { if (t.vars.trigger === '.mdi-time-cont') t.kill(); });
+    };
   }, []);
 
   return (
@@ -96,6 +120,7 @@ export default function MobileDialIntro() {
         .mdi-circle{position:absolute;width:100%;height:100%;}
         .mdi-txt{position:relative;z-index:10;text-align:center;padding:0 24px;}
         .mdi-txt-block+.mdi-txt-block{margin-top:36vh;}
+        .mdi-copy-text{opacity:0;transform:translateY(28px);filter:blur(8px);will-change:opacity,transform,filter;}
       `}</style>
 
       <section ref={sectionRef} className="relative" style={{ backgroundColor: '#16261C' }}>
@@ -116,14 +141,14 @@ export default function MobileDialIntro() {
           {/* [FG·z10] 카피 2단 */}
           <div className="mdi-txt">
             <div className="mdi-txt-block">
-              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12, letterSpacing: '0.34em', color: `${CREAM}8C` }}>SINCE 1936</p>
-              <p style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, lineHeight: 1.35, color: CREAM, fontSize: 'clamp(30px,9vw,40px)', marginTop: 14 }}>
+              <p className="mdi-copy-text" style={{ fontFamily: 'var(--font-sans)', fontSize: 12, letterSpacing: '0.34em', color: `${CREAM}8C` }}>SINCE 1936</p>
+              <p className="mdi-copy-text" style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, lineHeight: 1.35, color: CREAM, fontSize: 'clamp(30px,9vw,40px)', marginTop: 14 }}>
                 90여 년,<br />전통의 토대를 쌓다
               </p>
             </div>
             <div className="mdi-txt-block">
-              <p style={{ fontFamily: 'var(--font-sans)', fontSize: 12, letterSpacing: '0.34em', color: `${CREAM}8C` }}>三代 · THREE GENERATIONS</p>
-              <p style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, lineHeight: 1.35, color: CREAM, fontSize: 'clamp(30px,9vw,40px)', marginTop: 14 }}>
+              <p className="mdi-copy-text" style={{ fontFamily: 'var(--font-sans)', fontSize: 12, letterSpacing: '0.34em', color: `${CREAM}8C` }}>三代 · THREE GENERATIONS</p>
+              <p className="mdi-copy-text" style={{ fontFamily: 'var(--font-serif)', fontWeight: 300, lineHeight: 1.35, color: CREAM, fontSize: 'clamp(30px,9vw,40px)', marginTop: 14 }}>
                 끊임없는 정진으로<br />미래를 잇다
               </p>
             </div>
