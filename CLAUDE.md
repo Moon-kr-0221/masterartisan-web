@@ -1,5 +1,14 @@
 @AGENTS.md
 
+# Desktop Layout — FROZEN (절대 수정 금지)
+
+**데스크탑 레이아웃은 커밋 `d933990` 기준으로 완성되어 있다. 어떤 이유로도 손대지 않는다.**
+
+- 데스크탑(≥768px)에 영향을 주는 CSS 값(px, %, font-size, padding, position, gap 등)을 변경하지 않는다.
+- 모바일 반응형 작업 시 반드시 `md:` prefix 또는 `isMobile` 조건 분기로만 추가한다. 기존 데스크탑 값을 덮어쓰거나 삭제하면 안 된다.
+- 모바일 코드를 추가할 때 데스크탑 코드가 변경되었는지 반드시 확인한다. 변경되었으면 즉시 `git checkout d933990 -- <파일>`로 원복하고 다시 작업한다.
+- 이 규칙은 사용자가 명시적으로 "데스크탑 수정"을 지시할 때만 예외로 한다.
+
 # Design System
 
 All UI development must reference `DESIGN.md` for design tokens. Do not hardcode color values, font sizes, spacing, or border radii — always resolve them from the tokens defined in that file.
