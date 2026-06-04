@@ -14,7 +14,6 @@ import ClockIntro from '@/components/history/ClockIntro';
 import MobileDialIntro from '@/components/history/MobileDialIntro';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
-ScrollTrigger.normalizeScroll(true); // iOS 터치 스크롤 정규화
 
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
 
@@ -283,37 +282,38 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
               </div>
             </FadeUp>
             {byYear[year].map((work, wi) => {
-              const hasGallery = work.media.length > 0;
+              const photos = work.media.filter((m) => m.image_url);
+              const visiblePhotos = isMobile ? photos.slice(0, 2) : photos.slice(0, 3);
+              const photoW = isMobile ? 163 : 220;
+              const photoH = isMobile ? 110 : 148;
               return (
                 <FadeUp key={work.id ?? wi} delay={yi * 0.04 + wi * 0.03 + 0.06}>
-                  <div style={{ display: 'flex', alignItems: 'center',
-                    justifyContent: 'space-between', padding: '11px 0',
-                    borderBottom: `1px solid ${C.hairline}` }}>
+                  <div style={{
+                    display: 'flex', flexDirection: 'column',
+                    padding: visiblePhotos.length > 0 ? '11px 0 14px' : '11px 0',
+                    borderBottom: `1px solid ${C.hairline}`,
+                  }}>
                     <span style={{ fontFamily: "'Noto Sans KR'", fontSize: '13px',
                       lineHeight: 1.65, color: C.inkSoft, fontWeight: 300 }}>
                       {work.title}
                     </span>
-                    {hasGallery ? (
-                      <button
-                        type="button"
-                        onClick={() => onOpenMedia(work)}
-                        style={{ fontFamily: "'Noto Sans KR'", fontSize: '8px',
-                          letterSpacing: '0.2em', color: C.ink, backgroundColor: 'transparent',
-                          border: `1px solid ${C.ink}`, padding: '3px 9px',
-                          marginLeft: '16px', flexShrink: 0, cursor: 'pointer',
-                          display: 'inline-flex', alignItems: 'center', gap: '5px',
-                          transition: 'background-color 0.25s, color 0.25s' }}
-                        className="hover:bg-[#1A1714] hover:text-white">
-                        MEDIA <span style={{ opacity: 0.7 }}>· {work.media.length}</span>
-                      </button>
-                    ) : work.hasMedia ? (
-                      <span style={{ fontFamily: "'Noto Sans KR'", fontSize: '8px',
-                        letterSpacing: '0.2em', color: C.muted,
-                        border: `1px solid ${C.hairline}`, padding: '2px 8px',
-                        marginLeft: '16px', flexShrink: 0 }}>
-                        MEDIA
-                      </span>
-                    ) : null}
+                    {visiblePhotos.length > 0 && (
+                      <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'nowrap', overflow: 'hidden' }}>
+                        {visiblePhotos.map((m, idx) => (
+                          <div key={idx} style={{
+                            width: photoW, height: photoH,
+                            flexShrink: 0, overflow: 'hidden',
+                            backgroundColor: C.surface,
+                          }}>
+                            <img
+                              src={m.image_url}
+                              alt={m.caption ?? work.title}
+                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                            />
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 </FadeUp>
               );
@@ -393,8 +393,13 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
   const dialGroupRef = useRef<SVGGElement>(null);
   const labelRefs    = useRef<(SVGTextElement | null)[]>([]);
 
+  // Tab bar scroll-sync refs
+  const tabBarRef     = useRef<HTMLDivElement>(null);
+  const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
   // ── Lenis (데스크탑) + 네이티브 스크롤 리스너 (iOS 터치) ────────────────
   useEffect(() => {
+    ScrollTrigger.normalizeScroll(true); // iOS 터치 스크롤 정규화 — 브라우저 전용
     const lenis = new Lenis({
       duration: 1.35,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -458,6 +463,17 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
     return () => ctx.revert();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [TOTAL]);
+
+  // ── Tab bar auto-scroll — 활성 시대 탭이 항상 화면 중앙에 오도록 ───────────
+  useEffect(() => {
+    const bar = tabBarRef.current;
+    if (!bar) return;
+    // tabs[0] = 'ALL', tabs[i+1] = ERAS[i] → 활성 시대 버튼은 activeIdx+1
+    const btn = tabButtonRefs.current[activeIdx + 1];
+    if (!btn) return;
+    const scrollTarget = btn.offsetLeft - bar.clientWidth / 2 + btn.offsetWidth / 2;
+    bar.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
+  }, [activeIdx]);
 
   // ── Tab scroll-to ─────────────────────────────────────────────────────────
   const scrollToEra = useCallback((i: number) => {
@@ -529,7 +545,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
       <div className="md:hidden"><MobileDialIntro /></div>
 
       {/* ══ STICKY TAB BAR — 고정 네비(pE4bF) 바로 아래에 붙어 함께 이동 ════════ */}
-      <div style={{
+      <div ref={tabBarRef} style={{
         position: 'sticky',
         top: 'var(--nav-h, 72px)',
         zIndex: 40,
@@ -539,6 +555,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
         WebkitBackdropFilter: 'blur(16px)',
         borderBottom: `1px solid ${C.hairline}`,
         display: 'flex', overflowX: 'auto', scrollbarWidth: 'none',
+        WebkitOverflowScrolling: 'touch',
       }}>
         {tabs.map((tab, i) => {
           const active = i === 0
@@ -546,6 +563,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
             : ERAS[i - 1]?.era === ERAS[activeIdx]?.era;
           return (
             <button key={tab}
+              ref={(el) => { tabButtonRefs.current[i] = el; }}
               onClick={() => scrollToEra(i - 1)}
               style={{
                 flexShrink: 0, padding: '14px 20px',

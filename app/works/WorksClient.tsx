@@ -4,15 +4,14 @@ import { useEffect, useState } from 'react';
 import { categoryLabels, type WorkCategory } from '@/data/works';
 import type { Work } from '@/lib/data/types';
 import ScrollReveal from '@/components/ui/ScrollReveal';
+import { SERIF, SANS, C } from '@/lib/tokens';
 
 const categories: WorkCategory[] = ['all', 'maintenance', 'repair', 'fabrication', 'drawing'];
 const PAGE_SIZE = 6;
 
-const SERIF = 'var(--font-serif)';
-const SANS  = 'var(--font-sans)';
-
-const BANNER_IMG  = 'https://images.unsplash.com/photo-1761452776106-78710d4fada9?auto=format&fit=crop&w=1600&q=80';
-const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
+const BANNER_IMG        = 'https://images.unsplash.com/photo-1761452776106-78710d4fada9?auto=format&fit=crop&w=1600&q=80';
+const BANNER_IMG_MOBILE = 'https://images.unsplash.com/photo-1650476524542-c5cc53306700?auto=format&fit=crop&w=1080&q=80';
+const BANNER_SCRIM      = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
 
 export default function WorksClient({ works, initialWork }: { works: Work[]; initialWork?: string }) {
   const [active,  setActive]  = useState<WorkCategory>('all');
@@ -34,21 +33,21 @@ export default function WorksClient({ works, initialWork }: { works: Work[]; ini
   return (
     <>
       {/* ════════════ 데스크탑 — d933990 완전 동일 ════════════ */}
-      <div className="hidden md:block" style={{ backgroundColor: '#FFFFFF', paddingTop: 72 }}>
-        <section style={{ position: 'relative', height: 360, overflow: 'hidden', borderBottom: '1px solid #E8E8E8' }}>
+      <div className="hidden md:block" style={{ backgroundColor: C.canvas, paddingTop: 72 }}>
+        <section style={{ position: 'relative', height: 360, overflow: 'hidden', borderBottom: `1px solid ${C.hairline}` }}>
           <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
           <div className="absolute inset-0 flex flex-col gap-8 md:flex-row md:items-end md:justify-between" style={{ padding: '72px 80px' }}>
             <div className="flex flex-col gap-[10px]">
               <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>OUR WORKS</span>
-              <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: '#FFFFFF' }}>작업 사례</h1>
+              <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: C.canvas }}>작업 사례</h1>
               <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>전통건축 유지보수·수리·제작에 걸친 대표 작업물을 소개합니다.</p>
             </div>
             <div className="flex flex-wrap gap-1 flex-shrink-0">
               {categories.map((cat) => {
                 const on = active === cat;
                 return (
-                  <button key={cat} onClick={() => handleCategory(cat)} style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.08em', padding: '8px 18px', backgroundColor: on ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.08)', color: on ? '#1A1A1A' : 'rgba(255,255,255,0.65)', border: on ? 'none' : '1px solid rgba(255,255,255,0.3)', transition: 'all 0.3s', cursor: 'pointer' }}>
+                  <button key={cat} onClick={() => handleCategory(cat)} style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.08em', padding: '8px 18px', backgroundColor: on ? 'rgba(255,255,255,0.9)' : 'rgba(255,255,255,0.08)', color: on ? C.ink : 'rgba(255,255,255,0.65)', border: on ? 'none' : '1px solid rgba(255,255,255,0.3)', transition: 'all 0.3s', cursor: 'pointer' }}>
                     {categoryLabels[cat]}
                   </button>
                 );
@@ -61,23 +60,23 @@ export default function WorksClient({ works, initialWork }: { works: Work[]; ini
             {shown.map((work, i) => (
               <ScrollReveal key={work.id} delay={(i % 3) * 0.06}>
                 <div className="group cursor-pointer" onClick={() => setLightbox(work)}>
-                  <div style={{ height: 280, overflow: 'hidden', backgroundColor: '#EDEAE4' }}>
+                  <div style={{ height: 280, overflow: 'hidden', backgroundColor: C.imageBg }}>
                     <img src={work.image} alt={work.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
                   </div>
                   <div style={{ paddingTop: 20, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                    <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.08em', color: '#AAAAAA' }}>{categoryLabels[work.category]} · {work.year}</span>
-                    <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: '#1A1A1A' }}>{work.title}</span>
+                    <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.08em', color: C.muted }}>{categoryLabels[work.category]} · {work.year}</span>
+                    <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: C.ink }}>{work.title}</span>
                   </div>
                 </div>
               </ScrollReveal>
             ))}
           </div>
           {shown.length === 0 && (
-            <p className="text-center" style={{ padding: '96px 0', fontFamily: SANS, color: '#AAAAAA' }}>해당 카테고리의 작업이 없습니다.</p>
+            <p className="text-center" style={{ padding: '96px 0', fontFamily: SANS, color: C.muted }}>해당 카테고리의 작업이 없습니다.</p>
           )}
           {hasMore && (
             <div style={{ paddingTop: 40, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
-              <button onClick={() => setVisible((v) => v + PAGE_SIZE)} style={{ width: '100%', fontFamily: SANS, fontSize: 11, letterSpacing: '0.3em', padding: '12px 48px', backgroundColor: '#FFFFFF', color: '#888888', border: '1px solid #E8E8E8', transition: 'opacity 0.3s', cursor: 'pointer' }} className="hover:opacity-70">
+              <button onClick={() => setVisible((v) => v + PAGE_SIZE)} style={{ width: '100%', fontFamily: SANS, fontSize: 11, letterSpacing: '0.3em', padding: '12px 48px', backgroundColor: C.canvas, color: C.darkMuted, border: `1px solid ${C.hairline}`, transition: 'opacity 0.3s', cursor: 'pointer' }} className="hover:opacity-70">
                 더 보기
               </button>
             </div>
@@ -86,15 +85,15 @@ export default function WorksClient({ works, initialWork }: { works: Work[]; ini
       </div>
 
       {/* ════════════ 모바일 — Pencil iGTp2 / d933990 mobile ════════════ */}
-      <div className="md:hidden" style={{ backgroundColor: '#FFFFFF', paddingTop: 56 }}>
+      <div className="md:hidden" style={{ backgroundColor: C.canvas, paddingTop: 56 }}>
 
         {/* Page Hero — 300px, 이미지+스크림, 텍스트 하단 */}
-        <section className="relative overflow-hidden" style={{ height: 300, backgroundColor: '#0D0C0A' }}>
-          <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: '25% center' }} />
+        <section className="relative overflow-hidden" style={{ height: 300, backgroundColor: C.dark }}>
+          <img src={BANNER_IMG_MOBILE} alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
           <div className="absolute" style={{ top: 150, left: 24, right: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: 'rgba(255,255,255,0.6)' }}>OUR WORKS</span>
-            <h1 style={{ fontFamily: SERIF, fontSize: 36, fontWeight: 300, lineHeight: 1.2, color: '#FFFFFF' }}>작업 사례</h1>
+            <h1 style={{ fontFamily: SERIF, fontSize: 36, fontWeight: 300, lineHeight: 1.2, color: C.canvas }}>작업 사례</h1>
             <p style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: 'rgba(255,255,255,0.65)' }}>전통건축 유지보수·수리·제작에 걸친 대표 작업물을 소개합니다.</p>
           </div>
         </section>
@@ -102,13 +101,13 @@ export default function WorksClient({ works, initialWork }: { works: Work[]; ini
         {/* Filter row — sticky top 56px, 가로 스크롤 */}
         <div
           className="sticky z-30 flex overflow-x-auto"
-          style={{ top: 56, backgroundColor: '#FFFFFF', borderBottom: '1px solid #E8E8E8', padding: '16px 24px', gap: 8, scrollbarWidth: 'none' }}
+          style={{ top: 56, backgroundColor: C.canvas, borderBottom: `1px solid ${C.hairline}`, padding: '16px 24px', gap: 8, scrollbarWidth: 'none' }}
         >
           {categories.map((cat) => {
             const on = active === cat;
             return (
               <button key={cat} onClick={() => handleCategory(cat)}
-                style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.08em', padding: '8px 18px', whiteSpace: 'nowrap', flexShrink: 0, backgroundColor: on ? '#1A1A1A' : 'transparent', color: on ? '#FFFFFF' : '#999999', border: on ? 'none' : '1px solid #D8D5CF', transition: 'all 0.25s', cursor: 'pointer' }}>
+                style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.08em', padding: '8px 18px', whiteSpace: 'nowrap', flexShrink: 0, backgroundColor: on ? C.ink : 'transparent', color: on ? C.canvas : C.muted, border: on ? 'none' : `1px solid ${C.hairline}`, transition: 'all 0.25s', cursor: 'pointer' }}>
                 {categoryLabels[cat]}
               </button>
             );
@@ -120,25 +119,25 @@ export default function WorksClient({ works, initialWork }: { works: Work[]; ini
           <div style={{ display: 'flex', flexDirection: 'column', gap: 40 }}>
             {shown.map((work) => (
               <div key={work.id} className="cursor-pointer" onClick={() => setLightbox(work)}>
-                <div style={{ height: 220, overflow: 'hidden', backgroundColor: '#EDEAE4' }}>
+                <div style={{ height: 220, overflow: 'hidden', backgroundColor: C.imageBg }}>
                   <img src={work.image} alt={work.title} className="w-full h-full object-cover" />
                 </div>
                 <div style={{ paddingTop: 16, display: 'flex', flexDirection: 'column', gap: 6 }}>
-                  <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.08em', color: '#AAAAAA' }}>{categoryLabels[work.category]} · {work.year}</span>
-                  <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: '#1A1A1A' }}>{work.title}</span>
+                  <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.08em', color: C.muted }}>{categoryLabels[work.category]} · {work.year}</span>
+                  <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: C.ink }}>{work.title}</span>
                 </div>
               </div>
             ))}
           </div>
 
           {shown.length === 0 && (
-            <p className="text-center" style={{ padding: '64px 0', fontFamily: SANS, color: '#AAAAAA' }}>해당 카테고리의 작업이 없습니다.</p>
+            <p className="text-center" style={{ padding: '64px 0', fontFamily: SANS, color: C.muted }}>해당 카테고리의 작업이 없습니다.</p>
           )}
 
           {hasMore && (
             <div style={{ paddingTop: 32, display: 'flex', justifyContent: 'center' }}>
               <button onClick={() => setVisible((v) => v + PAGE_SIZE)}
-                style={{ width: '100%', fontFamily: SANS, fontSize: 11, letterSpacing: '0.3em', padding: '12px 0', backgroundColor: '#FFFFFF', color: '#888888', border: '1px solid #E8E8E8', cursor: 'pointer' }}>
+                style={{ width: '100%', fontFamily: SANS, fontSize: 11, letterSpacing: '0.3em', padding: '12px 0', backgroundColor: C.canvas, color: C.darkMuted, border: `1px solid ${C.hairline}`, cursor: 'pointer' }}>
                 더 보기
               </button>
             </div>
@@ -149,13 +148,13 @@ export default function WorksClient({ works, initialWork }: { works: Work[]; ini
       {/* Lightbox — 모바일/데스크탑 공통 */}
       {lightbox && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-6" style={{ backgroundColor: 'rgba(13,11,8,0.95)' }} onClick={() => setLightbox(null)}>
-          <div className="max-w-2xl w-full" style={{ backgroundColor: '#FFFFFF' }} onClick={(e) => e.stopPropagation()}>
+          <div className="max-w-2xl w-full" style={{ backgroundColor: C.canvas }} onClick={(e) => e.stopPropagation()}>
             <img src={lightbox.image} alt={lightbox.title} className="w-full aspect-video object-cover" />
             <div style={{ padding: 32 }}>
-              <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.08em', color: '#AAAAAA', marginBottom: 8 }}>{categoryLabels[lightbox.category]} · {lightbox.year}</p>
-              <h3 style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: '#1A1A1A', marginBottom: 16 }}>{lightbox.title}</h3>
-              <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: '#555555' }}>{lightbox.description}</p>
-              <button onClick={() => setLightbox(null)} style={{ marginTop: 32, fontFamily: SANS, fontSize: 11, letterSpacing: '0.1em', color: '#AAAAAA', cursor: 'pointer' }}>
+              <p style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.08em', color: C.muted, marginBottom: 8 }}>{categoryLabels[lightbox.category]} · {lightbox.year}</p>
+              <h3 style={{ fontFamily: SERIF, fontSize: 24, fontWeight: 300, color: C.ink, marginBottom: 16 }}>{lightbox.title}</h3>
+              <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: C.inkSoft }}>{lightbox.description}</p>
+              <button onClick={() => setLightbox(null)} style={{ marginTop: 32, fontFamily: SANS, fontSize: 11, letterSpacing: '0.1em', color: C.muted, cursor: 'pointer' }}>
                 닫기 ✕
               </button>
             </div>

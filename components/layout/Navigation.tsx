@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import MobileGNB from './MobileGNB';
 import MobileMenuOverlay from './MobileMenuOverlay';
+import { SANS, C } from '@/lib/tokens';
 
 const desktopLinks = [
   { href: '/masterartisan', label: 'MASTERARTISAN' },
@@ -14,7 +15,6 @@ const desktopLinks = [
 ];
 
 const REVEAL_ZONE = 124;
-const SANS = 'var(--font-sans)';
 
 export default function Navigation() {
   const pathname = usePathname();
@@ -54,7 +54,6 @@ export default function Navigation() {
   useEffect(() => {
     const isMobileView = window.innerWidth < 768;
     if (isMobileView) {
-      // 모바일 GNB는 항상 56px 고정
       document.documentElement.style.setProperty('--nav-h', '56px');
     } else {
       const shown = visible || menuOpen;
@@ -71,10 +70,10 @@ export default function Navigation() {
   const bg = !isHome
     ? 'rgba(250,250,248,0.97)'
     : scrolled || menuOpen ? 'rgba(10,9,8,0.92)' : 'transparent';
-  const border    = !isHome ? '#E8E8E8' : scrolled || menuOpen ? 'rgba(255,255,255,0.08)' : 'transparent';
-  const logoColor = !isHome ? '#1A1A1A' : '#FFFFFF';
+  const border    = !isHome ? C.hairline : scrolled || menuOpen ? 'rgba(255,255,255,0.08)' : 'transparent';
+  const logoColor = !isHome ? C.ink : C.canvas;
   const linkColor = (active: boolean) =>
-    !isHome ? (active ? '#1A1A1A' : '#888888') : (active ? '#FFFFFF' : 'rgba(255,255,255,0.55)');
+    !isHome ? (active ? C.ink : C.darkMuted) : (active ? C.canvas : 'rgba(255,255,255,0.55)');
   const show = visible || menuOpen;
 
   return (

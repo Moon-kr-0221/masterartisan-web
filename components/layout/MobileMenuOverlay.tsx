@@ -2,9 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-
-const SANS  = 'var(--font-sans)';
-const SERIF = 'var(--font-serif)';
+import { SANS, SERIF, C } from '@/lib/tokens';
 
 const NAV_LINKS = [
   { href: '/',              label: 'HOME',          num: '01' },
@@ -31,8 +29,8 @@ export default function MobileMenuOverlay({ open, onClose }: Props) {
     <div
       className="fixed inset-0 z-[60] md:hidden flex flex-col overflow-y-auto"
       style={{
-        backgroundColor: '#0D0C0A',
-        color: '#FFFFFF',
+        backgroundColor: C.dark,
+        color: C.canvas,
         transform: open ? 'translateY(0)' : 'translateY(100%)',
         transition: 'transform 0.5s cubic-bezier(0.22,1,0.36,1)',
       }}
@@ -57,7 +55,7 @@ export default function MobileMenuOverlay({ open, onClose }: Props) {
           aria-label="메뉴 닫기"
           style={{ width: 24, height: 24, display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}
         >
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.5" strokeLinecap="round">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={C.canvas} strokeWidth="1.5" strokeLinecap="round">
             <line x1="5" y1="5" x2="19" y2="19" />
             <line x1="19" y1="5" x2="5" y2="19" />
           </svg>
@@ -76,10 +74,10 @@ export default function MobileMenuOverlay({ open, onClose }: Props) {
               onClick={onClose}
               style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '24px 0', textDecoration: 'none' }}
             >
-              <span style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, color: '#FFFFFF' }}>
+              <span style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, color: C.canvas }}>
                 {link.label}
               </span>
-              <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: '#C4A882' }}>
+              <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.gold }}>
                 {link.num}
               </span>
             </Link>

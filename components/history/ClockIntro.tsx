@@ -272,7 +272,7 @@ export default function ClockIntro({ years }: { years?: number[] }) {
         <div
           ref={copyRef}
           style={{
-            position: 'absolute', top: 'calc(36.5%)', left: '50%',
+            position: 'absolute', top: 'calc(47.5%)', left: '50%',
             transform: 'translate(-50%,-50%)',
             display: 'flex', flexDirection: 'column', alignItems: 'center',
             gap: 20, textAlign: 'center', pointerEvents: 'none', zIndex: 5,
@@ -296,7 +296,7 @@ export default function ClockIntro({ years }: { years?: number[] }) {
         <div
           ref={copy2Ref}
           style={{
-            position: 'absolute', top: 'calc(36.5%)', left: '50%',
+            position: 'absolute', top: 'calc(47.5%)', left: '50%',
             transform: 'translate(-50%,-50%)',
             display: 'flex', flexDirection: 'column', alignItems: 'center',
             gap: 20, textAlign: 'center', pointerEvents: 'none', zIndex: 5,
