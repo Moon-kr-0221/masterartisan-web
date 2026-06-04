@@ -80,28 +80,36 @@ export default function MobileDialIntro() {
 
     tlRef.current = tl;
 
-    // ── 카피 블록 순차 스태거 등장 ──
+    // ── 카피 블록 순차 스태거 등장 — 1차 후 시간차로 2차 ──
     const copyBlocks = section.querySelectorAll<HTMLElement>('.mdi-txt-block');
-    const copyTriggers: ScrollTrigger[] = [];
-    copyBlocks.forEach((block) => {
-      const texts = block.querySelectorAll<HTMLElement>('.mdi-copy-text');
-      copyTriggers.push(ScrollTrigger.create({
-        trigger: block,
-        start: 'top 76%',
-        once: true,
-        onEnter: () => {
-          gsap.to(texts, {
+    const copyTrigger = ScrollTrigger.create({
+      trigger: '.mdi-txt',
+      start: 'top 76%',
+      once: true,
+      onEnter: () => {
+        if (copyBlocks[0]) {
+          const texts1 = copyBlocks[0].querySelectorAll<HTMLElement>('.mdi-copy-text');
+          gsap.to(texts1, {
             opacity: 1, y: 0, filter: 'blur(0px)',
             duration: 1.05, ease: 'power3.out',
             stagger: 0.28,
           });
-        },
-      }));
+        }
+        if (copyBlocks[1]) {
+          const texts2 = copyBlocks[1].querySelectorAll<HTMLElement>('.mdi-copy-text');
+          gsap.to(texts2, {
+            opacity: 1, y: 0, filter: 'blur(0px)',
+            duration: 1.05, ease: 'power3.out',
+            stagger: 0.28,
+            delay: 0.8,
+          });
+        }
+      },
     });
 
     return () => {
       tl.kill();
-      copyTriggers.forEach((t) => t.kill());
+      copyTrigger.kill();
       ScrollTrigger.getAll().forEach((t) => { if (t.vars.trigger === '.mdi-time-cont') t.kill(); });
     };
   }, []);
