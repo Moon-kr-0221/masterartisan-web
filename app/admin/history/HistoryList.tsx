@@ -119,22 +119,31 @@ export default function HistoryList({
                 )}
 
                 {/* add media */}
-                <form action={addHistoryMedia}
-                  style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'flex-end',
-                    backgroundColor: ADMIN.canvas, border: `1px solid ${HAIR}`, padding: 16 }}>
-                  <input type="hidden" name="history_work_id" value={w.id} />
-                  <label style={{ display: 'block' }}>
-                    <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.08em', color: ADMIN.muted,
-                      textTransform: 'uppercase', display: 'block', marginBottom: 6 }}>사진 파일</span>
-                    <input type="file" name="image" accept="image/*" required
-                      style={{ fontFamily: SANS, fontSize: 12, color: ADMIN.inkSoft }} />
-                    <span style={{ display: 'block', fontFamily: SANS, fontSize: 11, color: ADMIN.ink, marginTop: 5 }}>
-                      권장 1600 × 1066px · 최소 1200 × 800px (가로 3:2 · 5MB 이하)
-                    </span>
-                  </label>
-                  <TextField label="설명 (선택)" name="caption" placeholder="사진 설명" style={{ minWidth: 220 }} />
-                  <SubmitButton variant="ghost">사진 추가</SubmitButton>
-                </form>
+                {w.media.length < 6 && (
+                  <form action={addHistoryMedia}
+                    style={{ display: 'flex', flexWrap: 'wrap', gap: 12, alignItems: 'flex-end',
+                      backgroundColor: ADMIN.canvas, border: `1px solid ${HAIR}`, padding: 16 }}>
+                    <input type="hidden" name="history_work_id" value={w.id} />
+                    <label style={{ display: 'block' }}>
+                      <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.08em', color: ADMIN.muted,
+                        textTransform: 'uppercase', display: 'block', marginBottom: 6 }}>사진 파일</span>
+                      <input type="file" name="image" accept="image/*" required
+                        style={{ fontFamily: SANS, fontSize: 12, color: ADMIN.inkSoft }} />
+                      <span style={{ display: 'block', fontFamily: SANS, fontSize: 11, color: ADMIN.ink, marginTop: 5 }}>
+                        권장 1320 × 890px · 가로 3:2 · 5MB 이하
+                      </span>
+                    </label>
+                    <TextField label="설명 (선택)" name="caption" placeholder="사진 설명" style={{ minWidth: 220 }} />
+                    <SubmitButton variant="ghost">사진 추가</SubmitButton>
+                  </form>
+                )}
+                {w.media.length >= 6 && (
+                  <div style={{ backgroundColor: ADMIN.canvas, border: `1px solid ${HAIR}`, padding: 16 }}>
+                    <p style={{ fontFamily: SANS, fontSize: 11, color: ADMIN.muted, margin: 0 }}>
+                      사진은 최대 6장까지 추가할 수 있습니다. 새로운 사진을 추가하려면 기존 사진을 삭제하세요.
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* delete whole entry */}

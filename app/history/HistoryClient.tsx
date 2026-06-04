@@ -235,6 +235,8 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
   onOpenMedia: (work: HistoryWorkItem) => void;
   isMobile?: boolean;
 }) {
+  const [expandedWorks, setExpandedWorks] = useState<Set<string>>(new Set());
+
   const byYear: Record<string, HistoryWorkItem[]> = {};
   era.works.forEach((w) => {
     const k = String(w.year);
@@ -283,7 +285,10 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
             </FadeUp>
             {byYear[year].map((work, wi) => {
               const photos = work.media.filter((m) => m.image_url);
-              const visiblePhotos = isMobile ? photos.slice(0, 2) : photos.slice(0, 3);
+              const isExpanded = expandedWorks.has(work.id ?? String(wi));
+              const initialCount = isMobile ? 2 : 3;
+              const visiblePhotos = isExpanded ? photos.slice(0, initialCount + 2) : photos.slice(0, initialCount);
+              const hasMore = photos.length >= 6;
               const photoW = isMobile ? 163 : 220;
               const photoH = isMobile ? 110 : 148;
               return (
@@ -298,20 +303,40 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
                       {work.title}
                     </span>
                     {visiblePhotos.length > 0 && (
-                      <div style={{ display: 'flex', gap: 8, marginTop: 10, flexWrap: 'nowrap', overflow: 'hidden' }}>
-                        {visiblePhotos.map((m, idx) => (
-                          <div key={idx} style={{
-                            width: photoW, height: photoH,
-                            flexShrink: 0, overflow: 'hidden',
-                            backgroundColor: C.surface,
-                          }}>
-                            <img
-                              src={m.image_url}
-                              alt={m.caption ?? work.title}
-                              style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
-                            />
-                          </div>
-                        ))}
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 }}>
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                          {visiblePhotos.map((m, idx) => (
+                            <div key={idx} style={{
+                              width: photoW, height: photoH,
+                              flexShrink: 0, overflow: 'hidden',
+                              backgroundColor: C.surface,
+                            }}>
+                              <img
+                                src={m.image_url}
+                                alt={m.caption ?? work.title}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        {hasMore && !isExpanded && (
+                          <button
+                            onClick={() => setExpandedWorks(new Set([...expandedWorks, work.id ?? String(wi)]))}
+                            style={{
+                              alignSelf: 'flex-start',
+                              padding: '8px 16px',
+                              backgroundColor: C.accent,
+                              color: '#fff',
+                              border: 'none',
+                              fontSize: '12px',
+                              fontFamily: "'Noto Sans KR'",
+                              letterSpacing: '0.04em',
+                              cursor: 'pointer',
+                              marginTop: '4px',
+                            }}>
+                            사진 더보기
+                          </button>
+                        )}
                       </div>
                     )}
                   </div>
