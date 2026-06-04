@@ -153,8 +153,8 @@ const historyFallback: HistoryEraGroup[] = historyEras.map((era) => ({
     id: `${era.era}-${i}`,
     year: Number(w.year),
     title: w.title,
-    hasMedia: Boolean(w.hasMedia),
-    media: [],
+    hasMedia: Boolean(w.hasMedia || (w.media && w.media.length > 0)),
+    media: w.media ?? [],
   })),
 }));
 

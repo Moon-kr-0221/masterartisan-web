@@ -1,7 +1,13 @@
+export type HistoryMedia = {
+  image_url: string;
+  caption: string | null;
+};
+
 export type HistoryWork = {
   year: number | string;
   title: string;
   hasMedia?: boolean;
+  media?: HistoryMedia[];
 };
 
 export type HistoryEra = {
@@ -21,19 +27,19 @@ export const historyEras: HistoryEra[] = [
       { year: 2014, title: '순흥안씨 제실 및 삼문 工事' },
       { year: 2013, title: '순흥안씨 제실 및 삼문 工事' },
       { year: 2012, title: '천안 연기군 임씨제실 및 삼문 工事' },
-      { year: 2011, title: '강릉연곡 구월사 대웅전 工事', hasMedia: true },
+      { year: 2011, title: '강릉연곡 구월사 대웅전 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1651238150402-234ab80bb5bb?w=1320&h=890&fit=crop', caption: null }] },
     ],
   },
   {
     era: '2001~2010',
     works: [
-      { year: 2010, title: '파평윤씨 일각문 工事', hasMedia: true },
+      { year: 2010, title: '파평윤씨 일각문 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1560846389-956694677531?w=1320&h=890&fit=crop', caption: null }] },
       { year: 2010, title: '묘적사 화장실 工事' },
       { year: 2009, title: '묘적사 산영각 工事' },
       { year: 2008, title: '대성사 산신각 보수工事' },
       { year: 2007, title: '강릉연곡 구월사 요사처 工事' },
       { year: 2006, title: '이천 산북면 옹기 박물관 보수工事' },
-      { year: 2005, title: '논산 가야곡 반야사 법당 工事', hasMedia: true },
+      { year: 2005, title: '논산 가야곡 반야사 법당 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1683115097279-415af7be0209?w=1320&h=890&fit=crop', caption: null }] },
       { year: 2004, title: '성북동 성라암 명부전 工事' },
       { year: 2003, title: '성북동 한국가구박물관 工事' },
       { year: 2002, title: '상도동 양녕대군사당 삼문 工事' },
@@ -44,8 +50,8 @@ export const historyEras: HistoryEra[] = [
   {
     era: '1991~2000',
     works: [
-      { year: 2000, title: '구월사 관음전 工事', hasMedia: true },
-      { year: 2000, title: '가평 대성사 법당 工事', hasMedia: true },
+      { year: 2000, title: '구월사 관음전 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1547044479-59ce6c0a784a?w=1320&h=890&fit=crop', caption: null }] },
+      { year: 2000, title: '가평 대성사 법당 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1761452776106-78710d4fada9?w=1320&h=890&fit=crop', caption: null }] },
       { year: 2000, title: '광탄 수구암 법당 工事' },
       { year: 1999, title: '원주 보현사 법당 工事' },
       { year: 1999, title: '군포 수지사 법당 工事' },
@@ -60,13 +66,13 @@ export const historyEras: HistoryEra[] = [
   {
     era: '1981~1990',
     works: [
-      { year: 1990, title: '연안이씨 사당 工事', hasMedia: true },
+      { year: 1990, title: '연안이씨 사당 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1759662802641-1748a95ade41?w=1320&h=890&fit=crop', caption: null }] },
       { year: 1990, title: '인천 도원동 보각선원 법당 工事' },
       { year: 1987, title: '올림픽공원 팔각정 工事' },
       { year: 1986, title: '수덕사 황하루 工事' },
       { year: 1985, title: '태안 공덕사 법당 工事' },
-      { year: 1984, title: '올림픽공원 팔각정 工事', hasMedia: true },
-      { year: 1984, title: '송추 오봉산 석굴암 산신각 工事', hasMedia: true },
+      { year: 1984, title: '올림픽공원 팔각정 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1512059555341-6a121e7d4d86?w=1320&h=890&fit=crop', caption: null }] },
+      { year: 1984, title: '송추 오봉산 석굴암 산신각 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1542722578-f2971981d74f?w=1320&h=890&fit=crop', caption: null }] },
       { year: 1982, title: '아차산 대성암 법당 工事' },
       { year: 1981, title: '구의동 양천사 법당 工事' },
     ],
@@ -85,7 +91,7 @@ export const historyEras: HistoryEra[] = [
       { year: 1973, title: '전남 광주 장열사 사당신축 工事' },
       { year: 1972, title: '평택 만기사 법당 工事' },
       { year: 1972, title: '양평 용문사 요사처 신축 工事' },
-      { year: 1972, title: '강화 전등사 범종각 신축', hasMedia: true },
+      { year: 1972, title: '강화 전등사 범종각 신축', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1765570710985-fe9e17af1b6c?w=1320&h=890&fit=crop', caption: null }] },
       { year: 1972, title: '부여 고란사 종각 신축 工事' },
       { year: 1971, title: '남양주 오봉산 석굴암 법당 신축 工事' },
     ],
@@ -93,9 +99,9 @@ export const historyEras: HistoryEra[] = [
   {
     era: '1961~1970',
     works: [
-      { year: 1970, title: '안양 망혜암 종각 신축 工事', hasMedia: true },
+      { year: 1970, title: '안양 망혜암 종각 신축 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1584264415558-6580a2bf40a0?w=1320&h=890&fit=crop', caption: null }] },
       { year: 1969, title: '송추 오봉산 석굴암 법당 工事' },
-      { year: 1968, title: '진관사 명부전 신축 工事', hasMedia: true },
+      { year: 1968, title: '진관사 명부전 신축 工事', hasMedia: true, media: [{ image_url: 'https://images.unsplash.com/photo-1592078615290-033ee584e267?w=1320&h=890&fit=crop', caption: null }] },
       { year: 1968, title: '도봉산 망월사 요사처 법당 신축 工事' },
       { year: 1966, title: '영월 사자산법흥사 법당 신축 工事' },
       { year: 1964, title: '경북 김천 직지사 요사처 신축 工事' },
