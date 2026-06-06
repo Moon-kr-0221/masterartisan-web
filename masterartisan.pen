@@ -1560,7 +1560,7 @@
                   "content": "평일 09:00 – 18:00\n주말·공휴일 휴무",
                   "lineHeight": 1.7,
                   "fontFamily": "Noto Sans KR",
-                  "fontSize": 13,
+                  "fontSize": 14,
                   "fontWeight": "normal"
                 }
               ]
@@ -2014,7 +2014,7 @@
           "width": 390,
           "fill": "#FFFFFF",
           "layout": "vertical",
-          "gap": 40,
+          "gap": 48,
           "padding": [
             48,
             24,
@@ -2065,7 +2065,7 @@
                       "fill": "#AAAAAA",
                       "content": "유지보수 · 2022",
                       "fontFamily": "Noto Sans KR",
-                      "fontSize": 10,
+                      "fontSize": 9,
                       "fontWeight": "normal",
                       "letterSpacing": 1
                     },
@@ -2076,7 +2076,7 @@
                       "fill": "#1A1A1A",
                       "content": "수원 사찰 대웅전 보수",
                       "fontFamily": "Noto Serif KR",
-                      "fontSize": 18,
+                      "fontSize": 20,
                       "fontWeight": "300"
                     }
                   ]
@@ -2126,7 +2126,7 @@
                       "fill": "#AAAAAA",
                       "content": "수리 · 2021",
                       "fontFamily": "Noto Sans KR",
-                      "fontSize": 10,
+                      "fontSize": 9,
                       "fontWeight": "normal",
                       "letterSpacing": 1
                     },
@@ -2137,7 +2137,7 @@
                       "fill": "#1A1A1A",
                       "content": "용인 전통 가옥 수리",
                       "fontFamily": "Noto Serif KR",
-                      "fontSize": 18,
+                      "fontSize": 20,
                       "fontWeight": "300"
                     }
                   ]
@@ -2187,7 +2187,7 @@
                       "fill": "#AAAAAA",
                       "content": "제작 · 2023",
                       "fontFamily": "Noto Sans KR",
-                      "fontSize": 10,
+                      "fontSize": 9,
                       "fontWeight": "normal",
                       "letterSpacing": 1
                     },
@@ -2198,7 +2198,7 @@
                       "fill": "#1A1A1A",
                       "content": "전통 문짝 제작",
                       "fontFamily": "Noto Serif KR",
-                      "fontSize": 18,
+                      "fontSize": 20,
                       "fontWeight": "300"
                     }
                   ]
@@ -2226,7 +2226,7 @@
                   "id": "HrUKC",
                   "name": "L",
                   "fill": "#1A1A1A",
-                  "content": "작업 더 보기",
+                  "content": "더 보기",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 12,
                   "fontWeight": "normal",
@@ -2297,7 +2297,7 @@
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 12,
                   "fontWeight": "normal",
-                  "letterSpacing": 3.8
+                  "letterSpacing": 4
                 },
                 {
                   "type": "text",
@@ -2305,7 +2305,7 @@
                   "name": "Title",
                   "fill": "#1A1714",
                   "textGrowth": "fixed-width",
-                  "width": 262.84044943820226,
+                  "width": 342,
                   "content": "천년의 기술,\n삼대로 이어온\n90년의 여정",
                   "lineHeight": 1.4,
                   "fontFamily": "Noto Serif KR",
@@ -2557,6 +2557,7 @@
                   "name": "Block1",
                   "width": "fill_container",
                   "layout": "vertical",
+                  "gap": 10,
                   "alignItems": "center",
                   "children": [
                     {
@@ -2592,6 +2593,7 @@
                   "name": "Block2",
                   "width": "fill_container",
                   "layout": "vertical",
+                  "gap": 10,
                   "alignItems": "center",
                   "children": [
                     {
@@ -2863,7 +2865,7 @@
           "strokeAlignment": "inner",
           "layout": "vertical",
           "padding": [
-            56,
+            48,
             24
           ],
           "children": [
@@ -3214,7 +3216,7 @@
           "strokeAlignment": "inner",
           "layout": "vertical",
           "padding": [
-            56,
+            48,
             24
           ],
           "children": [
@@ -4194,7 +4196,7 @@
                   "width": "fill_container",
                   "content": "HERITAGE OF MASTER ARTISAN",
                   "fontFamily": "Noto Sans KR",
-                  "fontSize": 10,
+                  "fontSize": 12,
                   "fontWeight": "normal",
                   "letterSpacing": 2
                 },
@@ -4288,8 +4290,8 @@
               "type": "frame",
               "id": "O2cjah",
               "name": "Label",
-              "gap": 16,
-              "alignItems": "center",
+              "layout": "vertical",
+              "gap": 10,
               "children": [
                 {
                   "type": "text",
@@ -4298,32 +4300,25 @@
                   "fill": "#AAAAAA",
                   "content": "BRAND PHILOSOPHY",
                   "fontFamily": "Noto Sans KR",
-                  "fontSize": 9,
+                  "fontSize": 10,
                   "fontWeight": "normal",
                   "letterSpacing": 3
                 },
                 {
-                  "type": "rectangle",
-                  "id": "EjSIO",
-                  "name": "Div",
-                  "fill": "#DDDDDD",
-                  "width": 1,
-                  "height": 16
+                  "type": "text",
+                  "id": "Pvxgo",
+                  "name": "Statement",
+                  "fill": "#1A1A1A",
+                  "textGrowth": "fixed-width",
+                  "width": 342,
+                  "content": "나무의 결을 읽고, 세월의 흔적을 존중하며, 전통의 기술로 미래를 짓습니다.",
+                  "lineHeight": 1.5,
+                  "textAlignVertical": "middle",
+                  "fontFamily": "Noto Serif KR",
+                  "fontSize": 24,
+                  "fontWeight": "300"
                 }
               ]
-            },
-            {
-              "type": "text",
-              "id": "Pvxgo",
-              "name": "Statement",
-              "fill": "#1A1A1A",
-              "textGrowth": "fixed-width",
-              "width": 342,
-              "content": "나무의 결을 읽고, 세월의 흔적을 존중하며, 전통의 기술로 미래를 짓습니다.",
-              "lineHeight": 1.6,
-              "fontFamily": "Noto Serif KR",
-              "fontSize": 22,
-              "fontWeight": "300"
             },
             {
               "type": "frame",
@@ -4349,7 +4344,7 @@
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 12,
                   "fontWeight": "normal",
-                  "letterSpacing": 3
+                  "letterSpacing": 2
                 }
               ]
             }
@@ -4444,7 +4439,7 @@
                       "fill": "#ffffffb3",
                       "content": "남들과 다른 길을 걷습니다",
                       "fontFamily": "Noto Sans KR",
-                      "fontSize": 13,
+                      "fontSize": 14,
                       "fontWeight": "normal"
                     }
                   ]
@@ -4532,7 +4527,7 @@
                       "fill": "#ffffffb3",
                       "content": "원칙을 바르게 지킵니다",
                       "fontFamily": "Noto Sans KR",
-                      "fontSize": 13,
+                      "fontSize": 14,
                       "fontWeight": "normal"
                     }
                   ]
@@ -4586,7 +4581,7 @@
               "id": "e4qtdR",
               "name": "Head",
               "layout": "vertical",
-              "gap": 16,
+              "gap": 10,
               "children": [
                 {
                   "type": "text",
@@ -4595,9 +4590,9 @@
                   "fill": "#AAAAAA",
                   "content": "WHY MASTERARTISAN",
                   "fontFamily": "Noto Sans KR",
-                  "fontSize": 9,
+                  "fontSize": 10,
                   "fontWeight": "normal",
-                  "letterSpacing": 4
+                  "letterSpacing": 3
                 },
                 {
                   "type": "text",
@@ -4607,11 +4602,10 @@
                   "textGrowth": "fixed-width",
                   "width": 342,
                   "content": "시간이 빚어낸\n가치를 짓습니다",
-                  "lineHeight": 1.3,
+                  "lineHeight": 1.5,
                   "fontFamily": "Noto Serif KR",
-                  "fontSize": 28,
-                  "fontWeight": "300",
-                  "letterSpacing": -1
+                  "fontSize": 32,
+                  "fontWeight": "300"
                 },
                 {
                   "type": "text",
@@ -4621,7 +4615,7 @@
                   "textGrowth": "fixed-width",
                   "width": 342,
                   "content": "1960년대부터 3대에 걸쳐 이어온 전통건축 기술. 수백 개의 문화재 복원 프로젝트가 우리의 실력을 말합니다.",
-                  "lineHeight": 1.8,
+                  "lineHeight": 1.5,
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 14,
                   "fontWeight": "normal"
@@ -4697,7 +4691,7 @@
                       "id": "cCjag",
                       "name": "Num",
                       "fill": "#1A1A1A",
-                      "content": "60+",
+                      "content": "90+",
                       "fontFamily": "Noto Serif KR",
                       "fontSize": 36,
                       "fontWeight": "300"
@@ -4798,9 +4792,9 @@
                       "fill": "#AAAAAA",
                       "content": "OUR WORKS",
                       "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
+                      "fontSize": 10,
                       "fontWeight": "normal",
-                      "letterSpacing": 4
+                      "letterSpacing": 3
                     },
                     {
                       "type": "text",
@@ -4809,7 +4803,7 @@
                       "fill": "#1A1A1A",
                       "content": "작업 사례",
                       "fontFamily": "Noto Serif KR",
-                      "fontSize": 28,
+                      "fontSize": 32,
                       "fontWeight": "300"
                     }
                   ]
@@ -5127,7 +5121,7 @@
               "id": "d6884",
               "name": "Text",
               "layout": "vertical",
-              "gap": 16,
+              "gap": 10,
               "children": [
                 {
                   "type": "text",
@@ -5136,9 +5130,9 @@
                   "fill": "#ffffff4d",
                   "content": "THE PROCESS",
                   "fontFamily": "Noto Sans KR",
-                  "fontSize": 9,
+                  "fontSize": 10,
                   "fontWeight": "normal",
-                  "letterSpacing": 4
+                  "letterSpacing": 3
                 },
                 {
                   "type": "text",
@@ -5147,7 +5141,7 @@
                   "fill": "#FFFFFF",
                   "content": "장인의 혼을 담아",
                   "fontFamily": "Noto Serif KR",
-                  "fontSize": 28,
+                  "fontSize": 32,
                   "fontWeight": "300"
                 },
                 {
@@ -5158,7 +5152,7 @@
                   "textGrowth": "fixed-width",
                   "width": 342,
                   "content": "나무를 선별하고, 결을 읽고, 깎고 이어 붙이는 모든 과정. 3대 장인의 손끝에서 전통건축의 혼이 담깁니다.",
-                  "lineHeight": 1.8,
+                  "lineHeight": 1.5,
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 14,
                   "fontWeight": "normal"
@@ -5443,7 +5437,7 @@
               "id": "U0Q3Aq",
               "name": "Text",
               "layout": "vertical",
-              "gap": 12,
+              "gap": 10,
               "children": [
                 {
                   "type": "text",
@@ -5452,7 +5446,7 @@
                   "fill": "#ffffff4d",
                   "content": "START YOUR PROJECT",
                   "fontFamily": "Noto Sans KR",
-                  "fontSize": 9,
+                  "fontSize": 10,
                   "fontWeight": "normal",
                   "letterSpacing": 4
                 },
@@ -5464,9 +5458,9 @@
                   "textGrowth": "fixed-width",
                   "width": 342,
                   "content": "전통의 가치를\n함께 짓겠습니다",
-                  "lineHeight": 1.3,
+                  "lineHeight": 1.5,
                   "fontFamily": "Noto Serif KR",
-                  "fontSize": 30,
+                  "fontSize": 32,
                   "fontWeight": "300"
                 }
               ]
