@@ -12939,51 +12939,6 @@
     },
     {
       "type": "frame",
-      "id": "MaOi1",
-      "x": 2392,
-      "y": 6014,
-      "name": "M/GNB Header",
-      "reusable": true,
-      "width": 390,
-      "height": 56,
-      "fill": "#FFFFFF",
-      "stroke": "#E8E8E8",
-      "strokeWidth": {
-        "bottom": 1
-      },
-      "strokeAlignment": "inner",
-      "padding": [
-        0,
-        24
-      ],
-      "justifyContent": "space_between",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "text",
-          "id": "KTLCX",
-          "name": "Logo",
-          "fill": "#1A1A1A",
-          "content": "MASTERARTISAN",
-          "fontFamily": "Noto Sans KR",
-          "fontSize": 13,
-          "fontWeight": "700",
-          "letterSpacing": 2
-        },
-        {
-          "type": "icon",
-          "id": "QVaQ4",
-          "name": "Hamburger",
-          "width": 24,
-          "height": 24,
-          "icon": "menu",
-          "library": "lucide",
-          "fill": "#1A1A1A"
-        }
-      ]
-    },
-    {
-      "type": "frame",
       "id": "uNs3e",
       "x": 2392,
       "y": 6206,
@@ -13449,6 +13404,51 @@
           "fontFamily": "Noto Sans KR",
           "fontSize": 10,
           "fontWeight": "normal"
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "MaOi1",
+      "x": 2392,
+      "y": 6014,
+      "name": "M/GNB Header",
+      "reusable": true,
+      "width": 390,
+      "height": 56,
+      "fill": "#FFFFFF",
+      "stroke": "#E8E8E8",
+      "strokeWidth": {
+        "bottom": 1
+      },
+      "strokeAlignment": "inner",
+      "padding": [
+        0,
+        24
+      ],
+      "justifyContent": "space_between",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "KTLCX",
+          "name": "Logo",
+          "fill": "#1A1A1A",
+          "content": "MASTERARTISAN",
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 13,
+          "fontWeight": "700",
+          "letterSpacing": 2
+        },
+        {
+          "type": "icon",
+          "id": "QVaQ4",
+          "name": "Hamburger",
+          "width": 24,
+          "height": 24,
+          "icon": "menu",
+          "library": "lucide",
+          "fill": "#1A1A1A"
         }
       ]
     }
