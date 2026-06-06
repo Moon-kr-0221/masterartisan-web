@@ -106,6 +106,7 @@ function HeaderImage({ src, alt, isMobile }: { src: string; alt: string; isMobil
 }
 
 // ─── SVG Dial ───────────────────────────────────────────────────────────────
+// 📍 Pencil Node: HTqA9 (RotatingRing) + SWJ7y (FixedLayer)
 interface DialProps {
   eras: HistoryEraGroup[];
   activeIdx: number;
@@ -138,6 +139,7 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
       ))}
 
       {/* ── ROTATING MARKERS (scroll-linked) — 눈금만 회전, 년도 라벨은 제자리 고정 ── */}
+      {/* 📍 Pencil: HTqA9 (RotatingRing) */}
       <g ref={groupRef} style={{ transformOrigin: `${CX}px ${CY}px` }}>
         {/* Fine tick marks — 시대(TOTAL)의 배수로 두어 major 눈금이 시 마커와 정확히 겹치게 */}
         {Array.from({ length: TOTAL * 6 }).map((_, i) => {
@@ -190,6 +192,7 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
       })}
 
       {/* ══ FIXED ELEMENTS — never rotate ══════════════════════════════ */}
+      {/* 📍 Pencil: SWJ7y (FixedLayer) */}
 
       {/* Fixed clock hand: always points straight UP (12 o'clock) */}
       <line
@@ -616,43 +619,6 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
         {/* ── LEFT: scrollable — 모바일 100%, 데스크탑 58% ─────────────────── */}
         <div ref={leftRef} style={{ width: isMobile ? '100%' : '58%', borderRight: isMobile ? 'none' : `1px solid ${C.hairline}` }}>
 
-          {/* Hero */}
-          <div style={{ padding: isMobile ? '64px 24px 48px' : '88px 64px 72px', borderBottom: `1px solid ${C.hairline}` }}>
-            <BlurReveal>
-              <p style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
-                letterSpacing: '0.4em', color: C.accent, marginBottom: '28px' }}>
-                HISTORY
-              </p>
-            </BlurReveal>
-            <BlurReveal delay={0.08}>
-              <h1 style={{ fontFamily: "'Noto Serif KR', serif",
-                fontSize: isMobile ? '34px' : 'clamp(48px, 6vw, 88px)',
-                fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.04em',
-                color: C.ink, marginBottom: '32px' }}>
-                90여 년의<br />장인 이야기
-              </h1>
-            </BlurReveal>
-            <BlurReveal delay={0.16}>
-              <p style={{ fontFamily: "'Noto Sans KR'", fontSize: '13px',
-                color: C.muted, lineHeight: 1.9, maxWidth: '380px', fontWeight: 300 }}>
-                전통 한옥 건축의 길을 묵묵히 걸어온 90년의 기록.<br />
-                한 땀 한 땀 새긴 시간들이 오늘의 마스터아티잔을 만들었습니다.
-              </p>
-            </BlurReveal>
-            <BlurReveal delay={0.24}>
-              <div style={{ display: 'flex', gap: '48px', marginTop: '48px' }}>
-                {[['90+', '년간 활동'], ['70+', '완공 프로젝트'], ['3', '대를 이은 기술']].map(([n, l]) => (
-                  <div key={l}>
-                    <div style={{ fontFamily: "'Noto Serif KR', serif",
-                      fontSize: '36px', fontWeight: 300,
-                      letterSpacing: '-0.02em', color: C.ink, lineHeight: 1 }}>{n}</div>
-                    <div style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
-                      letterSpacing: '0.12em', color: C.muted, marginTop: '6px' }}>{l}</div>
-                  </div>
-                ))}
-              </div>
-            </BlurReveal>
-          </div>
 
           {/* Era sections */}
           {ERAS.map((era, i) => (
