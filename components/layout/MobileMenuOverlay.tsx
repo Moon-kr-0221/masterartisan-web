@@ -72,12 +72,12 @@ export default function MobileMenuOverlay({ open, onClose }: Props) {
             <Link
               href={link.href}
               onClick={onClose}
-              style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '24px 0', textDecoration: 'none' }}
+              style={{ display: 'flex', alignItems: 'flex-start', gap: 8, padding: '24px 0', textDecoration: 'none' }}
             >
               <span style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, color: C.canvas }}>
                 {link.label}
               </span>
-              <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.gold }}>
+              <span style={{ fontFamily: SANS, fontSize: 10, fontWeight: 400, letterSpacing: 2, lineHeight: 1, color: C.gold }}>
                 {link.num}
               </span>
             </Link>

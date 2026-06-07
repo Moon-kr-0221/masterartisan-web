@@ -2014,7 +2014,7 @@
           "width": 390,
           "fill": "#FFFFFF",
           "layout": "vertical",
-          "gap": 48,
+          "gap": 40,
           "padding": [
             48,
             24,
@@ -2065,7 +2065,7 @@
                       "fill": "#AAAAAA",
                       "content": "유지보수 · 2022",
                       "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
+                      "fontSize": 10,
                       "fontWeight": "normal",
                       "letterSpacing": 1
                     },
@@ -2076,7 +2076,7 @@
                       "fill": "#1A1A1A",
                       "content": "수원 사찰 대웅전 보수",
                       "fontFamily": "Noto Serif KR",
-                      "fontSize": 20,
+                      "fontSize": 18,
                       "fontWeight": "300"
                     }
                   ]
@@ -2126,7 +2126,7 @@
                       "fill": "#AAAAAA",
                       "content": "수리 · 2021",
                       "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
+                      "fontSize": 10,
                       "fontWeight": "normal",
                       "letterSpacing": 1
                     },
@@ -2137,7 +2137,7 @@
                       "fill": "#1A1A1A",
                       "content": "용인 전통 가옥 수리",
                       "fontFamily": "Noto Serif KR",
-                      "fontSize": 20,
+                      "fontSize": 18,
                       "fontWeight": "300"
                     }
                   ]
@@ -2187,7 +2187,7 @@
                       "fill": "#AAAAAA",
                       "content": "제작 · 2023",
                       "fontFamily": "Noto Sans KR",
-                      "fontSize": 9,
+                      "fontSize": 10,
                       "fontWeight": "normal",
                       "letterSpacing": 1
                     },
@@ -2198,7 +2198,7 @@
                       "fill": "#1A1A1A",
                       "content": "전통 문짝 제작",
                       "fontFamily": "Noto Serif KR",
-                      "fontSize": 20,
+                      "fontSize": 18,
                       "fontWeight": "300"
                     }
                   ]
@@ -2226,7 +2226,7 @@
                   "id": "HrUKC",
                   "name": "L",
                   "fill": "#1A1A1A",
-                  "content": "더 보기",
+                  "content": "작업 더 보기",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 12,
                   "fontWeight": "normal",
@@ -2252,7 +2252,7 @@
       "name": "M · HISTORY",
       "clip": true,
       "width": 390,
-      "height": 3573,
+      "height": 3563,
       "fill": "#F8F5F0",
       "layout": "vertical",
       "children": [
@@ -2297,7 +2297,7 @@
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 12,
                   "fontWeight": "normal",
-                  "letterSpacing": 4
+                  "letterSpacing": 3.8
                 },
                 {
                   "type": "text",
@@ -2865,7 +2865,7 @@
           "strokeAlignment": "inner",
           "layout": "vertical",
           "padding": [
-            48,
+            56,
             24
           ],
           "children": [
@@ -3216,7 +3216,7 @@
           "strokeAlignment": "inner",
           "layout": "vertical",
           "padding": [
-            48,
+            56,
             24
           ],
           "children": [
@@ -4290,6 +4290,7 @@
               "type": "frame",
               "id": "O2cjah",
               "name": "Label",
+              "width": "fill_container",
               "layout": "vertical",
               "gap": 10,
               "children": [
@@ -4298,6 +4299,8 @@
                   "id": "JWtxC",
                   "name": "L",
                   "fill": "#AAAAAA",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
                   "content": "BRAND PHILOSOPHY",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 10,
@@ -4310,13 +4313,14 @@
                   "name": "Statement",
                   "fill": "#1A1A1A",
                   "textGrowth": "fixed-width",
-                  "width": 342,
-                  "content": "나무의 결을 읽고, 세월의 흔적을 존중하며, 전통의 기술로 미래를 짓습니다.",
+                  "width": "fill_container",
+                  "content": "나무의 결을 읽고,\n세월의 흔적을 존중하며,\n전통의 기술로 미래를 짓습니다.",
                   "lineHeight": 1.5,
                   "textAlignVertical": "middle",
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 24,
-                  "fontWeight": "300"
+                  "fontWeight": "300",
+                  "letterSpacing": -1
                 }
               ]
             },
@@ -4580,6 +4584,7 @@
               "type": "frame",
               "id": "e4qtdR",
               "name": "Head",
+              "width": "fill_container",
               "layout": "vertical",
               "gap": 10,
               "children": [
@@ -4588,6 +4593,8 @@
                   "id": "b3jGb",
                   "name": "Label",
                   "fill": "#AAAAAA",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
                   "content": "WHY MASTERARTISAN",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 10,
@@ -4600,7 +4607,7 @@
                   "name": "Title",
                   "fill": "#1A1A1A",
                   "textGrowth": "fixed-width",
-                  "width": 342,
+                  "width": "fill_container",
                   "content": "시간이 빚어낸\n가치를 짓습니다",
                   "lineHeight": 1.5,
                   "fontFamily": "Noto Serif KR",
@@ -4613,9 +4620,10 @@
                   "name": "Desc",
                   "fill": "#999999",
                   "textGrowth": "fixed-width",
-                  "width": 342,
-                  "content": "1960년대부터 3대에 걸쳐 이어온 전통건축 기술. 수백 개의 문화재 복원 프로젝트가 우리의 실력을 말합니다.",
+                  "width": "fill_container",
+                  "content": "1960년대부터 3대에 걸쳐 이어온 전통건축 기술. \n수백 개의 문화재 복원 프로젝트가 우리의 실력을 말합니다.",
                   "lineHeight": 1.5,
+                  "textAlignVertical": "middle",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 14,
                   "fontWeight": "normal"
@@ -4647,25 +4655,70 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "text",
-                      "id": "ceJaF",
-                      "name": "Num",
-                      "fill": "#1A1A1A",
-                      "content": "3대",
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 36,
-                      "fontWeight": "300"
+                      "type": "group",
+                      "id": "C23yFr",
+                      "name": "NumGroup_장인 계승",
+                      "layout": "horizontal",
+                      "gap": 5,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ceJaF",
+                          "name": "Num",
+                          "fill": "#1A1A1A",
+                          "content": "3",
+                          "fontFamily": "Noto Serif KR",
+                          "fontSize": 36,
+                          "fontWeight": "300"
+                        },
+                        {
+                          "type": "text",
+                          "id": "qv73d",
+                          "name": "Num",
+                          "fill": "#aaaaaa",
+                          "content": "代",
+                          "fontFamily": "Noto Serif KR",
+                          "fontSize": 20,
+                          "fontWeight": "300"
+                        }
+                      ]
                     },
                     {
-                      "type": "text",
-                      "id": "vbLSg",
-                      "name": "Lbl",
-                      "fill": "#999999",
-                      "content": "장인 계승",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 12,
-                      "fontWeight": "normal",
-                      "letterSpacing": 1
+                      "type": "frame",
+                      "id": "J6c4Q",
+                      "name": "Info_장인 계승",
+                      "width": "fill_container",
+                      "height": 45,
+                      "layout": "vertical",
+                      "gap": 2,
+                      "justifyContent": "center",
+                      "alignItems": "end",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ZtGNe",
+                          "name": "ILabel_장인 계승",
+                          "fill": "#1A1A1A",
+                          "content": "장인 계승",
+                          "fontFamily": "Noto Sans KR",
+                          "fontSize": 14,
+                          "fontWeight": "normal",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "text",
+                          "id": "R7Z2Dn",
+                          "name": "IDesc_장인 계승",
+                          "fill": "#AAAAAA",
+                          "content": "초대 → 이대 → 삼대, 끊어지지 않은 기술의 계보",
+                          "lineHeight": 1.5,
+                          "textAlignVertical": "middle",
+                          "fontFamily": "Noto Sans KR",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
                     }
                   ]
                 },
@@ -4687,25 +4740,70 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "text",
-                      "id": "cCjag",
-                      "name": "Num",
-                      "fill": "#1A1A1A",
-                      "content": "90+",
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 36,
-                      "fontWeight": "300"
+                      "type": "group",
+                      "id": "tUdi3",
+                      "name": "NumGroup_년의 경험",
+                      "layout": "horizontal",
+                      "gap": 5,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "c6Jij",
+                          "name": "Num",
+                          "fill": "#1A1A1A",
+                          "content": "90",
+                          "fontFamily": "Noto Serif KR",
+                          "fontSize": 36,
+                          "fontWeight": "300"
+                        },
+                        {
+                          "type": "text",
+                          "id": "Fwgsh",
+                          "name": "Num",
+                          "fill": "#aaaaaa",
+                          "content": "+",
+                          "fontFamily": "Noto Serif KR",
+                          "fontSize": 20,
+                          "fontWeight": "300"
+                        }
+                      ]
                     },
                     {
-                      "type": "text",
-                      "id": "h91vk",
-                      "name": "Lbl",
-                      "fill": "#999999",
-                      "content": "년의 경험",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 12,
-                      "fontWeight": "normal",
-                      "letterSpacing": 1
+                      "type": "frame",
+                      "id": "Bp46g",
+                      "name": "Info_년의 경험",
+                      "width": "fill_container",
+                      "height": 45,
+                      "layout": "vertical",
+                      "gap": 2,
+                      "justifyContent": "center",
+                      "alignItems": "end",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "dOEWW",
+                          "name": "ILabel_장인 계승",
+                          "fill": "#1A1A1A",
+                          "content": "년의 경험",
+                          "fontFamily": "Noto Sans KR",
+                          "fontSize": 14,
+                          "fontWeight": "normal",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "text",
+                          "id": "Vt619",
+                          "name": "IDesc_장인 계승",
+                          "fill": "#AAAAAA",
+                          "content": "1936년 창업 이래 현재까지 이어온 전통건축 외길",
+                          "lineHeight": 1.5,
+                          "textAlignVertical": "middle",
+                          "fontFamily": "Noto Sans KR",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
                     }
                   ]
                 },
@@ -4727,25 +4825,70 @@
                   "alignItems": "center",
                   "children": [
                     {
-                      "type": "text",
-                      "id": "PdN2E",
-                      "name": "Num",
-                      "fill": "#1A1A1A",
-                      "content": "제36호",
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 36,
-                      "fontWeight": "300"
+                      "type": "group",
+                      "id": "b954vY",
+                      "name": "NumGroup_경기무형문화재",
+                      "layout": "horizontal",
+                      "gap": 5,
+                      "alignItems": "center",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "I9kedk",
+                          "name": "Num",
+                          "fill": "#1A1A1A",
+                          "content": "36",
+                          "fontFamily": "Noto Serif KR",
+                          "fontSize": 36,
+                          "fontWeight": "300"
+                        },
+                        {
+                          "type": "text",
+                          "id": "MFm0E",
+                          "name": "Num",
+                          "fill": "#aaaaaa",
+                          "content": "호",
+                          "fontFamily": "Noto Serif KR",
+                          "fontSize": 20,
+                          "fontWeight": "300"
+                        }
+                      ]
                     },
                     {
-                      "type": "text",
-                      "id": "MncLP",
-                      "name": "Lbl",
-                      "fill": "#999999",
-                      "content": "경기무형문화재",
-                      "fontFamily": "Noto Sans KR",
-                      "fontSize": 12,
-                      "fontWeight": "normal",
-                      "letterSpacing": 1
+                      "type": "frame",
+                      "id": "djUx3",
+                      "name": "Info_경기무형문화재",
+                      "width": "fill_container",
+                      "height": 45,
+                      "layout": "vertical",
+                      "gap": 2,
+                      "justifyContent": "center",
+                      "alignItems": "end",
+                      "children": [
+                        {
+                          "type": "text",
+                          "id": "ipa3S",
+                          "name": "ILabel_장인 계승",
+                          "fill": "#1A1A1A",
+                          "content": "경기무형문화재",
+                          "fontFamily": "Noto Sans KR",
+                          "fontSize": 14,
+                          "fontWeight": "normal",
+                          "letterSpacing": 2
+                        },
+                        {
+                          "type": "text",
+                          "id": "K0dBEB",
+                          "name": "IDesc_장인 계승",
+                          "fill": "#AAAAAA",
+                          "content": "국가가 공인한 전통건축 기술 보유자",
+                          "lineHeight": 1.5,
+                          "textAlignVertical": "middle",
+                          "fontFamily": "Noto Sans KR",
+                          "fontSize": 11,
+                          "fontWeight": "normal"
+                        }
+                      ]
                     }
                   ]
                 }
@@ -5120,6 +5263,7 @@
               "type": "frame",
               "id": "d6884",
               "name": "Text",
+              "width": "fill_container",
               "layout": "vertical",
               "gap": 10,
               "children": [
@@ -5128,7 +5272,10 @@
                   "id": "v1L9A",
                   "name": "Label",
                   "fill": "#ffffff4d",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
                   "content": "THE PROCESS",
+                  "textAlignVertical": "middle",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 10,
                   "fontWeight": "normal",
@@ -5139,7 +5286,10 @@
                   "id": "S4Cy0w",
                   "name": "Title",
                   "fill": "#FFFFFF",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
                   "content": "장인의 혼을 담아",
+                  "textAlignVertical": "middle",
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 32,
                   "fontWeight": "300"
@@ -5150,9 +5300,10 @@
                   "name": "Desc",
                   "fill": "#ffffff73",
                   "textGrowth": "fixed-width",
-                  "width": 342,
-                  "content": "나무를 선별하고, 결을 읽고, 깎고 이어 붙이는 모든 과정. 3대 장인의 손끝에서 전통건축의 혼이 담깁니다.",
+                  "width": "fill_container",
+                  "content": "나무를 선별하고, 결을 읽고, 깎고 이어 붙이는\n모든 과정. 3대 장인의 손끝에서 전통건축의 혼이 담깁니다.",
                   "lineHeight": 1.5,
+                  "textAlignVertical": "middle",
                   "fontFamily": "Noto Sans KR",
                   "fontSize": 14,
                   "fontWeight": "normal"
@@ -5436,17 +5587,21 @@
               "type": "frame",
               "id": "U0Q3Aq",
               "name": "Text",
+              "width": "fill_container",
               "layout": "vertical",
-              "gap": 10,
+              "gap": 12,
               "children": [
                 {
                   "type": "text",
                   "id": "JyHeZ",
                   "name": "Label",
                   "fill": "#ffffff4d",
+                  "textGrowth": "fixed-width",
+                  "width": "fill_container",
                   "content": "START YOUR PROJECT",
+                  "textAlignVertical": "middle",
                   "fontFamily": "Noto Sans KR",
-                  "fontSize": 10,
+                  "fontSize": 9,
                   "fontWeight": "normal",
                   "letterSpacing": 4
                 },
@@ -5456,11 +5611,12 @@
                   "name": "Title",
                   "fill": "#FFFFFF",
                   "textGrowth": "fixed-width",
-                  "width": 342,
+                  "width": "fill_container",
                   "content": "전통의 가치를\n함께 짓겠습니다",
                   "lineHeight": 1.5,
+                  "textAlignVertical": "middle",
                   "fontFamily": "Noto Serif KR",
-                  "fontSize": 32,
+                  "fontSize": 30,
                   "fontWeight": "300"
                 }
               ]
@@ -11648,7 +11804,7 @@
                       "textGrowth": "fixed-width",
                       "width": 400,
                       "content": "시간이 빚어낸\n가치를 짓습니다",
-                      "lineHeight": 1.3076923076923077,
+                      "lineHeight": 1.5,
                       "fontFamily": "Noto Serif KR",
                       "fontSize": 52,
                       "fontWeight": "300",
@@ -11662,7 +11818,7 @@
                       "textGrowth": "fixed-width",
                       "width": 400,
                       "content": "1936년부터 3대에 걸쳐 이어온 전통건축 기술.\n수많은 문화재 복원 프로젝트가 우리의 실력을 말해줍니다.",
-                      "lineHeight": 1.9,
+                      "lineHeight": 1.5,
                       "fontFamily": "Noto Sans KR",
                       "fontSize": 14,
                       "fontWeight": "normal"
@@ -11694,12 +11850,14 @@
                     48,
                     52
                   ],
+                  "alignItems": "center",
                   "children": [
                     {
                       "type": "frame",
                       "id": "Vz6Mr",
                       "name": "NumGroup_장인 계승",
                       "width": 180,
+                      "gap": 5,
                       "alignItems": "end",
                       "children": [
                         {
@@ -11721,6 +11879,7 @@
                           "fill": "#AAAAAA",
                           "content": "代",
                           "lineHeight": 1.6,
+                          "textAlignVertical": "bottom",
                           "fontFamily": "Noto Serif KR",
                           "fontSize": 32,
                           "fontWeight": "300"
@@ -11740,6 +11899,7 @@
                         0,
                         48
                       ],
+                      "justifyContent": "center",
                       "children": [
                         {
                           "type": "text",
@@ -11748,8 +11908,8 @@
                           "fill": "#1A1A1A",
                           "content": "장인 계승",
                           "fontFamily": "Noto Sans KR",
-                          "fontSize": 10,
-                          "fontWeight": "700",
+                          "fontSize": 14,
+                          "fontWeight": "normal",
                           "letterSpacing": 2
                         },
                         {
@@ -11784,12 +11944,14 @@
                     48,
                     52
                   ],
+                  "alignItems": "center",
                   "children": [
                     {
                       "type": "frame",
                       "id": "p9t8v",
                       "name": "NumGroup_년의 경험",
                       "width": 180,
+                      "gap": 5,
                       "alignItems": "end",
                       "children": [
                         {
@@ -11811,6 +11973,7 @@
                           "fill": "#AAAAAA",
                           "content": "+",
                           "lineHeight": 1.6,
+                          "textAlignVertical": "bottom",
                           "fontFamily": "Noto Serif KR",
                           "fontSize": 32,
                           "fontWeight": "300"
@@ -11830,6 +11993,7 @@
                         0,
                         48
                       ],
+                      "justifyContent": "center",
                       "children": [
                         {
                           "type": "text",
@@ -11838,8 +12002,8 @@
                           "fill": "#1A1A1A",
                           "content": "년의 경험",
                           "fontFamily": "Noto Sans KR",
-                          "fontSize": 10,
-                          "fontWeight": "700",
+                          "fontSize": 14,
+                          "fontWeight": "normal",
                           "letterSpacing": 2
                         },
                         {
@@ -11874,12 +12038,14 @@
                     48,
                     52
                   ],
+                  "alignItems": "center",
                   "children": [
                     {
                       "type": "frame",
                       "id": "VUVub",
                       "name": "NumGroup_경기무형문화재",
                       "width": 180,
+                      "gap": 5,
                       "alignItems": "end",
                       "children": [
                         {
@@ -11901,6 +12067,7 @@
                           "fill": "#AAAAAA",
                           "content": "호",
                           "lineHeight": 1.6,
+                          "textAlignVertical": "bottom",
                           "fontFamily": "Noto Serif KR",
                           "fontSize": 32,
                           "fontWeight": "300"
@@ -11920,6 +12087,7 @@
                         0,
                         48
                       ],
+                      "justifyContent": "center",
                       "children": [
                         {
                           "type": "text",
@@ -11928,8 +12096,8 @@
                           "fill": "#1A1A1A",
                           "content": "경기무형문화재",
                           "fontFamily": "Noto Sans KR",
-                          "fontSize": 10,
-                          "fontWeight": "700",
+                          "fontSize": 14,
+                          "fontWeight": "normal",
                           "letterSpacing": 2
                         },
                         {
@@ -12939,6 +13107,51 @@
     },
     {
       "type": "frame",
+      "id": "MaOi1",
+      "x": 2392,
+      "y": 6014,
+      "name": "M/GNB Header",
+      "reusable": true,
+      "width": 390,
+      "height": 56,
+      "fill": "#FFFFFF",
+      "stroke": "#E8E8E8",
+      "strokeWidth": {
+        "bottom": 1
+      },
+      "strokeAlignment": "inner",
+      "padding": [
+        0,
+        24
+      ],
+      "justifyContent": "space_between",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "KTLCX",
+          "name": "Logo",
+          "fill": "#1A1A1A",
+          "content": "MASTERARTISAN",
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 13,
+          "fontWeight": "700",
+          "letterSpacing": 2
+        },
+        {
+          "type": "icon",
+          "id": "QVaQ4",
+          "name": "Hamburger",
+          "width": 24,
+          "height": 24,
+          "icon": "menu",
+          "library": "lucide",
+          "fill": "#1A1A1A"
+        }
+      ]
+    },
+    {
+      "type": "frame",
       "id": "uNs3e",
       "x": 2392,
       "y": 6206,
@@ -13404,51 +13617,6 @@
           "fontFamily": "Noto Sans KR",
           "fontSize": 10,
           "fontWeight": "normal"
-        }
-      ]
-    },
-    {
-      "type": "frame",
-      "id": "MaOi1",
-      "x": 2392,
-      "y": 6014,
-      "name": "M/GNB Header",
-      "reusable": true,
-      "width": 390,
-      "height": 56,
-      "fill": "#FFFFFF",
-      "stroke": "#E8E8E8",
-      "strokeWidth": {
-        "bottom": 1
-      },
-      "strokeAlignment": "inner",
-      "padding": [
-        0,
-        24
-      ],
-      "justifyContent": "space_between",
-      "alignItems": "center",
-      "children": [
-        {
-          "type": "text",
-          "id": "KTLCX",
-          "name": "Logo",
-          "fill": "#1A1A1A",
-          "content": "MASTERARTISAN",
-          "fontFamily": "Noto Sans KR",
-          "fontSize": 13,
-          "fontWeight": "700",
-          "letterSpacing": 2
-        },
-        {
-          "type": "icon",
-          "id": "QVaQ4",
-          "name": "Hamburger",
-          "width": 24,
-          "height": 24,
-          "icon": "menu",
-          "library": "lucide",
-          "fill": "#1A1A1A"
         }
       ]
     }

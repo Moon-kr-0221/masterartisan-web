@@ -25,7 +25,7 @@ export default function ProcessSection() {
       {/* ── 데스크탑 — d933990 완전 동일 ── */}
       <section className="hidden md:flex" style={{ height: '600px' }}>
         <motion.div className="flex flex-col"
-          style={{ width: '480px', flexShrink: 0, backgroundColor: '#111111', padding: '60px 50px 124px 50px', gap: '28px' }}
+          style={{ width: '480px', flexShrink: 0, backgroundColor: '#111111', padding: '60px 50px 59px 50px', gap: '28px' }}
           initial={{ opacity: 0, x: -24 }} whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }} viewport={{ once: true, margin: '-60px' }}>
           <span style={{ fontFamily: SANS, fontSize: '9px', color: 'rgba(255,255,255,0.3)', letterSpacing: '4px', textTransform: 'uppercase' }}>THE PROCESS</span>
@@ -55,11 +55,11 @@ export default function ProcessSection() {
       {/* ── 모바일 — Pencil Ca5JX·C8GhxQ / d933990 mobile ── */}
       {/* #111111, padding [64,24], gap 32 */}
       <section className="md:hidden flex flex-col" style={{ backgroundColor: '#111111', padding: '64px 24px', gap: 32 }}>
-        <div className="flex flex-col" style={{ gap: 16 }}>
-          <span style={{ fontFamily: SANS, fontSize: 9, letterSpacing: 4, color: 'rgba(255,255,255,0.3)' }}>THE PROCESS</span>
-          <h2 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#FFFFFF' }}>장인의 혼을 담아</h2>
-          <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.45)' }}>
-            나무를 선별하고, 결을 읽고, 깎고 이어 붙이는 모든 과정. 3대 장인의 손끝에서 전통건축의 혼이 담깁니다.
+        <div className="flex flex-col" style={{ gap: 10 }}>
+          <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: 'rgba(255,255,255,0.3)' }}>THE PROCESS</span>
+          <h2 style={{ fontFamily: SERIF, fontSize: 32, fontWeight: 300, color: '#FFFFFF' }}>장인의 혼을 담아</h2>
+          <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.5, color: 'rgba(255,255,255,0.45)' }}>
+            나무를 선별하고, 결을 읽고, 깎고 이어 붙이는<br />모든 과정. 3대 장인의 손끝에서 전통건축의 혼이 담깁니다.
           </p>
         </div>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
