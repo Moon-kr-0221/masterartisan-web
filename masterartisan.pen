@@ -13619,6 +13619,401 @@
           "fontWeight": "normal"
         }
       ]
+    },
+    {
+      "type": "frame",
+      "id": "aZEm6",
+      "x": 0,
+      "y": 10477,
+      "name": "Loading — Desktop",
+      "clip": true,
+      "width": 1440,
+      "height": 900,
+      "fill": "#0D0C0A",
+      "layout": "vertical",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "frame",
+          "id": "RQAB6",
+          "name": "Center",
+          "width": 600,
+          "layout": "vertical",
+          "gap": 32,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "text",
+              "id": "BftZF",
+              "name": "EyebrowLabel",
+              "fill": "#FFFFFF40",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "경기무형문화재 제36호",
+              "textAlign": "center",
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 11,
+              "fontWeight": "normal",
+              "letterSpacing": 4
+            },
+            {
+              "type": "text",
+              "id": "pr2xD",
+              "name": "Wordmark",
+              "fill": "#FFFFFF",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "MASTERARTISAN",
+              "textAlign": "center",
+              "fontFamily": "Noto Sans KR",
+              "fontSize": 32,
+              "fontWeight": "700",
+              "letterSpacing": 10
+            },
+            {
+              "type": "text",
+              "id": "oH7M3",
+              "name": "Sub",
+              "fill": "#FFFFFF59",
+              "textGrowth": "fixed-width",
+              "width": "fill_container",
+              "content": "전통의 기술로 미래를 짓습니다",
+              "textAlign": "center",
+              "fontFamily": "Noto Serif KR",
+              "fontSize": 16,
+              "fontWeight": "300",
+              "letterSpacing": 1
+            },
+            {
+              "type": "frame",
+              "id": "tGWI9",
+              "name": "ProgressWrap",
+              "width": "fill_container",
+              "layout": "vertical",
+              "gap": 16,
+              "alignItems": "center",
+              "children": [
+                {
+                  "type": "frame",
+                  "id": "ZwnyT",
+                  "name": "Track",
+                  "width": "fill_container",
+                  "height": 1,
+                  "fill": "#FFFFFF1A"
+                },
+                {
+                  "type": "frame",
+                  "id": "EJr95",
+                  "layoutPosition": "absolute",
+                  "x": 0,
+                  "y": 0,
+                  "name": "Bar",
+                  "width": 180,
+                  "height": 1,
+                  "fill": "#FFFFFF80"
+                },
+                {
+                  "type": "frame",
+                  "id": "WHsQL",
+                  "name": "Dots",
+                  "gap": 6,
+                  "alignItems": "center",
+                  "children": [
+                    {
+                      "type": "ellipse",
+                      "id": "POmW6",
+                      "name": "Dot1",
+                      "fill": "#FFFFFF99",
+                      "width": 3,
+                      "height": 3
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "xVW09",
+                      "name": "Dot2",
+                      "fill": "#FFFFFF30",
+                      "width": 3,
+                      "height": 3
+                    },
+                    {
+                      "type": "ellipse",
+                      "id": "flA3r",
+                      "name": "Dot3",
+                      "fill": "#FFFFFF30",
+                      "width": 3,
+                      "height": 3
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "cKAim",
+      "x": 2902,
+      "y": 6014,
+      "name": "Loading — Desktop",
+      "width": 1440,
+      "height": 900,
+      "fill": "#0D0C0A",
+      "layout": "vertical",
+      "gap": 32,
+      "padding": [
+        300,
+        0,
+        0,
+        0
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "xa4gH",
+          "name": "Eyebrow",
+          "fill": "#FFFFFF66",
+          "content": "경기무형문화재 제36호",
+          "textAlign": "center",
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 11,
+          "fontWeight": "normal",
+          "letterSpacing": 4
+        },
+        {
+          "type": "text",
+          "id": "Q8lqq",
+          "name": "Wordmark",
+          "fill": "#FFFFFF",
+          "content": "MASTERARTISAN",
+          "textAlign": "center",
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 40,
+          "fontWeight": "700",
+          "letterSpacing": 8
+        },
+        {
+          "type": "text",
+          "id": "j95veD",
+          "name": "Sub",
+          "fill": "#FFFFFF66",
+          "content": "전통의 기술로 미래를 짓습니다",
+          "textAlign": "center",
+          "fontFamily": "Noto Serif KR",
+          "fontSize": 16,
+          "fontWeight": "300",
+          "letterSpacing": 2
+        },
+        {
+          "type": "frame",
+          "id": "fgOp6",
+          "name": "TrackWrap",
+          "width": 200,
+          "height": 8,
+          "layout": "none",
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "e64vpG",
+              "x": 0,
+              "y": 3,
+              "name": "TrackBg",
+              "fill": "#FFFFFF1A",
+              "width": 200,
+              "height": 1
+            },
+            {
+              "type": "rectangle",
+              "id": "oCNG5",
+              "x": 0,
+              "y": 3,
+              "name": "TrackFill",
+              "fill": "#FFFFFF80",
+              "width": 60,
+              "height": 1
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "k9EkFO",
+          "name": "Dots",
+          "gap": 8,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "LwObs",
+              "name": "Dot1",
+              "fill": "#FFFFFF",
+              "width": 5,
+              "height": 5
+            },
+            {
+              "type": "ellipse",
+              "id": "jBt6N",
+              "name": "Dot2",
+              "fill": "#FFFFFF40",
+              "width": 5,
+              "height": 5
+            },
+            {
+              "type": "ellipse",
+              "id": "jGAQM",
+              "name": "Dot3",
+              "fill": "#FFFFFF40",
+              "width": 5,
+              "height": 5
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "f8eIi8",
+          "layoutPosition": "absolute",
+          "x": 720,
+          "y": 260,
+          "name": "TopLine",
+          "fill": "#FFFFFF20",
+          "width": 1,
+          "height": 40
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "tUtDX",
+      "x": 4422,
+      "y": 6014,
+      "name": "M · Loading",
+      "width": 390,
+      "height": 844,
+      "fill": "#0D0C0A",
+      "layout": "vertical",
+      "gap": 20,
+      "padding": [
+        340,
+        24,
+        0,
+        24
+      ],
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "gDls3",
+          "name": "Eyebrow",
+          "fill": "#FFFFFF66",
+          "content": "경기무형문화재 제36호",
+          "textAlign": "center",
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 9,
+          "fontWeight": "normal",
+          "letterSpacing": 3
+        },
+        {
+          "type": "text",
+          "id": "z5ykn",
+          "name": "Wordmark",
+          "fill": "#FFFFFF",
+          "content": "MASTERARTISAN",
+          "textAlign": "center",
+          "fontFamily": "Noto Sans KR",
+          "fontSize": 22,
+          "fontWeight": "700",
+          "letterSpacing": 6
+        },
+        {
+          "type": "text",
+          "id": "a2uB2j",
+          "name": "Sub",
+          "fill": "#FFFFFF66",
+          "content": "전통의 기술로 미래를 짓습니다",
+          "textAlign": "center",
+          "fontFamily": "Noto Serif KR",
+          "fontSize": 13,
+          "fontWeight": "300",
+          "letterSpacing": 2
+        },
+        {
+          "type": "frame",
+          "id": "aqloo",
+          "name": "TrackWrap",
+          "width": 160,
+          "height": 8,
+          "layout": "none",
+          "children": [
+            {
+              "type": "rectangle",
+              "id": "ARMbb",
+              "x": 0,
+              "y": 3,
+              "name": "TrackBg",
+              "fill": "#FFFFFF1A",
+              "width": 160,
+              "height": 1
+            },
+            {
+              "type": "rectangle",
+              "id": "AbGOt",
+              "x": 0,
+              "y": 3,
+              "name": "TrackFill",
+              "fill": "#FFFFFF80",
+              "width": 50,
+              "height": 1
+            }
+          ]
+        },
+        {
+          "type": "frame",
+          "id": "BEIVN",
+          "name": "Dots",
+          "gap": 8,
+          "alignItems": "center",
+          "children": [
+            {
+              "type": "ellipse",
+              "id": "VtbcE",
+              "name": "Dot1",
+              "fill": "#FFFFFF",
+              "width": 5,
+              "height": 5
+            },
+            {
+              "type": "ellipse",
+              "id": "btbtf",
+              "name": "Dot2",
+              "fill": "#FFFFFF40",
+              "width": 5,
+              "height": 5
+            },
+            {
+              "type": "ellipse",
+              "id": "OFrlV",
+              "name": "Dot3",
+              "fill": "#FFFFFF40",
+              "width": 5,
+              "height": 5
+            }
+          ]
+        },
+        {
+          "type": "rectangle",
+          "id": "Q5TSP",
+          "layoutPosition": "absolute",
+          "x": 720,
+          "y": 260,
+          "name": "TopLine",
+          "enabled": false,
+          "fill": "#FFFFFF20",
+          "width": 1,
+          "height": 40
+        }
+      ]
     }
   ],
   "variables": {
