@@ -7,20 +7,25 @@ import WorksGrid       from '@/components/home/WorksGrid';
 import ProcessSection  from '@/components/home/ProcessSection';
 import CtaSection      from '@/components/home/CtaSection';
 import PageIntro       from '@/components/home/PageIntro';
-import { getHomeFeatured } from '@/lib/data/queries';
+import { getHomeFeatured, getProcessImages, getHeroSlides, getContrastImages } from '@/lib/data/queries';
 
 export default async function HomePage() {
-  const { random, pinned, pool } = await getHomeFeatured();
+  const [{ random, pinned, pool }, processImages, heroSlides, contrastImages] = await Promise.all([
+    getHomeFeatured(),
+    getProcessImages(),
+    getHeroSlides(),
+    getContrastImages(),
+  ]);
   return (
     <>
       <PageIntro />
-      <HeroSection />
+      <HeroSection slides={heroSlides} />
       <PhilosophyBand />
-      <ContrastSection />
+      <ContrastSection leftImage={contrastImages.left} rightImage={contrastImages.right} />
       <MarqueeBand />
       <HeritageStats />
       <WorksGrid items={pinned} pool={pool} random={random} />
-      <ProcessSection />
+      <ProcessSection images={processImages} />
       <CtaSection />
     </>
   );

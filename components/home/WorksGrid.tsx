@@ -1,9 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 
 import type { Transition, TargetAndTransition, VariantLabels } from 'framer-motion';
 
@@ -76,13 +75,79 @@ function shuffle<T>(arr: T[]): T[] {
   return a;
 }
 
+function WorkModal({ work, onClose }: { work: FeaturedWork; onClose: () => void }) {
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', handler);
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', handler);
+      document.body.style.overflow = '';
+    };
+  }, [onClose]);
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 9999,
+        backgroundColor: 'rgba(0,0,0,0.82)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '24px',
+      }}
+    >
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.97, y: 10 }}
+        transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: 'relative', backgroundColor: '#111',
+          width: '100%', maxWidth: 900,
+          maxHeight: '90vh', overflow: 'hidden',
+        }}
+      >
+        {/* 이미지 */}
+        <div style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden' }}>
+          <div style={{ position: 'absolute', inset: 0, backgroundImage: `url(${work.bg})`,
+            backgroundSize: 'cover', backgroundPosition: 'center' }} />
+          <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 50%)' }} />
+          {/* 텍스트 오버레이 */}
+          <div style={{ position: 'absolute', left: 40, bottom: 36 }}>
+            <p style={{ fontFamily: 'var(--font-sans)', fontSize: 11, letterSpacing: 3,
+              color: 'rgba(255,255,255,0.5)', marginBottom: 8 }}>{work.cat} · {work.year}</p>
+            <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: 'clamp(24px,4vw,36px)',
+              fontWeight: 300, color: '#FFFFFF', lineHeight: 1.3 }}>{work.title}</h3>
+          </div>
+        </div>
+        {/* 하단 액션 바 */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          padding: '16px 24px', backgroundColor: '#1A1A1A' }}>
+          <Link href={`/works?work=${encodeURIComponent(work.title)}`}
+            style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'rgba(255,255,255,0.6)',
+              letterSpacing: 1, textDecoration: 'none' }}>
+            작업사례 페이지에서 보기 →
+          </Link>
+          <button type="button" onClick={onClose}
+            style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: 'rgba(255,255,255,0.4)',
+              background: 'none', border: 'none', cursor: 'pointer', letterSpacing: 1 }}>
+            닫기
+          </button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function WorksGrid({ items, pool = [], random = false }: {
   items?: FeaturedWork[]; pool?: FeaturedWork[]; random?: boolean;
 }) {
-  // Random mode: server + first client render are deterministic (pool.slice) to
-  // avoid hydration mismatch; after mount we shuffle so each visit differs.
   const randomBase = pool.length > 0 ? pool : FALLBACK;
   const [picked, setPicked] = useState<FeaturedWork[] | null>(null);
+  const [selected, setSelected] = useState<FeaturedWork | null>(null);
   useEffect(() => {
     if (random) setPicked(shuffle(randomBase).slice(0, 3));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -91,20 +156,23 @@ export default function WorksGrid({ items, pool = [], random = false }: {
   const works = random
     ? (picked ?? randomBase.slice(0, 3))
     : (items && items.length > 0 ? items
-      : pool.length > 0 ? pool.slice(0, 3)   // 지정 대표작업이 없으면 실제 DB 작업으로 (상세 연결 동작)
+      : pool.length > 0 ? pool.slice(0, 3)
       : FALLBACK);
 
-  const router = useRouter();
-  const openWork = (title: string) => router.push(`/works?work=${encodeURIComponent(title)}`);
+  const openWork = (w: FeaturedWork) => setSelected(w);
   return (
     <>
+      <AnimatePresence>
+        {selected && <WorkModal work={selected} onClose={() => setSelected(null)} />}
+      </AnimatePresence>
+
       {/* ── 모바일 — Pencil Ca5JX·H6LqS / d933990 mobile ── */}
       {/* #FAFAF8, padding [64,0], gap 24 · 가로 스크롤 캐러셀 280×340 */}
       <section className="md:hidden flex flex-col" style={{ backgroundColor: '#FAFAF8', padding: '64px 0', gap: 24 }}>
         <div className="flex items-end justify-between" style={{ padding: '0 24px' }}>
           <div className="flex flex-col" style={{ gap: 6 }}>
-            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 9, letterSpacing: 4, color: '#AAAAAA' }}>OUR WORKS</span>
-            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 28, fontWeight: 300, color: '#1A1A1A' }}>작업 사례</h2>
+            <span style={{ fontFamily: 'var(--font-sans)', fontSize: 10, letterSpacing: 3, color: '#AAAAAA' }}>OUR WORKS</span>
+            <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 300, color: '#1A1A1A' }}>작업 사례</h2>
           </div>
           <Link href="/works" style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: '#999999' }}>전체 보기 →</Link>
         </div>
@@ -112,7 +180,7 @@ export default function WorksGrid({ items, pool = [], random = false }: {
           {works.map((w) => (
             <article key={w.title} className="relative shrink-0 overflow-hidden cursor-pointer"
               style={{ width: 280, height: 340, backgroundColor: w.color }}
-              onClick={() => openWork(w.title)}>
+              onClick={() => openWork(w)}>
               <div className="absolute inset-0 bg-cover bg-center" style={{ backgroundImage: `url(${w.bg})` }} />
               <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(0,0,0,0.67) 100%)' }} />
               <div className="absolute" style={{ left: 20, bottom: 24 }}>
@@ -179,7 +247,7 @@ export default function WorksGrid({ items, pool = [], random = false }: {
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           viewport={{ once: true, margin: '-60px' }}
-          onClick={() => openWork(works[0].title)}
+          onClick={() => openWork(works[0])}
         >
           <div
             className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.6s] ease-out group-hover:scale-[1.04]"
@@ -190,7 +258,7 @@ export default function WorksGrid({ items, pool = [], random = false }: {
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%)' }} />
           {/* 마우스 오버 시 밝아짐 */}
           <div className="absolute inset-0 bg-white opacity-0 transition-opacity duration-500 group-hover:opacity-[0.13]" />
-          <div className="absolute left-[36px]" style={{ bottom: '39px', transform: 'translateZ(20px)' }}>
+          <div className="absolute left-[36px]" style={{ bottom: '53px', transform: 'translateZ(20px)' }}>
             <p className="section-label mb-[6px]" style={{ color: 'rgba(255,255,255,0.55)', letterSpacing: '2px' }}>
               {works[0].cat} · {works[0].year}
             </p>
@@ -211,7 +279,7 @@ export default function WorksGrid({ items, pool = [], random = false }: {
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, delay: 0.12 + i * 0.1, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: true, margin: '-60px' }}
-              onClick={() => openWork(w.title)}
+              onClick={() => openWork(w)}
             >
               <div
                 className="absolute inset-0 bg-cover bg-center transition-transform duration-[1.6s] ease-out group-hover:scale-[1.06]"
