@@ -15,9 +15,10 @@ const btnBase: React.CSSProperties = {
   border: 'none', cursor: 'pointer', letterSpacing: '0.04em', borderRadius: 0,
 };
 
-export default function WorksManager({ works, updateWork, deleteWork, createWork, homeRandomAction, defaultHomeRandom }: {
+export default function WorksManager({ works, updateWork, deleteWork, createWork, homeRandomAction, defaultHomeRandom, orderModeAction, defaultOrderMode }: {
   works: Work[]; updateWork: Action; deleteWork: Action; createWork: Action;
   homeRandomAction: Action; defaultHomeRandom: boolean;
+  orderModeAction: Action; defaultOrderMode: 'fixed' | 'random';
 }) {
   const [featState, setFeatState] = useState<FeatState>(() =>
     Object.fromEntries(works.map((w) => [w.id, { featured: w.featured, order: w.featuredOrder }]))
@@ -202,7 +203,17 @@ export default function WorksManager({ works, updateWork, deleteWork, createWork
       <WorksList
         works={works} updateWork={updateWork} deleteWork={deleteWork}
         featState={featState}
-        onFeaturedChange={(id, v) => setFeatState((prev) => ({ ...prev, [id]: { ...prev[id], featured: v } }))}
+        orderModeAction={orderModeAction} defaultOrderMode={defaultOrderMode}
+        onFeaturedChange={(id, v) => setFeatState((prev) => {
+          if (!v) return { ...prev, [id]: { featured: false, order: 0 } };
+          // Featuring on: auto-assign the first free slot (1·2·3) so we never
+          // persist an invalid featured_order: 0.
+          const taken = new Set(
+            Object.entries(prev).filter(([k, s]) => k !== id && s.featured).map(([, s]) => s.order)
+          );
+          const free = [1, 2, 3].find((n) => !taken.has(n)) ?? prev[id]?.order ?? 1;
+          return { ...prev, [id]: { featured: true, order: free } };
+        })}
         onOrderChange={(id, v) => setFeatState((prev) => ({ ...prev, [id]: { ...prev[id], order: v } }))}
       />
     </div>

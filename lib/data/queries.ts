@@ -138,6 +138,21 @@ export async function getHomeWorksRandom(): Promise<boolean> {
   }
 }
 
+// Whether the /works listing page displays works in the admin-fixed (순서 변경)
+// order, or shuffled at random. Default 'fixed'.
+export async function getWorksOrderMode(): Promise<'fixed' | 'random'> {
+  if (!isSupabaseConfigured) return 'fixed';
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('ma_settings').select('value').eq('key', 'works_order_mode').maybeSingle();
+    if (error || !data?.value) return 'fixed';
+    return data.value === 'random' ? 'random' : 'fixed';
+  } catch {
+    return 'fixed';
+  }
+}
+
 // Home showcase data: the random flag, the admin-pinned works, and the full pool
 // (so the client can shuffle when random mode is on). Empty → home uses its default.
 export async function getHomeFeatured(): Promise<{
@@ -242,6 +257,82 @@ export async function getProcessImages(): Promise<string[]> {
     ];
   } catch {
     return ['', '', '', ''];
+  }
+}
+
+// ── Site copy (admin-editable headline text across home / history) ──────────
+export interface SiteCopy {
+  contrast_left_eyebrow: string;
+  contrast_left_title: string;
+  contrast_left_desc: string;
+  contrast_right_eyebrow: string;
+  contrast_right_title: string;
+  contrast_right_desc: string;
+  process_eyebrow: string;
+  process_title: string;
+  process_desc: string;
+  process_step_1: string;
+  process_step_2: string;
+  process_step_3: string;
+  process_step_4: string;
+  history_header_eyebrow: string;
+  history_header_title: string;
+  history_header_desc: string;
+}
+
+export const SITE_COPY_DEFAULTS: SiteCopy = {
+  contrast_left_eyebrow: 'DIFFERENT THINKING',
+  contrast_left_title: '다릅니다',
+  contrast_left_desc: '3대에 걸쳐 축적된 기술력과\n독자적인 공법으로 만들어집니다.',
+  contrast_right_eyebrow: 'RIGHT THINKING',
+  contrast_right_title: '바릅니다',
+  contrast_right_desc: '전통 목구조 기법 그대로,\n원형을 존중하며 정직하게 짓습니다.',
+  process_eyebrow: 'THE PROCESS',
+  process_title: '장인의 혼을 담아',
+  process_desc: '나무를 선별하고, 결을 읽고, 깎고 이어 붙이는 모든 과정.\n3대 장인의 손끝에서 전통건축의 혼이 담깁니다.',
+  process_step_1: '목재 선별',
+  process_step_2: '치목 (治木)',
+  process_step_3: '가조립 검증',
+  process_step_4: '설치 및 마감',
+  history_header_eyebrow: 'HISTORY · 장인 이야기',
+  history_header_title: '천년의 기술,\n삼대로 이어온\n90년의 여정',
+  history_header_desc: '1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.',
+};
+
+export async function getSiteCopy(): Promise<SiteCopy> {
+  if (!isSupabaseConfigured) return SITE_COPY_DEFAULTS;
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('ma_settings')
+      .select('key, value')
+      .in('key', Object.keys(SITE_COPY_DEFAULTS));
+    if (error || !data) return SITE_COPY_DEFAULTS;
+    const map = Object.fromEntries(data.map((r) => [r.key, r.value]));
+    const result = { ...SITE_COPY_DEFAULTS };
+    for (const key of Object.keys(SITE_COPY_DEFAULTS) as (keyof SiteCopy)[]) {
+      if (map[key]) result[key] = map[key];
+    }
+    return result;
+  } catch {
+    return SITE_COPY_DEFAULTS;
+  }
+}
+
+export async function getHistoryHeaderImage(): Promise<string> {
+  const fallback = '/images/history/header.jpg';
+  if (!isSupabaseConfigured) return fallback;
+  try {
+    const supabase = await createClient();
+    const { data, error } = await supabase
+      .from('ma_settings')
+      .select('value')
+      .eq('key', 'history_header_img')
+      .maybeSingle();
+    if (error || !data?.value) return fallback;
+    return data.value;
+  } catch {
+    return fallback;
   }
 }
 

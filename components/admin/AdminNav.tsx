@@ -15,6 +15,7 @@ const links = [
   { href: '/admin/history', label: '연혁' },
   { href: '/admin/contact', label: '연락처' },
   { href: '/admin/hero', label: '이미지 관리' },
+  { href: '/admin/content', label: '카피 관리' },
 ];
 
 export default function AdminNav({ email }: { email: string }) {

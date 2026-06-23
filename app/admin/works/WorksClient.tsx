@@ -95,6 +95,8 @@ export function HomeRandomForm({ action, defaultChecked }: { action: Action; def
 // ── 새 작업 추가 ───────────────────────────────────────────────────────────
 function FeaturedFields({ takenOrders = [] }: { takenOrders?: number[] }) {
   const [on, setOn] = useState(false);
+  const firstFree = [1, 2, 3].find((n) => !takenOrders.includes(n)) ?? 0;
+  const [order, setOrder] = useState(firstFree);
   const allSlotsFull = !on && takenOrders.length >= 3;
   return (
     <div style={{ display: 'flex', alignItems: 'center', gap: 20, flexWrap: 'wrap',
@@ -103,7 +105,12 @@ function FeaturedFields({ takenOrders = [] }: { takenOrders?: number[] }) {
         color: allSlotsFull ? '#BBB' : '#555', cursor: allSlotsFull ? 'not-allowed' : 'pointer' }}>
         <input type="checkbox" name="featured" checked={on}
           disabled={allSlotsFull}
-          onChange={(e) => setOn(e.target.checked)} />
+          onChange={(e) => {
+            const checked = e.target.checked;
+            setOn(checked);
+            // Auto-pick the first free slot so we never submit an invalid order.
+            if (checked && (order === 0 || takenOrders.includes(order))) setOrder(firstFree);
+          }} />
         메인(홈) 작업사례에 노출
         {allSlotsFull && <span style={{ fontFamily: SANS, fontSize: 11, color: '#BBB', marginLeft: 4 }}>(1·2·3번 모두 사용중)</span>}
       </label>
@@ -115,7 +122,8 @@ function FeaturedFields({ takenOrders = [] }: { takenOrders?: number[] }) {
           <label key={n} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontFamily: SANS, fontSize: 13,
             color: disabled ? '#BBB' : '#555', cursor: disabled ? 'not-allowed' : 'pointer' }}>
             <input type="radio" name="featured_order" value={n}
-              defaultChecked={n === 1} disabled={disabled} />
+              checked={order === n} disabled={disabled}
+              onChange={() => setOrder(n)} />
             {n}번{taken ? ' (사용중)' : ''}
           </label>
         );

@@ -1,5 +1,5 @@
-import { getWorks, getHomeWorksRandom } from '@/lib/data/queries';
-import { createWork, updateWork, deleteWork, importWorks, setHomeWorksRandom } from '@/lib/admin/actions';
+import { getWorks, getHomeWorksRandom, getWorksOrderMode } from '@/lib/data/queries';
+import { createWork, updateWork, deleteWork, importWorks, setHomeWorksRandom, saveWorksOrderMode } from '@/lib/admin/actions';
 import WorksManager from './WorksManager';
 import ImportPanel from '@/components/admin/ImportPanel';
 
@@ -12,7 +12,7 @@ const SERIF = 'var(--font-serif)';
 const SANS = 'var(--font-sans)';
 
 export default async function AdminWorksPage() {
-  const [works, homeRandom] = await Promise.all([getWorks(), getHomeWorksRandom()]);
+  const [works, homeRandom, orderMode] = await Promise.all([getWorks(), getHomeWorksRandom(), getWorksOrderMode()]);
 
   return (
     <div>
@@ -40,7 +40,8 @@ export default async function AdminWorksPage() {
 
       <WorksManager works={works} updateWork={updateWork} deleteWork={deleteWork}
         createWork={createWork}
-        homeRandomAction={setHomeWorksRandom} defaultHomeRandom={homeRandom} />
+        homeRandomAction={setHomeWorksRandom} defaultHomeRandom={homeRandom}
+        orderModeAction={saveWorksOrderMode} defaultOrderMode={orderMode} />
     </div>
   );
 }

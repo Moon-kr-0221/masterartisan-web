@@ -95,13 +95,14 @@ export function ImageInput({ name = 'image', current, label = '사진', hint }: 
   name?: string; current?: string; label?: string; hint?: string;
 }) {
   const [preview, setPreview] = useState<string | null>(current || null);
+  const [fileName, setFileName] = useState<string>('선택된 파일 없음');
   const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <div>
       <Label>{label}</Label>
       <div style={{ display: 'flex', gap: 16, alignItems: 'flex-start' }}>
-        <div style={{ width: 140, height: 100, flexShrink: 0, overflow: 'hidden',
+        <div style={{ width: 200, height: 140, flexShrink: 0, overflow: 'hidden',
           backgroundColor: ADMIN.surface, border: `1px solid ${ADMIN.hairline}`,
           display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {preview ? (
@@ -119,12 +120,25 @@ export function ImageInput({ name = 'image', current, label = '사진', hint }: 
             accept="image/*"
             onChange={(e) => {
               const f = e.target.files?.[0];
-              if (f) setPreview(URL.createObjectURL(f));
+              if (f) { setPreview(URL.createObjectURL(f)); setFileName(f.name); }
             }}
-            style={{ fontFamily: SANS, fontSize: 12, color: ADMIN.inkSoft }}
+            style={{ display: 'none' }}
           />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            <button
+              type="button"
+              onClick={() => inputRef.current?.click()}
+              style={{ fontFamily: SANS, fontSize: 13, color: ADMIN.ink, cursor: 'pointer',
+                border: `1px solid ${ADMIN.hairline}`, backgroundColor: '#FFFFFF',
+                padding: '6px 12px', borderRadius: 0 }}>
+              파일 선택
+            </button>
+            <span style={{ fontFamily: SANS, fontSize: 13, color: ADMIN.muted }}>
+              {fileName}
+            </span>
+          </div>
           {hint && (
-            <span style={{ fontFamily: SANS, fontSize: 11, color: ADMIN.ink, lineHeight: 1.6 }}>
+            <span style={{ fontFamily: SANS, fontSize: 11, color: ADMIN.muted, lineHeight: 1.6 }}>
               {hint}
             </span>
           )}

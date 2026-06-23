@@ -20,6 +20,7 @@ async function requireClient(): Promise<SupabaseClient> {
 }
 
 function revalidatePublic() {
+  revalidatePath('/');
   revalidatePath('/masterartisan');
   revalidatePath('/works');
   revalidatePath('/history');
@@ -61,6 +62,20 @@ async function uploadIfPresent(
 
   const { data } = supabase.storage.from(BUCKET).getPublicUrl(path);
   return data.publicUrl;
+}
+
+// Robustly read a spreadsheet from raw bytes. Binary xlsx (ZIP) / xls (OLE) go
+// through the byte path; everything else is treated as a CSV and decoded
+// explicitly as UTF-8 (TextDecoder strips a BOM if present), so BOM-less UTF-8
+// CSVs don't get mis-detected as a single-byte codepage and garble Korean text.
+// Accepts a Uint8Array/Buffer to avoid `.buffer` pooled-bytes hazards.
+function readSheetWorkbook(bytes: Uint8Array) {
+  const isBinary =
+    (bytes[0] === 0x50 && bytes[1] === 0x4b) || // PK… → xlsx (zip)
+    (bytes[0] === 0xd0 && bytes[1] === 0xcf);    // OLE → legacy xls
+  if (isBinary) return XLSX.read(bytes, { type: 'buffer' });
+  const text = new TextDecoder('utf-8').decode(bytes);
+  return XLSX.read(text, { type: 'string' });
 }
 
 // ── Auth ──────────────────────────────────────────────────────────────────
@@ -158,6 +173,43 @@ export async function saveContrastImages(formData: FormData) {
   }
   revalidatePath('/');
   revalidatePath('/admin/hero');
+}
+
+const SITE_COPY_KEYS = [
+  'contrast_left_eyebrow', 'contrast_left_title', 'contrast_left_desc',
+  'contrast_right_eyebrow', 'contrast_right_title', 'contrast_right_desc',
+  'process_eyebrow', 'process_title', 'process_desc',
+  'process_step_1', 'process_step_2', 'process_step_3', 'process_step_4',
+  'history_header_eyebrow', 'history_header_title', 'history_header_desc',
+] as const;
+
+export async function saveSiteCopy(formData: FormData) {
+  const supabase = await requireClient();
+  for (const key of SITE_COPY_KEYS) {
+    if (!formData.has(key)) continue;
+    const value = String(formData.get(key) ?? '');
+    const { error } = await supabase
+      .from('ma_settings')
+      .upsert({ key, value }, { onConflict: 'key' });
+    if (error) throw new Error(error.message);
+  }
+  revalidatePublic();
+  revalidatePath('/admin/content');
+}
+
+export async function saveHistoryHeaderImage(formData: FormData) {
+  const supabase = await requireClient();
+  const file = formData.get('image');
+  let url = String(formData.get('url') ?? '');
+  if (file instanceof File && file.size > 0) {
+    url = await uploadIfPresent(supabase, 'history', file) ?? url;
+  }
+  const { error } = await supabase
+    .from('ma_settings')
+    .upsert({ key: 'history_header_img', value: url }, { onConflict: 'key' });
+  if (error) throw new Error(error.message);
+  revalidatePublic();
+  revalidatePath('/admin/content');
 }
 
 // ── Artisans ────────────────────────────────────────────────────────────────
@@ -264,6 +316,18 @@ export async function setHomeWorksRandom(formData: FormData) {
   revalidatePath('/admin/works');
 }
 
+export async function saveWorksOrderMode(formData: FormData) {
+  const supabase = await requireClient();
+  const mode = formData.get('mode') === 'random' ? 'random' : 'fixed';
+  const { error } = await supabase
+    .from('ma_settings')
+    .upsert({ key: 'works_order_mode', value: mode }, { onConflict: 'key' });
+  if (error) throw new Error(error.message);
+
+  revalidatePublic();
+  revalidatePath('/admin/works');
+}
+
 // ── History works ───────────────────────────────────────────────────────────
 export async function createHistoryWork(formData: FormData) {
   const supabase = await requireClient();
@@ -346,29 +410,29 @@ export async function importHistory(formData: FormData) {
   const isZip = file.name.endsWith('.zip') || (buf[0] === 0x50 && buf[1] === 0x4b);
 
   // ── ZIP: 엑셀/CSV + 사진 파일들 ──────────────────────────────────────────
-  let sheetBuf: ArrayBuffer;
+  let sheetBytes: Uint8Array;
   const imageMap = new Map<string, Buffer>(); // filename → raw buffer
 
   if (isZip) {
     const zip = new AdmZip(buf);
-    let found: ArrayBuffer | null = null;
+    let found: Uint8Array | null = null;
     for (const entry of zip.getEntries()) {
       const name = entry.entryName.split('/').pop() ?? '';
       if (!name || name.startsWith('.') || entry.isDirectory) continue;
       if (/\.(xlsx|xls|csv)$/.test(name)) {
-        found = entry.getData().buffer as ArrayBuffer;
+        found = entry.getData();
       } else if (/\.(jpg|jpeg|png|webp|gif)$/i.test(name)) {
         imageMap.set(name, entry.getData());
         imageMap.set(name.toLowerCase(), entry.getData());
       }
     }
     if (!found) throw new Error('ZIP 안에 엑셀(.xlsx) 또는 CSV 파일이 없습니다.');
-    sheetBuf = found;
+    sheetBytes = found;
   } else {
-    sheetBuf = buf.buffer as ArrayBuffer;
+    sheetBytes = buf;
   }
 
-  const wb = XLSX.read(sheetBuf, { type: 'array' });
+  const wb = readSheetWorkbook(sheetBytes);
   const sheet = wb.Sheets[wb.SheetNames[0]];
   if (!sheet) throw new Error('파일에서 시트를 찾을 수 없습니다.');
   const rows = XLSX.utils.sheet_to_json<(string | number)[]>(sheet, { header: 1, blankrows: false });
@@ -458,8 +522,8 @@ const CATEGORY_MAP: Record<string, string> = {
 };
 
 // ── CSV/Excel 파싱 공통 ────────────────────────────────────────────────────
-function parseWorksSheet(buffer: ArrayBuffer) {
-  const wb = XLSX.read(buffer, { type: 'array' });
+function parseWorksSheet(bytes: Uint8Array) {
+  const wb = readSheetWorkbook(bytes);
   const sheet = wb.Sheets[wb.SheetNames[0]];
   if (!sheet) throw new Error('파일에서 시트를 찾을 수 없습니다.');
   const rows = XLSX.utils.sheet_to_json<(string | number)[]>(sheet, { header: 1, blankrows: false });
@@ -512,23 +576,23 @@ export async function importWorks(formData: FormData) {
 
   if (isZip) {
     const zip = new AdmZip(buf);
-    let sheetBuf: ArrayBuffer | null = null;
+    let sheetBytes: Uint8Array | null = null;
 
     for (const entry of zip.getEntries()) {
       if (entry.isDirectory) continue;
       const name = entry.name.toLowerCase();
       if (/\.(xlsx|xls|csv)$/.test(name)) {
-        sheetBuf = entry.getData().buffer as ArrayBuffer;
+        sheetBytes = entry.getData();
       } else if (/\.(jpg|jpeg|png|webp)$/.test(name)) {
         imageMap.set(entry.name, entry.getData());
         // also index by lowercase for case-insensitive match
         imageMap.set(name, entry.getData());
       }
     }
-    if (!sheetBuf) throw new Error('ZIP 안에 엑셀(.xlsx) 또는 CSV 파일이 없습니다.');
-    items = parseWorksSheet(sheetBuf);
+    if (!sheetBytes) throw new Error('ZIP 안에 엑셀(.xlsx) 또는 CSV 파일이 없습니다.');
+    items = parseWorksSheet(sheetBytes);
   } else {
-    items = parseWorksSheet(buf.buffer as ArrayBuffer);
+    items = parseWorksSheet(buf);
   }
 
   // ── 이미지 업로드 (ZIP 모드 + 파일명이 있는 경우) ──────────────────────
