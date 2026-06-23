@@ -1,12 +1,12 @@
 import type { HistoryEraGroup, HistoryWorkItem } from './types';
 
-// Decade buckets ending in ...1..0, e.g. 2001–2010 → "2010~2001".
+// Decade buckets ending in ...1..0, e.g. 2001–2010 → "2001~2010" (작은 연도 먼저).
 // Admins only enter "year + title (+photos)"; the era grouping is derived here.
 export function eraBucket(year: number) {
   const idx = Math.floor((year - 1) / 10);
   const low = idx * 10 + 1;
   const high = idx * 10 + 10;
-  return { idx, low, high, label: `${high}~${low}` };
+  return { idx, low, high, label: `${low}~${high}` };
 }
 
 // Representative milestone years for the intro clock — evenly spaced across the

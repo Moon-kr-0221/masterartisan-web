@@ -20,6 +20,7 @@ export type Work = {
   year: string;
   description: string;
   image: string;
+  images: string[];   // 추가 이미지 포함 전체 목록 (첫 번째 = 대표 이미지)
   featured: boolean;
   featuredOrder: number;
 };
@@ -50,4 +51,16 @@ export type HistoryWorkItem = {
 export type HistoryEraGroup = {
   era: string;
   works: HistoryWorkItem[];
+};
+
+export type ContactInfo = {
+  phone: string;
+  fax: string;
+  email: string;
+  hours: string;
+  office_name: string;
+  address: string;
+  naver_map_url: string;
+  cert_title: string;
+  cert_desc: string;
 };

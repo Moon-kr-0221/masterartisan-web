@@ -39,3 +39,11 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# ad hoc QA/visual-diff screenshots and one-off capture scripts
+# (intentional baseline screenshots like before.png/after.png/diff.png are excluded below)
+/*.png
+!/before.png
+!/after.png
+!/diff.png
+/section_caps*.js

@@ -1,11 +1,14 @@
 'use client';
 
-import { ADMIN, SubmitButton } from '@/components/admin/ui';
+import { useRef, useState, useTransition } from 'react';
+import { ADMIN } from '@/components/admin/ui';
 
 const SANS = 'var(--font-sans)';
+const btnBase: React.CSSProperties = {
+  fontFamily: SANS, fontSize: 13, padding: '9px 18px',
+  cursor: 'pointer', borderRadius: 0, letterSpacing: '0.03em',
+};
 
-// Generic Excel/CSV bulk-import panel: template download + upload form.
-// `action` is a server action passed in from the (server) page.
 export default function ImportPanel({
   action, heading, instructions, templateCsv, templateFilename, replaceLabel,
 }: {
@@ -16,16 +19,38 @@ export default function ImportPanel({
   templateFilename: string;
   replaceLabel: string;
 }) {
+  const formRef = useRef<HTMLFormElement>(null);
+  const fileRef = useRef<HTMLInputElement>(null);
+  const [fileName, setFileName] = useState('');
+  const [pending, start] = useTransition();
+  const [msg, setMsg] = useState('');
+  const [err, setErr] = useState('');
+
   function downloadTemplate() {
     const blob = new Blob([templateCsv], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = templateFilename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
+    a.href = url; a.download = templateFilename;
+    document.body.appendChild(a); a.click(); a.remove();
     URL.revokeObjectURL(url);
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!formRef.current) return;
+    const fd = new FormData(formRef.current);
+    setMsg(''); setErr('');
+    start(async () => {
+      try {
+        await action(fd);
+        setMsg('업로드되었습니다.');
+        formRef.current?.reset();
+        setFileName('');
+        setTimeout(() => setMsg(''), 4000);
+      } catch (ex: unknown) {
+        setErr(ex instanceof Error ? ex.message : '업로드 실패');
+      }
+    });
   }
 
   return (
@@ -35,9 +60,7 @@ export default function ImportPanel({
           {heading}
         </p>
         <button type="button" onClick={downloadTemplate}
-          style={{ fontFamily: SANS, fontSize: 12, letterSpacing: '0.04em', color: ADMIN.ink,
-            border: `1px solid ${ADMIN.hairline}`, borderRadius: 0, padding: '7px 14px',
-            backgroundColor: '#FFFFFF', cursor: 'pointer' }}>
+          style={{ ...btnBase, fontSize: 12, color: ADMIN.ink, border: `1px solid ${ADMIN.hairline}`, backgroundColor: '#FFFFFF', padding: '7px 14px' }}>
           양식 내려받기 ↓
         </button>
       </div>
@@ -45,14 +68,35 @@ export default function ImportPanel({
         {instructions}
       </p>
 
-      <form action={action} style={{ display: 'flex', flexWrap: 'wrap', gap: 16, alignItems: 'center' }}>
-        <input type="file" name="file" accept=".xlsx,.xls,.csv" required
-          style={{ fontFamily: SANS, fontSize: 13, color: ADMIN.inkSoft }} />
-        <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: SANS, fontSize: 13, color: ADMIN.inkSoft }}>
-          <input type="checkbox" name="replace" />
-          {replaceLabel}
-        </label>
-        <SubmitButton variant="primary">업로드</SubmitButton>
+      <form ref={formRef} onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+        <input ref={fileRef} type="file" name="file" accept=".xlsx,.xls,.csv,.zip" required
+          style={{ position: 'absolute', width: 1, height: 1, opacity: 0, pointerEvents: 'none' }}
+          onChange={(e) => setFileName(e.target.files?.[0]?.name ?? '')} />
+
+        {/* 1행: 파일 선택 + 파일명 */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+          <button type="button" onClick={() => fileRef.current?.click()}
+            style={{ ...btnBase, backgroundColor: '#FFFFFF', color: ADMIN.ink, border: `1px solid ${ADMIN.hairline}`, flexShrink: 0 }}>
+            파일 선택
+          </button>
+          <span style={{ fontFamily: SANS, fontSize: 13, color: fileName ? ADMIN.ink : ADMIN.muted }}>
+            {fileName || '선택된 파일 없음'}
+          </span>
+        </div>
+
+        {/* 2행: 체크박스(좌) + 메시지+업로드(우끝) */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+          <label style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: SANS, fontSize: 13, color: ADMIN.inkSoft, flex: 1 }}>
+            <input type="checkbox" name="replace" />
+            {replaceLabel}
+          </label>
+          {msg && <span style={{ fontFamily: SANS, fontSize: 13, color: '#2A7A4B' }}>{msg}</span>}
+          {err && <span style={{ fontFamily: SANS, fontSize: 13, color: '#9B3B3B' }}>{err}</span>}
+          <button type="submit" disabled={pending}
+            style={{ ...btnBase, backgroundColor: ADMIN.ink, color: '#FFFFFF', border: 'none', opacity: pending ? 0.6 : 1, marginLeft: 'auto' }}>
+            {pending ? '업로드 중…' : '업로드'}
+          </button>
+        </div>
       </form>
     </div>
   );

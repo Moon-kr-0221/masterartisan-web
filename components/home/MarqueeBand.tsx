@@ -1,5 +1,5 @@
 export default function MarqueeBand() {
-  const text = 'MASTERARTISAN · 경기무형문화재 제36호 · TRADITIONAL ARCHITECTURE · 전통건축 · SINCE 1936 · ';
+  const text = 'MASTERARTISAN · 경기무형문화재 제36호 · TRADITIONAL ARCHITECTURE · 전통건축 · SINCE 1960s · ';
   const repeated = text.repeat(6);
 
   return (
@@ -7,14 +7,14 @@ export default function MarqueeBand() {
       <div className="animate-marquee">
         <span
           className="whitespace-nowrap text-[12px] tracking-[0.25em] pr-4"
-          style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.22)' }}
+          style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.2)' }}
         >
           {repeated}
         </span>
         <span
           className="whitespace-nowrap text-[12px] tracking-[0.25em] pr-4"
           aria-hidden
-          style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.22)' }}
+          style={{ fontFamily: 'var(--font-sans)', color: 'rgba(255,255,255,0.2)' }}
         >
           {repeated}
         </span>

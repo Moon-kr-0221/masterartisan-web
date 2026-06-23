@@ -11,10 +11,14 @@ import Lenis from 'lenis';
 import type { HistoryEraGroup, HistoryWorkItem } from '@/lib/data/types';
 import { milestoneYears } from '@/lib/data/era';
 import ClockIntro from '@/components/history/ClockIntro';
+import MobileDialIntro from '@/components/history/MobileDialIntro';
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 const EASE_OUT = [0.16, 1, 0.3, 1] as const;
+
+// 펜슬 ztlMd HeaderImg(y43ExV)와 동일한 전통 목조 건축 이미지 (밝은 처마·살창)
+const HISTORY_HEADER_IMG = '/images/history/header.jpg';
 
 const C = {
   bg:       '#F8F5F0',
@@ -55,7 +59,54 @@ function FadeUp({ children, delay = 0, style = {} }: {
   );
 }
 
+// ≤767px 여부 (반응형 인라인 스타일용 — Tailwind 임의값 미생성 이슈 회피)
+function useIsMobile(breakpoint = 768) {
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia(`(max-width: ${breakpoint - 1}px)`);
+    const update = () => setIsMobile(mq.matches);
+    update();
+    mq.addEventListener('change', update);
+    return () => mq.removeEventListener('change', update);
+  }, [breakpoint]);
+  return isMobile;
+}
+
+// 펜슬 ztlMd HeaderImg — 로딩 시 블러업+페이드인+살짝 줌아웃 이펙트
+function HeaderImage({ src, alt, isMobile }: { src: string; alt: string; isMobile: boolean }) {
+  const [loaded, setLoaded] = useState(false);
+  const imgRef = useRef<HTMLImageElement>(null);
+  // 캐시/즉시 로드 시 onLoad가 핸들러 부착 전에 발화하는 레이스 방지
+  useEffect(() => {
+    if (imgRef.current?.complete) setLoaded(true);
+  }, []);
+  return (
+    <div style={{
+      width: isMobile ? '100%' : 460,
+      height: isMobile ? 'auto' : 440,
+      aspectRatio: isMobile ? '460 / 440' : undefined,
+      maxWidth: '100%', flexShrink: 0,
+      overflow: 'hidden', backgroundColor: C.surface,
+    }}>
+      <img
+        ref={imgRef}
+        src={src}
+        alt={alt}
+        onLoad={() => setLoaded(true)}
+        style={{
+          width: '100%', height: '100%', objectFit: 'cover', display: 'block',
+          opacity: loaded ? 1 : 0,
+          transform: loaded ? 'scale(1)' : 'scale(1.08)',
+          filter: loaded ? 'blur(0px)' : 'blur(16px)',
+          transition: 'opacity 1.2s ease, transform 1.6s cubic-bezier(0.16,1,0.3,1), filter 1.2s ease',
+        }}
+      />
+    </div>
+  );
+}
+
 // ─── SVG Dial ───────────────────────────────────────────────────────────────
+// 📍 Pencil Node: HTqA9 (RotatingRing) + SWJ7y (FixedLayer)
 interface DialProps {
   eras: HistoryEraGroup[];
   activeIdx: number;
@@ -88,6 +139,7 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
       ))}
 
       {/* ── ROTATING MARKERS (scroll-linked) — 눈금만 회전, 년도 라벨은 제자리 고정 ── */}
+      {/* 📍 Pencil: HTqA9 (RotatingRing) */}
       <g ref={groupRef} style={{ transformOrigin: `${CX}px ${CY}px` }}>
         {/* Fine tick marks — 시대(TOTAL)의 배수로 두어 major 눈금이 시 마커와 정확히 겹치게 */}
         {Array.from({ length: TOTAL * 6 }).map((_, i) => {
@@ -140,6 +192,7 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
       })}
 
       {/* ══ FIXED ELEMENTS — never rotate ══════════════════════════════ */}
+      {/* 📍 Pencil: SWJ7y (FixedLayer) */}
 
       {/* Fixed clock hand: always points straight UP (12 o'clock) */}
       <line
@@ -176,14 +229,17 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
 }
 
 // ─── Era section ─────────────────────────────────────────────────────────────
-function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia }: {
+function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isMobile = false }: {
   era: HistoryEraGroup;
   eraIdx: number;
   total: number;
   isActive: boolean;
   sectionRef: React.RefCallback<HTMLElement>;
   onOpenMedia: (work: HistoryWorkItem) => void;
+  isMobile?: boolean;
 }) {
+  const [expandedWorks, setExpandedWorks] = useState<Set<string>>(new Set());
+
   const byYear: Record<string, HistoryWorkItem[]> = {};
   era.works.forEach((w) => {
     const k = String(w.year);
@@ -193,7 +249,7 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia }: {
 
   return (
     <section ref={sectionRef} id={`era-${eraIdx}`}
-      style={{ padding: '96px 64px 80px', borderBottom: `1px solid ${C.hairline}` }}>
+      style={{ padding: isMobile ? '56px 24px' : '96px 64px 80px', borderBottom: `1px solid ${C.hairline}` }}>
 
       <FadeUp>
         <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '16px' }}>
@@ -231,37 +287,61 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia }: {
               </div>
             </FadeUp>
             {byYear[year].map((work, wi) => {
-              const hasGallery = work.media.length > 0;
+              const photos = work.media.filter((m) => m.image_url);
+              const isExpanded = expandedWorks.has(work.id ?? String(wi));
+              const initialCount = isMobile ? 2 : 3;
+              const visiblePhotos = isExpanded ? photos.slice(0, initialCount + 2) : photos.slice(0, initialCount);
+              const hasMore = photos.length >= 6;
+              const photoW = isMobile ? 163 : 220;
+              const photoH = isMobile ? 110 : 148;
               return (
                 <FadeUp key={work.id ?? wi} delay={yi * 0.04 + wi * 0.03 + 0.06}>
-                  <div style={{ display: 'flex', alignItems: 'center',
-                    justifyContent: 'space-between', padding: '11px 0',
-                    borderBottom: `1px solid ${C.hairline}` }}>
+                  <div style={{
+                    display: 'flex', flexDirection: 'column',
+                    padding: visiblePhotos.length > 0 ? '11px 0 14px' : '11px 0',
+                    borderBottom: `1px solid ${C.hairline}`,
+                  }}>
                     <span style={{ fontFamily: "'Noto Sans KR'", fontSize: '13px',
                       lineHeight: 1.65, color: C.inkSoft, fontWeight: 300 }}>
                       {work.title}
                     </span>
-                    {hasGallery ? (
-                      <button
-                        type="button"
-                        onClick={() => onOpenMedia(work)}
-                        style={{ fontFamily: "'Noto Sans KR'", fontSize: '8px',
-                          letterSpacing: '0.2em', color: C.ink, backgroundColor: 'transparent',
-                          border: `1px solid ${C.ink}`, padding: '3px 9px',
-                          marginLeft: '16px', flexShrink: 0, cursor: 'pointer',
-                          display: 'inline-flex', alignItems: 'center', gap: '5px',
-                          transition: 'background-color 0.25s, color 0.25s' }}
-                        className="hover:bg-[#1A1714] hover:text-white">
-                        MEDIA <span style={{ opacity: 0.7 }}>· {work.media.length}</span>
-                      </button>
-                    ) : work.hasMedia ? (
-                      <span style={{ fontFamily: "'Noto Sans KR'", fontSize: '8px',
-                        letterSpacing: '0.2em', color: C.muted,
-                        border: `1px solid ${C.hairline}`, padding: '2px 8px',
-                        marginLeft: '16px', flexShrink: 0 }}>
-                        MEDIA
-                      </span>
-                    ) : null}
+                    {visiblePhotos.length > 0 && (
+                      <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 }}>
+                        <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                          {visiblePhotos.map((m, idx) => (
+                            <div key={idx} style={{
+                              width: photoW, height: photoH,
+                              flexShrink: 0, overflow: 'hidden',
+                              backgroundColor: C.surface,
+                            }}>
+                              <img
+                                src={m.image_url}
+                                alt={m.caption ?? work.title}
+                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                        {hasMore && !isExpanded && (
+                          <button
+                            onClick={() => setExpandedWorks(new Set([...expandedWorks, work.id ?? String(wi)]))}
+                            style={{
+                              alignSelf: 'flex-start',
+                              padding: '8px 16px',
+                              backgroundColor: C.accent,
+                              color: '#fff',
+                              border: 'none',
+                              fontSize: '12px',
+                              fontFamily: "'Noto Sans KR'",
+                              letterSpacing: '0.04em',
+                              cursor: 'pointer',
+                              marginTop: '4px',
+                            }}>
+                            사진 더보기
+                          </button>
+                        )}
+                      </div>
+                    )}
                   </div>
                 </FadeUp>
               );
@@ -323,7 +403,17 @@ function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () =>
 }
 
 // ─── Page ────────────────────────────────────────────────────────────────────
-export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
+export default function HistoryClient({ eras, header }: {
+  eras: HistoryEraGroup[];
+  header?: { eyebrow: string; title: string; desc: string; image: string };
+}) {
+  const headerCopy = header ?? {
+    eyebrow: 'HISTORY · 장인 이야기',
+    title: '천년의 기술,\n삼대로 이어온\n90년의 여정',
+    desc: '1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.',
+    image: HISTORY_HEADER_IMG,
+  };
+  const headerTitleLines = headerCopy.title.split('\n');
   const ERAS = [...eras].reverse(); // oldest → newest
   const TOTAL = ERAS.length;
   // Intro-clock years follow the actual archive range (oldest → newest).
@@ -331,6 +421,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
 
   const [activeIdx, setActiveIdx] = useState(0);
   const [mediaWork, setMediaWork] = useState<HistoryWorkItem | null>(null);
+  const isMobile = useIsMobile();
 
   const leftRef    = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
@@ -340,8 +431,13 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
   const dialGroupRef = useRef<SVGGElement>(null);
   const labelRefs    = useRef<(SVGTextElement | null)[]>([]);
 
-  // ── Lenis ────────────────────────────────────────────────────────────────
+  // Tab bar scroll-sync refs
+  const tabBarRef     = useRef<HTMLDivElement>(null);
+  const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+
+  // ── Lenis (데스크탑) + 네이티브 스크롤 리스너 (iOS 터치) ────────────────
   useEffect(() => {
+    ScrollTrigger.normalizeScroll(true); // iOS 터치 스크롤 정규화 — 브라우저 전용
     const lenis = new Lenis({
       duration: 1.35,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -352,7 +448,15 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
-    return () => { lenis.destroy(); };
+
+    // iOS 터치 스크롤은 Lenis를 거치지 않으므로 네이티브 scroll 이벤트도 연결
+    const onNativeScroll = () => ScrollTrigger.update();
+    window.addEventListener('scroll', onNativeScroll, { passive: true });
+
+    return () => {
+      lenis.destroy();
+      window.removeEventListener('scroll', onNativeScroll);
+    };
   }, []);
 
   // ── GSAP: dial rotation (scrub) + section tracking ───────────────────────
@@ -398,10 +502,27 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [TOTAL]);
 
+  // ── Tab bar auto-scroll — 활성 시대 탭이 항상 화면 중앙에 오도록 ───────────
+  useEffect(() => {
+    const bar = tabBarRef.current;
+    if (!bar) return;
+    // tabs[0] = 'ALL', tabs[i+1] = ERAS[i] → 활성 시대 버튼은 activeIdx+1
+    const btn = tabButtonRefs.current[activeIdx + 1];
+    if (!btn) return;
+    const scrollTarget = btn.offsetLeft - bar.clientWidth / 2 + btn.offsetWidth / 2;
+    bar.scrollTo({ left: Math.max(0, scrollTarget), behavior: 'smooth' });
+  }, [activeIdx]);
+
   // ── Tab scroll-to ─────────────────────────────────────────────────────────
   const scrollToEra = useCallback((i: number) => {
     const el = i < 0 ? sectionRefs.current[0] : sectionRefs.current[i];
-    if (el) lenisRef.current?.scrollTo(el, { offset: -120, duration: 1.8 });
+    if (!el) return;
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(el, { offset: -120, duration: 1.8 });
+    } else {
+      // iOS 터치 환경 폴백: 네이티브 scrollIntoView
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }, []);
 
   const tabs = ['ALL', ...ERAS.map((e) => e.era)];
@@ -410,48 +531,59 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
     <div style={{ backgroundColor: C.bg, color: C.ink, minHeight: '100vh' }}>
 
       {/* ══ STORY HEADER ════════════════════════════════════════════════════ */}
+      {/* 펜슬 ztlMd: 텍스트 좌(TextCol, gap 28) + 이미지 우(HeaderImg 460×440), space-between */}
       <section style={{
-        padding: '120px 80px 100px',
         backgroundColor: C.bg,
         borderBottom: `1px solid ${C.hairline}`,
+        display: 'flex',
+        flexDirection: isMobile ? 'column' : 'row',
+        alignItems: isMobile ? 'stretch' : 'center',
+        justifyContent: 'space-between',
+        gap: isMobile ? 24 : 64,
+        padding: isMobile ? '104px 24px 56px' : '120px 80px 100px',
       }}>
-        <p style={{
-          fontFamily: "'Noto Sans KR', sans-serif",
-          fontSize: 10, letterSpacing: '0.38em',
-          color: C.accent, marginBottom: 28,
-          textTransform: 'uppercase',
-        }}>
-          HISTORY · 장인 이야기
-        </p>
-        <h1 style={{
-          fontFamily: "'Noto Serif KR', serif",
-          fontSize: 'clamp(48px, 6vw, 86px)',
-          fontWeight: 300,
-          lineHeight: 1.08,
-          letterSpacing: '-0.03em',
-          color: C.ink,
-          marginBottom: 36,
-          maxWidth: 780,
-        }}>
-          천년의 기술,<br />
-          삼대로 이어온<br />
-          90년의 여정
-        </h1>
-        <p style={{
-          fontFamily: "'Noto Sans KR', sans-serif",
-          fontSize: 14, lineHeight: 1.9,
-          color: C.muted, fontWeight: 300,
-          whiteSpace: 'nowrap',
-        }}>
-          1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.
-        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 28, flex: '0 1 auto', minWidth: 0 }}>
+          <p style={{
+            fontFamily: "'Noto Sans KR', sans-serif",
+            fontSize: 10, letterSpacing: '0.38em',
+            color: C.accent,
+            textTransform: 'uppercase',
+          }}>
+            {headerCopy.eyebrow}
+          </p>
+          <h1 style={{
+            fontFamily: "'Noto Serif KR', serif",
+            fontSize: isMobile ? 34 : 80,
+            fontWeight: 300,
+            lineHeight: isMobile ? 1.15 : 1.12,
+            letterSpacing: isMobile ? '-0.03em' : '-0.04em',
+            color: C.ink,
+            maxWidth: isMobile ? '100%' : 600,
+          }}>
+            {headerTitleLines.map((line, i) => (
+              <span key={i}>{line}{i < headerTitleLines.length - 1 && <br />}</span>
+            ))}
+          </h1>
+          <p style={{
+            fontFamily: "'Noto Sans KR', sans-serif",
+            fontSize: 14, lineHeight: isMobile ? 1.8 : 1.9,
+            color: C.muted, fontWeight: 300,
+            maxWidth: isMobile ? '100%' : 452,
+          }}>
+            {headerCopy.desc}
+          </p>
+        </div>
+
+        <HeaderImage src={headerCopy.image} alt="전통 목조 건축 처마와 살창" isMobile={isMobile} />
       </section>
 
       {/* ══ CLOCK INTRO ANIMATION ════════════════════════════════════════════ */}
-      <ClockIntro years={clockYears} />
+      {/* 데스크탑: 기존 ClockIntro / 모바일: d933990 time_sect 다이얼 모션 */}
+      <div className="hidden md:block"><ClockIntro years={clockYears} /></div>
+      <div className="md:hidden"><MobileDialIntro /></div>
 
       {/* ══ STICKY TAB BAR — 고정 네비(pE4bF) 바로 아래에 붙어 함께 이동 ════════ */}
-      <div style={{
+      <div ref={tabBarRef} style={{
         position: 'sticky',
         top: 'var(--nav-h, 72px)',
         zIndex: 40,
@@ -461,6 +593,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
         WebkitBackdropFilter: 'blur(16px)',
         borderBottom: `1px solid ${C.hairline}`,
         display: 'flex', overflowX: 'auto', scrollbarWidth: 'none',
+        WebkitOverflowScrolling: 'touch',
       }}>
         {tabs.map((tab, i) => {
           const active = i === 0
@@ -468,6 +601,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
             : ERAS[i - 1]?.era === ERAS[activeIdx]?.era;
           return (
             <button key={tab}
+              ref={(el) => { tabButtonRefs.current[i] = el; }}
               onClick={() => scrollToEra(i - 1)}
               style={{
                 flexShrink: 0, padding: '14px 20px',
@@ -492,46 +626,9 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
       {/* ══ MAIN SPLIT LAYOUT ═══════════════════════════════════════════════ */}
       <div style={{ display: 'flex', alignItems: 'start' }}>
 
-        {/* ── LEFT: scrollable (58%) ─────────────────────────────────────── */}
-        <div ref={leftRef} style={{ width: '58%', borderRight: `1px solid ${C.hairline}` }}>
+        {/* ── LEFT: scrollable — 모바일 100%, 데스크탑 58% ─────────────────── */}
+        <div ref={leftRef} style={{ width: isMobile ? '100%' : '58%', borderRight: isMobile ? 'none' : `1px solid ${C.hairline}` }}>
 
-          {/* Hero */}
-          <div style={{ padding: '88px 64px 72px', borderBottom: `1px solid ${C.hairline}` }}>
-            <BlurReveal>
-              <p style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
-                letterSpacing: '0.4em', color: C.accent, marginBottom: '28px' }}>
-                HISTORY
-              </p>
-            </BlurReveal>
-            <BlurReveal delay={0.08}>
-              <h1 style={{ fontFamily: "'Noto Serif KR', serif",
-                fontSize: 'clamp(48px, 6vw, 88px)',
-                fontWeight: 300, lineHeight: 1.05, letterSpacing: '-0.04em',
-                color: C.ink, marginBottom: '32px' }}>
-                90여 년의<br />장인 이야기
-              </h1>
-            </BlurReveal>
-            <BlurReveal delay={0.16}>
-              <p style={{ fontFamily: "'Noto Sans KR'", fontSize: '13px',
-                color: C.muted, lineHeight: 1.9, maxWidth: '380px', fontWeight: 300 }}>
-                전통 한옥 건축의 길을 묵묵히 걸어온 90년의 기록.<br />
-                한 땀 한 땀 새긴 시간들이 오늘의 마스터아티잔을 만들었습니다.
-              </p>
-            </BlurReveal>
-            <BlurReveal delay={0.24}>
-              <div style={{ display: 'flex', gap: '48px', marginTop: '48px' }}>
-                {[['90+', '년간 활동'], ['70+', '완공 프로젝트'], ['3', '대를 이은 기술']].map(([n, l]) => (
-                  <div key={l}>
-                    <div style={{ fontFamily: "'Noto Serif KR', serif",
-                      fontSize: '36px', fontWeight: 300,
-                      letterSpacing: '-0.02em', color: C.ink, lineHeight: 1 }}>{n}</div>
-                    <div style={{ fontFamily: "'Noto Sans KR'", fontSize: '9px',
-                      letterSpacing: '0.12em', color: C.muted, marginTop: '6px' }}>{l}</div>
-                  </div>
-                ))}
-              </div>
-            </BlurReveal>
-          </div>
 
           {/* Era sections */}
           {ERAS.map((era, i) => (
@@ -543,21 +640,23 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
               isActive={i === activeIdx}
               sectionRef={(el: HTMLElement | null) => { sectionRefs.current[i] = el; }}
               onOpenMedia={setMediaWork}
+              isMobile={isMobile}
             />
           ))}
         </div>
 
-        {/* ── RIGHT: sticky dial (42%) ────────────────────────────────────── */}
+        {/* ── RIGHT: sticky dial — 모바일 숨김, 데스크탑 42% ─────────────── */}
         <div style={{
           width: '42%',
           position: 'sticky',
           top: 'calc(var(--nav-h, 72px) + 49px)',
           height: 'calc(100vh - var(--nav-h, 72px) - 49px)',
           transition: 'top 0.3s ease, height 0.3s ease',
-          display: 'flex',
+          display: isMobile ? 'none' : 'flex',
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
+          overflow: 'hidden',
           gap: '28px',
           backgroundColor: C.bg,
         }}>

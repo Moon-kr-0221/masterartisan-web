@@ -1,170 +1,130 @@
-import ScrollReveal from '@/components/ui/ScrollReveal';
+import { SERIF, SANS, BC_CARD_FONT, C } from '@/lib/tokens';
+import { getContact } from '@/lib/data/queries';
 
-const SERIF = 'var(--font-serif)';
-const SANS = 'var(--font-sans)';
-
-const BANNER_IMG = 'https://images.unsplash.com/photo-1772331274809-4a6ad75c9947?auto=format&fit=crop&w=1600&q=80';
+const BANNER_IMG   = '/images/contact/exterior.jpg';
 const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
 
-const LEFT_ITEMS = [
-  { label: '전화', value: '031-000-0000', href: 'tel:031-000-0000' },
-  { label: '이메일', value: 'info@masterartisan.co.kr', href: 'mailto:info@masterartisan.co.kr' },
-];
-
-const LOCATIONS = [
-  { type: '사무실', typeEn: 'Office', address: '경기도 ○○시 ○○구 ○○로 000', detail: '○○빌딩 3층' },
-  { type: '공장', typeEn: 'Workshop', address: '경기도 ○○시 ○○구 ○○로 000', detail: '전통건축 목공장' },
-];
-
-function InfoRow({
-  label, value, href,
-  paddingBottom = 24,
-  height,
-  flex,
-}: {
-  label: string;
-  value: string;
-  href: string | null;
-  paddingBottom?: number;
-  height?: number;
-  flex?: number;
+function InfoRow({ label, value, href, paddingBottom = 24, height, flex }: {
+  label: string; value: string; href: string | null;
+  paddingBottom?: number; height?: number; flex?: number;
 }) {
   return (
-    <div style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 8,
-      paddingBottom,
-      borderBottom: '1px solid #F0EEEA',
-      ...(height !== undefined ? { height } : {}),
-      ...(flex !== undefined ? { flex } : {}),
-    }}>
-      <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: '#AAAAAA' }}>{label}</span>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom, borderBottom: `1px solid ${C.hairline}`, ...(height !== undefined ? { height } : {}), ...(flex !== undefined ? { flex } : {}) }}>
+      <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: C.muted }}>{label}</span>
       {href ? (
         <a href={href} className="transition-opacity hover:opacity-70"
-          style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, lineHeight: 1.6, color: '#1A1A1A' }}>
-          {value}
-        </a>
+          style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, lineHeight: 1.6, color: C.ink }}>{value}</a>
       ) : (
-        <span style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, lineHeight: 1.6, color: '#1A1A1A', whiteSpace: 'pre-line' }}>
-          {value}
-        </span>
+        <span style={{ fontFamily: SERIF, fontSize: 18, fontWeight: 300, lineHeight: 1.6, color: C.ink, whiteSpace: 'pre-line' }}>{value}</span>
       )}
     </div>
   );
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const ct = await getContact();
+  const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(ct.address)}&z=16&hl=ko&output=embed`;
+
   return (
-    <div style={{ backgroundColor: '#FFFFFF', paddingTop: 72 }}>
-      {/* ── Page Hero ── */}
-      <section style={{ position: 'relative', height: 360, overflow: 'hidden', borderBottom: '1px solid #E8E8E8' }}>
-        <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
-        <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
-        <div className="absolute inset-0 flex flex-col justify-end gap-3" style={{ padding: '72px 80px' }}>
-          <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>GET IN TOUCH</span>
-          <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: '#FFFFFF' }}>찾아오시는 길</h1>
-          <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>
-            전통건축에 관한 문의나 방문을 환영합니다.
-          </p>
-        </div>
-      </section>
+    <div style={{ backgroundColor: C.canvas }}>
 
-      {/* ── CONTACT INFORMATION ── */}
-      {/* V58cDN ContactLeft: padding 80, gap 36 */}
-      <section style={{ padding: '80px' }}>
-        <div style={{ maxWidth: 1120, margin: '0 auto' }}>
-          <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: '#AAAAAA' }}>
-            CONTACT INFORMATION
-          </span>
-
-          {/* oLN86 InfoColumns: gap 64, height 254 */}
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 items-stretch"
-            style={{ gap: 64, marginTop: 36, height: 254 }}
-          >
-            {/* UkqIZ LeftCol: gap 22, fill_container → flex col */}
-            <ScrollReveal direction="left" className="flex flex-col" style={{ gap: 22 }}>
-              {/* YTEyD, z8ZjmC: fill_container → flex:1 each */}
-              {LEFT_ITEMS.map((it) => (
-                <InfoRow key={it.label} {...it} flex={1} />
-              ))}
-            </ScrollReveal>
-
-            {/* E73V4e RightCol: gap 12, fill_container → flex col */}
-            <ScrollReveal direction="right" className="flex flex-col" style={{ gap: 12 }}>
-              {/* fbHeD 운영시간_row: height 116, paddingBottom 12 */}
-              <InfoRow
-                label="운영시간"
-                value={'평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)'}
-                href={null}
-                paddingBottom={12}
-                height={116}
-              />
-              {/* oa84Y CertBox: fill_container → flex:1, padding 24, gap 10, fill #F7F6F3 */}
-              <div
-                style={{
-                  flex: 1,
-                  backgroundColor: '#F7F6F3',
-                  padding: 24,
-                  display: 'flex',
-                  flexDirection: 'column',
-                  justifyContent: 'center',
-                  gap: 10,
-                }}
-              >
-                <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: '#1A1A1A' }}>
-                  경기무형문화재 제36호
-                </span>
-                <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.8, color: '#666666', whiteSpace: 'pre-line' }}>
-                  {'전통건축 유지보수·수리·제작에 관한 모든 문의를 환영합니다.\n방문 전 사전 연락을 부탁드립니다.'}
-                </span>
-              </div>
-            </ScrollReveal>
+      {/* ════ 데스크탑 — d933990 완전 동일 ════ */}
+      <div className="hidden md:block" style={{ paddingTop: 72 }}>
+        <section className="relative overflow-hidden" style={{ height: 360, borderBottom: `1px solid ${C.hairline}` }}>
+          <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
+          <div className="absolute inset-0 flex flex-col justify-end gap-3" style={{ padding: '72px 80px' }}>
+            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>GET IN TOUCH</span>
+            <h1 style={{ fontFamily: SERIF, fontSize: 52, fontWeight: 300, lineHeight: 1.1, color: C.canvas }}>찾아오시는 길</h1>
+            <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.8, color: 'rgba(255,255,255,0.65)' }}>전통건축에 관한 문의나 방문을 환영합니다.</p>
           </div>
-        </div>
-      </section>
-
-      {/* ── LOCATIONS ── */}
-      <section style={{ padding: '0 80px 88px' }}>
-        <div style={{ maxWidth: 1120, margin: '0 auto' }}>
-          <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: '#8C6D3F' }}>LOCATIONS</span>
-
-          <div className="grid grid-cols-1 md:grid-cols-2" style={{ gap: 32, marginTop: 28 }}>
-            {LOCATIONS.map((loc) => (
-              <div key={loc.type} style={{ border: '1px solid #ECE9E3' }}>
-                <div style={{ padding: '24px 24px 20px', display: 'flex', flexDirection: 'column', gap: 4, borderBottom: '1px solid #ECE9E3' }}>
-                  <div className="flex items-center" style={{ gap: 10 }}>
-                    <span style={{ fontFamily: SERIF, fontSize: 20, color: '#1A1A1A' }}>{loc.type}</span>
-                    <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: '#AAAAAA' }}>{loc.typeEn}</span>
-                  </div>
-                  <span style={{ fontFamily: SANS, fontSize: 12, color: '#555555' }}>{loc.address}</span>
-                  <span style={{ fontFamily: SANS, fontSize: 10, color: '#AAAAAA' }}>{loc.detail}</span>
-                </div>
-                <div
-                  style={{
-                    aspectRatio: '2 / 1',
-                    backgroundColor: '#E0E0E0',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    gap: 12,
-                  }}
-                >
-                  <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#999999" strokeWidth="1.2">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" />
-                    <circle cx="12" cy="9" r="2.5" />
-                  </svg>
-                  <span style={{ fontFamily: SANS, fontSize: 11, lineHeight: 1.7, color: '#999999', textAlign: 'center' }}>
-                    네이버 지도 embed<br />(주소 확정 후 교체)
-                  </span>
+        </section>
+        <section style={{ padding: '80px' }}>
+          <div>
+            <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: C.muted }}>CONTACT INFORMATION</span>
+            <div className="grid grid-cols-1 md:grid-cols-3 items-stretch" style={{ columnGap: 64, rowGap: 24, marginTop: 36 }}>
+              <InfoRow label="전화" value={ct.phone} href={`tel:${ct.phone}`} />
+              <InfoRow label="팩스" value={ct.fax} href={null} />
+              <InfoRow label="이메일" value={ct.email} href={`mailto:${ct.email}`} />
+              <InfoRow label="운영시간" value={ct.hours} href={null} paddingBottom={12} />
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 24, borderBottom: `1px solid ${C.hairline}` }}>
+                <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: C.muted }}>Office &amp; Workshop</span>
+                <span style={{ fontFamily: BC_CARD_FONT, fontSize: 22, fontWeight: 300, color: C.ink }}>{ct.office_name}</span>
+                <div className="flex items-center flex-wrap" style={{ gap: 10, marginTop: 2 }}>
+                  <span style={{ fontFamily: SANS, fontSize: 13, color: C.inkSoft }}>{ct.address}</span>
+                  <a href={ct.naver_map_url} target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-60"
+                    style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.05em', color: C.accent }}>네이버 지도 →</a>
                 </div>
               </div>
-            ))}
+              <div style={{ backgroundColor: C.surface, padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 10 }}>
+                <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: C.ink }}>{ct.cert_title}</span>
+                <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.8, color: C.inkSoft, whiteSpace: 'pre-line' }}>{ct.cert_desc}</span>
+              </div>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+        <section>
+          <iframe src={mapEmbedSrc} title={`${ct.office_name} 위치 지도`} width="100%" height={520}
+            style={{ border: 0, display: 'block', width: '100%' }} loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+        </section>
+      </div>
+
+      {/* ════ 모바일 — Pencil BD0PQ / d933990 mobile ════ */}
+      <div className="md:hidden" style={{ paddingTop: 56 }}>
+
+        <section className="relative overflow-hidden" style={{ height: 300 }}>
+          <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)' }} />
+          <div className="absolute" style={{ top: 150, left: 24, right: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: 'rgba(255,255,255,0.6)' }}>GET IN TOUCH</span>
+            <h1 style={{ fontFamily: SERIF, fontSize: 36, fontWeight: 300, lineHeight: 1.2, color: C.canvas }}>찾아오시는 길</h1>
+            <p style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: 'rgba(255,255,255,0.65)' }}>전통건축에 관한 문의나 방문을 환영합니다.</p>
+          </div>
+        </section>
+
+        <section style={{ backgroundColor: C.canvas, padding: '64px 24px', display: 'flex', flexDirection: 'column', gap: 24 }}>
+          <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: C.muted }}>CONTACT INFORMATION</span>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
+            <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>전화</span>
+            <a href={`tel:${ct.phone}`} style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 300, color: C.ink }}>{ct.phone}</a>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
+            <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>팩스</span>
+            <span style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 300, color: C.ink }}>{ct.fax}</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
+            <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>이메일</span>
+            <a href={`mailto:${ct.email}`} style={{ fontFamily: SANS, fontSize: 15, color: C.ink }}>{ct.email}</a>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
+            <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>운영시간</span>
+            <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: C.inkSoft, whiteSpace: 'pre-line' }}>{ct.hours}</span>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 24, borderBottom: `1px solid ${C.hairline}` }}>
+            <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>Office &amp; Workshop</span>
+            <span style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 300, color: C.ink }}>{ct.office_name}</span>
+            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
+              <span style={{ fontFamily: SANS, fontSize: 13, color: C.inkSoft }}>{ct.address}</span>
+              <a href={ct.naver_map_url} target="_blank" rel="noopener noreferrer"
+                style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 0.5, color: C.accent }}>네이버 지도 →</a>
+            </div>
+          </div>
+          <div style={{ backgroundColor: C.surface, padding: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
+            <span style={{ fontFamily: SANS, fontSize: 9, letterSpacing: 3, color: C.accent }}>CERTIFICATION</span>
+            <span style={{ fontFamily: SERIF, fontSize: 17, fontWeight: 300, lineHeight: 1.5, color: C.ink, whiteSpace: 'pre-line' }}>{ct.cert_title}</span>
+            <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: C.inkSoft, whiteSpace: 'pre-line' }}>{ct.cert_desc}</span>
+          </div>
+        </section>
+
+        <section style={{ backgroundColor: C.canvas }}>
+          <iframe src={mapEmbedSrc} title={`${ct.office_name} 위치 지도`} width="100%" height={200}
+            style={{ border: 0, display: 'block', width: '100%' }} loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+        </section>
+
+      </div>
     </div>
   );
 }

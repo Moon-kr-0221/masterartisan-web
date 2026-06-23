@@ -14,6 +14,9 @@ export default async function AdminDashboard() {
     { href: '/admin/artisans', label: '장인 소개', count: artisans.length, unit: '명', desc: '초대·이대·삼대 장인의 사진과 소개 글을 수정합니다.' },
     { href: '/admin/works', label: '작업 사례', count: works.length, unit: '건', desc: '작업물의 사진·분류·제목을 추가하고 관리합니다.' },
     { href: '/admin/history', label: '연혁', count: historyCount, unit: '건', desc: '연혁 항목을 추가하고 항목별 사진을 첨부합니다.' },
+    { href: '/admin/contact', label: '연락처', count: null, unit: '', desc: '전화·이메일·주소·운영시간 등 Contact 페이지 정보를 수정합니다.' },
+    { href: '/admin/process', label: '홈 프로세스 이미지', count: null, unit: '', desc: '홈 「장인의 혼을 담아」 섹션의 2×2 이미지 그리드를 교체합니다.' },
+    { href: '/admin/hero', label: '배경 이미지', count: null, unit: '', desc: '홈 히어로 슬라이드 4장 및 장인소개·작업사례 페이지 상단 배경 이미지를 교체합니다.' },
   ];
 
   return (
@@ -42,9 +45,11 @@ export default async function AdminDashboard() {
             className="hover:border-[#1A1A1A]">
             <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', marginBottom: 12 }}>
               <span style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 300, color: '#1A1A1A' }}>{c.label}</span>
-              <span style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 300, color: '#1A1A1A' }}>
-                {c.count}<span style={{ fontFamily: SANS, fontSize: 12, color: '#999', marginLeft: 3 }}>{c.unit}</span>
-              </span>
+              {c.count !== null && (
+                <span style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 300, color: '#1A1A1A' }}>
+                  {c.count}<span style={{ fontFamily: SANS, fontSize: 12, color: '#999', marginLeft: 3 }}>{c.unit}</span>
+                </span>
+              )}
             </div>
             <p style={{ fontFamily: SANS, fontSize: 13, color: '#777', lineHeight: 1.7 }}>{c.desc}</p>
           </Link>

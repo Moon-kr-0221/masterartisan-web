@@ -13,6 +13,9 @@ const links = [
   { href: '/admin/artisans', label: '장인 소개' },
   { href: '/admin/works', label: '작업 사례' },
   { href: '/admin/history', label: '연혁' },
+  { href: '/admin/contact', label: '연락처' },
+  { href: '/admin/hero', label: '이미지 관리' },
+  { href: '/admin/content', label: '카피 관리' },
 ];
 
 export default function AdminNav({ email }: { email: string }) {
