@@ -3,12 +3,12 @@
 import { useRef, useEffect } from 'react';
 import { motion, useInView, useMotionValue, useTransform, animate } from 'framer-motion';
 
-const SANS  = 'var(--font-sans)';
-const SERIF = 'var(--font-serif)';
+const SANS   = 'var(--font-sans)';
+const SERIF  = 'var(--font-serif)';
 
 const stats = [
   { prefix: '', raw: 3,  suffix: '代', label: '장인 계승',     desc: '초대 → 이대 → 삼대, 끊어지지 않은 기술의 계보',    duration: 1.2 },
-  { prefix: '', raw: 90, suffix: '+',  label: '년의 경험',     desc: '1936년 창업 이래 현재까지 이어온 전통건축 외길',    duration: 2.0 },
+  { prefix: '', raw: 90, suffix: '+',  label: '年의 경험',     desc: '1936년 창업 이래 현재까지 이어온 전통건축 외길',    duration: 2.0 },
   { prefix: '', raw: 36, suffix: '호', label: '경기무형문화재', desc: '국가가 공인한 전통건축 기술 보유자',                 duration: 1.6 },
 ];
 
@@ -30,8 +30,8 @@ function CountUp({ prefix, raw, suffix, duration, size, suffixSize, align = 'end
   return (
     <span ref={ref} className="font-light shrink-0 flex"
       style={{ fontFamily: SERIF, gap: '5px', letterSpacing: numLetterSpacing, lineHeight: 1, alignItems: align }}>
-      {prefix && <span style={{ fontSize: size, color: '#1A1A1A' }}>{prefix}</span>}
-      <motion.span style={{ fontSize: size, color: '#1A1A1A' }}>{rounded}</motion.span>
+      {prefix && <span style={{ fontSize: size, color: '#1A1A1A', }}>{prefix}</span>}
+      <motion.span style={{ fontSize: size, color: '#1A1A1A', }}>{rounded}</motion.span>
       {suffix && <span style={{ fontSize: unitSize, color: '#AAAAAA', lineHeight: 1.6, letterSpacing: 0 }}>{suffix}</span>}
     </span>
   );

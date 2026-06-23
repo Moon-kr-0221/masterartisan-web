@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { SANS, SERIF, C } from '@/lib/tokens';
+import { SANS, SERIF, LOGO_FONT, C } from '@/lib/tokens';
 
 const NAV_LINKS = [
   { href: '/',              label: 'HOME',          num: '01' },
@@ -47,8 +47,8 @@ export default function MobileMenuOverlay({ open, onClose }: Props) {
           flexShrink: 0,
         }}
       >
-        <span style={{ fontFamily: SANS, fontSize: 13, fontWeight: 700, letterSpacing: 2 }}>
-          MASTERARTISAN
+        <span style={{ fontFamily: LOGO_FONT, fontSize: 16, fontWeight: 700 }}>
+          KCHI
         </span>
         <button
           onClick={onClose}
@@ -63,7 +63,7 @@ export default function MobileMenuOverlay({ open, onClose }: Props) {
       </div>
 
       {/* NavLinks */}
-      <ul style={{ flex: 1, listStyle: 'none', margin: 0, padding: '16px 24px 0' }}>
+      <ul style={{ flex: 1, listStyle: 'none', margin: 0, padding: '16px 24px' }}>
         {NAV_LINKS.map((link, i) => (
           <li
             key={link.href}

@@ -10,13 +10,27 @@ const SERIF = 'var(--font-serif)';
 const DEFAULT_LEFT  = 'https://images.unsplash.com/photo-1771411068495-11575ea96c51?auto=format&fit=crop&w=1080&q=80';
 const DEFAULT_RIGHT = 'https://images.unsplash.com/photo-1655645888733-f0c9f8827a49?auto=format&fit=crop&w=1080&q=80';
 
-export default function ContrastSection({ leftImage, rightImage }: { leftImage?: string; rightImage?: string }) {
+const DEFAULT_COPY = {
+  leftEyebrow: 'DIFFERENT THINKING',
+  leftTitle: '다릅니다',
+  leftDesc: '3대에 걸쳐 축적된 기술력과\n독자적인 공법으로 만들어집니다.',
+  rightEyebrow: 'RIGHT THINKING',
+  rightTitle: '바릅니다',
+  rightDesc: '전통 목구조 기법 그대로,\n원형을 존중하며 정직하게 짓습니다.',
+};
+
+export default function ContrastSection({ leftImage, rightImage, copy }: {
+  leftImage?: string; rightImage?: string; copy?: Partial<typeof DEFAULT_COPY>;
+}) {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start end', 'end start'] });
   const leftBgY  = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
   const rightBgY = useTransform(scrollYProgress, [0, 1], ['8%', '-8%']);
   const leftSrc  = (leftImage  && leftImage  !== '') ? leftImage  : DEFAULT_LEFT;
   const rightSrc = (rightImage && rightImage !== '') ? rightImage : DEFAULT_RIGHT;
+  const c = { ...DEFAULT_COPY, ...copy };
+  const [leftDescL1, leftDescL2] = c.leftDesc.split('\n');
+  const [rightDescL1, rightDescL2] = c.rightDesc.split('\n');
 
   return (
     <>
@@ -30,14 +44,14 @@ export default function ContrastSection({ leftImage, rightImage }: { leftImage?:
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(14,13,11,0.87) 0%, rgba(14,13,11,0) 60%)' }} />
           <div className="absolute z-10 bottom-[45px] left-[52px]">
             <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }} viewport={{ once: true }}
-              className="section-label mb-4 block" style={{ color: 'rgba(255,255,255,0.35)' }}>DIFFERENT THINKING</motion.span>
+              className="section-label mb-4 block" style={{ color: 'rgba(255,255,255,0.35)' }}>{c.leftEyebrow}</motion.span>
             <motion.p initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }} whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 1.1, delay: 0.2, ease: EASE }} viewport={{ once: true, margin: '-40px' }}
-              className="font-light" style={{ fontFamily: SERIF, fontSize: '60px', letterSpacing: '-0.033em', color: '#FFFFFF', lineHeight: 1.43 }}>다릅니다</motion.p>
+              className="font-light" style={{ fontFamily: SERIF, fontSize: '60px', letterSpacing: '-0.033em', color: '#FFFFFF', lineHeight: 1.43 }}>{c.leftTitle}</motion.p>
             <motion.p initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }} viewport={{ once: true }}
               className="mt-4 text-[13px] leading-[1.85] max-w-[520px]"
-              style={{ fontFamily: SANS, color: 'rgba(255,255,255,0.5)' }}>3대에 걸쳐 축적된 기술력과<br />독자적인 공법으로 만들어집니다.</motion.p>
+              style={{ fontFamily: SANS, color: 'rgba(255,255,255,0.5)' }}>{leftDescL1}{leftDescL2 && <><br />{leftDescL2}</>}</motion.p>
           </div>
         </motion.div>
         <motion.div className="relative flex-1 overflow-hidden" style={{ backgroundColor: '#F0EDE6', minHeight: '700px' }}
@@ -48,14 +62,14 @@ export default function ContrastSection({ leftImage, rightImage }: { leftImage?:
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to top, rgba(14,13,11,0.87) 0%, rgba(14,13,11,0) 60%)' }} />
           <div className="absolute z-10 text-right bottom-[45px] right-[60px]">
             <motion.span initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} transition={{ duration: 0.8, delay: 0.2 }} viewport={{ once: true }}
-              className="section-label mb-4 block" style={{ color: '#AAAAAA' }}>RIGHT THINKING</motion.span>
+              className="section-label mb-4 block" style={{ color: '#AAAAAA' }}>{c.rightEyebrow}</motion.span>
             <motion.p initial={{ opacity: 0, y: 30, filter: 'blur(8px)' }} whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
               transition={{ duration: 1.1, delay: 0.25, ease: EASE }} viewport={{ once: true, margin: '-40px' }}
-              className="font-light" style={{ fontFamily: SERIF, fontSize: '60px', letterSpacing: '-0.033em', color: '#FFFFFF', lineHeight: 1.43 }}>바릅니다</motion.p>
+              className="font-light" style={{ fontFamily: SERIF, fontSize: '60px', letterSpacing: '-0.033em', color: '#FFFFFF', lineHeight: 1.43 }}>{c.rightTitle}</motion.p>
             <motion.p initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }} viewport={{ once: true }}
               className="mt-4 text-[13px] leading-[1.85] max-w-[320px] ml-auto"
-              style={{ fontFamily: SANS, color: '#666666' }}>전통 목구조 기법 그대로,<br />원형을 존중하며 정직하게 짓습니다.</motion.p>
+              style={{ fontFamily: SANS, color: '#666666' }}>{rightDescL1}{rightDescL2 && <><br />{rightDescL2}</>}</motion.p>
           </div>
         </motion.div>
       </section>

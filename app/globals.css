@@ -79,7 +79,7 @@ body {
 .section-label {
   font-family: var(--font-sans);
   font-size: 9px;
-  letter-spacing: 0.35em;
+  letter-spacing: 4px;
   color: #AAAAAA;
   text-transform: uppercase;
 }

@@ -5,8 +5,8 @@ import { motion } from 'framer-motion';
 
 const E = [0.16, 1, 0.3, 1] as [number, number, number, number];
 const EIN = [0.7, 0, 0.84, 0] as [number, number, number, number];
-
-const LOGO = 'MASTERARTISAN'.split('');
+const LOGO_FONT = 'var(--font-kchi)';
+const BC_CARD_FONT = 'var(--font-bc-card)';
 
 export default function PageIntro() {
   const [exiting, setExiting] = useState(false);
@@ -75,26 +75,22 @@ export default function PageIntro() {
             initial={{ width: 0 }} animate={{ width: 180 }}
             transition={{ duration: 0.7, ease: E, delay: 0.25 }} />
 
-          {/* 로고 — 글자별 스태거 */}
-          <div className="flex items-center" style={{ gap: 0 }}>
-            {LOGO.map((ch, i) => (
-              <motion.span key={i}
-                initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
-                animate={{ opacity: exiting ? 0 : 1, y: 0, filter: 'blur(0px)' }}
-                transition={{ duration: 0.55, ease: E, delay: 0.45 + i * 0.04 }}
-                style={{ fontFamily: 'var(--font-sans)', fontSize: '13px', fontWeight: 700, color: '#FFFFFF', letterSpacing: '3.5px' }}
-              >{ch}</motion.span>
-            ))}
-          </div>
+          {/* 로고 */}
+          <motion.span
+            initial={{ opacity: 0, y: 16, filter: 'blur(4px)' }}
+            animate={{ opacity: exiting ? 0 : 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 0.55, ease: E, delay: 0.45 }}
+            style={{ fontFamily: LOGO_FONT, fontSize: '24px', fontWeight: 700, color: '#FFFFFF' }}
+          >KCHI</motion.span>
 
           {/* 서브타이틀 */}
           <motion.p
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: exiting ? 0 : 0.45, y: 0 }}
             transition={{ duration: 0.7, ease: E, delay: 1.1 }}
-            style={{ fontFamily: 'var(--font-sans)', fontSize: '8px', color: '#FFFFFF', letterSpacing: '3px', textAlign: 'center', lineHeight: 2 }}
+            style={{ fontFamily: BC_CARD_FONT, fontSize: '12px', color: '#FFFFFF', letterSpacing: '3px', textAlign: 'center', lineHeight: 2 }}
           >
-            경기무형문화재 제36호<br />TRADITIONAL ARCHITECTURE
+            고려문화재기술원<br />Korea Cultural Heritage Institute Inc.
           </motion.p>
 
           {/* 프로그레스 트랙 */}

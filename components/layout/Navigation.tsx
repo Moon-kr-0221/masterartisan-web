@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { useEffect, useRef, useState } from 'react';
 import MobileGNB from './MobileGNB';
 import MobileMenuOverlay from './MobileMenuOverlay';
-import { SANS, C } from '@/lib/tokens';
+import { SANS, LOGO_FONT, C } from '@/lib/tokens';
 
 const desktopLinks = [
   { href: '/masterartisan', label: 'MASTERARTISAN' },
@@ -95,9 +95,9 @@ export default function Navigation() {
           <Link
             href="/"
             className="font-bold transition-colors duration-300"
-            style={{ fontFamily: SANS, fontSize: '16px', letterSpacing: '2px', color: logoColor }}
+            style={{ fontFamily: LOGO_FONT, fontSize: '28px', color: logoColor }}
           >
-            MASTERARTISAN
+            KCHI
           </Link>
           <nav className="flex items-center gap-[44px]">
             {desktopLinks.map((link) => (

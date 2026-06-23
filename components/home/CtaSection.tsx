@@ -41,7 +41,7 @@ export default function CtaSection() {
         style={{ backgroundColor: '#0D0C0A', padding: '64px 24px', gap: 24, borderBottom: '1px solid #222222' }}>
         <div className="flex flex-col" style={{ gap: 12 }}>
           <span style={{ fontFamily: SANS, fontSize: 9, letterSpacing: 4, color: 'rgba(255,255,255,0.3)' }}>START YOUR PROJECT</span>
-          <h2 style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, lineHeight: 1.3, color: '#FFFFFF' }}>
+          <h2 style={{ fontFamily: SERIF, fontSize: 30, fontWeight: 300, lineHeight: 1.5, color: '#FFFFFF' }}>
             전통의 가치를<br />함께 짓겠습니다
           </h2>
         </div>

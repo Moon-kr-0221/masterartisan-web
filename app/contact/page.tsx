@@ -1,22 +1,8 @@
-import { SERIF, SANS, C } from '@/lib/tokens';
+import { SERIF, SANS, BC_CARD_FONT, C } from '@/lib/tokens';
+import { getContact } from '@/lib/data/queries';
 
 const BANNER_IMG   = '/images/contact/exterior.jpg';
 const BANNER_SCRIM = 'linear-gradient(0deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.35) 45%, rgba(0,0,0,0.1) 100%)';
-
-const LEFT_ITEMS = [
-  { label: '전화',   value: '070-7715-4704',    href: 'tel:070-7715-4704' },
-  { label: '팩스',   value: '0504-230-4704',    href: null },
-  { label: '이메일', value: 'rayarchit@naver.com', href: 'mailto:rayarchit@naver.com' },
-];
-
-const ADDRESS      = '인천광역시 강화군 송해면 강화대로 778';
-const NAVER_MAP_URL = 'https://naver.me/xtNhmH4G';
-const MAP_EMBED_SRC = `https://www.google.com/maps?q=${encodeURIComponent(ADDRESS)}&z=16&hl=ko&output=embed`;
-
-const LOCATIONS = [{
-  type: '고려문화재기술원(주)', typeEn: 'Office & Workshop',
-  address: ADDRESS, detail: '사무실·작업장 통합', mapUrl: NAVER_MAP_URL,
-}];
 
 function InfoRow({ label, value, href, paddingBottom = 24, height, flex }: {
   label: string; value: string; href: string | null;
@@ -35,7 +21,10 @@ function InfoRow({ label, value, href, paddingBottom = 24, height, flex }: {
   );
 }
 
-export default function ContactPage() {
+export default async function ContactPage() {
+  const ct = await getContact();
+  const mapEmbedSrc = `https://www.google.com/maps?q=${encodeURIComponent(ct.address)}&z=16&hl=ko&output=embed`;
+
   return (
     <div style={{ backgroundColor: C.canvas }}>
 
@@ -54,32 +43,36 @@ export default function ContactPage() {
           <div>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.3em', color: C.muted }}>CONTACT INFORMATION</span>
             <div className="grid grid-cols-1 md:grid-cols-3 items-stretch" style={{ columnGap: 64, rowGap: 24, marginTop: 36 }}>
-              {LEFT_ITEMS.map((it) => (<InfoRow key={it.label} {...it} />))}
-              <InfoRow label="운영시간" value={'평일 09:00 – 18:00\n토요일 09:00 – 13:00 (일·공휴일 휴무)'} href={null} paddingBottom={12} />
+              <InfoRow label="전화" value={ct.phone} href={`tel:${ct.phone}`} />
+              <InfoRow label="팩스" value={ct.fax} href={null} />
+              <InfoRow label="이메일" value={ct.email} href={`mailto:${ct.email}`} />
+              <InfoRow label="운영시간" value={ct.hours} href={null} paddingBottom={12} />
               <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 24, borderBottom: `1px solid ${C.hairline}` }}>
-                <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: C.muted }}>{LOCATIONS[0].typeEn}</span>
-                <span style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 300, color: C.ink }}>{LOCATIONS[0].type}</span>
+                <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '0.2em', color: C.muted }}>Office &amp; Workshop</span>
+                <span style={{ fontFamily: BC_CARD_FONT, fontSize: 22, fontWeight: 300, color: C.ink }}>{ct.office_name}</span>
                 <div className="flex items-center flex-wrap" style={{ gap: 10, marginTop: 2 }}>
-                  <span style={{ fontFamily: SANS, fontSize: 13, color: C.inkSoft }}>{LOCATIONS[0].address}</span>
-                  <a href={LOCATIONS[0].mapUrl} target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-60" style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.05em', color: C.accent }}>네이버 지도 →</a>
+                  <span style={{ fontFamily: SANS, fontSize: 13, color: C.inkSoft }}>{ct.address}</span>
+                  <a href={ct.naver_map_url} target="_blank" rel="noopener noreferrer" className="transition-opacity hover:opacity-60"
+                    style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.05em', color: C.accent }}>네이버 지도 →</a>
                 </div>
               </div>
               <div style={{ backgroundColor: C.surface, padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'center', gap: 10 }}>
-                <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: C.ink }}>경기무형문화재 제36호</span>
-                <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.8, color: C.inkSoft, whiteSpace: 'pre-line' }}>{'전통건축 유지보수·수리·제작에 관한 모든 문의를 환영합니다.\n방문 전 사전 연락을 부탁드립니다.'}</span>
+                <span style={{ fontFamily: SERIF, fontSize: 16, fontWeight: 300, color: C.ink }}>{ct.cert_title}</span>
+                <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.8, color: C.inkSoft, whiteSpace: 'pre-line' }}>{ct.cert_desc}</span>
               </div>
             </div>
           </div>
         </section>
         <section>
-          <iframe src={MAP_EMBED_SRC} title={`${LOCATIONS[0].type} 위치 지도`} width="100%" height={520} style={{ border: 0, display: 'block', width: '100%' }} loading="lazy" referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
+          <iframe src={mapEmbedSrc} title={`${ct.office_name} 위치 지도`} width="100%" height={520}
+            style={{ border: 0, display: 'block', width: '100%' }} loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
         </section>
       </div>
 
       {/* ════ 모바일 — Pencil BD0PQ / d933990 mobile ════ */}
       <div className="md:hidden" style={{ paddingTop: 56 }}>
 
-        {/* Page Hero — 300px, 이미지+스크림, 텍스트 y:150 */}
         <section className="relative overflow-hidden" style={{ height: 300 }}>
           <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)' }} />
@@ -90,58 +83,45 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* ContactInfo — Pencil WggIQ: #FFFFFF, padding [64,24], gap 24 */}
         <section style={{ backgroundColor: C.canvas, padding: '64px 24px', display: 'flex', flexDirection: 'column', gap: 24 }}>
           <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: C.muted }}>CONTACT INFORMATION</span>
 
-          {/* 전화 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>전화</span>
-            <a href="tel:070-7715-4704" style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 300, color: C.ink }}>070-7715-4704</a>
+            <a href={`tel:${ct.phone}`} style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 300, color: C.ink }}>{ct.phone}</a>
           </div>
-          {/* 팩스 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>팩스</span>
-            <span style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 300, color: C.ink }}>0504-230-4704</span>
+            <span style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 300, color: C.ink }}>{ct.fax}</span>
           </div>
-          {/* 이메일 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>이메일</span>
-            <a href="mailto:rayarchit@naver.com" style={{ fontFamily: SANS, fontSize: 15, color: C.ink }}>rayarchit@naver.com</a>
+            <a href={`mailto:${ct.email}`} style={{ fontFamily: SANS, fontSize: 15, color: C.ink }}>{ct.email}</a>
           </div>
-          {/* 운영시간 */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>운영시간</span>
-            <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: C.inkSoft, whiteSpace: 'pre-line' }}>{'평일 09:00 – 18:00\n주말·공휴일 휴무'}</span>
+            <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: C.inkSoft, whiteSpace: 'pre-line' }}>{ct.hours}</span>
           </div>
-          {/* Office & Workshop */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 24, borderBottom: `1px solid ${C.hairline}` }}>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>Office &amp; Workshop</span>
-            <span style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 300, color: C.ink }}>고려문화재기술원(주)</span>
+            <span style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 300, color: C.ink }}>{ct.office_name}</span>
             <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
-              <span style={{ fontFamily: SANS, fontSize: 13, color: C.inkSoft }}>{LOCATIONS[0].address}</span>
-              <a href={LOCATIONS[0].mapUrl} target="_blank" rel="noopener noreferrer" style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 0.5, color: C.accent }}>네이버 지도 →</a>
+              <span style={{ fontFamily: SANS, fontSize: 13, color: C.inkSoft }}>{ct.address}</span>
+              <a href={ct.naver_map_url} target="_blank" rel="noopener noreferrer"
+                style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 0.5, color: C.accent }}>네이버 지도 →</a>
             </div>
           </div>
-          {/* CertBox — Pencil TzU0O: #F7F6F3, padding 24, gap 10 */}
           <div style={{ backgroundColor: C.surface, padding: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <span style={{ fontFamily: SANS, fontSize: 9, letterSpacing: 3, color: C.accent }}>CERTIFICATION</span>
-            <span style={{ fontFamily: SERIF, fontSize: 17, fontWeight: 300, lineHeight: 1.5, color: C.ink, whiteSpace: 'pre-line' }}>{'경기무형문화재 제36호\n전통건축 공식 보유자'}</span>
+            <span style={{ fontFamily: SERIF, fontSize: 17, fontWeight: 300, lineHeight: 1.5, color: C.ink, whiteSpace: 'pre-line' }}>{ct.cert_title}</span>
+            <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: C.inkSoft, whiteSpace: 'pre-line' }}>{ct.cert_desc}</span>
           </div>
         </section>
 
-        {/* Locations / Map — iframe 200px */}
         <section style={{ backgroundColor: C.canvas }}>
-          <iframe
-            src={MAP_EMBED_SRC}
-            title={`${LOCATIONS[0].type} 위치 지도`}
-            width="100%"
-            height={200}
-            style={{ border: 0, display: 'block', width: '100%' }}
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-            allowFullScreen
-          />
+          <iframe src={mapEmbedSrc} title={`${ct.office_name} 위치 지도`} width="100%" height={200}
+            style={{ border: 0, display: 'block', width: '100%' }} loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade" allowFullScreen />
         </section>
 
       </div>

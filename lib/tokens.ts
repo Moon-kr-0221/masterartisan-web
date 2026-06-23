@@ -2,6 +2,8 @@
 // Font variables resolve to CSS custom properties defined in globals.css.
 export const SERIF = 'var(--font-serif)';
 export const SANS  = 'var(--font-sans)';
+export const LOGO_FONT = 'var(--font-kchi)';
+export const BC_CARD_FONT = 'var(--font-bc-card)';
 
 export const C = {
   // text

@@ -403,7 +403,17 @@ function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () =>
 }
 
 // ─── Page ────────────────────────────────────────────────────────────────────
-export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
+export default function HistoryClient({ eras, header }: {
+  eras: HistoryEraGroup[];
+  header?: { eyebrow: string; title: string; desc: string; image: string };
+}) {
+  const headerCopy = header ?? {
+    eyebrow: 'HISTORY · 장인 이야기',
+    title: '천년의 기술,\n삼대로 이어온\n90년의 여정',
+    desc: '1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.',
+    image: HISTORY_HEADER_IMG,
+  };
+  const headerTitleLines = headerCopy.title.split('\n');
   const ERAS = [...eras].reverse(); // oldest → newest
   const TOTAL = ERAS.length;
   // Intro-clock years follow the actual archive range (oldest → newest).
@@ -539,7 +549,7 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
             color: C.accent,
             textTransform: 'uppercase',
           }}>
-            HISTORY · 장인 이야기
+            {headerCopy.eyebrow}
           </p>
           <h1 style={{
             fontFamily: "'Noto Serif KR', serif",
@@ -550,9 +560,9 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
             color: C.ink,
             maxWidth: isMobile ? '100%' : 600,
           }}>
-            천년의 기술,<br />
-            삼대로 이어온<br />
-            90년의 여정
+            {headerTitleLines.map((line, i) => (
+              <span key={i}>{line}{i < headerTitleLines.length - 1 && <br />}</span>
+            ))}
           </h1>
           <p style={{
             fontFamily: "'Noto Sans KR', sans-serif",
@@ -560,11 +570,11 @@ export default function HistoryClient({ eras }: { eras: HistoryEraGroup[] }) {
             color: C.muted, fontWeight: 300,
             maxWidth: isMobile ? '100%' : 452,
           }}>
-            1936년부터 3대에 걸쳐 이어온 전통 목구조 건축 기법의 발자취를 따라갑니다.
+            {headerCopy.desc}
           </p>
         </div>
 
-        <HeaderImage src={HISTORY_HEADER_IMG} alt="전통 목조 건축 처마와 살창" isMobile={isMobile} />
+        <HeaderImage src={headerCopy.image} alt="전통 목조 건축 처마와 살창" isMobile={isMobile} />
       </section>
 
       {/* ══ CLOCK INTRO ANIMATION ════════════════════════════════════════════ */}

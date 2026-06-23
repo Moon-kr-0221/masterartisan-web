@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { SANS, C } from '@/lib/tokens';
+import { LOGO_FONT, C } from '@/lib/tokens';
 
 interface Props {
   onMenuOpen: () => void;
@@ -21,9 +21,9 @@ export default function MobileGNB({ onMenuOpen }: Props) {
     >
       <Link
         href="/"
-        style={{ fontFamily: SANS, fontSize: 13, fontWeight: 700, letterSpacing: 2, color: C.ink }}
+        style={{ fontFamily: LOGO_FONT, fontSize: 16, fontWeight: 700, color: C.ink }}
       >
-        MASTERARTISAN
+        KCHI
       </Link>
 
       <button
