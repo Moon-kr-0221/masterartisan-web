@@ -239,6 +239,14 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
   isMobile?: boolean;
 }) {
   const [expandedWorks, setExpandedWorks] = useState<Set<string>>(new Set());
+  const [fullImage, setFullImage] = useState<{ url: string; caption: string | null } | null>(null);
+
+  useEffect(() => {
+    if (!fullImage) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setFullImage(null); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [fullImage]);
 
   const byYear: Record<string, HistoryWorkItem[]> = {};
   era.works.forEach((w) => {
@@ -309,11 +317,13 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
                       <div style={{ display: 'flex', flexDirection: 'column', gap: 8, marginTop: 10 }}>
                         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                           {visiblePhotos.map((m, idx) => (
-                            <div key={idx} style={{
-                              width: photoW, height: photoH,
-                              flexShrink: 0, overflow: 'hidden',
-                              backgroundColor: C.surface,
-                            }}>
+                            <div key={idx}
+                              onClick={() => setFullImage({ url: m.image_url, caption: m.caption })}
+                              style={{
+                                width: photoW, height: photoH,
+                                flexShrink: 0, overflow: 'hidden',
+                                backgroundColor: C.surface, cursor: 'zoom-in',
+                              }}>
                               <img
                                 src={m.image_url}
                                 alt={m.caption ?? work.title}
@@ -349,12 +359,51 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
           </div>
         ))}
       </div>
+      {fullImage && (
+        <div
+          className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-10"
+          style={{ backgroundColor: 'rgba(13,11,8,0.96)' }}
+          onClick={() => setFullImage(null)}>
+          <img
+            src={fullImage.url}
+            alt={fullImage.caption ?? ''}
+            style={{ maxWidth: '92vw', maxHeight: '88vh', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' }}
+          />
+          {fullImage.caption && (
+            <figcaption style={{
+              position: 'absolute', bottom: isMobile ? 24 : 32, left: 0, right: 0,
+              textAlign: 'center', fontFamily: "'Noto Sans KR'", fontSize: 12,
+              color: '#E2DDD6', padding: '0 24px',
+            }}>
+              {fullImage.caption}
+            </figcaption>
+          )}
+          <button
+            onClick={() => setFullImage(null)}
+            style={{
+              position: 'absolute', top: isMobile ? 16 : 24, right: isMobile ? 16 : 24,
+              fontFamily: "'Noto Sans KR'", fontSize: 11, letterSpacing: '0.1em',
+              color: '#E2DDD6', cursor: 'pointer', background: 'none', border: 'none',
+            }}>
+            닫기 ✕
+          </button>
+        </div>
+      )}
     </section>
   );
 }
 
 // ─── Media gallery lightbox ──────────────────────────────────────────────────
 function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () => void }) {
+  const [fullImage, setFullImage] = useState<{ url: string; caption: string | null } | null>(null);
+
+  useEffect(() => {
+    if (!fullImage) return;
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setFullImage(null); };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [fullImage]);
+
   return (
     <div
       className="fixed inset-0 z-[70] flex items-center justify-center p-6 overflow-y-auto"
@@ -384,7 +433,9 @@ function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () =>
         <div style={{ padding: 32, display: 'grid', gridTemplateColumns: '1fr', gap: 24 }}>
           {work.media.map((m, i) => (
             <figure key={i} style={{ margin: 0 }}>
-              <div style={{ width: '100%', backgroundColor: C.surface, overflow: 'hidden' }}>
+              <div
+                onClick={() => setFullImage({ url: m.image_url, caption: m.caption })}
+                style={{ width: '100%', backgroundColor: C.surface, overflow: 'hidden', cursor: 'zoom-in' }}>
                 <img src={m.image_url} alt={m.caption ?? work.title}
                   className="w-full object-cover" style={{ display: 'block' }} />
               </div>
@@ -398,6 +449,36 @@ function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () =>
           ))}
         </div>
       </div>
+      {fullImage && (
+        <div
+          className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-10"
+          style={{ backgroundColor: 'rgba(13,11,8,0.96)' }}
+          onClick={(e) => { e.stopPropagation(); setFullImage(null); }}>
+          <img
+            src={fullImage.url}
+            alt={fullImage.caption ?? ''}
+            style={{ maxWidth: '92vw', maxHeight: '88vh', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' }}
+          />
+          {fullImage.caption && (
+            <figcaption style={{
+              position: 'absolute', bottom: 24, left: 0, right: 0,
+              textAlign: 'center', fontFamily: "'Noto Sans KR'", fontSize: 12,
+              color: '#E2DDD6', padding: '0 24px',
+            }}>
+              {fullImage.caption}
+            </figcaption>
+          )}
+          <button
+            onClick={(e) => { e.stopPropagation(); setFullImage(null); }}
+            style={{
+              position: 'absolute', top: 20, right: 20,
+              fontFamily: "'Noto Sans KR'", fontSize: 11, letterSpacing: '0.1em',
+              color: '#E2DDD6', cursor: 'pointer', background: 'none', border: 'none',
+            }}>
+            닫기 ✕
+          </button>
+        </div>
+      )}
     </div>
   );
 }

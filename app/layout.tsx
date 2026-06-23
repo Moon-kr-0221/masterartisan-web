@@ -47,12 +47,12 @@ const bcCard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: 'MasterArtisan — 경기무형문화재 제36호 전통건축',
+  title: 'KCHI 고려문화재기술원-경기무형문화재 36호',
   description:
     '3대째 이어온 전통건축 유지보수·수리·제작 전문. 경기무형문화재 제36호 인간문화재가 운영하는 전통건축 전문 회사입니다.',
   keywords: ['전통건축', '경기무형문화재', '인간문화재', '전통건축수리', '문화재복원'],
   openGraph: {
-    title: 'MasterArtisan — 경기무형문화재 제36호 전통건축',
+    title: 'KCHI 고려문화재기술원-경기무형문화재 36호',
     description: '3대째 이어온 전통건축 전문. 경기무형문화재 제36호.',
     type: 'website',
   },

@@ -4,7 +4,7 @@ import { isSupabaseConfigured } from '@/lib/supabase/env';
 import AdminNav from '@/components/admin/AdminNav';
 
 export const metadata: Metadata = {
-  title: 'MasterArtisan 관리자',
+  title: 'KCHI 고려문화재기술원-경기무형문화재 36호 관리자',
   robots: { index: false, follow: false },
 };
 
