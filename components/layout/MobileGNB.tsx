@@ -21,7 +21,7 @@ export default function MobileGNB({ onMenuOpen }: Props) {
     >
       <Link
         href="/"
-        style={{ fontFamily: LOGO_FONT, fontSize: 16, fontWeight: 700, color: C.ink }}
+        style={{ fontFamily: LOGO_FONT, fontSize: 24, fontWeight: 700, color: C.ink }}
       >
         KCHI
       </Link>

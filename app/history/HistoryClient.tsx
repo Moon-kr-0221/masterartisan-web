@@ -228,6 +228,112 @@ function HistoryDial({ eras, activeIdx, groupRef, labelRefs }: DialProps) {
   );
 }
 
+// ─── Photo lightbox — 스와이프 이미지 슬라이더 (여러 장일 때) ────────────────
+function PhotoLightbox({ photos, index, isMobile, onClose, onChangeIndex }: {
+  photos: { url: string; caption: string | null }[];
+  index: number;
+  isMobile: boolean;
+  onClose: () => void;
+  onChangeIndex: (i: number) => void;
+}) {
+  const total = photos.length;
+  const current = photos[index];
+  const touchStartX = useRef<number | null>(null);
+
+  const goPrev = () => onChangeIndex((index - 1 + total) % total);
+  const goNext = () => onChangeIndex((index + 1) % total);
+
+  useEffect(() => {
+    window.dispatchEvent(new Event('history-scroll-lock'));
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (total > 1 && e.key === 'ArrowLeft') goPrev();
+      if (total > 1 && e.key === 'ArrowRight') goNext();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.dispatchEvent(new Event('history-scroll-unlock'));
+    };
+  }, [index, total]);
+
+  function handleTouchStart(e: React.TouchEvent) { touchStartX.current = e.touches[0].clientX; }
+  function handleTouchEnd(e: React.TouchEvent) {
+    if (touchStartX.current == null) return;
+    const diff = e.changedTouches[0].clientX - touchStartX.current;
+    touchStartX.current = null;
+    if (total <= 1 || Math.abs(diff) < 50) return;
+    if (diff < 0) goNext(); else goPrev();
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-10"
+      style={{ backgroundColor: 'rgba(13,11,8,0.96)' }}
+      onClick={(e) => { e.stopPropagation(); onClose(); }}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}>
+      <img
+        src={current.url}
+        alt={current.caption ?? ''}
+        onClick={(e) => e.stopPropagation()}
+        style={{ maxWidth: '92vw', maxHeight: '88vh', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block', userSelect: 'none' }}
+      />
+      {current.caption && (
+        <figcaption style={{
+          position: 'absolute', bottom: isMobile ? 24 : 32, left: 0, right: 0,
+          textAlign: 'center', fontFamily: "'Noto Sans KR'", fontSize: 12,
+          color: '#E2DDD6', padding: '0 24px',
+        }}>
+          {current.caption}
+        </figcaption>
+      )}
+      {total > 1 && (
+        <>
+          <button
+            onClick={(e) => { e.stopPropagation(); goPrev(); }}
+            style={{
+              position: 'absolute', left: isMobile ? 8 : 24, top: '50%', transform: 'translateY(-50%)',
+              fontSize: 28, color: '#E2DDD6', background: 'none', border: 'none', cursor: 'pointer',
+              padding: 12, lineHeight: 1,
+            }}>
+            ‹
+          </button>
+          <button
+            onClick={(e) => { e.stopPropagation(); goNext(); }}
+            style={{
+              position: 'absolute', right: isMobile ? 8 : 24, top: '50%', transform: 'translateY(-50%)',
+              fontSize: 28, color: '#E2DDD6', background: 'none', border: 'none', cursor: 'pointer',
+              padding: 12, lineHeight: 1,
+            }}>
+            ›
+          </button>
+          <div style={{
+            position: 'absolute', bottom: isMobile ? 56 : 64, left: 0, right: 0,
+            display: 'flex', justifyContent: 'center', gap: 6,
+          }}>
+            {photos.map((_, i) => (
+              <span key={i} style={{
+                width: 6, height: 6, borderRadius: '50%',
+                backgroundColor: i === index ? '#E2DDD6' : 'rgba(226,221,214,0.35)',
+              }} />
+            ))}
+          </div>
+        </>
+      )}
+      <button
+        onClick={(e) => { e.stopPropagation(); onClose(); }}
+        style={{
+          position: 'absolute', top: isMobile ? 16 : 24, right: isMobile ? 16 : 24,
+          fontFamily: "'Noto Sans KR'", fontSize: 11, letterSpacing: '0.1em',
+          color: '#E2DDD6', cursor: 'pointer', background: 'none', border: 'none',
+        }}>
+        닫기 ✕
+      </button>
+    </div>
+  );
+}
+
 // ─── Era section ─────────────────────────────────────────────────────────────
 function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isMobile = false }: {
   era: HistoryEraGroup;
@@ -239,18 +345,7 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
   isMobile?: boolean;
 }) {
   const [expandedWorks, setExpandedWorks] = useState<Set<string>>(new Set());
-  const [fullImage, setFullImage] = useState<{ url: string; caption: string | null } | null>(null);
-
-  useEffect(() => {
-    if (!fullImage) return;
-    window.dispatchEvent(new Event('history-scroll-lock'));
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setFullImage(null); };
-    window.addEventListener('keydown', onKey);
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      window.dispatchEvent(new Event('history-scroll-unlock'));
-    };
-  }, [fullImage]);
+  const [gallery, setGallery] = useState<{ photos: { url: string; caption: string | null }[]; index: number } | null>(null);
 
   const byYear: Record<string, HistoryWorkItem[]> = {};
   era.works.forEach((w) => {
@@ -322,7 +417,10 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
                         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
                           {visiblePhotos.map((m, idx) => (
                             <div key={idx}
-                              onClick={() => setFullImage({ url: m.image_url, caption: m.caption })}
+                              onClick={() => setGallery({
+                                photos: photos.map((p) => ({ url: p.image_url, caption: p.caption })),
+                                index: idx,
+                              })}
                               style={{
                                 width: photoW, height: photoH,
                                 flexShrink: 0, overflow: 'hidden',
@@ -363,35 +461,14 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
           </div>
         ))}
       </div>
-      {fullImage && (
-        <div
-          className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-10"
-          style={{ backgroundColor: 'rgba(13,11,8,0.96)' }}
-          onClick={() => setFullImage(null)}>
-          <img
-            src={fullImage.url}
-            alt={fullImage.caption ?? ''}
-            style={{ maxWidth: '92vw', maxHeight: '88vh', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' }}
-          />
-          {fullImage.caption && (
-            <figcaption style={{
-              position: 'absolute', bottom: isMobile ? 24 : 32, left: 0, right: 0,
-              textAlign: 'center', fontFamily: "'Noto Sans KR'", fontSize: 12,
-              color: '#E2DDD6', padding: '0 24px',
-            }}>
-              {fullImage.caption}
-            </figcaption>
-          )}
-          <button
-            onClick={() => setFullImage(null)}
-            style={{
-              position: 'absolute', top: isMobile ? 16 : 24, right: isMobile ? 16 : 24,
-              fontFamily: "'Noto Sans KR'", fontSize: 11, letterSpacing: '0.1em',
-              color: '#E2DDD6', cursor: 'pointer', background: 'none', border: 'none',
-            }}>
-            닫기 ✕
-          </button>
-        </div>
+      {gallery && (
+        <PhotoLightbox
+          photos={gallery.photos}
+          index={gallery.index}
+          isMobile={isMobile}
+          onClose={() => setGallery(null)}
+          onChangeIndex={(i) => setGallery((g) => (g ? { ...g, index: i } : g))}
+        />
       )}
     </section>
   );
@@ -399,19 +476,15 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
 
 // ─── Media gallery lightbox ──────────────────────────────────────────────────
 function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () => void }) {
-  const [fullImage, setFullImage] = useState<{ url: string; caption: string | null } | null>(null);
+  const isMobile = useIsMobile();
+  const [photoIdx, setPhotoIdx] = useState<number | null>(null);
 
   useEffect(() => {
     window.dispatchEvent(new Event('history-scroll-lock'));
     return () => { window.dispatchEvent(new Event('history-scroll-unlock')); };
   }, []);
 
-  useEffect(() => {
-    if (!fullImage) return;
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setFullImage(null); };
-    window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
-  }, [fullImage]);
+  const galleryPhotos = work.media.map((m) => ({ url: m.image_url, caption: m.caption }));
 
   return (
     <div
@@ -443,7 +516,7 @@ function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () =>
           {work.media.map((m, i) => (
             <figure key={i} style={{ margin: 0 }}>
               <div
-                onClick={() => setFullImage({ url: m.image_url, caption: m.caption })}
+                onClick={() => setPhotoIdx(i)}
                 style={{ width: '100%', backgroundColor: C.surface, overflow: 'hidden', cursor: 'zoom-in' }}>
                 <img src={m.image_url} alt={m.caption ?? work.title}
                   className="w-full object-cover" style={{ display: 'block' }} />
@@ -458,35 +531,14 @@ function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () =>
           ))}
         </div>
       </div>
-      {fullImage && (
-        <div
-          className="fixed inset-0 z-[90] flex items-center justify-center p-4 md:p-10"
-          style={{ backgroundColor: 'rgba(13,11,8,0.96)' }}
-          onClick={(e) => { e.stopPropagation(); setFullImage(null); }}>
-          <img
-            src={fullImage.url}
-            alt={fullImage.caption ?? ''}
-            style={{ maxWidth: '92vw', maxHeight: '88vh', width: 'auto', height: 'auto', objectFit: 'contain', display: 'block' }}
-          />
-          {fullImage.caption && (
-            <figcaption style={{
-              position: 'absolute', bottom: 24, left: 0, right: 0,
-              textAlign: 'center', fontFamily: "'Noto Sans KR'", fontSize: 12,
-              color: '#E2DDD6', padding: '0 24px',
-            }}>
-              {fullImage.caption}
-            </figcaption>
-          )}
-          <button
-            onClick={(e) => { e.stopPropagation(); setFullImage(null); }}
-            style={{
-              position: 'absolute', top: 20, right: 20,
-              fontFamily: "'Noto Sans KR'", fontSize: 11, letterSpacing: '0.1em',
-              color: '#E2DDD6', cursor: 'pointer', background: 'none', border: 'none',
-            }}>
-            닫기 ✕
-          </button>
-        </div>
+      {photoIdx !== null && (
+        <PhotoLightbox
+          photos={galleryPhotos}
+          index={photoIdx}
+          isMobile={isMobile}
+          onClose={() => setPhotoIdx(null)}
+          onChangeIndex={setPhotoIdx}
+        />
       )}
     </div>
   );

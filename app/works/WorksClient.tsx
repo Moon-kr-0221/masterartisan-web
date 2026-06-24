@@ -57,6 +57,17 @@ export default function WorksClient({ works, initialWork, heroImage, heroImageMo
     return () => ro.disconnect();
   }, [lightbox, captionExpanded]);
 
+  // 라이트박스가 열려 있는 동안 배경 스크롤 잠금
+  useEffect(() => {
+    if (!lightbox) return;
+    document.documentElement.style.overflow = 'hidden';
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+  }, [lightbox]);
+
   // 키보드 좌우 화살표 지원
   useEffect(() => {
     if (!lightbox) return;
