@@ -576,7 +576,8 @@ export default function HistoryClient({ eras, header }: {
   // Tab bar scroll-sync refs
   const tabBarRef     = useRef<HTMLDivElement>(null);
   const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const tabTouch      = useRef<{ x: number; left: number } | null>(null);
+  const tabTouch      = useRef<{ x: number; left: number; lastX: number; lastT: number; vx: number } | null>(null);
+  const tabMomentum   = useRef<number | null>(null);
 
   // ── Lenis (데스크탑) + 네이티브 스크롤 리스너 (iOS 터치) ────────────────
   useEffect(() => {
@@ -766,15 +767,38 @@ export default function HistoryClient({ eras, header }: {
         onTouchStart={(e) => {
           const bar = tabBarRef.current;
           if (!bar) return;
-          tabTouch.current = { x: e.touches[0].clientX, left: bar.scrollLeft };
+          if (tabMomentum.current) cancelAnimationFrame(tabMomentum.current); // 진행 중인 관성 중단
+          const now = performance.now();
+          tabTouch.current = { x: e.touches[0].clientX, left: bar.scrollLeft, lastX: e.touches[0].clientX, lastT: now, vx: 0 };
         }}
         onTouchMove={(e) => {
           const bar = tabBarRef.current;
           if (!bar || !tabTouch.current) return;
           e.stopPropagation();
-          bar.scrollLeft = tabTouch.current.left - (e.touches[0].clientX - tabTouch.current.x);
+          const x = e.touches[0].clientX;
+          const now = performance.now();
+          const dt = now - tabTouch.current.lastT;
+          if (dt > 0) tabTouch.current.vx = (x - tabTouch.current.lastX) / dt; // px/ms
+          tabTouch.current.lastX = x;
+          tabTouch.current.lastT = now;
+          bar.scrollLeft = tabTouch.current.left - (x - tabTouch.current.x);
         }}
-        onTouchEnd={() => { tabTouch.current = null; }}
+        onTouchEnd={() => {
+          const bar = tabBarRef.current;
+          const t = tabTouch.current;
+          tabTouch.current = null;
+          if (!bar || !t) return;
+          // 손을 뗀 순간의 속도로 미끄러지듯 감속 (관성 스크롤)
+          let v = -t.vx * 16; // px/frame(≈16ms) 환산, 드래그 방향과 반대로 scrollLeft 이동
+          const friction = 0.94;
+          const step = () => {
+            v *= friction;
+            bar.scrollLeft += v;
+            if (Math.abs(v) > 0.4) tabMomentum.current = requestAnimationFrame(step);
+            else tabMomentum.current = null;
+          };
+          if (Math.abs(v) > 0.4) tabMomentum.current = requestAnimationFrame(step);
+        }}
         style={{
         position: 'sticky',
         top: 'var(--nav-h, 72px)',
