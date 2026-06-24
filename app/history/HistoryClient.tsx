@@ -804,7 +804,7 @@ export default function HistoryClient({ eras, header }: {
         top: 'var(--nav-h, 72px)',
         zIndex: 40,
         transition: 'top 0.3s ease',
-        backgroundColor: `${C.bg}F2`,
+        backgroundColor: `${C.surface}F2`,
         backdropFilter: 'blur(16px)',
         WebkitBackdropFilter: 'blur(16px)',
         borderBottom: `1px solid ${C.hairline}`,
