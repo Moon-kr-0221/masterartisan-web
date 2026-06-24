@@ -79,8 +79,8 @@ export default function ClockIntro({ years }: { years?: number[] }) {
         scrollTrigger: {
           trigger: sectionRef.current,
           start:   'top top',
-          end:     '+=10300',
-          scrub:   1.6,
+          end:     '+=6500',
+          scrub:   1.0,
           pin:     pinRef.current,
           anticipatePin: 1,
         },
