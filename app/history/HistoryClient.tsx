@@ -576,6 +576,7 @@ export default function HistoryClient({ eras, header }: {
   // Tab bar scroll-sync refs
   const tabBarRef     = useRef<HTMLDivElement>(null);
   const tabButtonRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const tabTouch      = useRef<{ x: number; left: number } | null>(null);
 
   // ── Lenis (데스크탑) + 네이티브 스크롤 리스너 (iOS 터치) ────────────────
   useEffect(() => {
@@ -756,7 +757,25 @@ export default function HistoryClient({ eras, header }: {
       <div className="md:hidden"><MobileDialIntro /></div>
 
       {/* ══ STICKY TAB BAR — 고정 네비(pE4bF) 바로 아래에 붙어 함께 이동 ════════ */}
-      <div ref={tabBarRef} style={{
+      {/* data-lenis-prevent + 수동 터치 드래그: 이 페이지의 ScrollTrigger.normalizeScroll가
+          모바일 터치를 가로채(preventDefault) 네이티브 가로 스크롤을 막으므로, 탭바 가로 스크롤을
+          JS로 직접 구현해 네이티브 스크롤에 의존하지 않도록 함 */}
+      <div
+        ref={tabBarRef}
+        data-lenis-prevent
+        onTouchStart={(e) => {
+          const bar = tabBarRef.current;
+          if (!bar) return;
+          tabTouch.current = { x: e.touches[0].clientX, left: bar.scrollLeft };
+        }}
+        onTouchMove={(e) => {
+          const bar = tabBarRef.current;
+          if (!bar || !tabTouch.current) return;
+          e.stopPropagation();
+          bar.scrollLeft = tabTouch.current.left - (e.touches[0].clientX - tabTouch.current.x);
+        }}
+        onTouchEnd={() => { tabTouch.current = null; }}
+        style={{
         position: 'sticky',
         top: 'var(--nav-h, 72px)',
         zIndex: 40,
