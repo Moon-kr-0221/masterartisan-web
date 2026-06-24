@@ -243,9 +243,13 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
 
   useEffect(() => {
     if (!fullImage) return;
+    window.dispatchEvent(new Event('history-scroll-lock'));
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setFullImage(null); };
     window.addEventListener('keydown', onKey);
-    return () => window.removeEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      window.dispatchEvent(new Event('history-scroll-unlock'));
+    };
   }, [fullImage]);
 
   const byYear: Record<string, HistoryWorkItem[]> = {};
@@ -298,8 +302,8 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
               const photos = work.media.filter((m) => m.image_url);
               const isExpanded = expandedWorks.has(work.id ?? String(wi));
               const initialCount = isMobile ? 2 : 3;
-              const visiblePhotos = isExpanded ? photos.slice(0, initialCount + 2) : photos.slice(0, initialCount);
-              const hasMore = photos.length >= 6;
+              const visiblePhotos = isExpanded ? photos : photos.slice(0, initialCount);
+              const hasMore = photos.length > visiblePhotos.length;
               const photoW = isMobile ? 163 : 220;
               const photoH = isMobile ? 110 : 148;
               return (
@@ -396,6 +400,11 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
 // ─── Media gallery lightbox ──────────────────────────────────────────────────
 function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () => void }) {
   const [fullImage, setFullImage] = useState<{ url: string; caption: string | null } | null>(null);
+
+  useEffect(() => {
+    window.dispatchEvent(new Event('history-scroll-lock'));
+    return () => { window.dispatchEvent(new Event('history-scroll-unlock')); };
+  }, []);
 
   useEffect(() => {
     if (!fullImage) return;
@@ -540,6 +549,34 @@ export default function HistoryClient({ eras, header }: {
     };
   }, []);
 
+  // ── 사진 상세 팝업이 열려 있는 동안 배경 스크롤 잠금 (중첩 팝업 대비 카운트) ──
+  useEffect(() => {
+    let lockCount = 0;
+    const lock = () => {
+      lockCount += 1;
+      lenisRef.current?.stop();
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    };
+    const unlock = () => {
+      lockCount = Math.max(0, lockCount - 1);
+      if (lockCount > 0) return;
+      lenisRef.current?.start();
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+    window.addEventListener('history-scroll-lock', lock);
+    window.addEventListener('history-scroll-unlock', unlock);
+    return () => {
+      window.removeEventListener('history-scroll-lock', lock);
+      window.removeEventListener('history-scroll-unlock', unlock);
+      lockCount = 0;
+      lenisRef.current?.start();
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   // ── GSAP: dial rotation (scrub) + section tracking ───────────────────────
   useEffect(() => {
     if (!leftRef.current || !dialGroupRef.current) return;
@@ -674,7 +711,7 @@ export default function HistoryClient({ eras, header }: {
         WebkitBackdropFilter: 'blur(16px)',
         borderBottom: `1px solid ${C.hairline}`,
         display: 'flex', overflowX: 'auto', scrollbarWidth: 'none',
-        WebkitOverflowScrolling: 'touch',
+        WebkitOverflowScrolling: 'touch', touchAction: 'pan-x',
       }}>
         {tabs.map((tab, i) => {
           const active = i === 0

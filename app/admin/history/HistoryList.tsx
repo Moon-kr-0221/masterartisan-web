@@ -14,7 +14,7 @@ const btnBase: React.CSSProperties = {
 
 type Action = (formData: FormData) => void | Promise<void>;
 
-// ── 사진 추가 폼 (최대 3장 동시 선택) ────────────────────────────────────────
+// ── 사진 추가 폼 (최대 6장 동시 선택) ────────────────────────────────────────
 function MediaAddForm({ workId, currentCount, action }: {
   workId: string; currentCount: number; action: Action;
 }) {
@@ -22,7 +22,7 @@ function MediaAddForm({ workId, currentCount, action }: {
   const [previews, setPreviews] = useState<{ file: File; url: string }[]>([]);
   const [uploading, startUpload] = useTransition();
   const [err, setErr] = useState('');
-  const maxMore = 3 - currentCount;
+  const maxMore = 6 - currentCount;
 
   function handleFiles(e: React.ChangeEvent<HTMLInputElement>) {
     const files = Array.from(e.target.files ?? []).slice(0, maxMore);
@@ -125,8 +125,8 @@ function HistoryCard({ w, updateHistoryWork, deleteHistoryWork, addHistoryMedia,
     e.preventDefault();
     if (!formRef.current) return;
 
-    if (w.media.length > 3) {
-      alert(`사진이 ${w.media.length}장입니다.\n사진은 최대 3장까지만 등록할 수 있습니다.\n초과된 사진을 삭제한 후 다시 시도해 주세요.`);
+    if (w.media.length > 6) {
+      alert(`사진이 ${w.media.length}장입니다.\n사진은 최대 6장까지만 등록할 수 있습니다.\n초과된 사진을 삭제한 후 다시 시도해 주세요.`);
       return;
     }
 
@@ -185,7 +185,7 @@ function HistoryCard({ w, updateHistoryWork, deleteHistoryWork, addHistoryMedia,
           <div style={{ padding: '18px 24px 0', borderTop: `1px solid ${HAIR}`, marginTop: 20 }}>
             <p style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.08em', color: ADMIN.muted,
               textTransform: 'uppercase', marginBottom: 12 }}>
-              사진 ({w.media.length} / 3)
+              사진 ({w.media.length} / 6)
             </p>
 
             {w.media.length > 0 && (
@@ -218,13 +218,13 @@ function HistoryCard({ w, updateHistoryWork, deleteHistoryWork, addHistoryMedia,
               </div>
             )}
 
-            {editing && w.media.length < 3 && (
+            {editing && w.media.length < 6 && (
               <MediaAddForm workId={w.id} currentCount={w.media.length} action={addHistoryMedia} />
             )}
-            {editing && w.media.length >= 3 && (
+            {editing && w.media.length >= 6 && (
               <div style={{ backgroundColor: ADMIN.canvas, border: `1px solid ${HAIR}`, padding: 14 }}>
                 <p style={{ fontFamily: SANS, fontSize: 11, color: ADMIN.muted, margin: 0 }}>
-                  사진은 최대 3장까지 추가할 수 있습니다.
+                  사진은 최대 6장까지 추가할 수 있습니다.
                 </p>
               </div>
             )}
@@ -267,10 +267,10 @@ function HistoryCard({ w, updateHistoryWork, deleteHistoryWork, addHistoryMedia,
                 </button>
                 <button type="submit" disabled={savePending}
                   style={{ ...btnBase,
-                    backgroundColor: w.media.length > 3 ? '#9B3B3B' : ADMIN.ink,
+                    backgroundColor: w.media.length > 6 ? '#9B3B3B' : ADMIN.ink,
                     color: '#FFFFFF', opacity: savePending ? 0.6 : 1 }}
-                  title={w.media.length > 3 ? `사진 ${w.media.length}장 → 3장 이하로 줄여야 완료 가능` : undefined}>
-                  {savePending ? '저장 중…' : w.media.length > 3 ? `완료 불가 (${w.media.length}장)` : '완료'}
+                  title={w.media.length > 6 ? `사진 ${w.media.length}장 → 6장 이하로 줄여야 완료 가능` : undefined}>
+                  {savePending ? '저장 중…' : w.media.length > 6 ? `완료 불가 (${w.media.length}장)` : '완료'}
                 </button>
               </>
             ) : (
