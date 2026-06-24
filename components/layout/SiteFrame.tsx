@@ -12,12 +12,14 @@ import ScrollTopButton from '@/components/ui/ScrollTopButton';
 export default function SiteFrame({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith('/admin');
+  // /history는 자체 Lenis + ScrollTrigger 동기화를 직접 관리하므로 전역 Lenis와 중복 실행되면 충돌함
+  const hasOwnLenis = pathname?.startsWith('/history');
 
   if (isAdmin) return <>{children}</>;
 
   return (
     <>
-      <GlobalLenis />
+      {!hasOwnLenis && <GlobalLenis />}
       <ScrollProgress />
       <Navigation />
       <main>{children}</main>

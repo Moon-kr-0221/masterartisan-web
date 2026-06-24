@@ -51,18 +51,28 @@ export default function MobileDialIntro() {
     gsap.set('.mdi-circle-box', { rotateX: 75 });
 
     // ── 스크럽 타임라인 ──
+    // 마운트 직후(~50-200ms) 폰트 스왑/첫 레이아웃 패스로 .mdi-time-cont 위치가 한 번 더 크게
+    // 바뀌는데, ScrollTrigger가 그 이전 위치로 start/end를 캐싱해버려 트리거가 영영 안 맞는 문제가
+    // 있었음. 직접 픽셀을 계산하는 함수형 start/end + 레이아웃 안정화 이후 강제 refresh로 해결.
+    const timeCont = section.querySelector('.mdi-time-cont') as HTMLElement;
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: '.mdi-time-cont',
-        start: 'top center',
-        end: 'bottom center',
+        trigger: timeCont,
+        start: () => timeCont.getBoundingClientRect().top + window.scrollY - window.innerHeight / 2,
+        end:   () => timeCont.getBoundingClientRect().top + window.scrollY + timeCont.offsetHeight - window.innerHeight / 2,
         scrub: 0,
+        invalidateOnRefresh: true,
         onEnter:     () => section.classList.add('mdi-on'),
         onLeave:     () => section.classList.remove('mdi-on'),
         onLeaveBack: () => section.classList.remove('mdi-on'),
         onEnterBack: () => section.classList.add('mdi-on'),
       },
     });
+
+    // 레이아웃이 안정된 뒤(약 200ms) 한 번 더 강제 refresh — 위 함수형 start/end는 refresh 시점의
+    // 실제 위치를 다시 측정하므로, 초기 레이아웃 흔들림이 끝난 뒤 호출되면 정확한 값으로 잡힘.
+    const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 300);
+    window.addEventListener('load', () => ScrollTrigger.refresh());
 
     tl
       .to('.mdi-center-line-inner', { bottom: '0' })
@@ -108,9 +118,10 @@ export default function MobileDialIntro() {
     });
 
     return () => {
+      clearTimeout(refreshTimer);
       tl.kill();
       copyTrigger.kill();
-      ScrollTrigger.getAll().forEach((t) => { if (t.vars.trigger === '.mdi-time-cont') t.kill(); });
+      ScrollTrigger.getAll().forEach((t) => { if (t.vars.trigger === timeCont) t.kill(); });
     };
   }, []);
 

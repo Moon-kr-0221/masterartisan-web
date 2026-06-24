@@ -590,6 +590,9 @@ export default function HistoryClient({ eras, header }: {
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add((t) => lenis.raf(t * 1000));
     gsap.ticker.lagSmoothing(0);
+    // normalizeScroll()이 스크롤 좌표계를 바꾸므로, 이미 생성된 자식 ScrollTrigger(모바일 다이얼 등)의
+    // start/end를 새 좌표계로 다시 계산하도록 강제 refresh — 안 하면 좌표가 틀어져 트리거가 동작하지 않음.
+    requestAnimationFrame(() => ScrollTrigger.refresh());
 
     // iOS 터치 스크롤은 Lenis를 거치지 않으므로 네이티브 scroll 이벤트도 연결
     const onNativeScroll = () => ScrollTrigger.update();
