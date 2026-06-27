@@ -58,13 +58,26 @@ export default function WorksClient({ works, initialWork, heroImage, heroImageMo
   }, [lightbox, captionExpanded]);
 
   // 라이트박스가 열려 있는 동안 배경 스크롤 잠금
+  // iOS Safari는 body의 overflow:hidden을 무시하므로 position:fixed로 잠그고
+  // 스크롤 위치를 저장했다가 닫을 때 복원한다.
   useEffect(() => {
     if (!lightbox) return;
-    document.documentElement.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
+    const scrollY = window.scrollY;
+    const { body, documentElement: html } = document;
+    html.style.overflow = 'hidden';
+    body.style.position = 'fixed';
+    body.style.top = `-${scrollY}px`;
+    body.style.left = '0';
+    body.style.right = '0';
+    body.style.width = '100%';
     return () => {
-      document.documentElement.style.overflow = '';
-      document.body.style.overflow = '';
+      html.style.overflow = '';
+      body.style.position = '';
+      body.style.top = '';
+      body.style.left = '';
+      body.style.right = '';
+      body.style.width = '';
+      window.scrollTo(0, scrollY);
     };
   }, [lightbox]);
 
