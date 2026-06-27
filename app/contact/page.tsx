@@ -96,15 +96,15 @@ export default async function ContactPage() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>이메일</span>
-            <a href={`mailto:${ct.email}`} style={{ fontFamily: SANS, fontSize: 15, color: C.ink }}>{ct.email}</a>
+            <a href={`mailto:${ct.email}`} style={{ fontFamily: SERIF, fontSize: 20, fontWeight: 300, color: C.ink }}>{ct.email}</a>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 20, borderBottom: `1px solid ${C.hairline}` }}>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>운영시간</span>
-            <span style={{ fontFamily: SANS, fontSize: 13, lineHeight: 1.7, color: C.inkSoft, whiteSpace: 'pre-line' }}>{ct.hours}</span>
+            <span style={{ fontFamily: SERIF, fontSize: 15, fontWeight: 300, lineHeight: 1.7, color: C.ink, whiteSpace: 'pre-line' }}>{ct.hours}</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8, paddingBottom: 24, borderBottom: `1px solid ${C.hairline}` }}>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 2, color: C.muted }}>Office &amp; Workshop</span>
-            <span style={{ fontFamily: SERIF, fontSize: 22, fontWeight: 300, color: C.ink }}>{ct.office_name}</span>
+            <span style={{ fontFamily: BC_CARD_FONT, fontSize: 22, fontWeight: 300, color: C.ink }}>{ct.office_name}</span>
             <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: 10 }}>
               <span style={{ fontFamily: SANS, fontSize: 13, color: C.inkSoft }}>{ct.address}</span>
               <a href={ct.naver_map_url} target="_blank" rel="noopener noreferrer"

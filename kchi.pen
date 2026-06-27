@@ -1,5 +1,5 @@
 {
-  "version": "2.13",
+  "version": "2.14",
   "children": [
     {
       "type": "frame",
@@ -2307,7 +2307,7 @@
                   "textGrowth": "fixed-width",
                   "width": 342,
                   "content": "천년의 기술,\n삼대로 이어온\n90년의 여정",
-                  "lineHeight": 1.4,
+                  "lineHeight": 1.15,
                   "fontFamily": "Noto Serif KR",
                   "fontSize": 34,
                   "fontWeight": "300",
@@ -2634,7 +2634,7 @@
           "clip": true,
           "width": 390,
           "height": 48,
-          "fill": "#F8F5F0",
+          "fill": "#F0EBE3",
           "stroke": "#E2DDD6",
           "strokeWidth": {
             "bottom": 1
@@ -13272,7 +13272,7 @@
           "fill": "#1A1A1A",
           "content": "KCHI",
           "fontFamily": "Noto Sans KR",
-          "fontSize": 16,
+          "fontSize": 24,
           "fontWeight": "700"
         },
         {
@@ -20079,9 +20079,36 @@
               "content": "✕",
               "textAlignVertical": "middle",
               "fontFamily": "Noto Sans KR",
-              "fontSize": 36
+              "fontSize": 36,
+              "fontWeight": "normal"
             }
           ]
+        }
+      ]
+    },
+    {
+      "type": "frame",
+      "id": "M1OIiB",
+      "x": 16402,
+      "y": -10,
+      "name": "Favicon",
+      "width": 128,
+      "height": 128,
+      "fill": "#1A1714",
+      "layout": "vertical",
+      "justifyContent": "center",
+      "alignItems": "center",
+      "children": [
+        {
+          "type": "text",
+          "id": "xsu11",
+          "name": "Mark",
+          "fill": "#F8F5F0",
+          "content": "K",
+          "textAlign": "center",
+          "fontFamily": "Playfair Display",
+          "fontSize": 76,
+          "fontWeight": "normal"
         }
       ]
     }
@@ -20151,5 +20178,6 @@
       "type": "number",
       "value": 8
     }
-  }
+  },
+  "fileToken": "89f4afae-16ae-4478-87ad-1658f35cbd62"
 }
