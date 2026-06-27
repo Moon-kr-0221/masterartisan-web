@@ -174,7 +174,7 @@ export default function WorksGrid({ items, pool = [], random = false }: {
             <span style={{ fontFamily: 'var(--font-sans)', fontSize: 10, letterSpacing: 3, color: '#AAAAAA' }}>OUR WORKS</span>
             <h2 style={{ fontFamily: 'var(--font-serif)', fontSize: 32, fontWeight: 300, color: '#1A1A1A' }}>작업 사례</h2>
           </div>
-          <Link href="/works" style={{ fontFamily: 'var(--font-sans)', fontSize: 12, color: '#999999' }}>전체 보기 →</Link>
+          <Link href="/works" style={{ fontFamily: 'var(--font-sans)', fontSize: 12, letterSpacing: 1, color: '#999999' }}>VIEW ALL</Link>
         </div>
         <div className="flex overflow-x-auto" style={{ gap: 16, padding: '0 24px 4px', scrollbarWidth: 'none' }}>
           {works.map((w) => (
@@ -192,7 +192,7 @@ export default function WorksGrid({ items, pool = [], random = false }: {
           <Link href="/works" className="shrink-0 flex flex-col items-center justify-center"
             style={{ width: 280, height: 340, backgroundColor: '#FAFAF8', border: '1px solid #E2DDD6', gap: 12 }}>
             <span style={{ fontFamily: 'var(--font-sans)', fontSize: 9, letterSpacing: 4, color: '#AAAAAA' }}>OUR WORKS</span>
-            <span style={{ fontFamily: 'var(--font-serif)', fontSize: 21, fontWeight: 300, color: '#1A1A1A' }}>전체 보기</span>
+            <span style={{ fontFamily: 'var(--font-serif)', fontSize: 21, fontWeight: 300, color: '#1A1A1A' }}>VIEW ALL</span>
             <span style={{ fontFamily: 'var(--font-sans)', fontSize: 16, color: '#999999' }}>→</span>
           </Link>
         </div>
@@ -233,7 +233,7 @@ export default function WorksGrid({ items, pool = [], random = false }: {
           className="text-[12px] transition-opacity hover:opacity-50"
           style={{ fontFamily: 'var(--font-sans)', color: '#999999', letterSpacing: '1px' }}
         >
-          전체 보기 →
+          VIEW ALL
         </Link>
       </motion.div>
 
