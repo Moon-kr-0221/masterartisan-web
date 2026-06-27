@@ -6,17 +6,21 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const YEARS = [1936, 1958, 1972, 1984, 1995, 2005, 2011, 2016];
+// 데스크탑 ClockIntro와 동일한 fallback — CMS 연혁 데이터가 없을 때만 사용.
+const DEFAULT_YEARS = [1936, 1958, 1972, 1984, 1995, 2005, 2015, 2026];
 const CREAM = '#F5F0E8';
 
 /**
  * d933990 mobile/history.html — time_sect 다이얼 인트로 모션 1:1 이식
  * jakomosofa(?p=9) 스타일: 배경 시계(fixed) + 전경 카피(scroll)
  */
-export default function MobileDialIntro() {
+export default function MobileDialIntro({ years }: { years?: number[] }) {
   const sectionRef = useRef<HTMLElement>(null);
   const circleRef  = useRef<HTMLDivElement>(null);
   const tlRef      = useRef<gsap.core.Timeline | null>(null);
+  // 다이얼 눈금은 마운트 시 1회만 생성되므로, 마운트 시점의 연도값을 ref로 캡처해
+  // useEffect deps를 []로 유지한다(ScrollTrigger start/end 캐싱 이슈 회피).
+  const yearsRef = useRef(years && years.length >= 2 ? years : DEFAULT_YEARS);
 
   useEffect(() => {
     const section = sectionRef.current;
@@ -38,7 +42,8 @@ export default function MobileDialIntro() {
       if (isEm) {
         const num = document.createElement('div');
         num.className = 'mdi-num';
-        num.textContent = String(YEARS[(i / 6) % YEARS.length]);
+        const dialYears = yearsRef.current;
+        num.textContent = String(dialYears[(i / 6) % dialYears.length]);
         num.style.cssText = `position:absolute;left:0;top:50%;transform:translate(-92%,-50%) rotate(-90deg);white-space:nowrap;font-family:'Noto Serif KR',serif;font-weight:600;font-size:clamp(12px,3.4vw,16px);color:${CREAM};opacity:0;`;
         line.appendChild(num);
       } else {
