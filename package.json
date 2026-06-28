@@ -7,7 +7,9 @@
     "build": "next build --webpack",
     "start": "next start",
     "lint": "eslint",
-    "lint:fix": "eslint --fix"
+    "lint:fix": "eslint --fix",
+    "typecheck": "tsc --noEmit",
+    "check": "eslint && tsc --noEmit && next build --webpack"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.7",
