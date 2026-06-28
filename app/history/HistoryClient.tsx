@@ -83,6 +83,7 @@ function HeaderImage({ src, alt, isMobile }: { src: string; alt: string; isMobil
   }, []);
   return (
     <div style={{
+      position: 'relative',
       width: isMobile ? '100%' : 460,
       height: isMobile ? 'auto' : 440,
       aspectRatio: isMobile ? '460 / 440' : undefined,
