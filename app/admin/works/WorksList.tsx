@@ -360,6 +360,8 @@ export default function WorksList({ works, updateWork, deleteWork, featState, on
   const [saveMsg, setSaveMsg] = useState('');
   const [saveErr, setSaveErr] = useState('');
   const dragIdx = useRef<number | null>(null);
+  // 렌더 중 ref를 읽지 않도록 드래그 중인 인덱스는 state로 관리(시각 피드백 정상 동작)
+  const [draggingIdx, setDraggingIdx] = useState<number | null>(null);
 
   function enterReorder() {
     setReorderList([...works]);
@@ -405,16 +407,17 @@ export default function WorksList({ works, updateWork, deleteWork, featState, on
     setReorderList((prev) => prev.filter((w) => w.id !== id));
   }
 
-  function handleDragStart(idx: number) { dragIdx.current = idx; }
+  function handleDragStart(idx: number) { dragIdx.current = idx; setDraggingIdx(idx); }
 
   function handleDragOver(e: React.DragEvent, overIdx: number) {
     e.preventDefault();
     if (dragIdx.current == null || dragIdx.current === overIdx) return;
     moveItem(dragIdx.current, overIdx);
     dragIdx.current = overIdx;
+    setDraggingIdx(overIdx);
   }
 
-  function handleDragEnd() { dragIdx.current = null; }
+  function handleDragEnd() { dragIdx.current = null; setDraggingIdx(null); }
 
   function commitReorder() {
     startSave(async () => {
@@ -530,7 +533,7 @@ export default function WorksList({ works, updateWork, deleteWork, featState, on
                   key={w.id} item={w} idx={i} total={reorderList.length}
                   onMove={moveItem}
                   onDelete={markDelete}
-                  isDragging={dragIdx.current === i}
+                  isDragging={draggingIdx === i}
                   onDragStart={() => handleDragStart(i)}
                   onDragOver={(e) => handleDragOver(e, i)}
                   onDragEnd={handleDragEnd}

@@ -49,6 +49,8 @@ export default function Navigation() {
     };
   }, []);
 
+  // 라우트 변경 시 모바일 메뉴를 닫는 의도적 동기화
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => { setMenuOpen(false); }, [pathname]);
 
   useEffect(() => {

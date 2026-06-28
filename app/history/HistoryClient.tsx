@@ -258,6 +258,9 @@ function PhotoLightbox({ photos, index, isMobile, onClose, onChangeIndex }: {
       window.removeEventListener('keydown', onKey);
       window.dispatchEvent(new Event('history-scroll-unlock'));
     };
+    // goNext/goPrev/onClose는 매 렌더 재생성되는 핸들러라 의존성에 넣으면 리스너만 불필요하게 재등록됨.
+    // 최신 index/total로만 재구성하면 충분하므로 의도적으로 제외.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [index, total]);
 
   function handleTouchStart(e: React.TouchEvent) { touchStartX.current = e.touches[0].clientX; }

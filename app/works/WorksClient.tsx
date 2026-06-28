@@ -29,7 +29,13 @@ export default function WorksClient({ works, initialWork, heroImage, heroImageMo
 }) {
   const bannerImg = (heroImage && heroImage !== '') ? heroImage : BANNER_IMG;
   const bannerImgMobile = (heroImageMobile && heroImageMobile !== '') ? heroImageMobile : BANNER_IMG_MOBILE;
-  const [orderedWorks] = useState(() => (orderMode === 'random' ? shuffle(works) : works));
+  // SSR/CSR 하이드레이션 불일치 방지: 서버는 항상 결정적 순서(works)로 렌더하고,
+  // 무작위 정렬은 마운트 후 클라이언트에서만 적용한다.
+  const [orderedWorks, setOrderedWorks] = useState<Work[]>(works);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    if (orderMode === 'random') setOrderedWorks(shuffle(works));
+  }, [orderMode, works]);
   const [active,  setActive]  = useState<WorkCategory>('all');
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [lightbox, setLightbox] = useState<null | Work>(null);
@@ -45,6 +51,8 @@ export default function WorksClient({ works, initialWork, heroImage, heroImageMo
   useEffect(() => {
     if (!initialWork) return;
     const w = works.find((x) => x.title === initialWork);
+    // URL 파라미터(?work=)에 따라 마운트 시 라이트박스를 여는 의도적 동기화
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (w) openLightbox(w);
   }, [initialWork, works]);
 

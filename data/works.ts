@@ -58,7 +58,7 @@ export const worksData = [
     category: 'maintenance' as WorkCategory,
     year: '2021',
     description: '남한산성 내 조선시대 문루 목구조 부재 교체 및 단청 보수.',
-    image: U('photo-1565073624497-7144969d4a9d'),
+    image: U('photo-1601042879364-f3947d3f9c16'),
   },
   {
     id: 8,
@@ -74,7 +74,7 @@ export const worksData = [
     category: 'repair' as WorkCategory,
     year: '2023',
     description: '화성 행궁 부속 별당 지붕 및 대들보 균열 보수 공사.',
-    image: U('photo-1519581706030-bf476f0f5eb0'),
+    image: U('photo-1513407030348-c983a97b98d8'),
   },
 ];
 

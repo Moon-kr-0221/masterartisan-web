@@ -149,6 +149,8 @@ export default function WorksGrid({ items, pool = [], random = false }: {
   const [picked, setPicked] = useState<FeaturedWork[] | null>(null);
   const [selected, setSelected] = useState<FeaturedWork | null>(null);
   useEffect(() => {
+    // 클라이언트 전용 무작위 선택(하이드레이션 불일치 방지) — effect 내 setState는 의도적
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     if (random) setPicked(shuffle(randomBase).slice(0, 3));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [random]);
