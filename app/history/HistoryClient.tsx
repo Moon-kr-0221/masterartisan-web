@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ScrollToPlugin } from 'gsap/ScrollToPlugin';
 import { motion, AnimatePresence } from 'framer-motion';
 import Lenis from 'lenis';
+import Image from 'next/image';
 import type { HistoryEraGroup, HistoryWorkItem } from '@/lib/data/types';
 import { milestoneYears } from '@/lib/data/era';
 import ClockIntro from '@/components/history/ClockIntro';
@@ -88,13 +89,15 @@ function HeaderImage({ src, alt, isMobile }: { src: string; alt: string; isMobil
       maxWidth: '100%', flexShrink: 0,
       overflow: 'hidden', backgroundColor: C.surface,
     }}>
-      <img
+      <Image
         ref={imgRef}
         src={src}
         alt={alt}
+        fill
         onLoad={() => setLoaded(true)}
+        sizes="(max-width: 768px) 100vw, 460px"
+        className="object-cover"
         style={{
-          width: '100%', height: '100%', objectFit: 'cover', display: 'block',
           opacity: loaded ? 1 : 0,
           transform: loaded ? 'scale(1)' : 'scale(1.08)',
           filter: loaded ? 'blur(0px)' : 'blur(16px)',
@@ -273,6 +276,8 @@ function PhotoLightbox({ photos, index, isMobile, onClose, onChangeIndex }: {
       onClick={(e) => { e.stopPropagation(); onClose(); }}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}>
+      {/* 라이트박스: CMS 이미지의 실제 비율대로 뷰포트에 맞춰 축소(가변 width/height). next/Image는 고정 치수나 fill이 필요해 이 "원본 비율 자동 축소" 동작에 부적합 — 의도적으로 img 유지. */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src={current.url}
         alt={current.caption ?? ''}
@@ -422,14 +427,17 @@ function EraSection({ era, eraIdx, total, isActive, sectionRef, onOpenMedia, isM
                                 index: idx,
                               })}
                               style={{
+                                position: 'relative',
                                 width: photoW, height: photoH,
                                 flexShrink: 0, overflow: 'hidden',
                                 backgroundColor: C.surface, cursor: 'zoom-in',
                               }}>
-                              <img
+                              <Image
                                 src={m.image_url}
                                 alt={m.caption ?? work.title}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }}
+                                fill
+                                sizes="(max-width: 768px) 100vw, 460px"
+                                className="object-cover"
                               />
                             </div>
                           ))}
@@ -518,6 +526,8 @@ function MediaGallery({ work, onClose }: { work: HistoryWorkItem; onClose: () =>
               <div
                 onClick={() => setPhotoIdx(i)}
                 style={{ width: '100%', backgroundColor: C.surface, overflow: 'hidden', cursor: 'zoom-in' }}>
+                {/* 본문 상세 이미지: 너비 100% + 원본 비율대로 높이 자동(고정 height 없음). CMS 이미지라 실제 치수를 알 수 없어 next/Image의 width/height·fill에 부적합 — 의도적으로 img 유지. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={m.image_url} alt={m.caption ?? work.title}
                   className="w-full object-cover" style={{ display: 'block' }} />
               </div>

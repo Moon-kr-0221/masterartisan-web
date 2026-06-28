@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const SANS  = 'var(--font-sans)';
 const SERIF = 'var(--font-serif)';
@@ -79,9 +80,9 @@ export default function ProcessSection({ images, copy }: { images?: string[]; co
         </ul>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 3 }}>
           {tiles.map((url, i) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={i} src={url} alt=""
-              style={{ height: 144, width: '100%', objectFit: 'cover', display: 'block' }} />
+            <div key={i} className="relative w-full" style={{ height: 144 }}>
+              <Image src={url} alt="" fill className="object-cover" sizes="(max-width: 768px) 50vw, 25vw" />
+            </div>
           ))}
         </div>
       </section>

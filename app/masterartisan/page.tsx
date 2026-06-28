@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { masterartisanHeroImage, masterartisanHeroImageMobile } from '@/data/masterartisan';
 import { getArtisans, getPageHeroImages } from '@/lib/data/queries';
 import ScrollReveal from '@/components/ui/ScrollReveal';
@@ -14,7 +15,7 @@ export default async function MasterArtisanPage() {
       <div className="hidden md:block" style={{ paddingTop: 72 }}>
         {/* Page Hero */}
         <section className="relative overflow-hidden" style={{ height: 360 }}>
-          <img src={heroImg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <Image src={heroImg} alt="" fill className="object-cover" sizes="100vw" priority />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(0deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.25) 50%, rgba(0,0,0,0.05) 100%)' }} />
           <div className="absolute" style={{ left: 80, top: 152, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>THE ARTISANS</span>
@@ -45,8 +46,8 @@ export default async function MasterArtisanPage() {
           return (
             <section key={artisan.generation} style={{ backgroundColor: bg }}>
               <div className={`flex flex-col ${reversed ? 'md:flex-row-reverse' : 'md:flex-row'}`}>
-                <div className="w-full md:w-[600px] md:flex-shrink-0 overflow-hidden" style={{ height: 520, backgroundColor: C.imageBg }}>
-                  <img src={artisan.image} alt={artisan.name} className="w-full h-full object-cover" />
+                <div className="relative w-full md:w-[600px] md:flex-shrink-0 overflow-hidden" style={{ height: 520, backgroundColor: C.imageBg }}>
+                  <Image src={artisan.image} alt={artisan.name} fill className="object-cover" sizes="(max-width: 768px) 100vw, 600px" />
                 </div>
                 <ScrollReveal direction={reversed ? 'left' : 'right'} className="flex-1 flex flex-col" style={{ padding: '72px 80px' }}>
                   <div className="flex flex-col gap-6">
@@ -77,7 +78,7 @@ export default async function MasterArtisanPage() {
 
         {/* Page Hero — 300px, 이미지+스크림, 텍스트 하단 */}
         <section className="relative overflow-hidden" style={{ height: 300, backgroundColor: C.dark }}>
-          <img src={heroImgMobile} alt="" className="absolute inset-0 w-full h-full object-cover" style={{ objectPosition: 'center 30%' }} />
+          <Image src={heroImgMobile} alt="" fill className="object-cover" style={{ objectPosition: 'center 30%' }} sizes="100vw" priority />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)' }} />
           <div className="absolute" style={{ top: 150, left: 24, right: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: 'rgba(255,255,255,0.6)' }}>THE ARTISANS</span>
@@ -101,7 +102,9 @@ export default async function MasterArtisanPage() {
           const bg = idx % 2 === 0 ? C.canvas : C.surface;
           return (
             <section key={artisan.generation} style={{ backgroundColor: bg }}>
-              <img src={artisan.image} alt={artisan.name} style={{ width: '100%', height: 320, objectFit: 'cover', display: 'block' }} />
+              <div className="relative w-full" style={{ height: 320 }}>
+                <Image src={artisan.image} alt={artisan.name} fill className="object-cover" sizes="100vw" />
+              </div>
               <div style={{ padding: '40px 24px', display: 'flex', flexDirection: 'column', gap: 16 }}>
                 <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 3, color: C.muted }}>{artisan.generationEn}</span>
                 <h2 style={{ fontFamily: SERIF, fontSize: 32, fontWeight: 300, color: C.ink }}>{artisan.name} {artisan.title}</h2>

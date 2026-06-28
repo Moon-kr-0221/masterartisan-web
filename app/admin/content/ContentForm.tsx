@@ -108,7 +108,6 @@ export default function ContentForm({ copy, headerImage }: { copy: SiteCopy; hea
             </div>
             <div style={{ width: 200, height: 140, flexShrink: 0, overflow: 'hidden',
               backgroundColor: ADMIN.surface, border: `1px solid ${ADMIN.hairline}` }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={headerImage} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           </div>

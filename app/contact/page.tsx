@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import { SERIF, SANS, BC_CARD_FONT, C } from '@/lib/tokens';
 import { getContact } from '@/lib/data/queries';
 
@@ -31,7 +32,7 @@ export default async function ContactPage() {
       {/* ════ 데스크탑 — d933990 완전 동일 ════ */}
       <div className="hidden md:block" style={{ paddingTop: 72 }}>
         <section className="relative overflow-hidden" style={{ height: 360, borderBottom: `1px solid ${C.hairline}` }}>
-          <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <Image src={BANNER_IMG} alt="" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
           <div className="absolute inset-0 flex flex-col justify-end gap-3" style={{ padding: '72px 80px' }}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: '0.36em', color: 'rgba(255,255,255,0.6)' }}>GET IN TOUCH</span>
@@ -74,7 +75,7 @@ export default async function ContactPage() {
       <div className="md:hidden" style={{ paddingTop: 56 }}>
 
         <section className="relative overflow-hidden" style={{ height: 300 }}>
-          <img src={BANNER_IMG} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <Image src={BANNER_IMG} alt="" fill className="object-cover" sizes="100vw" />
           <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.7) 100%)' }} />
           <div className="absolute" style={{ top: 150, left: 24, right: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: 'rgba(255,255,255,0.6)' }}>GET IN TOUCH</span>

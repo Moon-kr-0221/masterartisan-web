@@ -81,7 +81,6 @@ function MediaAddForm({ workId, currentCount, action }: {
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
           {previews.map((p, i) => (
             <div key={i} style={{ position: 'relative', width: 100, height: 72 }}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={p.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', border: `1px solid ${HAIR}` }} />
               {uploading && (
                 <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(255,255,255,0.6)',
@@ -194,7 +193,6 @@ function HistoryCard({ w, updateHistoryWork, deleteHistoryWork, addHistoryMedia,
                   <div key={m.id ?? m.image_url} style={{ width: 130 }}>
                     <div style={{ width: 130, height: 92, overflow: 'hidden', backgroundColor: ADMIN.surface,
                       border: `1px solid ${HAIR}` }}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={m.image_url} alt={m.caption ?? ''} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                     </div>
                     {m.caption && (

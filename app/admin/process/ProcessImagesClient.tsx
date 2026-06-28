@@ -38,7 +38,6 @@ function SlotCard({ idx, currentUrl, file, preview, onFileChange, editing }: {
       {/* 이미지 미리보기 */}
       <div style={{ position: 'relative', backgroundColor: '#F5F3EF', aspectRatio: '16/9', overflow: 'hidden' }}>
         {displayUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img src={displayUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
         ) : (
           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

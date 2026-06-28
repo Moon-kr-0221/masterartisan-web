@@ -106,7 +106,6 @@ export function ImageInput({ name = 'image', current, label = '사진', hint }: 
           backgroundColor: ADMIN.surface, border: `1px solid ${ADMIN.hairline}`,
           display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           {preview ? (
-            // eslint-disable-next-line @next/next/no-img-element
             <img src={preview} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           ) : (
             <span style={{ fontFamily: SANS, fontSize: 11, color: ADMIN.muted }}>없음</span>

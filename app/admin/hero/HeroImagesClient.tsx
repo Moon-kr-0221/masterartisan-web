@@ -49,7 +49,6 @@ function SlideCard({
       {/* 배경 이미지 프리뷰 */}
       <div style={{ position: 'relative', backgroundColor: '#1A1A1A', aspectRatio: '16/9', overflow: 'hidden' }}>
         {displayUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img src={displayUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: 0.7 }} />
         ) : (
           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -292,7 +291,6 @@ function PageHeroSlot({
     <div style={{ backgroundColor: '#FFFFFF', border: `1px solid ${HAIR}`, display: 'flex' }}>
       <div style={{ position: 'relative', backgroundColor: '#1A1A1A', width: 200, flexShrink: 0, overflow: 'hidden', minHeight: 112 }}>
         {displayUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img src={displayUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
         ) : (
           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -480,7 +478,6 @@ function ContrastSection({ initialUrls }: { initialUrls: { left: string; right: 
             <div key={s.key} style={{ backgroundColor: '#FFFFFF', border: `1px solid ${HAIR}` }}>
               <div style={{ position: 'relative', backgroundColor: '#1A1A1A', aspectRatio: '16/9', overflow: 'hidden' }}>
                 {displayUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
                   <img src={displayUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block', opacity: 0.8 }} />
                 ) : (
                   <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -575,7 +572,6 @@ function ProcessSlotCard({ idx, currentUrl, file, preview, onFileChange, editing
     <div style={{ backgroundColor: '#FFFFFF', border: `1px solid ${HAIR}` }}>
       <div style={{ position: 'relative', backgroundColor: '#F5F3EF', aspectRatio: '16/9', overflow: 'hidden' }}>
         {displayUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
           <img src={displayUrl} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
         ) : (
           <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>

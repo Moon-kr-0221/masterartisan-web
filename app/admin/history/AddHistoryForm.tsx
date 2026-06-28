@@ -134,7 +134,6 @@ export default function AddHistoryForm({
               <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'flex-start' }}>
                 {previews.map((p, i) => (
                   <div key={i} style={{ position: 'relative', width: 100, height: 72 }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
                     <img src={p.url} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', border: `1px solid ${HAIR}` }} />
                     <button type="button" onClick={() => removePreview(i)}
                       style={{ position: 'absolute', top: 3, right: 3, width: 18, height: 18,

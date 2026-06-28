@@ -2,6 +2,7 @@
 
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 
 const EASE = [0.16, 1, 0.3, 1] as [number, number, number, number];
 const SANS  = 'var(--font-sans)';
@@ -82,7 +83,7 @@ export default function ContrastSection({ leftImage, rightImage, copy }: {
           { img: rightSrc, title: '바릅니다', sub: '원칙을 바르게 지킵니다' },
         ].map((item) => (
           <article key={item.title} className="relative overflow-hidden" style={{ height: 320, backgroundColor: '#0E0D0B' }}>
-            <img src={item.img} alt="" className="absolute inset-0 w-full h-full object-cover" />
+            <Image src={item.img} alt="" fill className="object-cover" sizes="(max-width: 768px) 100vw, 50vw" />
             <div className="absolute inset-0" style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(14,13,11,0.87) 100%)' }} />
             <div className="absolute" style={{ bottom: 28, left: 24 }}>
               <h3 style={{ fontFamily: SERIF, fontSize: 32, fontWeight: 300, color: '#FFFFFF' }}>{item.title}</h3>

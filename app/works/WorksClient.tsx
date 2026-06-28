@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { categoryLabels, type WorkCategory } from '@/data/works';
 import type { Work } from '@/lib/data/types';
@@ -105,7 +106,7 @@ export default function WorksClient({ works, initialWork, heroImage, heroImageMo
       {/* ════════════ 데스크탑 — d933990 완전 동일 ════════════ */}
       <div className="hidden md:block" style={{ backgroundColor: C.canvas, paddingTop: 72 }}>
         <section style={{ position: 'relative', height: 360, overflow: 'hidden', borderBottom: `1px solid ${C.hairline}` }}>
-          <img src={bannerImg} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <Image src={bannerImg} alt="" fill className="object-cover" sizes="100vw" priority />
           <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
           <div className="absolute inset-0 flex flex-col gap-8 md:flex-row md:items-end md:justify-between" style={{ padding: '72px 80px' }}>
             <div className="flex flex-col gap-[10px]">
@@ -131,7 +132,7 @@ export default function WorksClient({ works, initialWork, heroImage, heroImageMo
               <ScrollReveal key={work.id} delay={(i % 3) * 0.06}>
                 <div className="group cursor-pointer" onClick={() => openLightbox(work)}>
                   <div style={{ position: 'relative', height: 280, overflow: 'hidden', backgroundColor: C.imageBg }}>
-                    <img src={work.image} alt={work.title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                    <Image src={work.image} alt={work.title} fill className="object-cover transition-transform duration-700 group-hover:scale-105" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw" />
                     {work.images.length > 1 && (
                       <span style={{ position: 'absolute', bottom: 10, right: 10,
                         backgroundColor: 'rgba(0,0,0,0.6)', color: '#FFF',
@@ -168,7 +169,7 @@ export default function WorksClient({ works, initialWork, heroImage, heroImageMo
 
         {/* Page Hero — 300px, 이미지+스크림, 텍스트 하단 */}
         <section className="relative overflow-hidden" style={{ height: 300, backgroundColor: C.dark }}>
-          <img src={bannerImgMobile} alt="" className="absolute inset-0 w-full h-full object-cover" />
+          <Image src={bannerImgMobile} alt="" fill className="object-cover" sizes="100vw" priority />
           <div className="absolute inset-0" style={{ background: BANNER_SCRIM }} />
           <div className="absolute" style={{ top: 150, left: 24, right: 24, display: 'flex', flexDirection: 'column', gap: 10 }}>
             <span style={{ fontFamily: SANS, fontSize: 11, letterSpacing: 4, color: 'rgba(255,255,255,0.6)' }}>OUR WORKS</span>
@@ -199,7 +200,7 @@ export default function WorksClient({ works, initialWork, heroImage, heroImageMo
             {shown.map((work) => (
               <div key={work.id} className="cursor-pointer" onClick={() => openLightbox(work)}>
                 <div style={{ position: 'relative', height: 220, overflow: 'hidden', backgroundColor: C.imageBg }}>
-                  <img src={work.image} alt={work.title} className="w-full h-full object-cover" />
+                  <Image src={work.image} alt={work.title} fill className="object-cover" sizes="100vw" />
                   {work.images.length > 1 && (
                     <span style={{ position: 'absolute', bottom: 10, right: 10,
                       backgroundColor: 'rgba(0,0,0,0.6)', color: '#FFF',
@@ -246,8 +247,8 @@ export default function WorksClient({ works, initialWork, heroImage, heroImageMo
 
               {/* 이미지 — 풀블리드, 캡션 오버레이 + 좌우 버튼 + 닫기 */}
               <div style={{ position: 'relative', aspectRatio: '5/3', overflow: 'hidden', backgroundColor: C.imageBg }}>
-                <img src={imgs[cur]} alt={`${lightbox.title} ${cur + 1}`}
-                  className="w-full h-full object-cover" />
+                <Image src={imgs[cur]} alt={`${lightbox.title} ${cur + 1}`} fill
+                  className="object-cover" sizes="100vw" />
 
                 {/* 닫기 — 큰 × , 우상단 30px inset */}
                 <button onClick={closeLightbox}
