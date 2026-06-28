@@ -122,7 +122,7 @@ export default function WorksManager({ works, updateWork, deleteWork, createWork
           메인 작업사례를 매번 <b>랜덤</b>으로 표시
         </label>
         <p style={{ fontFamily: SANS, fontSize: 12, color: '#999', lineHeight: 1.7, margin: '10px 0 16px' }}>
-          체크 시 → 홈 작업사례 3개가 방문할 때마다 무작위로 바뀝니다(아래 "메인 노출" 지정은 무시).
+          체크 시 → 홈 작업사례 3개가 방문할 때마다 무작위로 바뀝니다(아래 “메인 노출” 지정은 무시).
           해제 시 → 아래에서 체크한 작업 3개가 순서대로 노출됩니다.
         </p>
 
