@@ -220,6 +220,10 @@ export default function HeroSection({ slides: slidesProp }: { slides?: HeroSlide
             exit={{ opacity: 0, filter: 'blur(4px)' }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: current === 0 ? 2.9 : 0 }}
           >
+            {/* Pencil o3n6e — HeroEyebrow (Inter 24 / #ffffff80) */}
+            <span style={{ display: 'block', fontFamily: SANS, fontSize: '24px', color: 'rgba(255,255,255,0.5)', marginBottom: '30px' }}>
+              HERITAGE OF MASTER ARTISAN
+            </span>
             <h1 className="font-light" style={{ fontFamily: SERIF, fontSize: '100px', color: '#FFFFFF', lineHeight: 1.3, marginBottom: '30px' }}>
               {slide.h1a}<br />{slide.h1b}
             </h1>

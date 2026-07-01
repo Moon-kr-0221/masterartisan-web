@@ -29,7 +29,7 @@ export default async function MasterArtisanPage() {
         <section style={{ backgroundColor: '#0D0C0A', height: 360 }} className="flex flex-col items-center justify-center text-center">
           <div className="flex flex-col items-center" style={{ gap: 24, maxWidth: 600 }}>
             <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: '4px', color: '#666666' }}>OFFICIAL CERTIFICATION</span>
-            <h3 style={{ fontFamily: SERIF, fontSize: 40, fontWeight: 300, color: '#FFFFFF' }}>경기무형문화재 제36호</h3>
+            <h3 style={{ fontFamily: SERIF, fontSize: 40, fontWeight: 300, color: '#FFFFFF' }}>경기 무형유산 대목장</h3>
             <div style={{ width: 40, height: 1, backgroundColor: '#444444' }} />
             <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: '#888888', textAlign: 'center' }}>
               경기도가 지정한 무형문화재 제36호로서, 전통건축 기술의 공식 보유자로 인정받았습니다.<br />
@@ -90,7 +90,7 @@ export default async function MasterArtisanPage() {
         {/* ArnRh — CertSection 모바일 */}
         <section className="flex flex-col items-center text-center" style={{ backgroundColor: '#0D0C0A', padding: '64px 24px', gap: 24 }}>
           <span style={{ fontFamily: SANS, fontSize: 10, letterSpacing: 4, color: '#666666' }}>OFFICIAL CERTIFICATION</span>
-          <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#FFFFFF', textAlign: 'center' }}>경기무형문화재 제36호</h3>
+          <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#FFFFFF', textAlign: 'center' }}>경기 무형유산 대목장</h3>
           <div style={{ width: 40, height: 1, backgroundColor: '#444444' }} />
           <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: '#888888', textAlign: 'center', maxWidth: 342 }}>
             경기도가 지정한 무형문화재 제36호로서, 전통건축 기술의 공식 보유자로 인정받았습니다. 수백 년을 이어온 전통 목구조 건축 기법을 현대에 전승하는 책임을 다하고 있습니다.
