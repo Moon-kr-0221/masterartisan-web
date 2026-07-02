@@ -3811,7 +3811,7 @@
               "fill": "#888888",
               "textGrowth": "fixed-width",
               "width": 342,
-              "content": "경기도가 지정한 무형문화재 제36호로서, 전통건축 기술의 공식 보유자로 인정받았습니다. 수백 년을 이어온 전통 목구조 건축 기법을 현대에 전승하는 책임을 다하고 있습니다.",
+              "content": "경기도가 지정한 무형유산 대목장으로서, 전통건축 기술의 공식 보유자로 인정받았습니다. 수백 년을 이어온 전통 목구조 건축 기법을 현대에 전승하는 책임을 다하고 있습니다.",
               "lineHeight": 1.9,
               "textAlign": "center",
               "fontFamily": "Noto Sans KR",
@@ -4245,31 +4245,38 @@
               "gap": 10,
               "children": [
                 {
-                  "type": "text",
-                  "id": "U7Xik5",
-                  "name": "Eyebrow",
-                  "fill": "#ffffff80",
-                  "textGrowth": "fixed-width",
-                  "width": "fill_container",
-                  "content": "HERITAGE OF MASTER ARTISAN",
-                  "fontFamily": "Noto Sans KR",
-                  "fontSize": 12,
-                  "fontWeight": "normal",
-                  "letterSpacing": 2
-                },
-                {
-                  "type": "text",
-                  "id": "f23Q2",
-                  "name": "H1",
-                  "fill": "#FFFFFF",
-                  "textGrowth": "fixed-width",
-                  "width": 342,
-                  "content": "천년의 기술\n삼대의 손",
-                  "lineHeight": 1.45,
-                  "fontFamily": "Noto Serif KR",
-                  "fontSize": 44,
-                  "fontWeight": "300",
-                  "letterSpacing": -1
+                  "type": "group",
+                  "id": "L8yEb",
+                  "layout": "vertical",
+                  "children": [
+                    {
+                      "type": "text",
+                      "id": "U7Xik5",
+                      "name": "Eyebrow",
+                      "fill": "#ffffff80",
+                      "textGrowth": "fixed-width",
+                      "width": "fill_container",
+                      "content": "HERITAGE OF MASTER ARTISAN",
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 12,
+                      "fontWeight": "normal",
+                      "letterSpacing": 2
+                    },
+                    {
+                      "type": "text",
+                      "id": "f23Q2",
+                      "name": "H1",
+                      "fill": "#FFFFFF",
+                      "textGrowth": "fixed-width",
+                      "width": 342,
+                      "content": "천년의 기술\n삼대의 손",
+                      "lineHeight": 1.45,
+                      "fontFamily": "Noto Serif KR",
+                      "fontSize": 44,
+                      "fontWeight": "300",
+                      "letterSpacing": -1
+                    }
+                  ]
                 },
                 {
                   "type": "text",
@@ -10548,7 +10555,7 @@
               "fill": "#888888",
               "textGrowth": "fixed-width",
               "width": 600,
-              "content": "경기도가 지정한 무형문화재 제36호로서, 전통건축 기술의 공식 보유자로 인정받았습니다.\n수백 년을 이어온 전통 목구조 건축 기법을 현대에 전승하는 책임을 다하고 있습니다.",
+              "content": "경기도가 지정한 무형유산 대목장으로서, 전통건축 기술의 공식 보유자로 인정받았습니다.\n수백 년을 이어온 전통 목구조 건축 기법을 현대에 전승하는 책임을 다하고 있습니다.",
               "lineHeight": 1.9,
               "textAlign": "center",
               "fontFamily": "Noto Sans KR",
@@ -11371,26 +11378,26 @@
               "type": "frame",
               "id": "lmIdy",
               "x": 52,
-              "y": 450,
+              "y": 400,
               "name": "HeroText",
               "width": "fill_container(900)",
               "layout": "vertical",
-              "gap": 30,
+              "gap": 34,
               "children": [
                 {
                   "type": "group",
-                  "id": "hCHFG",
+                  "id": "gic2y",
                   "layout": "vertical",
-                  "gap": 30,
                   "children": [
                     {
                       "type": "text",
                       "id": "o3n6e",
                       "fill": "#ffffff80",
                       "content": "HERITAGE OF MASTER ARTISAN",
-                      "fontFamily": "Inter",
-                      "fontSize": 24,
-                      "fontWeight": "normal"
+                      "fontFamily": "Noto Sans KR",
+                      "fontSize": 32,
+                      "fontWeight": "normal",
+                      "letterSpacing": 2
                     },
                     {
                       "type": "text",
@@ -11405,21 +11412,21 @@
                       "fontSize": 100,
                       "fontWeight": "300",
                       "letterSpacing": -5
-                    },
-                    {
-                      "type": "text",
-                      "id": "LWqkQ",
-                      "name": "HeroSubCopy",
-                      "fill": "#ffffff61",
-                      "content": "Heritage of Master Artisan",
-                      "lineHeight": 1,
-                      "textAlignVertical": "middle",
-                      "fontFamily": "Noto Serif KR",
-                      "fontSize": 20,
-                      "fontWeight": "300",
-                      "letterSpacing": 8
                     }
                   ]
+                },
+                {
+                  "type": "text",
+                  "id": "LWqkQ",
+                  "name": "HeroSubCopy",
+                  "fill": "#ffffff66",
+                  "content": "Heritage of Master Artisan",
+                  "lineHeight": 1,
+                  "textAlignVertical": "middle",
+                  "fontFamily": "Noto Serif KR",
+                  "fontSize": 32,
+                  "fontWeight": "300",
+                  "letterSpacing": 8
                 }
               ]
             },
