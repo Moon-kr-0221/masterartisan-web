@@ -32,7 +32,7 @@ export default async function MasterArtisanPage() {
             <h3 style={{ fontFamily: SERIF, fontSize: 40, fontWeight: 300, color: '#FFFFFF' }}>경기 무형유산 대목장</h3>
             <div style={{ width: 40, height: 1, backgroundColor: '#444444' }} />
             <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: '#888888', textAlign: 'center' }}>
-              경기도가 지정한 무형문화재 제36호로서, 전통건축 기술의 공식 보유자로 인정받았습니다.<br />
+              경기도가 지정한 무형유산 대목장으로서, 전통건축 기술의 공식 보유자로 인정받았습니다.<br />
               수백 년을 이어온 전통 목구조 건축 기법을 현대에 전승하는 책임을 다하고 있습니다.
             </p>
           </div>
@@ -93,7 +93,7 @@ export default async function MasterArtisanPage() {
           <h3 style={{ fontFamily: SERIF, fontSize: 28, fontWeight: 300, color: '#FFFFFF', textAlign: 'center' }}>경기 무형유산 대목장</h3>
           <div style={{ width: 40, height: 1, backgroundColor: '#444444' }} />
           <p style={{ fontFamily: SANS, fontSize: 14, lineHeight: 1.9, color: '#888888', textAlign: 'center', maxWidth: 342 }}>
-            경기도가 지정한 무형문화재 제36호로서, 전통건축 기술의 공식 보유자로 인정받았습니다. 수백 년을 이어온 전통 목구조 건축 기법을 현대에 전승하는 책임을 다하고 있습니다.
+            경기도가 지정한 무형유산 대목장으로서, 전통건축 기술의 공식 보유자로 인정받았습니다. 수백 년을 이어온 전통 목구조 건축 기법을 현대에 전승하는 책임을 다하고 있습니다.
           </p>
         </section>
 
