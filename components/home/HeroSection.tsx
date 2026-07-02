@@ -220,8 +220,8 @@ export default function HeroSection({ slides: slidesProp }: { slides?: HeroSlide
             exit={{ opacity: 0, filter: 'blur(4px)' }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: current === 0 ? 2.9 : 0 }}
           >
-            {/* Pencil o3n6e — HeroEyebrow (SANS 32 / letterSpacing 2 / #ffffff80) */}
-            <span style={{ display: 'block', fontFamily: SANS, fontSize: '32px', letterSpacing: '2px', color: 'rgba(255,255,255,0.5)', marginBottom: '34px' }}>
+            {/* Pencil o3n6e — HeroEyebrow (SANS 32 / letterSpacing 2 / #ffffff80). eyebrow↔타이틀 간격 0 (Pencil gic2y 그룹) */}
+            <span style={{ display: 'block', fontFamily: SANS, fontSize: '32px', letterSpacing: '2px', color: 'rgba(255,255,255,0.5)' }}>
               HERITAGE OF MASTER ARTISAN
             </span>
             <h1 className="font-light" style={{ fontFamily: SERIF, fontSize: '100px', color: '#FFFFFF', lineHeight: 1.3, letterSpacing: '-5px', marginBottom: '34px' }}>
