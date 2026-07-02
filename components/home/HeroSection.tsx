@@ -214,17 +214,17 @@ export default function HeroSection({ slides: slidesProp }: { slides?: HeroSlide
           <motion.div
             key={`text-${current}`}
             className="absolute left-[52px]"
-            style={{ top: '450px', x: textX, y: textY }}
+            style={{ top: '400px', x: textX, y: textY }}
             initial={{ opacity: 0, filter: 'blur(6px)' }}
             animate={{ opacity: 1, filter: 'blur(0px)' }}
             exit={{ opacity: 0, filter: 'blur(4px)' }}
             transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: current === 0 ? 2.9 : 0 }}
           >
-            {/* Pencil o3n6e — HeroEyebrow (Inter 24 / #ffffff80) */}
-            <span style={{ display: 'block', fontFamily: SANS, fontSize: '24px', color: 'rgba(255,255,255,0.5)', marginBottom: '30px' }}>
+            {/* Pencil o3n6e — HeroEyebrow (SANS 32 / letterSpacing 2 / #ffffff80) */}
+            <span style={{ display: 'block', fontFamily: SANS, fontSize: '32px', letterSpacing: '2px', color: 'rgba(255,255,255,0.5)', marginBottom: '34px' }}>
               HERITAGE OF MASTER ARTISAN
             </span>
-            <h1 className="font-light" style={{ fontFamily: SERIF, fontSize: '100px', color: '#FFFFFF', lineHeight: 1.3, marginBottom: '30px' }}>
+            <h1 className="font-light" style={{ fontFamily: SERIF, fontSize: '100px', color: '#FFFFFF', lineHeight: 1.3, letterSpacing: '-5px', marginBottom: '34px' }}>
               {slide.h1a}<br />{slide.h1b}
             </h1>
             <motion.p
@@ -232,7 +232,7 @@ export default function HeroSection({ slides: slidesProp }: { slides?: HeroSlide
               initial={{ opacity: 0, x: -12 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1], delay: current === 0 ? 3.4 : 0.3 }}
-              style={{ fontFamily: SERIF, fontSize: '20px', color: 'rgba(255,255,255,0.38)', letterSpacing: '8px', lineHeight: 1, paddingLeft: '10px' }}
+              style={{ fontFamily: SERIF, fontSize: '32px', color: 'rgba(255,255,255,0.4)', letterSpacing: '8px', lineHeight: 1, paddingLeft: '10px' }}
             >
               {slide.sub}
             </motion.p>
